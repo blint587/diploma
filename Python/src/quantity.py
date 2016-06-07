@@ -1,3 +1,8 @@
+import inspect
+import sys
+import operator
+
+
 class Quantity():
     # 1. length
     # 2. mass
@@ -13,34 +18,23 @@ class Quantity():
         self.__value = value
         self.__unit = unit
 
+    def __type_search(self, dim_vector):
+        clslist = list(filter(lambda x: x[1].dim_vector == dim_vector, LIST_OF_CLASSES))
+        cls = clslist[0][1] if len(clslist) == 1 else Quantity
+        return cls
+
+    def __operation(self, other, op):
+        dim_vector = tuple([op(sq, other.dim_vector[index]) for index, sq in enumerate(self.dim_vector)])
+        unit_vector = [uv + other.unit_vector[index] if uv != other.unit_vector[index] else uv for index, uv in enumerate(self.unit_vector)]
+
+        return dim_vector, unit_vector
+
     def __truediv__(self, other):
         if isinstance(other, Quantity):
-            dim_vector = (
-                self.dim_vector[0] - other.dim_vector[0],
-                self.dim_vector[1] - other.dim_vector[1],
-                self.dim_vector[2] - other.dim_vector[2],
-                self.dim_vector[3] - other.dim_vector[3],
-                self.dim_vector[4] - other.dim_vector[4],
-                self.dim_vector[5] - other.dim_vector[5],
-                self.dim_vector[6] - other.dim_vector[6],
-            )
-            unit_vector = [
-                self.unit_vector[0] + other.unit_vector[0] if self.unit_vector[0] != other.unit_vector[0] else
-                self.unit_vector[0],
-                self.unit_vector[1] + other.unit_vector[1] if self.unit_vector[1] != other.unit_vector[1] else
-                self.unit_vector[1],
-                self.unit_vector[2] + other.unit_vector[2] if self.unit_vector[2] != other.unit_vector[2] else
-                self.unit_vector[2],
-                self.unit_vector[3] + other.unit_vector[3] if self.unit_vector[3] != other.unit_vector[3] else
-                self.unit_vector[3],
-                self.unit_vector[4] + other.unit_vector[4] if self.unit_vector[4] != other.unit_vector[4] else
-                self.unit_vector[4],
-                self.unit_vector[5] + other.unit_vector[5] if self.unit_vector[5] != other.unit_vector[5] else
-                self.unit_vector[5],
-                self.unit_vector[6] + other.unit_vector[6] if self.unit_vector[6] != other.unit_vector[6] else
-                self.unit_vector[6],
-            ]
-            new = Quantity(self.value / other.value, "")
+
+            dim_vector, unit_vector = self.__operation(other, operator.sub)
+
+            new = self.__type_search(dim_vector)(self.value / other.value, "")
             new.dim_vector = dim_vector
             new.unit_vector = unit_vector
             return new
@@ -52,32 +46,9 @@ class Quantity():
 
     def __mul__(self, other):
         if isinstance(other, Quantity):
-            dim_vector = (
-                self.dim_vector[0] + other.dim_vector[0],
-                self.dim_vector[1] + other.dim_vector[1],
-                self.dim_vector[2] + other.dim_vector[2],
-                self.dim_vector[3] + other.dim_vector[3],
-                self.dim_vector[4] + other.dim_vector[4],
-                self.dim_vector[5] + other.dim_vector[5],
-                self.dim_vector[6] + other.dim_vector[6],
-            )
-            unit_vector = [
-                self.unit_vector[0] + other.unit_vector[0] if self.unit_vector[0] != other.unit_vector[0] else
-                self.unit_vector[0],
-                self.unit_vector[1] + other.unit_vector[1] if self.unit_vector[1] != other.unit_vector[1] else
-                self.unit_vector[1],
-                self.unit_vector[2] + other.unit_vector[2] if self.unit_vector[2] != other.unit_vector[2] else
-                self.unit_vector[2],
-                self.unit_vector[3] + other.unit_vector[3] if self.unit_vector[3] != other.unit_vector[3] else
-                self.unit_vector[3],
-                self.unit_vector[4] + other.unit_vector[4] if self.unit_vector[4] != other.unit_vector[4] else
-                self.unit_vector[4],
-                self.unit_vector[5] + other.unit_vector[5] if self.unit_vector[5] != other.unit_vector[5] else
-                self.unit_vector[5],
-                self.unit_vector[6] + other.unit_vector[6] if self.unit_vector[6] != other.unit_vector[6] else
-                self.unit_vector[6],
-            ]
-            new = Quantity(self.value * other.value, "")
+            dim_vector, unit_vector = self.__operation(other, operator.add)
+
+            new = self.__type_search(dim_vector)(self.value * other.value, "")
             new.dim_vector = dim_vector
             new.unit_vector = unit_vector
             return new
@@ -94,7 +65,7 @@ class Quantity():
 
     @property
     def unit(self):
-        return "_".join(filter(lambda x: x, ["{}{}".format(unit, self.dim_vector[index] if self.dim_vector[index] != 1 else "")
+        return " ".join(filter(lambda x: x, ["{}{}".format(unit, self.dim_vector[index] if self.dim_vector[index] != 1 else "")
                         if unit else "" for index, unit in enumerate(self.unit_vector)]))
 
 
@@ -154,35 +125,35 @@ class LuminousIntensity(Quantity):
         Quantity.__init__(self, value, unit)
 
 
-# class Velocity(Quantity):
-#     dim_vector = (1, 0, -1, 0, 0, 0, 0)
-#     unit_vector = ["", "", "", "", "", "", ""]
-#
-#     def __init__(self, value, unit):
-#         Quantity.__init__(self, value, unit)
-#
-#
-# class Area(Quantity):
-#     dim_vector = (2, 0, 0, 0, 0, 0, 0)
-#
-#     def __init__(self, value, unit):
-#         Quantity.__init__(self, value, unit)
-#
-#
-# class Volume(Quantity):
-#     dim_vector = (3, 0, 0, 0, 0, 0, 0)
-#
-#     def __init__(self, value, unit):
-#         Quantity.__init__(self, value, unit)
-#
-#
+class Velocity(Quantity):
+    dim_vector = (1, 0, -1, 0, 0, 0, 0)
+    unit_vector = ["", "", "", "", "", "", ""]
+
+    def __init__(self, value, unit):
+        Quantity.__init__(self, value, unit)
+
+
+class Area(Quantity):
+    dim_vector = (2, 0, 0, 0, 0, 0, 0)
+
+    def __init__(self, value, unit):
+        Quantity.__init__(self, value, unit)
+
+
+class Volume(Quantity):
+    dim_vector = (3, 0, 0, 0, 0, 0, 0)
+
+    def __init__(self, value, unit):
+        Quantity.__init__(self, value, unit)
+
+
+LIST_OF_CLASSES = list(filter(lambda cls: Quantity in cls[1].mro(), inspect.getmembers(sys.modules[__name__], inspect.isclass)))
 
 
 if __name__ == "__main__":
-    distance = Length(15.0, "m")
-    time = Time(10.0, "s")
+    distance = Length(1.0, "m")
+    time = Time(2.0, "s")
 
-    # velocity = distance / time
-    # print(velocity)
+    velocity = distance / time
+    print(velocity.unit_vector)
 
-    print(distance * distance * distance / time)
