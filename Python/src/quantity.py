@@ -25,7 +25,8 @@ class Quantity():
 
     def __operation(self, other, op):
         dim_vector = tuple([op(sq, other.dim_vector[index]) for index, sq in enumerate(self.dim_vector)])
-        unit_vector = [uv + other.unit_vector[index] if uv != other.unit_vector[index] else uv for index, uv in enumerate(self.unit_vector)]
+        unit_vector = [uv + other.unit_vector[index] if uv != other.unit_vector[index] else uv for index, uv in
+                       enumerate(self.unit_vector)]
 
         return dim_vector, unit_vector
 
@@ -65,8 +66,9 @@ class Quantity():
 
     @property
     def unit(self):
-        return " ".join(filter(lambda x: x, ["{}{}".format(unit, self.dim_vector[index] if self.dim_vector[index] != 1 else "")
-                        if unit else "" for index, unit in enumerate(self.unit_vector)]))
+        return " ".join(
+            filter(lambda x: x, ["{}{}".format(unit, self.dim_vector[index] if self.dim_vector[index] != 1 else "")
+                                 if unit else "" for index, unit in enumerate(self.unit_vector)]))
 
 
 class Length(Quantity):
@@ -147,13 +149,12 @@ class Volume(Quantity):
         Quantity.__init__(self, value, unit)
 
 
-LIST_OF_CLASSES = list(filter(lambda cls: Quantity in cls[1].mro(), inspect.getmembers(sys.modules[__name__], inspect.isclass)))
+class VolumetrikFlow(Quantity):
+    dim_vector = (3, 0, -1, 0, 0, 0, 0)
+
+    def __init__(self, value, unit):
+        Quantity.__init__(self, value, unit)
 
 
-if __name__ == "__main__":
-    distance = Length(1.0, "m")
-    time = Time(2.0, "s")
-
-    velocity = distance / time
-    print(velocity.unit_vector)
-
+LIST_OF_CLASSES = list(
+    filter(lambda cls: Quantity in cls[1].mro(), inspect.getmembers(sys.modules[__name__], inspect.isclass)))
