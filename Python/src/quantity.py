@@ -10,13 +10,13 @@ import re
 class Converter:
     class ConverterFunction():
         def __init__(self, v):
-            self.__v = v
+            self._v = v
 
         def normal(self, conv):
-            return conv * self.__v
+            return conv * self._v
 
         def invers(self, conv):
-            return conv / self.__v
+            return conv / self._v
 
     prefixes = {
         "E": ConverterFunction(Decimal("1e18")),  # exa
@@ -177,14 +177,14 @@ class Temperature(Quantity):
 
             # noinspection PyMissingConstructor
             def __init__(self, a, b):
-                self.__a = a
+                Converter.ConverterFunction.__init__(self, a)
                 self.__b = b
 
             def normal(self, conv):
-                return (self.__a * conv) + self.__b
+                return (self._v * conv) + self.__b
 
             def invers(self, conv):
-                return conv * self.__a**-1 - self.__b
+                return conv * self._v**-1 - self.__b
 
         prefixes = {
                 "K": TempConverterFunction(Decimal('1.0'), Decimal('0.0')),
