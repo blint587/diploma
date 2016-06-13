@@ -2,6 +2,7 @@ import inspect
 import sys
 import operator
 from decimal import Decimal
+from fractions import Fraction
 
 import re
 
@@ -17,7 +18,7 @@ class Converter:
         def invers(self, conv):
             return conv / self.__v
 
-    si_prefixes = {
+    prefixes = {
         "E": ConverterFunction(Decimal("1e18")),  # exa
         "P": ConverterFunction(Decimal("1e15")),  # peta
         "T": ConverterFunction(Decimal("1e12")),  # tera
@@ -41,16 +42,17 @@ class Converter:
 
     def __call__(self, val, funit: str, tunit: str):
         default = Converter.ConverterFunction(Decimal("1.0"))
+        to_base_func = self.prefixes.get(self.__prefix_parser(funit), default)
+        in_base = to_base_func.normal(val)
 
-        in_base = self.si_prefixes.get(self.__prefix_parser(funit), default).normal(val)
-        res = self.si_prefixes.get(self.__prefix_parser(tunit), default).invers(in_base)
+        from_base_func = self.prefixes.get(self.__prefix_parser(tunit), default)
+        res = from_base_func.invers(in_base)
 
         return res
 
     def __prefix_parser(self, unit: str):
         prefix = re.sub(r'{}$'.format(self.__base_unit), "", unit, count=1)
         return prefix
-
 
 
 class Quantity():
@@ -155,6 +157,7 @@ class Time(Quantity):
         Quantity.__init__(self, value, unit)
         self.unit_vector = ["", "", unit, "", "", "", ""]
 
+
 class ElectricCurrency(Quantity):
     dim_vector = (0, 0, 0, 1, 0, 0, 0)
     base_unit = "A"
@@ -163,13 +166,36 @@ class ElectricCurrency(Quantity):
         Quantity.__init__(self, value, unit)
         self.unit_vector = ["", "", "", unit, "", "", ""]
 
+
 class Temperature(Quantity):
     dim_vector = (0, 0, 0, 0, 1, 0, 0)
     base_unit = "K"
 
+    # TODO: implement Temperature Delta
+    class TemperatureConvert(Converter):
+        class TempConverterFunction(Converter.ConverterFunction):
+
+            # noinspection PyMissingConstructor
+            def __init__(self, a, b):
+                self.__a = a
+                self.__b = b
+
+            def normal(self, conv):
+                return (self.__a * conv) + self.__b
+
+            def invers(self, conv):
+                return conv * self.__a**-1 - self.__b
+
+        prefixes = {
+                "K": TempConverterFunction(Decimal('1.0'), Decimal('0.0')),
+                "°C": TempConverterFunction(Decimal('1.0'), Decimal('273.15')),
+                "°F": TempConverterFunction(Decimal(5/9), Decimal('459.67'))
+        }
+
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
         self.unit_vector = ["", "", "", "", unit, "", ""]
+        self._converter = Temperature.TemperatureConvert(base_unit=Temperature.base_unit)
 
 
 class AmountOfSubstance(Quantity):
@@ -183,6 +209,7 @@ class AmountOfSubstance(Quantity):
 
 class LuminousIntensity(Quantity):
     dim_vector = (0, 0, 0, 0, 0, 0, 1)
+    base_unit = "cd"
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
@@ -191,6 +218,7 @@ class LuminousIntensity(Quantity):
 
 class Velocity(Quantity):
     dim_vector = (1, 0, -1, 0, 0, 0, 0)
+
     # unit_vector = ["", "", "", "", "", "", ""]
 
     def __init__(self, value, unit):

@@ -48,3 +48,14 @@ class TestQuantityBaseUnitConversion(TestCase):
     def test_base_unit_conversion_aos(self):
         n = quantity.AmountOfSubstance(1.0, 'kmol')
         self.assertEqual(n('mol'), 1000.0)
+
+    def test_base_unit_conversion_temperature_from_K(self):
+        t = quantity.Temperature(0.0, 'K')
+        self.assertEqual(t('K'), Decimal('0.0'))
+        self.assertEqual(t('°C'), Decimal('-273.15'))
+        self.assertEqual(t('°F'), Decimal('-459.67'))
+
+    def test_base_unit_conversion_temperature_from_C(self):
+        t = quantity.Temperature(-40.0, '°C')
+        self.assertEqual(t('°C'), Decimal('-40.0'))
+        self.assertAlmostEqual(t('°F'), Decimal('-40.0'), delta=0.000000000001)
