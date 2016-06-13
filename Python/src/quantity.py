@@ -1,6 +1,7 @@
 import inspect
 import sys
 import operator
+from decimal import Decimal
 
 import re
 
@@ -17,29 +18,29 @@ class Converter:
             return conv / self.__v
 
     si_prefixes = {
-        "E": ConverterFunction(1e18),  # exa
-        "P": ConverterFunction(1e15),  # peta
-        "T": ConverterFunction(1e12),  # tera
-        "G": ConverterFunction(1e9),  # giga
-        "M": ConverterFunction(1e6),  # mega
-        "k": ConverterFunction(1e3),  # kilo
-        "h": ConverterFunction(1e2),  # hecto
-        "da": ConverterFunction(1e1),  # deca
-        "d": ConverterFunction(10 ** -1),  # deci
-        "c": ConverterFunction(10 ** -2),  # centi
-        "m": ConverterFunction(10 ** -3),  # milli
-        "μ": ConverterFunction(10 ** -6),  # micro
-        "n": ConverterFunction(10 ** -9),  # nano
-        "p": ConverterFunction(10 ** -12),  # pico
-        "f": ConverterFunction(10 ** -15),  # femto
-        "a": ConverterFunction(10 ** -18)  # atto
+        "E": ConverterFunction(Decimal("1e18")),  # exa
+        "P": ConverterFunction(Decimal("1e15")),  # peta
+        "T": ConverterFunction(Decimal("1e12")),  # tera
+        "G": ConverterFunction(Decimal("1e9")),  # giga
+        "M": ConverterFunction(Decimal("1e6")),  # mega
+        "k": ConverterFunction(Decimal("1e3")),  # kilo
+        "h": ConverterFunction(Decimal("1e2")),  # hecto
+        "da": ConverterFunction(Decimal("1e1")),  # deca
+        "d": ConverterFunction(Decimal("0.1")),  # deci
+        "c": ConverterFunction(Decimal("0.01")),  # centi
+        "m": ConverterFunction(Decimal("0.001")),  # milli
+        "μ": ConverterFunction(Decimal("0.000001")),  # micro
+        "n": ConverterFunction(Decimal("0.000000001")),  # nano
+        "p": ConverterFunction(Decimal("0.000000000001")),  # pico
+        "f": ConverterFunction(Decimal("0.000000000000001")),  # femto
+        "a": ConverterFunction(Decimal("0.000000000000000001"))  # atto
     }
 
     def __init__(self, base_unit):
         self.__base_unit = base_unit
 
     def __call__(self, val, funit: str, tunit: str):
-        default = Converter.ConverterFunction(1.0)
+        default = Converter.ConverterFunction(Decimal("1.0"))
 
         in_base = self.si_prefixes.get(self.__prefix_parser(funit), default).normal(val)
         res = self.si_prefixes.get(self.__prefix_parser(tunit), default).invers(in_base)
@@ -67,7 +68,7 @@ class Quantity():
     base_unit = ""
 
     def __init__(self, value, unit):
-        self._value = value
+        self._value = Decimal(value)
         self._unit = unit
         self._converter = Converter(self.base_unit)
 
