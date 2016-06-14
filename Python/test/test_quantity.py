@@ -209,7 +209,7 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertTrue(m1 > m2)
         self.assertFalse(m1 < m2)
         self.assertTrue(m1 != m2)
- #TIME
+  #TIME
 
     def test_comparing_time_none_base_with_none_base_equal(self):
         t1 = quantity.Time(1., 'd')
