@@ -2,58 +2,7 @@ import inspect
 import sys
 import operator
 from decimal import Decimal
-
-
-import re
-
-
-class Converter:
-    class ConverterFunction():
-        def __init__(self, v):
-            self._v = v
-
-
-        def to_base(self, conv):
-            return conv * self._v
-
-        def from_base(self, conv):
-            return conv / self._v
-
-
-    def __init__(self, base_unit):
-        self.__base_unit = base_unit
-        self.prefixes = {
-            "E": Converter.ConverterFunction(Decimal("1e18")),  # exa
-            "P": Converter.ConverterFunction(Decimal("1e15")),  # peta
-            "T": Converter.ConverterFunction(Decimal("1e12")),  # tera
-            "G": Converter.ConverterFunction(Decimal("1e9")),  # giga
-            "M": Converter.ConverterFunction(Decimal("1e6")),  # mega
-            "k": Converter.ConverterFunction(Decimal("1e3")),  # kilo
-            "h": Converter.ConverterFunction(Decimal("1e2")),  # hecto
-            "da": Converter.ConverterFunction(Decimal("1e1")),  # deca
-            "d": Converter.ConverterFunction(Decimal("0.1")),  # deci
-            "c": Converter.ConverterFunction(Decimal("0.01")),  # centi
-            "m": Converter.ConverterFunction(Decimal("0.001")),  # milli
-            "μ": Converter.ConverterFunction(Decimal("0.000001")),  # micro
-            "n": Converter.ConverterFunction(Decimal("0.000000001")),  # nano
-            "p": Converter.ConverterFunction(Decimal("0.000000000001")),  # pico
-            "f": Converter.ConverterFunction(Decimal("0.000000000000001")),  # femto
-            "a": Converter.ConverterFunction(Decimal("0.000000000000000001"))  # atto
-        }
-
-    def __call__(self, val, funit: str, tunit: str):
-        default = Converter.ConverterFunction(Decimal("1.0"))
-        to_base_func = self.prefixes.get(self.__prefix_parser(funit), default)
-        in_base = to_base_func.to_base(val)
-
-        from_base_func = self.prefixes.get(self.__prefix_parser(tunit), default)
-        res = from_base_func.from_base(in_base)
-
-        return res
-
-    def __prefix_parser(self, unit: str):
-        prefix = re.sub(r'{}$'.format(self.__base_unit), "", unit, count=1)
-        return prefix
+from src.converters import Converter, TimeConvert, TemperatureConvert
 
 
 class Quantity():
@@ -69,14 +18,12 @@ class Quantity():
     dim_vector = (0, 0, 0, 0, 0, 0, 0)
     unit_vector = ["", "", "", "", "", "", ""]
     base_unit = ""
-    remove_prefix=[]
+    remove_prefix = []
 
-    def __init__(self, value, unit):
+    def __init__(self, value, unit, converter=Converter):
         self._value = Decimal(value)
         self._unit = unit
-        self._converter = Converter(self.base_unit)
-        for p in self.remove_prefix:
-            self._converter.prefixes.__delitem__(p)
+        self._converter = converter(self.base_unit)
 
     def __type_search(self, dim_vector):
         clslist = list(filter(lambda x: x[1].dim_vector == dim_vector, LIST_OF_CLASSES))
@@ -168,6 +115,7 @@ class Quantity():
     def __ne__(self, other):
         return self.__comparison_operation(other, operator.ne)
 
+
 class Length(Quantity):
     dim_vector = (1, 0, 0, 0, 0, 0, 0)
     base_unit = "m"
@@ -189,21 +137,10 @@ class Mass(Quantity):
 class Time(Quantity):
     dim_vector = (0, 0, 1, 0, 0, 0, 0)
     base_unit = "s"
-    remove_prefix = ["E","P","T","G","M","k","h","da","d","c"]
+
     def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
+        Quantity.__init__(self, value, unit, converter=TimeConvert)
         self.unit_vector = ["", "", unit, "", "", "", ""]
-
-    class TimeConvert(Converter):
-        prefixes = {
-                    "min": Converter.ConverterFunction(Decimal('60')),
-                    "h":Converter.ConverterFunction(Decimal('3600')),
-                    "day": Converter.ConverterFunction(Decimal('86400'))
-                    }
-
-
-
-
 
 
 class ElectricCurrency(Quantity):
@@ -221,30 +158,10 @@ class Temperature(Quantity):
     base_unit = "K"
 
     # TODO: implement Temperature Delta
-    class TemperatureConvert(Converter):
-        class TempConverterFunction(Converter.ConverterFunction):
-
-            # noinspection PyMissingConstructor
-            def __init__(self, a, b):
-                Converter.ConverterFunction.__init__(self, a)
-                self.__b = b
-
-            def to_base(self, conv):
-                return (conv + self.__b) * self._v
-
-            def from_base(self, conv):
-                return conv * (self._v**-1) - self.__b
-
-        prefixes = {
-                "K": TempConverterFunction(Decimal('1.0'), Decimal('0.0')),
-                "°C": TempConverterFunction(Decimal('1.0'), Decimal('273.15')),
-                "°F": TempConverterFunction(Decimal('5.') / Decimal('9.'), Decimal('459.67'))
-        }
 
     def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
+        Quantity.__init__(self, value, unit, converter=TemperatureConvert)
         self.unit_vector = ["", "", "", "", unit, "", ""]
-        self._converter = Temperature.TemperatureConvert(base_unit=Temperature.base_unit)
 
 
 class AmountOfSubstance(Quantity):

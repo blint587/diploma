@@ -45,7 +45,7 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(m('fg'), Decimal('1e18'))
         self.assertEqual(m('ag'), Decimal('1e21'))
 
-    def test_time(self):
+    def test_time_from_s_with_prefix(self):
         t = quantity.Time(1.0, 's')
 
         self.assertEqual(t('ms'), Decimal('1000.'))
@@ -55,10 +55,9 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(t('fs'), Decimal('1e15'))
         self.assertEqual(t('as'), Decimal('1e18'))
 
-    def test_time_from_s(self):
-        t = quantity.Time(1.0, "s")
-        self.assertEqual(t('s'), Decimal('1'))
-
+    def test_time_from_d(self):
+        t = quantity.Time(1.0, "d")
+        self.assertEqual(t('s'), Decimal('86400.'))
 
     def test_aos(self):
         n = quantity.AmountOfSubstance(1.0, 'kmol')
@@ -81,10 +80,14 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertAlmostEqual(t('K'), Decimal('233.15'), delta=1e-9)
         self.assertEqual(t('°C'), Decimal('-40.0'))
 
+    def test_none_overlapping_units(self):
+        T = quantity.Temperature(0., 'K')
+        t = quantity.Time(0., 's')
+        self.assertNotEqual(T._converter.additional_units, t._converter.additional_units)
 
 class TestQuantityBaseUnitComparison(TestCase):
 
-    def test_comparing_base_to_base_equal(self):
+    def test_comparing_base_with_base_equal(self):
         m1 = quantity.Mass(1., 'g')
         m2 = quantity.Mass(1., 'g')
         self.assertTrue(m1 == m2)
@@ -94,7 +97,7 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertFalse(m1 < m2)
         self.assertFalse(m1 != m2)
 
-    def test_comparing_base_to_base_greater(self):
+    def test_comparing_base_with_base_greater(self):
         m1 = quantity.Mass(2., 'g')
         m2 = quantity.Mass(1., 'g')
         self.assertFalse(m1 == m2)
@@ -104,7 +107,7 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertFalse(m1 < m2)
         self.assertTrue(m1 != m2)
 
-    def test_comparing_base_to_base_less(self):
+    def test_comparing_base_with_base_less(self):
         m1 = quantity.Mass(1., 'g')
         m2 = quantity.Mass(2., 'g')
         self.assertFalse(m1 == m2)
@@ -114,7 +117,7 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertTrue(m1 < m2)
         self.assertTrue(m1 != m2)
 
-    def test_comparing_none_base_to_base_equal(self):
+    def test_comparing_none_base_with_base_equal(self):
         l1 = quantity.Length(1000., 'mm')
         l2 = quantity.Length(1., 'm')
         self.assertTrue(l1 == l2)
@@ -124,7 +127,7 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertFalse(l1 < l2)
         self.assertFalse(l1 != l2)
 
-    def test_comparing_none_base_to_base_greater(self):
+    def test_comparing_none_base_with_base_greater(self):
         l1 = quantity.Length(10000., 'mm')
         l2 = quantity.Length(1., 'm')
         self.assertFalse(l1 == l2)
@@ -134,7 +137,7 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertFalse(l1 < l2)
         self.assertTrue(l1 != l2)
 
-    def test_comparing_none_base_to_base_less(self):
+    def test_comparing_none_base_with_base_less(self):
         l1 = quantity.Length(100., 'mm')
         l2 = quantity.Length(1., 'm')
         self.assertFalse(l1 == l2)
@@ -144,12 +147,62 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertTrue(l1 < l2)
         self.assertTrue(l1 != l2)
 
-    def test_comparing_none_base_to_none_base(self):
+    def test_comparing_none_base_with_none_base_equal(self):
         m1 = quantity.Mass(100., 'dag')
         m2 = quantity.Mass(1., 'kg')
         self.assertTrue(m1 == m2)
+        self.assertTrue(m1 <= m2)
+        self.assertTrue(m1 >= m2)
+        self.assertFalse(m1 > m2)
+        self.assertFalse(m1 < m2)
+        self.assertFalse(m1 != m2)
 
-    def test_comparing_base_to_base_temperature(self):
+    def test_comparing_none_base_with_none_base_less(self):
+        m1 = quantity.Mass(10., 'dag')
+        m2 = quantity.Mass(1., 'kg')
+        self.assertFalse(m1 == m2)
+        self.assertTrue(m1 <= m2)
+        self.assertFalse(m1 >= m2)
+        self.assertFalse(m1 > m2)
+        self.assertTrue(m1 < m2)
+        self.assertTrue(m1 != m2)
+
+    def test_comparing_none_base_with_none_base_greater(self):
+        m1 = quantity.Mass(1000., 'dag')
+        m2 = quantity.Mass(1., 'kg')
+        self.assertFalse(m1 == m2)
+        self.assertFalse(m1 <= m2)
+        self.assertTrue(m1 >= m2)
+        self.assertTrue(m1 > m2)
+        self.assertFalse(m1 < m2)
+        self.assertTrue(m1 != m2)
+
+    def test_comparing_base_with_base_temperature_equal(self):
         t1 = quantity.Temperature(273.15, 'K')
         t2 = quantity.Temperature(273.15, 'K')
         self.assertTrue(t1 == t2)
+        self.assertTrue(t1 <= t2)
+        self.assertTrue(t1 >= t2)
+        self.assertFalse(t1 < t2)
+        self.assertFalse(t1 > t2)
+        self.assertFalse(t1 != t2)
+
+    def test_comparing_base_with_base_temperature_less(self):
+        t1 = quantity.Temperature(0., 'K')
+        t2 = quantity.Temperature(273.15, 'K')
+        self.assertFalse(t1 == t2)
+        self.assertTrue(t1 <= t2)
+        self.assertFalse(t1 >= t2)
+        self.assertTrue(t1 < t2)
+        self.assertFalse(t1 > t2)
+        self.assertTrue(t1 != t2)
+
+    def test_comparing_base_with_base_temperature_greater(self):
+        t1 = quantity.Temperature(273.15, 'K')
+        t2 = quantity.Temperature(0., 'K')
+        self.assertFalse(t1 == t2)
+        self.assertFalse(t1 <= t2)
+        self.assertTrue(t1 >= t2)
+        self.assertFalse(t1 < t2)
+        self.assertTrue(t1 > t2)
+        self.assertTrue(t1 != t2)
