@@ -274,3 +274,17 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertTrue(t1 > t2)
         self.assertTrue(t1 != t2)
 
+
+class TestQuantityValidUnit(TestCase):
+
+    def test_valid_mass_unit(self):
+        self.assertTrue(quantity.Mass.is_valid_unit("kg"))
+
+    def test_invalid_mass_unit(self):
+        self.assertFalse(quantity.Mass.is_valid_unit("tg"))
+
+    def test_valid_time_unit_second(self):
+        self.assertTrue(quantity.Time.is_valid_unit("s"))
+
+    def test_invalid_time_unit_second(self):
+        self.assertFalse(quantity.Time.is_valid_unit("ts"))

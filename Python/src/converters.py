@@ -57,7 +57,8 @@ class Converter:
         return prefix
 
     def valid_units(self):
-        return set(map(lambda x: x[0]+x[1], product(self.prefixes.keys(), [self.base_unit]))).union(set(self.additional_units.keys()))
+
+        return set(map(lambda x: x[0]+x[1], product(self.prefixes.keys(), [self.base_unit]))).union(set(self.additional_units.keys())).union({self.base_unit})
 
 
 class TemperatureConvert(Converter):

@@ -5,7 +5,7 @@ from decimal import Decimal
 from src.converters import Converter, TimeConvert, TemperatureConvert
 
 
-class Quantity():
+class Quantity:
     """
     # 1. length
     # 2. mass
@@ -74,6 +74,11 @@ class Quantity():
         return " ".join(
             filter(lambda x: x, ["{}{}".format(unit, self.dim_vector[index] if self.dim_vector[index] != 1 else "")
                                  if unit else "" for index, unit in enumerate(self.unit_vector)]))
+
+    @classmethod
+    def is_valid_unit(cls, unit):
+        units = cls._converter.valid_units()
+        return unit in units
 
     def __call__(self, unit):
         """
