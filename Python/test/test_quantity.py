@@ -28,6 +28,7 @@ class TestQuantityBaseUnitConversion(TestCase):
 
     def test_mass(self):
         m = quantity.Mass(1.0, 'kg')
+
         self.assertEqual(m('Eg'), Decimal('1e-15'))
         self.assertEqual(m('Pg'), Decimal('1e-12'))
         self.assertEqual(m('Tg'), Decimal('1e-9'))
@@ -55,9 +56,41 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(t('fs'), Decimal('1e15'))
         self.assertEqual(t('as'), Decimal('1e18'))
 
-    def test_time_from_d(self):
+    def test_time_from_s_to_min(self):
+        t = quantity.Time(30, "s")
+        self.assertEqual(t('min'), Decimal('0.5'))
+
+    def test_time_from_min_to_s(self):
+        t = quantity.Time(1.0, "min")
+        self.assertEqual(t('s'), Decimal('60'))
+
+
+    def test_time_from_hour_to_s(self):
+        t = quantity.Time(1.0, "h")
+        self.assertEqual(t('s'), Decimal('3600'))
+
+    def test_time_from_s_to_hour(self):
+        t = quantity.Time(3600, "s")
+        self.assertEqual(t('h'), Decimal('1'))
+
+
+    def test_time_from_d_to_s(self):
         t = quantity.Time(1.0, "d")
         self.assertEqual(t('s'), Decimal('86400.'))
+
+    def test_time_from_s_to_d(self):
+        t = quantity.Time(43200, "s")
+        self.assertEqual(t('d'), Decimal('0.5'))
+
+    def test_time_from_day_to_hour(self):
+        t=quantity.Time(1,"d")
+        self.assertEqual(t('h'), Decimal("24"))
+
+    def test_time_from_hour_to_day(self):
+        t=quantity.Time(48,"h")
+        self.assertEqual(t('d'), Decimal("2"))
+
+
 
     def test_aos(self):
         n = quantity.AmountOfSubstance(1.0, 'kmol')
@@ -176,6 +209,39 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertTrue(m1 > m2)
         self.assertFalse(m1 < m2)
         self.assertTrue(m1 != m2)
+ #TIME
+
+    def test_comparing_none_base_with_none_base_equal(self):
+        t1 = quantity.Time(1., 'd')
+        t2 = quantity.Time(24., 'h')
+        self.assertTrue(t1 == t2)
+        self.assertTrue(t1 <= t2)
+        self.assertTrue(t1 >= t2)
+        self.assertFalse(t1 > t2)
+        self.assertFalse(t1 < t2)
+        self.assertFalse(t1 != t2)
+
+    def test_comparing_none_base_with_none_base_less(self):
+        t1 = quantity.Time(1., 'd')
+        t2 = quantity.Time(25., 'h')
+        self.assertFalse(t1 == t2)
+        self.assertTrue(t1 <= t2)
+        self.assertFalse(t1 >= t2)
+        self.assertFalse(t1 > t2)
+        self.assertTrue(t1 < t2)
+        self.assertTrue(t1 != t2)
+
+    def test_comparing_none_base_with_none_base_greater(self):
+        t1 = quantity.Time(1., 'd')
+        t2 = quantity.Time(23., 'h')
+        self.assertFalse(t1 == t2)
+        self.assertFalse(t1 <= t2)
+        self.assertTrue(t1 >= t2)
+        self.assertTrue(t1 > t2)
+        self.assertFalse(t1 < t2)
+        self.assertTrue(t1 != t2)
+
+
 
     def test_comparing_base_with_base_temperature_equal(self):
         t1 = quantity.Temperature(273.15, 'K')
@@ -206,3 +272,4 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertFalse(t1 < t2)
         self.assertTrue(t1 > t2)
         self.assertTrue(t1 != t2)
+
