@@ -211,7 +211,7 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertTrue(m1 != m2)
  #TIME
 
-    def test_comparing_none_base_with_none_base_equal(self):
+    def test_comparing_time_none_base_with_none_base_equal(self):
         t1 = quantity.Time(1., 'd')
         t2 = quantity.Time(24., 'h')
         self.assertTrue(t1 == t2)
@@ -221,7 +221,7 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertFalse(t1 < t2)
         self.assertFalse(t1 != t2)
 
-    def test_comparing_none_base_with_none_base_less(self):
+    def test_comparing_time_none_base_with_none_base_less(self):
         t1 = quantity.Time(1., 'd')
         t2 = quantity.Time(25., 'h')
         self.assertFalse(t1 == t2)
@@ -231,7 +231,7 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertTrue(t1 < t2)
         self.assertTrue(t1 != t2)
 
-    def test_comparing_none_base_with_none_base_greater(self):
+    def test_comparing_time_none_base_with_none_base_greater(self):
         t1 = quantity.Time(1., 'd')
         t2 = quantity.Time(23., 'h')
         self.assertFalse(t1 == t2)
