@@ -288,3 +288,17 @@ class TestQuantityValidUnit(TestCase):
 
     def test_invalid_time_unit_second(self):
         self.assertFalse(quantity.Time.is_valid_unit("ts"))
+
+
+class TestQuantityAddition(TestCase):
+
+    def test_adding_mass_to_mass(self):
+
+        m1 = quantity.Mass(1000., "g")
+        m2 = quantity.Mass(1., "kg")
+        m3 = m1 + m2
+
+        self.assertEqual(m3.value, 2000.)
+        self.assertEqual(m3.unit, "g")
+        self.assertFalse(id(m1) == id(m3))
+        self.assertFalse(id(m2) == id(m3))

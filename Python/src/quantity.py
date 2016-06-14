@@ -20,15 +20,18 @@ class Quantity:
     _converter = Converter("")
 
     def __init__(self, value, unit):
-        self._value = Decimal(value)
-        self._unit = unit
+        if unit in self._converter.valid_units():
+            self._value = Decimal(value)
+            self._unit = unit
+        else:
+            raise Exception()   # TODO: add proper exception
 
     def __type_search(self, dim_vector):
         clslist = list(filter(lambda x: x[1].dim_vector == dim_vector, LIST_OF_CLASSES))
         cls = clslist[0][1] if len(clslist) == 1 else Quantity
         return cls
 
-    def __operation(self, other, op):
+    def __dimension_determination(self, other, op):
         dim_vector = tuple([op(sq, other.dim_vector[index]) for index, sq in enumerate(self.dim_vector)])
         unit_vector = [uv + other.unit_vector[index] if uv != other.unit_vector[index] else uv for index, uv in
                        enumerate(self.unit_vector)]
@@ -38,7 +41,7 @@ class Quantity:
     def __truediv__(self, other):
         if isinstance(other, Quantity):
 
-            dim_vector, unit_vector = self.__operation(other, operator.sub)
+            dim_vector, unit_vector = self.__dimension_determination(other, operator.sub)
 
             new = self.__type_search(dim_vector)(self.value / other.value, "")
             new.dim_vector = dim_vector
@@ -47,27 +50,40 @@ class Quantity:
         else:
             raise TypeError
 
-    def __str__(self):
-        return "{0} {1}".format(self.value, self.unit)
-
     def __mul__(self, other):
         if isinstance(other, Quantity):
-            dim_vector, unit_vector = self.__operation(other, operator.add)
+            dim_vector, unit_vector = self.__dimension_determination(other, operator.add)
 
             new = self.__type_search(dim_vector)(self.value * other.value, "")
             new.dim_vector = dim_vector
             new.unit_vector = unit_vector
             return new
         else:
-            raise TypeError
+            raise TypeError()   # TODO: add proper exception
+
+    def __math_operation_1(self, other, op):
+        if isinstance(other, self.__class__):
+            new = self.__class__(op(self.value, other(self.unit)), self.unit)
+            return new
+        else:
+            TypeError() # TODO: add proper exception
+
+    def __add__(self, other):
+        return self.__math_operation_1(other, operator.add)
+
+    def __sub__(self, other):
+        return self.__math_operation_1(other, operator.sub)
+
+    def __str__(self):
+        return "{0} {1}".format(self.value, self.unit)
 
     @property
     def value(self):
         return self._value
 
-    @value.setter
-    def value(self, x):
-        self._value = x
+    # @value.setter
+    # def value(self, x):
+    #     self._value = x
 
     @property
     def unit(self):
