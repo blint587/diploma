@@ -2,7 +2,7 @@ import inspect
 import sys
 import operator
 from decimal import Decimal
-from fractions import Fraction
+
 
 import re
 
@@ -127,9 +127,42 @@ class Quantity():
                                  if unit else "" for index, unit in enumerate(self.unit_vector)]))
 
     def __call__(self, unit):
+        """
 
+        :param unit:
+        :return:
+        """
         return self._converter(self.value, self.unit, unit)
 
+    def __comparison_operation(self, rghsv, op):
+        """
+
+        :param rghsv:
+        :param op:
+        :return:
+        """
+        if type(self) == type(rghsv):
+            return op(self(self.base_unit), rghsv(self.base_unit))
+        else:
+            raise TypeError("something")
+
+    def __eq__(self, other):
+        return self.__comparison_operation(other, operator.eq)
+
+    def __le__(self, other):
+        return self.__comparison_operation(other, operator.le)
+
+    def __ge__(self, other):
+        return self.__comparison_operation(other, operator.ge)
+
+    def __lt__(self, other):
+        return self.__comparison_operation(other, operator.lt)
+
+    def __gt__(self, other):
+        return self.__comparison_operation(other, operator.gt)
+
+    def __ne__(self, other):
+        return self.__comparison_operation(other, operator.ne)
 
 class Length(Quantity):
     dim_vector = (1, 0, 0, 0, 0, 0, 0)
