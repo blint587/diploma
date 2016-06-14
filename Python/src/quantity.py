@@ -196,8 +196,9 @@ class Time(Quantity):
 
     class TimeConvert(Converter):
         prefixes = {
-                    "s": Converter.ConverterFunction(Decimal('1.0')),
-                    "min":Converter.ConverterFunction(Decimal('60'))
+                    "min": Converter.ConverterFunction(Decimal('60')),
+                    "h":Converter.ConverterFunction(Decimal('3600')),
+                    "day": Converter.ConverterFunction(Decimal('86400'))
                     }
 
 
