@@ -118,6 +118,7 @@ class TestQuantityBaseUnitConversion(TestCase):
         t = quantity.Time(0., 's')
         self.assertNotEqual(T._converter.additional_units, t._converter.additional_units)
 
+
 class TestQuantityBaseUnitComparison(TestCase):
 
     def test_comparing_base_with_base_equal(self):

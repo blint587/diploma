@@ -1,8 +1,8 @@
 # encoding: utf-8
 import copy
 from decimal import Decimal
-
 import re
+from itertools import product
 
 
 class Converter:
@@ -38,21 +38,26 @@ class Converter:
     additional_units = {}
 
     def __init__(self, base_unit):
-        self.__base_unit = base_unit
+        self.base_unit = base_unit
 
     def __call__(self, val, funit: str, tunit: str):
         default = Converter.ConverterFunction(Decimal("1.0"))
-        to_base_func = self.prefixes.get(self._prefix_parser(funit)) or self.additional_units.get(funit) or default
+        fprefix = self._prefix_parser(funit)
+        to_base_func = self.prefixes.get(fprefix) or self.additional_units.get(funit) or default
         in_base = to_base_func.to_base(val)
 
-        from_base_func = self.prefixes.get(self._prefix_parser(tunit)) or self.additional_units.get(tunit) or default
+        tprefix = self._prefix_parser(tunit)
+        from_base_func = self.prefixes.get(tprefix) or self.additional_units.get(tunit) or default
         res = from_base_func.from_base(in_base)
 
         return res
 
     def _prefix_parser(self, unit: str):
-        prefix = re.sub(r'{}$'.format(self.__base_unit), "", unit, count=1)
+        prefix = re.sub(r'{}$'.format(self.base_unit), "", unit, count=1)
         return prefix
+
+    def valid_units(self):
+        return set(map(lambda x: x[0]+x[1], product(self.prefixes.keys(), [self.base_unit]))).union(set(self.additional_units.keys()))
 
 
 class TemperatureConvert(Converter):
@@ -67,6 +72,8 @@ class TemperatureConvert(Converter):
 
         def from_base(self, conv):
             return conv * (self._v ** -1) - self.__b
+
+    prefixes = {}
 
     additional_units = {
         "K": TempConverterFunction(Decimal('1.0'), Decimal('0.0')),

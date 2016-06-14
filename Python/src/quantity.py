@@ -17,13 +17,11 @@ class Quantity():
     """
     dim_vector = (0, 0, 0, 0, 0, 0, 0)
     unit_vector = ["", "", "", "", "", "", ""]
-    base_unit = ""
-    remove_prefix = []
+    _converter = Converter("")
 
-    def __init__(self, value, unit, converter=Converter):
+    def __init__(self, value, unit):
         self._value = Decimal(value)
         self._unit = unit
-        self._converter = converter(self.base_unit)
 
     def __type_search(self, dim_vector):
         clslist = list(filter(lambda x: x[1].dim_vector == dim_vector, LIST_OF_CLASSES))
@@ -93,7 +91,7 @@ class Quantity():
         :return:
         """
         if type(self) == type(rghsv):
-            return op(self(self.base_unit), rghsv(self.base_unit))
+            return op(self(self._converter.base_unit), rghsv(self._converter.base_unit))
         else:
             raise TypeError("something")
 
@@ -118,7 +116,7 @@ class Quantity():
 
 class Length(Quantity):
     dim_vector = (1, 0, 0, 0, 0, 0, 0)
-    base_unit = "m"
+    _converter = Converter("m")
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
@@ -127,7 +125,7 @@ class Length(Quantity):
 
 class Mass(Quantity):
     dim_vector = (0, 1, 0, 0, 0, 0, 0)
-    base_unit = "g"
+    _converter = Converter("g")
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
@@ -136,16 +134,16 @@ class Mass(Quantity):
 
 class Time(Quantity):
     dim_vector = (0, 0, 1, 0, 0, 0, 0)
-    base_unit = "s"
+    _converter = TimeConvert("s")
 
     def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit, converter=TimeConvert)
+        Quantity.__init__(self, value, unit, )
         self.unit_vector = ["", "", unit, "", "", "", ""]
 
 
 class ElectricCurrency(Quantity):
     dim_vector = (0, 0, 0, 1, 0, 0, 0)
-    base_unit = "A"
+    _converter = Converter("A")
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
@@ -155,18 +153,17 @@ class ElectricCurrency(Quantity):
 class Temperature(Quantity):
     # https://en.wikipedia.org/wiki/Conversion_of_units_of_temperature
     dim_vector = (0, 0, 0, 0, 1, 0, 0)
-    base_unit = "K"
-
+    _converter = TemperatureConvert("K")
     # TODO: implement Temperature Delta
 
     def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit, converter=TemperatureConvert)
+        Quantity.__init__(self, value, unit)
         self.unit_vector = ["", "", "", "", unit, "", ""]
 
 
 class AmountOfSubstance(Quantity):
     dim_vector = (0, 0, 0, 0, 0, 1, 0)
-    base_unit = "mol"
+    _converter = Converter("mol")
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
@@ -175,7 +172,7 @@ class AmountOfSubstance(Quantity):
 
 class LuminousIntensity(Quantity):
     dim_vector = (0, 0, 0, 0, 0, 0, 1)
-    base_unit = "cd"
+    _converter = Converter("cd")
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
