@@ -45,6 +45,21 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(m('fg'), Decimal('1e18'))
         self.assertEqual(m('ag'), Decimal('1e21'))
 
+    def test_time(self):
+        t = quantity.Time(1.0, 's')
+
+        self.assertEqual(t('ms'), Decimal('1000.'))
+        self.assertEqual(t('μs'), Decimal('1e6'))
+        self.assertEqual(t('ns'), Decimal('1e9'))
+        self.assertEqual(t('ps'), Decimal('1e12'))
+        self.assertEqual(t('fs'), Decimal('1e15'))
+        self.assertEqual(t('as'), Decimal('1e18'))
+
+    def test_time_from_s(self):
+        t = quantity.Time(1.0, "s")
+        self.assertEqual(t('s'), Decimal('1'))
+
+
     def test_aos(self):
         n = quantity.AmountOfSubstance(1.0, 'kmol')
         self.assertEqual(n('mol'), 1000.0)
