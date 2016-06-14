@@ -12,10 +12,10 @@ class Converter:
         def __init__(self, v):
             self._v = v
 
-        def normal(self, conv):
+        def to_base(self, conv):
             return conv * self._v
 
-        def invers(self, conv):
+        def from_base(self, conv):
             return conv / self._v
 
     prefixes = {
@@ -43,10 +43,10 @@ class Converter:
     def __call__(self, val, funit: str, tunit: str):
         default = Converter.ConverterFunction(Decimal("1.0"))
         to_base_func = self.prefixes.get(self.__prefix_parser(funit), default)
-        in_base = to_base_func.normal(val)
+        in_base = to_base_func.to_base(val)
 
         from_base_func = self.prefixes.get(self.__prefix_parser(tunit), default)
-        res = from_base_func.invers(in_base)
+        res = from_base_func.from_base(in_base)
 
         return res
 
@@ -168,6 +168,7 @@ class ElectricCurrency(Quantity):
 
 
 class Temperature(Quantity):
+    # https://en.wikipedia.org/wiki/Conversion_of_units_of_temperature
     dim_vector = (0, 0, 0, 0, 1, 0, 0)
     base_unit = "K"
 
@@ -180,16 +181,16 @@ class Temperature(Quantity):
                 Converter.ConverterFunction.__init__(self, a)
                 self.__b = b
 
-            def normal(self, conv):
-                return (self._v * conv) + self.__b
+            def to_base(self, conv):
+                return (conv + self.__b) * self._v
 
-            def invers(self, conv):
-                return conv * self._v**-1 - self.__b
+            def from_base(self, conv):
+                return conv * (self._v**-1) - self.__b
 
         prefixes = {
                 "K": TempConverterFunction(Decimal('1.0'), Decimal('0.0')),
                 "°C": TempConverterFunction(Decimal('1.0'), Decimal('273.15')),
-                "°F": TempConverterFunction(Decimal(5/9), Decimal('459.67'))
+                "°F": TempConverterFunction(Decimal('5.') / Decimal('9.'), Decimal('459.67'))
         }
 
     def __init__(self, value, unit):

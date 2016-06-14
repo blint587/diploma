@@ -6,7 +6,7 @@ from decimal import Decimal
 
 class TestQuantityBaseUnitConversion(TestCase):
 
-    def test_base_unit_conversion_length(self):
+    def test_length(self):
         l = quantity.Length(1.0, 'm')
 
         self.assertEqual(l('Em'), Decimal('1e-18'))
@@ -26,7 +26,7 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(l('fm'), Decimal('1e15'))
         self.assertEqual(l('am'), Decimal('1e18'))
 
-    def test_base_unit_conversion_mass(self):
+    def test_mass(self):
         m = quantity.Mass(1.0, 'kg')
         self.assertEqual(m('Eg'), Decimal('1e-15'))
         self.assertEqual(m('Pg'), Decimal('1e-12'))
@@ -45,17 +45,23 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(m('fg'), Decimal('1e18'))
         self.assertEqual(m('ag'), Decimal('1e21'))
 
-    def test_base_unit_conversion_aos(self):
+    def test_aos(self):
         n = quantity.AmountOfSubstance(1.0, 'kmol')
         self.assertEqual(n('mol'), 1000.0)
 
-    def test_base_unit_conversion_temperature_from_K(self):
+    def test_temperature_from_K(self):
         t = quantity.Temperature(0.0, 'K')
         self.assertEqual(t('K'), Decimal('0.0'))
         self.assertEqual(t('°C'), Decimal('-273.15'))
         self.assertEqual(t('°F'), Decimal('-459.67'))
 
-    def test_base_unit_conversion_temperature_from_C(self):
+    def test_temperature_from_C(self):
         t = quantity.Temperature(-40.0, '°C')
         self.assertEqual(t('°C'), Decimal('-40.0'))
-        self.assertAlmostEqual(t('°F'), Decimal('-40.0'), delta=0.000000000001)
+        self.assertEqual(t('K'), Decimal('233.15'))
+        self.assertAlmostEqual(t('°F'), Decimal('-40.0'), delta=1e-9)
+
+    def test_temperature_from_F(self):
+        t = quantity.Temperature(-40.0, '°F')
+        self.assertAlmostEqual(t('K'), Decimal('233.15'), delta=1e-9)
+        self.assertEqual(t('°C'), Decimal('-40.0'))
