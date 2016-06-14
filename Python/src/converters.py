@@ -42,8 +42,13 @@ class Converter:
 
     def __call__(self, val, funit: str, tunit: str):
         default = Converter.ConverterFunction(Decimal("1.0"))
+<<<<<<< Updated upstream
         fprefix = self._prefix_parser(funit)
         to_base_func = self.prefixes.get(fprefix) or self.additional_units.get(funit) or default
+=======
+
+        to_base_func = self.prefixes.get(self._prefix_parser(funit)) or self.additional_units.get(funit) or default
+>>>>>>> Stashed changes
         in_base = to_base_func.to_base(val)
 
         tprefix = self._prefix_parser(tunit)
@@ -60,6 +65,24 @@ class Converter:
 
         return set(map(lambda x: x[0]+x[1], product(self.prefixes.keys(), [self.base_unit]))).union(set(self.additional_units.keys())).union({self.base_unit})
 
+
+class LengthConvert(Converter):
+    additional_units = {"in":Converter.ConverterFunction(Decimal('0.0254')),
+                        "ft":Converter.ConverterFunction(Decimal('0.304')),
+                        "mi":Converter.ConverterFunction(Decimal('1609.344'))
+                        }
+
+    def __init__(self, base_unit):
+        Converter.__init__(self, base_unit)
+
+class MassConvert(Converter):
+
+    additional_units = {"oz": Converter.ConverterFunction(Decimal('28.345')),
+                        "lb": Converter.ConverterFunction(Decimal('453.592')),
+                        "t": Converter.ConverterFunction(Decimal('1e6')),
+                        "tonne_uk": Converter.ConverterFunction(Decimal('1016046 ')),
+                        "tonne_us": Converter.ConverterFunction(Decimal('907184. ')),
+                        }
 
 class TemperatureConvert(Converter):
     class TempConverterFunction(Converter.ConverterFunction):

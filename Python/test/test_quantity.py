@@ -26,6 +26,21 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(l('fm'), Decimal('1e15'))
         self.assertEqual(l('am'), Decimal('1e18'))
 
+    def test_non_si_length(self):
+        l=quantity.Length(1, 'm')
+        self.assertAlmostEqual(l('in'), Decimal('39.37'),delta=1e-2)
+        self.assertAlmostEqual(l('ft'), Decimal('3.28'), delta=1e-2)
+        self.assertAlmostEqual(l('mi'), Decimal('0.000621'), delta=1e-2)
+
+    def test_non_si_mass(self):
+        m = quantity.Mass(1, 'g')
+        self.assertAlmostEqual(m('oz'), Decimal('0.035'), delta=1e-2)
+        self.assertAlmostEqual(m('lb'), Decimal('0.0022'), delta=1e-2)
+        self.assertAlmostEqual(m('t'), Decimal('1e-6'), delta=1e-2)
+
+
+
+
     def test_mass(self):
         m = quantity.Mass(1.0, 'kg')
 
@@ -210,6 +225,7 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertTrue(m1 > m2)
         self.assertFalse(m1 < m2)
         self.assertTrue(m1 != m2)
+
   #TIME
 
     def test_comparing_time_none_base_with_none_base_equal(self):

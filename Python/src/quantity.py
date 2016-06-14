@@ -2,7 +2,7 @@ import inspect
 import sys
 import operator
 from decimal import Decimal
-from src.converters import Converter, TimeConvert, TemperatureConvert
+from src.converters import Converter, TimeConvert, TemperatureConvert,LengthConvert, MassConvert
 
 
 class Quantity:
@@ -50,6 +50,14 @@ class Quantity:
         else:
             raise TypeError
 
+<<<<<<< Updated upstream
+=======
+    def __str__(self):
+        return "{0} {1}".format(self.value, self.unit)
+
+
+
+>>>>>>> Stashed changes
     def __mul__(self, other):
         if isinstance(other, Quantity):
             dim_vector, unit_vector = self.__dimension_determination(other, operator.add)
@@ -140,7 +148,7 @@ class Length(Quantity):
     _converter = Converter("m")
 
     def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
+        Quantity.__init__(self, value, unit, converter=LengthConvert)
         self.unit_vector = [unit, "", "", "", "", "", ""]
 
 
@@ -149,7 +157,7 @@ class Mass(Quantity):
     _converter = Converter("g")
 
     def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
+        Quantity.__init__(self, value, unit, converter=MassConvert)
         self.unit_vector = ["", unit, "", "", "", "", ""]
 
 
