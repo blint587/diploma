@@ -120,11 +120,6 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertAlmostEqual(t('K'), Decimal('233.15'), delta=1e-9)
         self.assertEqual(t('°C'), Decimal('-40.0'))
 
-    def test_none_overlapping_units(self):
-        T = quantity.Temperature(0., 'K')
-        t = quantity.Time(0., 's')
-        self.assertNotEqual(T._converter.additional_units, t._converter.additional_units)
-
 
 class TestQuantityBaseUnitComparison(TestCase):
     def test_comparing_base_with_base_equal(self):
@@ -310,7 +305,6 @@ class TestQuantityAddition(TestCase):
 
 
 class TestQuantityDerivedUnitsConversion(TestCase):
-
     def test_convert_velocity_from_mps_to_kmph(self):
         v = quantity.Velocity(1.0, 'm s-1')
         self.assertEqual(v('km h-1'), Decimal('3.6'))
@@ -330,47 +324,25 @@ class TestQuantityDerivedUnitsConversion(TestCase):
     def test_converting_volume_from_m3_to_in3(self):
         v = quantity.Volume(1, 'm3')
         self.assertEqual(v('cm3'), Decimal('1000000.'))
-        self.assertEqual(v('gal'), Decimal('264.172052'))
+        self.assertEqual(v('gal'), Decimal('264.1720526372959086633370175'))
+        self.assertEqual(v("in3"), Decimal('61023.74409473228395275688189'))
 
+    def test_converting_volumetric_flow_from_m3ph_to(self):
+        v = quantity.VolumetricFlow(1.0, 'm3 h-1')
+        self.assertAlmostEqual(v('m3 d-1'), Decimal('24.0'), delta=1e-6)
+        self.assertEqual(v('gal min-1'), Decimal('4.402867543954931811055616958'))
+        self.assertEqual(v('l s-1'), Decimal('0.2777777777777777777777777778'))
 
+    def test_converting_acceleration(self):
+        a = quantity.Acceleration(1.0, 'm s-2')
+        self.assertEqual(a('in s-2'), Decimal('39.37007874015748031496062992'))
+        self.assertEqual(a('in ms-2'), Decimal('0.00003937007874015748031496062992'))
 
+    def test_convert_force(self):
+        f = quantity.Force(1.0, 'kg m s-2')
+        self.assertEqual(f('lb yd s-2'), Decimal('2.412061728866277343179999663'))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def test_convert_concentration(self):
+        c = quantity.Concentration(1.,  'mg l-1')
+        self.assertEqual(c('mg dm-3'), Decimal('1.0'))
+        self.assertEqual(c('g m-3'), Decimal('1.0'))

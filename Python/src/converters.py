@@ -9,10 +9,10 @@ class Converter:
             self._v = v
 
         def to_base(self, conv, exponent=1):
-            return conv * (self._v**exponent)
+            return conv * (self._v ** exponent)
 
         def from_base(self, conv, exponent=1):
-            return conv / (self._v**exponent)
+            return conv / (self._v ** exponent)
 
     prefixes = {
         "E": ConverterFunction(Decimal("1e18")),  # exa
@@ -33,10 +33,9 @@ class Converter:
         "a": ConverterFunction(Decimal("0.000000000000000001"))  # atto
     }
 
-    additional_units = {}
     remove_prefix = []
 
-    def __init__(self, base_unit):
+    def __init__(self, base_unit, additional_units: dict = None):
         self.units = {}
         if base_unit:
             self.base_unit = UnitNotation.unit_parser(base_unit)[0].notation
@@ -46,9 +45,9 @@ class Converter:
                     self.units[key + self.base_unit] = value
 
             self.units[self.base_unit] = Converter.ConverterFunction(Decimal("1.0"))
-
-            for key, value in self.additional_units.items():
-                self.units[key] = value
+            if additional_units:
+                for key, value in additional_units.items():
+                    self.units[key] = value
 
     def __call__(self, val, funit: str, tunit: str, exp: int):
 
@@ -65,35 +64,47 @@ class Converter:
 
 
 class LengthConvert(Converter):
-    additional_units = {"in": Converter.ConverterFunction(Decimal('0.0254')),
-                        "ft": Converter.ConverterFunction(Decimal('0.304')),
-                        "yd": Converter.ConverterFunction(Decimal('0.914')),
-                        "mi": Converter.ConverterFunction(Decimal('1609.344'))
-                        }
+    def __init__(self, base_unit, additional_units: dict = None):
+        if not additional_units:
+            additional_units = {}
+        Converter.__init__(self, base_unit, {**{
+            "in": Converter.ConverterFunction(Decimal('0.0254')),
+            "ft": Converter.ConverterFunction(Decimal('0.304')),
+            "yd": Converter.ConverterFunction(Decimal('0.914')),
+            "mi": Converter.ConverterFunction(Decimal('1609.344'))
+        },
+                                             **additional_units})
 
 
 class MassConvert(Converter):
-    additional_units = {"oz": Converter.ConverterFunction(Decimal('28.345')),
-                        "lb": Converter.ConverterFunction(Decimal('453.592')),
-                        "t": Converter.ConverterFunction(Decimal('1e6')),
-                        "tonne_uk": Converter.ConverterFunction(Decimal('1016046 ')),
-                        "tonne_us": Converter.ConverterFunction(Decimal('907184. ')),
-                        }
+    def __init__(self, base_unit, additional_units: dict = None):
+        if not additional_units:
+            additional_units = {}
+
+        Converter.__init__(self, base_unit, {**{
+            "oz": Converter.ConverterFunction(Decimal('28.345')),
+            "lb": Converter.ConverterFunction(Decimal('453.592')),
+            "t": Converter.ConverterFunction(Decimal('1e6')),
+            "tonne_uk": Converter.ConverterFunction(Decimal('1016046 ')),
+            "tonne_us": Converter.ConverterFunction(Decimal('907184. ')),
+        },
+                                             **additional_units})
 
 
 class TimeConvert(Converter):
-
     remove_prefix = ["E", "P", "T", "G", "M", "k", "h", "da", "d", "c"]
 
-    additional_units = {
-        "min": Converter.ConverterFunction(Decimal('60')),
-        "h": Converter.ConverterFunction(Decimal('3600')),
-        "d": Converter.ConverterFunction(Decimal('86400'))
-    }
+    def __init__(self, base_unit, additional_units: dict = None):
+        if not additional_units:
+            additional_units = {}
+        Converter.__init__(self, base_unit, {**{
+            "min": Converter.ConverterFunction(Decimal('60')),
+            "h": Converter.ConverterFunction(Decimal('3600')),
+            "d": Converter.ConverterFunction(Decimal('86400'))
+        }, **additional_units})
 
 
 class TemperatureConvert(Converter):
-
     class TempConverterFunction(Converter.ConverterFunction):
         def __init__(self, a, b):
             Converter.ConverterFunction.__init__(self, a)
@@ -107,24 +118,29 @@ class TemperatureConvert(Converter):
 
     remove_prefix = Converter.prefixes.keys()
 
-    additional_units = {
-        "K": TempConverterFunction(Decimal('1.0'), Decimal('0.0')),
-        "°C": TempConverterFunction(Decimal('1.0'), Decimal('273.15')),
-        "°F": TempConverterFunction(Decimal('5.') / Decimal('9.'), Decimal('459.67'))
-    }
+    def __init__(self, base_unit, additional_units: dict = None):
+        if not additional_units:
+            additional_units = {}
+        Converter.__init__(self, base_unit, {**{
+            "K": TemperatureConvert.TempConverterFunction(Decimal('1.0'), Decimal('0.0')),
+            "°C": TemperatureConvert.TempConverterFunction(Decimal('1.0'), Decimal('273.15')),
+            "°F": TemperatureConvert.TempConverterFunction(Decimal('5.') / Decimal('9.'), Decimal('459.67'))
+        }, **additional_units})
 
-    def __init__(self, base_unit):
-        Converter.__init__(self, base_unit)
 
-
-class AreaConvert(Converter):
+class AreaConvert(LengthConvert):
     additional_units = {"ac": Converter.ConverterFunction(Decimal('4046.85')),
                         "are": Converter.ConverterFunction(Decimal('100'))
 
                         }
 
 
-class VolumeConvert(Converter):
-    additional_units = {"gal": Converter.ConverterFunction(Decimal('0.0037')),
-                        "oz": Converter.ConverterFunction(Decimal('2.957e-5'))
-                        }
+class VolumeConvert(LengthConvert):
+    def __init__(self, base_unit):
+        LengthConvert.__init__(self, base_unit, {
+            "gal": Converter.ConverterFunction(Decimal('0.1558491279125191126493914617')),
+            "oz": Converter.ConverterFunction(Decimal('2.957e-5')),
+            "l": Converter.ConverterFunction(Decimal('1e-1'))
+        }
+                               )
+

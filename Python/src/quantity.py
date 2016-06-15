@@ -3,7 +3,8 @@ import sys
 import operator
 from decimal import Decimal
 from src.unitnotation import UnitNotation
-from src.converters import Converter, LengthConvert, MassConvert, TimeConvert,  TemperatureConvert, AreaConvert, VolumeConvert
+from src.converters import Converter, LengthConvert, MassConvert, TimeConvert, TemperatureConvert, AreaConvert, \
+    VolumeConvert
 
 
 class Quantity:
@@ -149,7 +150,7 @@ class Quantity:
             matrix = self.__quantity_matrix_from_dimension_vector(self.dim_vector)
             for index, vector in enumerate(matrix):
                 if Quantity.__not_empty_vector(vector):
-                    cls = Quantity.__type_search(vector)
+                    cls = Quantity.__fallback_type_search(vector)
                     value = cls._converter(value, self.unit_vector[index], to_unit_vecto[index], self.dim_vector[index])
 
         return value
@@ -202,7 +203,7 @@ class Quantity:
         for index, quantity_v in enumerate(quantity_matrix):
             not_empty = Quantity.__not_empty_vector(quantity_v)
             if not_empty:
-                quantity_class = Quantity.__type_search(tuple(quantity_v))
+                quantity_class = Quantity.__fallback_type_search(quantity_v)
                 for unit in units:
                     unit_to_check = unit.notation
                     if quantity_class.is_valid_unit(unit_to_check):
@@ -213,9 +214,16 @@ class Quantity:
                 continue
 
         if len(units) != 0:
-            raise ValueError()
+            raise ValueError('Unsupported unit!')
         else:
             return unit_vector
+
+    @staticmethod
+    def __fallback_type_search(quantity_v):
+        quantity_class = Quantity.__type_search(tuple(quantity_v))
+        if quantity_class is Quantity:
+            quantity_class = Quantity.__type_search([1 if i != 0 else 0 for i in quantity_v])
+        return quantity_class
 
     @staticmethod
     def __not_empty_vector(v):
@@ -306,6 +314,27 @@ class Volume(Quantity):
 
 class VolumetricFlow(Quantity):
     dim_vector = (3, 0, -1, 0, 0, 0, 0)
+
+    def __init__(self, value, unit):
+        Quantity.__init__(self, value, unit)
+
+
+class Acceleration(Quantity):
+    dim_vector = (1, 0, -2, 0, 0, 0, 0)
+
+    def __init__(self, value, unit):
+        Quantity.__init__(self, value, unit)
+
+
+class Force(Quantity):
+    dim_vector = (1, 1, -2, 0, 0, 0, 0)
+
+    def __init__(self, value, unit):
+        Quantity.__init__(self, value, unit)
+
+
+class Concentration(Quantity):
+    dim_vector = (-3, 1, 0, 0, 0, 0, 0)
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
