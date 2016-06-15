@@ -163,7 +163,7 @@ class Quantity:
         :return:
         """
         if type(self) == type(rghsv):
-            return op(self(self._converter.base_unit), rghsv(self._converter.base_unit))
+            return op(round(self(self._unit), 6), round(rghsv(self.unit), 6))
         else:
             raise TypeError("something")
 
