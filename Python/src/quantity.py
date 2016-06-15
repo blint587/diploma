@@ -2,7 +2,45 @@ import inspect
 import sys
 import operator
 from decimal import Decimal
-from src.converters import Converter, TimeConvert, TemperatureConvert,LengthConvert, MassConvert
+from src.converters import Converter, TimeConvert, TemperatureConvert, LengthConvert, MassConvert
+
+
+class UnitNotation:
+
+    superscripts = {
+        '-': '\u207B',
+        '0': '\u2070',
+        '1': '\u00B9',
+        '2': '\u00B2',
+        '3': '\u00B3',
+        '4': '\u2074',
+        '5': '\u2075',
+        '6': '\u2076',
+        '7': '\u2077',
+        '8': '\u2078',
+        '9': '\u2079'
+    }
+
+    def __init__(self, unotation, exponent: str):
+        self.__unotation = unotation
+        self.__exponent = exponent
+
+    @property
+    def notation(self):
+        return self.__unotation
+
+    @property
+    def exponent(self):
+        return int(self.__exponent)
+
+    def __str__(self):
+        if self.exponent != 1:
+            exp = self.__exponent
+            for n in self.superscripts.keys():
+                exp = exp.replace(n, self.superscripts.get(n))
+        else:
+            exp = ""
+        return '{}{}'.format(self.notation, exp)
 
 
 class Quantity:
@@ -25,12 +63,13 @@ class Quantity:
                 self._value = Decimal(value)
                 self._unit = unit
             else:
-                raise ValueError()   # TODO: add proper exception
+                raise ValueError()  # TODO: add proper exception
         elif isinstance(unit, list) and len(unit) == 7:
             self._value = Decimal(value)
             self._unit = self.__unit_constructor(self.dim_vector, unit)
 
-    def __type_search(self, dim_vector):
+    @staticmethod
+    def __type_search(dim_vector):
         clslist = list(filter(lambda x: x[1].dim_vector == dim_vector, LIST_OF_CLASSES))
         cls = clslist[0][1] if len(clslist) == 1 else Quantity
         return cls
@@ -58,19 +97,20 @@ class Quantity:
         if isinstance(other, Quantity):
             dim_vector, unit_vector = self.__dimension_determination(other, operator.add)
 
-            new = self.__type_search(dim_vector)(self.value * other.value, self.__unit_constructor(dim_vector, unit_vector))
+            new = self.__type_search(dim_vector)(self.value * other.value,
+                                                 self.__unit_constructor(dim_vector, unit_vector))
             new.dim_vector = dim_vector
             new.unit_vector = unit_vector
             return new
         else:
-            raise TypeError()   # TODO: add proper exception
+            raise TypeError()  # TODO: add proper exception
 
     def __math_operation_1(self, other, op):
         if isinstance(other, self.__class__):
             new = self.__class__(op(self.value, other(self.unit)), self.unit)
             return new
         else:
-            TypeError() # TODO: add proper exception
+            TypeError()  # TODO: add proper exception
 
     def __add__(self, other):
         return self.__math_operation_1(other, operator.add)
@@ -84,10 +124,6 @@ class Quantity:
     @property
     def value(self):
         return self._value
-
-    # @value.setter
-    # def value(self, x):
-    #     self._value = x
 
     @property
     def unit(self):
@@ -183,6 +219,7 @@ class Temperature(Quantity):
     # https://en.wikipedia.org/wiki/Conversion_of_units_of_temperature
     dim_vector = (0, 0, 0, 0, 1, 0, 0)
     _converter = TemperatureConvert("K")
+
     # TODO: implement Temperature Delta
 
     def __init__(self, value, unit):

@@ -318,3 +318,11 @@ class TestQuantityAddition(TestCase):
         self.assertEqual(m3.unit, "g")
         self.assertFalse(id(m1) == id(m3))
         self.assertFalse(id(m2) == id(m3))
+
+
+class TestQuantityDerivedUnitsConversion(TestCase):
+
+    def test_convert_velocity(self):
+
+        v = quantity.Velocity(1.0, 'm s-1')
+        self.assertEqual(v('km h-1'), Decimal(3.6))
