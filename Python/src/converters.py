@@ -1,8 +1,6 @@
 # encoding: utf-8
-import copy
 from decimal import Decimal
-import re
-from itertools import product
+from src.unitnotation import UnitNotation
 
 
 class Converter:
@@ -10,11 +8,11 @@ class Converter:
         def __init__(self, v):
             self._v = v
 
-        def to_base(self, conv):
-            return conv * self._v
+        def to_base(self, conv, exponent=1):
+            return conv * (self._v**exponent)
 
-        def from_base(self, conv):
-            return conv / self._v
+        def from_base(self, conv, exponent=1):
+            return conv / (self._v**exponent)
 
     prefixes = {
         "E": ConverterFunction(Decimal("1e18")),  # exa
@@ -36,56 +34,56 @@ class Converter:
     }
 
     additional_units = {}
+    remove_prefix = []
 
     def __init__(self, base_unit):
-        self.base_unit = base_unit
+        self.units = {}
+        if base_unit:
+            self.base_unit = UnitNotation.unit_parser(base_unit)[0].notation
 
-    def __call__(self, val, funit: str, tunit: str):
-        default = Converter.ConverterFunction(Decimal("1.0"))
-        fprefix = self._prefix_parser(funit)
-        to_base_func = self.prefixes.get(fprefix) or self.additional_units.get(funit) or default
-        in_base = to_base_func.to_base(val)
+            for key, value in self.prefixes.items():
+                if key not in self.remove_prefix:
+                    self.units[key + self.base_unit] = value
 
-        tprefix = self._prefix_parser(tunit)
-        from_base_func = self.prefixes.get(tprefix) or self.additional_units.get(tunit) or default
-        res = from_base_func.from_base(in_base)
+            self.units[self.base_unit] = Converter.ConverterFunction(Decimal("1.0"))
+
+            for key, value in self.additional_units.items():
+                self.units[key] = value
+
+    def __call__(self, val, funit: str, tunit: str, exp: int):
+
+        to_base_func = self.units.get(funit)
+        in_base = to_base_func.to_base(val, exponent=exp)
+
+        from_base_func = self.units.get(tunit)
+        res = from_base_func.from_base(in_base, exponent=exp)
 
         return res
 
-    def _prefix_parser(self, unit: str):
-        prefix = re.sub(r'{}$'.format(self.base_unit), "", unit, count=1)
-        return prefix
-
     def valid_units(self):
-
-        return set(map(lambda x: x[0]+x[1], product(self.prefixes.keys(), [self.base_unit]))).union(set(self.additional_units.keys())).union({self.base_unit})
+        return self.units.keys()
 
 
 class LengthConvert(Converter):
-    additional_units = {"in":Converter.ConverterFunction(Decimal('0.0254')),
-                        "ft":Converter.ConverterFunction(Decimal('0.304')),
-                        "yd":Converter.ConverterFunction(Decimal('0.914')),
-                        "mi":Converter.ConverterFunction(Decimal('1609.344'))
+    additional_units = {"in": Converter.ConverterFunction(Decimal('0.0254')),
+                        "ft": Converter.ConverterFunction(Decimal('0.304')),
+                        "yd": Converter.ConverterFunction(Decimal('0.914')),
+                        "mi": Converter.ConverterFunction(Decimal('1609.344'))
                         }
-    #
-    # def __init__(self, base_unit):
-    #     Converter.__init__(self, base_unit)
+
 
 class MassConvert(Converter):
-
     additional_units = {"oz": Converter.ConverterFunction(Decimal('28.345')),
                         "lb": Converter.ConverterFunction(Decimal('453.592')),
                         "t": Converter.ConverterFunction(Decimal('1e6')),
                         "tonne_uk": Converter.ConverterFunction(Decimal('1016046 ')),
                         "tonne_us": Converter.ConverterFunction(Decimal('907184. ')),
                         }
+
+
 class TimeConvert(Converter):
-    prefixes = copy.deepcopy(Converter.prefixes)
 
     remove_prefix = ["E", "P", "T", "G", "M", "k", "h", "da", "d", "c"]
-
-    for p in remove_prefix:
-        prefixes.__delitem__(p)
 
     additional_units = {
         "min": Converter.ConverterFunction(Decimal('60')),
@@ -95,19 +93,19 @@ class TimeConvert(Converter):
 
 
 class TemperatureConvert(Converter):
+
     class TempConverterFunction(Converter.ConverterFunction):
-        # noinspection PyMissingConstructor
         def __init__(self, a, b):
             Converter.ConverterFunction.__init__(self, a)
             self.__b = b
 
-        def to_base(self, conv):
+        def to_base(self, conv, exponent=1):
             return (conv + self.__b) * self._v
 
-        def from_base(self, conv):
+        def from_base(self, conv, exponent=1):
             return conv * (self._v ** -1) - self.__b
 
-    prefixes = {}
+    remove_prefix = Converter.prefixes.keys()
 
     additional_units = {
         "K": TempConverterFunction(Decimal('1.0'), Decimal('0.0')),
@@ -115,19 +113,18 @@ class TemperatureConvert(Converter):
         "°F": TempConverterFunction(Decimal('5.') / Decimal('9.'), Decimal('459.67'))
     }
 
-
-
     def __init__(self, base_unit):
         Converter.__init__(self, base_unit)
 
+
 class AreaConvert(Converter):
-    additional_units = {"ac":Converter.ConverterFunction(Decimal('4046.85')),
-                        "are":Converter.ConverterFunction(Decimal('100'))
+    additional_units = {"ac": Converter.ConverterFunction(Decimal('4046.85')),
+                        "are": Converter.ConverterFunction(Decimal('100'))
 
                         }
 
 
 class VolumeConvert(Converter):
-    additional_units = {"gal":Converter.ConverterFunction(Decimal('0.0037')),
-                        "oz":Converter.ConverterFunction(Decimal('2.957e-5'))
+    additional_units = {"gal": Converter.ConverterFunction(Decimal('0.0037')),
+                        "oz": Converter.ConverterFunction(Decimal('2.957e-5'))
                         }

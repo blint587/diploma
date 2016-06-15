@@ -2,45 +2,8 @@ import inspect
 import sys
 import operator
 from decimal import Decimal
+from src.unitnotation import UnitNotation
 from src.converters import Converter, LengthConvert, MassConvert, TimeConvert,  TemperatureConvert, AreaConvert, VolumeConvert
-
-
-class UnitNotation:
-
-    superscripts = {
-        '-': '\u207B',
-        '0': '\u2070',
-        '1': '\u00B9',
-        '2': '\u00B2',
-        '3': '\u00B3',
-        '4': '\u2074',
-        '5': '\u2075',
-        '6': '\u2076',
-        '7': '\u2077',
-        '8': '\u2078',
-        '9': '\u2079'
-    }
-
-    def __init__(self, unotation, exponent: str):
-        self.__unotation = unotation
-        self.__exponent = exponent
-
-    @property
-    def notation(self):
-        return self.__unotation
-
-    @property
-    def exponent(self):
-        return int(self.__exponent)
-
-    def __str__(self):
-        if self.exponent != 1:
-            exp = self.__exponent
-            for n in self.superscripts.keys():
-                exp = exp.replace(n, self.superscripts.get(n))
-        else:
-            exp = ""
-        return '{}{}'.format(self.notation, exp)
 
 
 class Quantity:
@@ -58,23 +21,34 @@ class Quantity:
     _converter = Converter("")
 
     def __init__(self, value, unit):
+        self._value = Decimal(str(value))
         if isinstance(unit, str):
-            if unit in self._converter.valid_units():
-                self._value = Decimal(value)
-                self._unit = unit
-            else:
-                raise ValueError()  # TODO: add proper exception
+            self._unit = unit
+            self.unit_vector = Quantity.__compose_unit(unit, self.__class__.dim_vector)
+
         elif isinstance(unit, list) and len(unit) == 7:
-            self._value = Decimal(value)
-            self._unit = self.__unit_constructor(self.dim_vector, unit)
+            self._unit = self.__unit_rep(self.dim_vector, unit)
 
     @staticmethod
     def __type_search(dim_vector):
+        """
+        Searches the proper quantity type based on the dimension vector.
+        :param dim_vector:
+        :return:
+        """
+        if isinstance(dim_vector, list):
+            dim_vector = tuple(dim_vector)
         clslist = list(filter(lambda x: x[1].dim_vector == dim_vector, LIST_OF_CLASSES))
         cls = clslist[0][1] if len(clslist) == 1 else Quantity
         return cls
 
     def __dimension_determination(self, other, op):
+        """
+        Merges dimension- and unit wector during operation multiply and divide.
+        :param other:
+        :param op:
+        :return:
+        """
         dim_vector = tuple([op(sq, other.dim_vector[index]) for index, sq in enumerate(self.dim_vector)])
         unit_vector = [uv + other.unit_vector[index] if uv != other.unit_vector[index] else uv for index, uv in
                        enumerate(self.unit_vector)]
@@ -82,6 +56,11 @@ class Quantity:
         return dim_vector, unit_vector
 
     def __truediv__(self, other):
+        """
+        Division operator.
+        :param other:
+        :return:
+        """
         if isinstance(other, Quantity):
 
             dim_vector, unit_vector = self.__dimension_determination(other, operator.sub)
@@ -94,11 +73,16 @@ class Quantity:
             raise TypeError
 
     def __mul__(self, other):
+        """
+        Multiplication operator.
+        :param other:
+        :return:
+        """
         if isinstance(other, Quantity):
             dim_vector, unit_vector = self.__dimension_determination(other, operator.add)
 
             new = self.__type_search(dim_vector)(self.value * other.value,
-                                                 self.__unit_constructor(dim_vector, unit_vector))
+                                                 self.__unit_rep(dim_vector, unit_vector))
             new.dim_vector = dim_vector
             new.unit_vector = unit_vector
             return new
@@ -106,6 +90,12 @@ class Quantity:
             raise TypeError()  # TODO: add proper exception
 
     def __math_operation_1(self, other, op):
+        """
+         General function for subtraction and addition operation.
+        :param other:
+        :param op:
+        :return:
+        """
         if isinstance(other, self.__class__):
             new = self.__class__(op(self.value, other(self.unit)), self.unit)
             return new
@@ -119,7 +109,7 @@ class Quantity:
         return self.__math_operation_1(other, operator.sub)
 
     def __str__(self):
-        return "{0} {1}".format(self.value, self.unit)
+        return "{0} {1}".format(self.value, self.__unit_rep(self.dim_vector, self.unit_vector, supercase=True))
 
     @property
     def value(self):
@@ -127,13 +117,20 @@ class Quantity:
 
     @property
     def unit(self):
-        return self.__unit_constructor(self.dim_vector, self.unit_vector)
+        return self.__unit_rep(self.dim_vector, self.unit_vector)
 
     @staticmethod
-    def __unit_constructor(dim_vector, unit_vector):
-        return " ".join(
-            filter(lambda x: x, ["{}{}".format(unit, dim_vector[index] if dim_vector[index] != 1 else "")
-                                 if unit else "" for index, unit in enumerate(unit_vector)]))
+    def __unit_rep(dim_vector, unit_vector, supercase=False):
+        l = list()
+        for index, unit in enumerate(unit_vector):
+            exponent = dim_vector[index]
+            if exponent != 0:
+                if supercase:
+                    l.append(str(UnitNotation(unit, exponent)))
+                else:
+                    l.append("{}{}".format(unit, exponent if dim_vector[index] != 1 else ""))
+
+        return " ".join(l)
 
     @classmethod
     def is_valid_unit(cls, unit):
@@ -146,11 +143,20 @@ class Quantity:
         :param unit:
         :return:
         """
-        return self._converter(self.value, self.unit, unit)
+        value = self._value
+        if unit != self.unit:
+            to_unit_vecto = self.__compose_unit(unit, self.dim_vector)
+            matrix = self.__quantity_matrix_from_dimension_vector(self.dim_vector)
+            for index, vector in enumerate(matrix):
+                if Quantity.__not_empty_vector(vector):
+                    cls = Quantity.__type_search(vector)
+                    value = cls._converter(value, self.unit_vector[index], to_unit_vecto[index], self.dim_vector[index])
+
+        return value
 
     def __comparison_operation(self, rghsv, op):
         """
-
+        General functionality for comparison operators.
         :param rghsv:
         :param op:
         :return:
@@ -178,14 +184,50 @@ class Quantity:
     def __ne__(self, other):
         return self.__comparison_operation(other, operator.ne)
 
+    @staticmethod
+    def __quantity_matrix_from_dimension_vector(v: tuple):
+        matrix = [[0 for i in v] for i in v]
+        for index, value in enumerate(v):
+            matrix[index][index] = abs(value)
+
+        return matrix
+
+    @staticmethod
+    def __compose_unit(inunit, dim_v):
+
+        unit_vector = ["", "", "", "", "", "", ""]
+
+        quantity_matrix = Quantity.__quantity_matrix_from_dimension_vector(dim_v)
+        units = UnitNotation.unit_parser(inunit)
+        for index, quantity_v in enumerate(quantity_matrix):
+            not_empty = Quantity.__not_empty_vector(quantity_v)
+            if not_empty:
+                quantity_class = Quantity.__type_search(tuple(quantity_v))
+                for unit in units:
+                    unit_to_check = unit.notation
+                    if quantity_class.is_valid_unit(unit_to_check):
+                        unit_vector[index] = unit.notation
+                        units.remove(unit)
+                        break
+            else:
+                continue
+
+        if len(units) != 0:
+            raise ValueError()
+        else:
+            return unit_vector
+
+    @staticmethod
+    def __not_empty_vector(v):
+        return bool(sum(map(lambda x: bool(x), v)))
+
 
 class Length(Quantity):
     dim_vector = (1, 0, 0, 0, 0, 0, 0)
     _converter = LengthConvert("m")
 
     def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit, )
-        self.unit_vector = [unit, "", "", "", "", "", ""]
+        Quantity.__init__(self, value, unit)
 
 
 class Mass(Quantity):
@@ -194,7 +236,6 @@ class Mass(Quantity):
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
-        self.unit_vector = ["", unit, "", "", "", "", ""]
 
 
 class Time(Quantity):
@@ -203,7 +244,6 @@ class Time(Quantity):
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit, )
-        self.unit_vector = ["", "", unit, "", "", "", ""]
 
 
 class ElectricCurrency(Quantity):
@@ -212,19 +252,17 @@ class ElectricCurrency(Quantity):
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
-        self.unit_vector = ["", "", "", unit, "", "", ""]
 
 
 class Temperature(Quantity):
     # https://en.wikipedia.org/wiki/Conversion_of_units_of_temperature
+    # TODO: implement Temperature Delta
+
     dim_vector = (0, 0, 0, 0, 1, 0, 0)
     _converter = TemperatureConvert("K")
 
-    # TODO: implement Temperature Delta
-
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
-        self.unit_vector = ["", "", "", "", unit, "", ""]
 
 
 class AmountOfSubstance(Quantity):
@@ -233,7 +271,6 @@ class AmountOfSubstance(Quantity):
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
-        self.unit_vector = ["", "", "", "", "", unit, ""]
 
 
 class LuminousIntensity(Quantity):
@@ -242,13 +279,10 @@ class LuminousIntensity(Quantity):
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
-        self.unit_vector = ["", "", "", "", "", "", unit]
 
 
 class Velocity(Quantity):
     dim_vector = (1, 0, -1, 0, 0, 0, 0)
-
-    # unit_vector = ["", "", "", "", "", "", ""]
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
@@ -270,7 +304,7 @@ class Volume(Quantity):
         Quantity.__init__(self, value, unit)
 
 
-class VolumetrikFlow(Quantity):
+class VolumetricFlow(Quantity):
     dim_vector = (3, 0, -1, 0, 0, 0, 0)
 
     def __init__(self, value, unit):

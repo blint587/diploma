@@ -5,7 +5,6 @@ from decimal import Decimal
 
 
 class TestQuantityBaseUnitConversion(TestCase):
-
     def test_length(self):
         l = quantity.Length(1.0, 'm')
 
@@ -27,8 +26,8 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(l('am'), Decimal('1e18'))
 
     def test_non_si_length(self):
-        l=quantity.Length(1, 'm')
-        self.assertAlmostEqual(l('in'), Decimal('39.37'),delta=1e-2)
+        l = quantity.Length(1, 'm')
+        self.assertAlmostEqual(l('in'), Decimal('39.37'), delta=1e-2)
         self.assertAlmostEqual(l('ft'), Decimal('3.28'), delta=1e-2)
         self.assertAlmostEqual(l('mi'), Decimal('0.000621'), delta=1e-2)
 
@@ -37,9 +36,6 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertAlmostEqual(m('oz'), Decimal('0.035'), delta=1e-2)
         self.assertAlmostEqual(m('lb'), Decimal('0.0022'), delta=1e-2)
         self.assertAlmostEqual(m('t'), Decimal('1e-6'), delta=1e-2)
-
-
-
 
     def test_mass(self):
         m = quantity.Mass(1.0, 'kg')
@@ -79,7 +75,6 @@ class TestQuantityBaseUnitConversion(TestCase):
         t = quantity.Time(1.0, "min")
         self.assertEqual(t('s'), Decimal('60'))
 
-
     def test_time_from_hour_to_s(self):
         t = quantity.Time(1.0, "h")
         self.assertEqual(t('s'), Decimal('3600'))
@@ -87,7 +82,6 @@ class TestQuantityBaseUnitConversion(TestCase):
     def test_time_from_s_to_hour(self):
         t = quantity.Time(3600, "s")
         self.assertEqual(t('h'), Decimal('1'))
-
 
     def test_time_from_d_to_s(self):
         t = quantity.Time(1.0, "d")
@@ -98,14 +92,12 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(t('d'), Decimal('0.5'))
 
     def test_time_from_day_to_hour(self):
-        t=quantity.Time(1,"d")
+        t = quantity.Time(1, "d")
         self.assertEqual(t('h'), Decimal("24"))
 
     def test_time_from_hour_to_day(self):
-        t=quantity.Time(48,"h")
+        t = quantity.Time(48, "h")
         self.assertEqual(t('d'), Decimal("2"))
-
-
 
     def test_aos(self):
         n = quantity.AmountOfSubstance(1.0, 'kmol')
@@ -135,7 +127,6 @@ class TestQuantityBaseUnitConversion(TestCase):
 
 
 class TestQuantityBaseUnitComparison(TestCase):
-
     def test_comparing_base_with_base_equal(self):
         m1 = quantity.Mass(1., 'g')
         m2 = quantity.Mass(1., 'g')
@@ -226,7 +217,7 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertFalse(m1 < m2)
         self.assertTrue(m1 != m2)
 
-  #TIME
+        # TIME
 
     def test_comparing_time_none_base_with_none_base_equal(self):
         t1 = quantity.Time(1., 'd')
@@ -257,8 +248,6 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertTrue(t1 > t2)
         self.assertFalse(t1 < t2)
         self.assertTrue(t1 != t2)
-
-
 
     def test_comparing_base_with_base_temperature_equal(self):
         t1 = quantity.Temperature(273.15, 'K')
@@ -292,7 +281,6 @@ class TestQuantityBaseUnitComparison(TestCase):
 
 
 class TestQuantityValidUnit(TestCase):
-
     def test_valid_mass_unit(self):
         self.assertTrue(quantity.Mass.is_valid_unit("kg"))
 
@@ -305,11 +293,12 @@ class TestQuantityValidUnit(TestCase):
     def test_invalid_time_unit_second(self):
         self.assertFalse(quantity.Time.is_valid_unit("ts"))
 
+    def test_valid_temperature_unit(self):
+        self.assertTrue(quantity.Temperature.is_valid_unit("°C"))
+
 
 class TestQuantityAddition(TestCase):
-
     def test_adding_mass_to_mass(self):
-
         m1 = quantity.Mass(1000., "g")
         m2 = quantity.Mass(1., "kg")
         m3 = m1 + m2
@@ -322,7 +311,66 @@ class TestQuantityAddition(TestCase):
 
 class TestQuantityDerivedUnitsConversion(TestCase):
 
-    def test_convert_velocity(self):
-
+    def test_convert_velocity_from_mps_to_kmph(self):
         v = quantity.Velocity(1.0, 'm s-1')
-        self.assertEqual(v('km h-1'), Decimal(3.6))
+        self.assertEqual(v('km h-1'), Decimal('3.6'))
+
+    def test_convert_velocity_from_kmph_to_kmph(self):
+        v = quantity.Velocity(3.6, 'km h-1')
+        self.assertEqual(v('km h-1'), Decimal('3.6'))
+
+    def test_convert_velocity_from_kmph_to_mps(self):
+        v = quantity.Velocity(3.6, 'km h-1')
+        self.assertEqual(v('m s-1'), Decimal('1.'))
+
+    def test_convert_velocity_from_miph_to_kmph(self):
+        v = quantity.Velocity(1., 'mi h-1')
+        self.assertEqual(v('km h-1'), Decimal('1.609344'))
+
+    def test_converting_volume_from_m3_to_in3(self):
+        v = quantity.Volume(1, 'm3')
+        self.assertEqual(v('cm3'), Decimal('1000000.'))
+        self.assertEqual(v('gal'), Decimal('264.172052'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
