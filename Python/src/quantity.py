@@ -2,7 +2,7 @@ import inspect
 import sys
 import operator
 from decimal import Decimal
-from src.converters import Converter, TimeConvert, TemperatureConvert, LengthConvert, MassConvert
+from src.converters import Converter, LengthConvert, MassConvert, TimeConvert,  TemperatureConvert, AreaConvert, VolumeConvert
 
 
 class UnitNotation:
@@ -256,6 +256,7 @@ class Velocity(Quantity):
 
 class Area(Quantity):
     dim_vector = (2, 0, 0, 0, 0, 0, 0)
+    _converter = AreaConvert("m2")
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)
@@ -263,6 +264,7 @@ class Area(Quantity):
 
 class Volume(Quantity):
     dim_vector = (3, 0, 0, 0, 0, 0, 0)
+    _converter = VolumeConvert("m3")
 
     def __init__(self, value, unit):
         Quantity.__init__(self, value, unit)

@@ -64,11 +64,12 @@ class Converter:
 class LengthConvert(Converter):
     additional_units = {"in":Converter.ConverterFunction(Decimal('0.0254')),
                         "ft":Converter.ConverterFunction(Decimal('0.304')),
+                        "yd":Converter.ConverterFunction(Decimal('0.914')),
                         "mi":Converter.ConverterFunction(Decimal('1609.344'))
                         }
-
-    def __init__(self, base_unit):
-        Converter.__init__(self, base_unit)
+    #
+    # def __init__(self, base_unit):
+    #     Converter.__init__(self, base_unit)
 
 class MassConvert(Converter):
 
@@ -78,6 +79,20 @@ class MassConvert(Converter):
                         "tonne_uk": Converter.ConverterFunction(Decimal('1016046 ')),
                         "tonne_us": Converter.ConverterFunction(Decimal('907184. ')),
                         }
+class TimeConvert(Converter):
+    prefixes = copy.deepcopy(Converter.prefixes)
+
+    remove_prefix = ["E", "P", "T", "G", "M", "k", "h", "da", "d", "c"]
+
+    for p in remove_prefix:
+        prefixes.__delitem__(p)
+
+    additional_units = {
+        "min": Converter.ConverterFunction(Decimal('60')),
+        "h": Converter.ConverterFunction(Decimal('3600')),
+        "d": Converter.ConverterFunction(Decimal('86400'))
+    }
+
 
 class TemperatureConvert(Converter):
     class TempConverterFunction(Converter.ConverterFunction):
@@ -101,19 +116,18 @@ class TemperatureConvert(Converter):
     }
 
 
-class TimeConvert(Converter):
-    prefixes = copy.deepcopy(Converter.prefixes)
-
-    remove_prefix = ["E", "P", "T", "G", "M", "k", "h", "da", "d", "c"]
-
-    for p in remove_prefix:
-        prefixes.__delitem__(p)
-
-    additional_units = {
-        "min": Converter.ConverterFunction(Decimal('60')),
-        "h": Converter.ConverterFunction(Decimal('3600')),
-        "d": Converter.ConverterFunction(Decimal('86400'))
-    }
 
     def __init__(self, base_unit):
         Converter.__init__(self, base_unit)
+
+class AreaConvert(Converter):
+    additional_units = {"ac":Converter.ConverterFunction(Decimal('4046.85')),
+                        "are":Converter.ConverterFunction(Decimal('100'))
+
+                        }
+
+
+class VolumeConvert(Converter):
+    additional_units = {"gal":Converter.ConverterFunction(Decimal('0.0037')),
+                        "oz":Converter.ConverterFunction(Decimal('2.957e-5'))
+                        }
