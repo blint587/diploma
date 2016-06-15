@@ -42,13 +42,8 @@ class Converter:
 
     def __call__(self, val, funit: str, tunit: str):
         default = Converter.ConverterFunction(Decimal("1.0"))
-<<<<<<< Updated upstream
         fprefix = self._prefix_parser(funit)
         to_base_func = self.prefixes.get(fprefix) or self.additional_units.get(funit) or default
-=======
-
-        to_base_func = self.prefixes.get(self._prefix_parser(funit)) or self.additional_units.get(funit) or default
->>>>>>> Stashed changes
         in_base = to_base_func.to_base(val)
 
         tprefix = self._prefix_parser(tunit)

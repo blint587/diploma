@@ -20,11 +20,15 @@ class Quantity:
     _converter = Converter("")
 
     def __init__(self, value, unit):
-        if unit in self._converter.valid_units():
+        if isinstance(unit, str):
+            if unit in self._converter.valid_units():
+                self._value = Decimal(value)
+                self._unit = unit
+            else:
+                raise ValueError()   # TODO: add proper exception
+        elif isinstance(unit, list) and len(unit) == 7:
             self._value = Decimal(value)
-            self._unit = unit
-        else:
-            raise Exception()   # TODO: add proper exception
+            self._unit = self.__unit_constructor(self.dim_vector, unit)
 
     def __type_search(self, dim_vector):
         clslist = list(filter(lambda x: x[1].dim_vector == dim_vector, LIST_OF_CLASSES))
@@ -50,19 +54,11 @@ class Quantity:
         else:
             raise TypeError
 
-<<<<<<< Updated upstream
-=======
-    def __str__(self):
-        return "{0} {1}".format(self.value, self.unit)
-
-
-
->>>>>>> Stashed changes
     def __mul__(self, other):
         if isinstance(other, Quantity):
             dim_vector, unit_vector = self.__dimension_determination(other, operator.add)
 
-            new = self.__type_search(dim_vector)(self.value * other.value, "")
+            new = self.__type_search(dim_vector)(self.value * other.value, self.__unit_constructor(dim_vector, unit_vector))
             new.dim_vector = dim_vector
             new.unit_vector = unit_vector
             return new
@@ -95,9 +91,13 @@ class Quantity:
 
     @property
     def unit(self):
+        return self.__unit_constructor(self.dim_vector, self.unit_vector)
+
+    @staticmethod
+    def __unit_constructor(dim_vector, unit_vector):
         return " ".join(
-            filter(lambda x: x, ["{}{}".format(unit, self.dim_vector[index] if self.dim_vector[index] != 1 else "")
-                                 if unit else "" for index, unit in enumerate(self.unit_vector)]))
+            filter(lambda x: x, ["{}{}".format(unit, dim_vector[index] if dim_vector[index] != 1 else "")
+                                 if unit else "" for index, unit in enumerate(unit_vector)]))
 
     @classmethod
     def is_valid_unit(cls, unit):
@@ -145,19 +145,19 @@ class Quantity:
 
 class Length(Quantity):
     dim_vector = (1, 0, 0, 0, 0, 0, 0)
-    _converter = Converter("m")
+    _converter = LengthConvert("m")
 
     def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit, converter=LengthConvert)
+        Quantity.__init__(self, value, unit, )
         self.unit_vector = [unit, "", "", "", "", "", ""]
 
 
 class Mass(Quantity):
     dim_vector = (0, 1, 0, 0, 0, 0, 0)
-    _converter = Converter("g")
+    _converter = MassConvert("g")
 
     def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit, converter=MassConvert)
+        Quantity.__init__(self, value, unit)
         self.unit_vector = ["", unit, "", "", "", "", ""]
 
 
