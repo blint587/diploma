@@ -5,6 +5,7 @@ import munits.quantity as quantity
 from decimal import Decimal
 
 
+
 class TestQuantityBaseUnitConversion(unittest.TestCase):
     def test_length(self):
         l = quantity.Length(1.0, 'm')
@@ -659,9 +660,88 @@ class test_derived_units_from_base_units(unittest.TestCase):
         self.assertEqual(vf('m3 h-1'), Decimal('0.'))
 
     def test_volumetricflow_(self):
-        v = quantity.Length(1, 'm')
-        v2 = v * v * v
+        l = quantity.Length(1, 'm')
+        v1 = l * l * l
+        v2 = l ** 3
         t = quantity.Time(1, 'h')
-        vf = v2 / t
-        self.assertIsInstance(vf, quantity.VolumetricFlow)
-        self.assertEqual(vf('m3 h-1'), Decimal('1.'))
+        vf1 = v1 / t
+        vf2 = v2 / t
+        vf3 = l * l * l / t
+        self.assertIsInstance(vf1, quantity.VolumetricFlow)
+        self.assertEqual(vf1('m3 h-1'), Decimal('1.'))
+
+        self.assertIsInstance(vf2, quantity.VolumetricFlow)
+        self.assertEqual(vf2('m3 h-1'), Decimal('1.'))
+
+        self.assertIsInstance(vf3, quantity.VolumetricFlow)
+        self.assertEqual(vf3('m3 h-1'), Decimal('1.'))
+
+    def test_volumetricflow_233(self):
+        l = quantity.Length(2.33, 'm')
+        v = quantity.Volume(12.649, "m3")
+        l1 = l * l * l
+        t = quantity.Time(2.33, 'h')
+        vf1 = l1 / t
+        vf2 = v / t
+        self.assertIsInstance(vf1, quantity.VolumetricFlow)
+        self.assertEqual(vf1('m3 h-1'), Decimal('5.4289'))
+
+        self.assertIsInstance(vf2, quantity.VolumetricFlow)
+        self.assertAlmostEqual(vf2('m3 h-1'), Decimal('5.4289'), delta=1e-3)
+
+    def test_molar_concentration_from_n_l_v_zero(self):
+        l = quantity.Length(1, 'm')
+        v = quantity.Volume(1, 'm3')
+        n = quantity.AmountOfSubstance(0, "mol")
+        mc1 = n / (l * l * l)
+        mc2 = n / (l ** 3)
+        mc3 = n / l / l / l
+        mc4 = n / v
+
+        self.assertIsInstance(mc1, quantity.MolarConcentration)
+        self.assertIsInstance(mc2, quantity.MolarConcentration)
+        self.assertIsInstance(mc3, quantity.MolarConcentration)
+        self.assertIsInstance(mc4, quantity.MolarConcentration)
+
+        self.assertEqual(mc1('mol m-3'), Decimal('0.'))
+        self.assertEqual(mc2('mol m-3'), Decimal('0.'))
+        self.assertEqual(mc3('mol m-3'), Decimal('0.'))
+        self.assertEqual(mc4('mol m-3'), Decimal('0.'))
+
+    def test_molar_concentration_from_n_l_v(self):
+        l = quantity.Length(1, 'm')
+        v=quantity.Volume(1, 'm3')
+        n = quantity.AmountOfSubstance(1, "mol")
+        mc1=n/(l*l*l)
+        mc2=n/(l**3)
+        mc3=n/l/l/l
+        mc4=n/v
+
+
+        self.assertEqual(mc1('mol m-3'), Decimal('1.'))
+        self.assertEqual(mc2('mol m-3'), Decimal('1.'))
+        self.assertEqual(mc3('mol m-3'), Decimal('1.'))
+        self.assertEqual(mc4('mol m-3'), Decimal('1.'))
+
+    def test_molar_concentration_from_n_l_v(self):
+        l = quantity.Length(2.33, 'm')
+        v = quantity.Volume(12.649, 'm3')
+        n = quantity.AmountOfSubstance(1, "mol")
+        mc1 = n / (l * l * l)
+        mc2 = n / (l ** 3)
+        mc3 = n / l / l / l
+        mc4 = n / v
+
+        self.assertAlmostEqual(mc1('mol m-3'), Decimal('0.0790'), delta=1e-3)
+        self.assertAlmostEqual(mc2('mol m-3'), Decimal('0.0790'),delta=1e-3)
+        self.assertAlmostEqual(mc3('mol m-3'), Decimal('0.0790'),delta=1e-3)
+        self.assertAlmostEqual(mc4('mol m-3'), Decimal('0.0790'),delta=1e-3)
+
+
+
+
+
+
+
+
+
