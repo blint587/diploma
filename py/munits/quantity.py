@@ -25,8 +25,6 @@ class Quantity:
 
     def __init__(self, value, unit, check_unit=True):
 
-        print(args)
-
         self._value = Decimal(str(value))
         if isinstance(unit, str):
             self._unit = unit
