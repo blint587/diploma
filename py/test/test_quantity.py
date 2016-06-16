@@ -1,10 +1,11 @@
 # encoding: utf-8
-from unittest import TestCase
+import unittest
+
 import munits.quantity as quantity
 from decimal import Decimal
 
 
-class TestQuantityBaseUnitConversion(TestCase):
+class TestQuantityBaseUnitConversion(unittest.TestCase):
     def test_length(self):
         l = quantity.Length(1.0, 'm')
 
@@ -68,11 +69,11 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(l('fm'), Decimal('0'))
         self.assertEqual(l('am'), Decimal('0'))
 
-    #MASS
-    
+    # MASS
+
     def test_mass_zero(self):
         m = quantity.Mass(0, 'g')
-    
+
         self.assertEqual(m('Eg'), Decimal('0'))
         self.assertEqual(m('Pg'), Decimal('0'))
         self.assertEqual(m('Tg'), Decimal('0'))
@@ -105,13 +106,12 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(m('g'), Decimal('1.'))
         self.assertEqual(m('dg'), Decimal('10.'))
         self.assertEqual(m('cg'), Decimal('100.'))
-        self.assertEqual(m('gg'), Decimal('1000.'))
+        self.assertEqual(m('mg'), Decimal('1000.'))
         self.assertEqual(m('μg'), Decimal('1e6'))
         self.assertEqual(m('ng'), Decimal('1e9'))
         self.assertEqual(m('pg'), Decimal('1e12'))
         self.assertEqual(m('fg'), Decimal('1e15'))
         self.assertEqual(m('ag'), Decimal('1e18'))
-
 
     def test_mass_none_one(self):
         m = quantity.Mass(2.33, 'g')
@@ -134,7 +134,7 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(m('fg'), Decimal('2.33e15'))
         self.assertEqual(m('ag'), Decimal('2.33e18'))
 
-    #TIME
+    # TIME
 
     def test_time_zero(self):
         t = quantity.Time(0.0, 's')
@@ -166,7 +166,8 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(t('fs'), Decimal('2.33e15'))
         self.assertEqual(t('as'), Decimal('2.33e18'))
 
-    #ELECTRIC_CURRENT
+    # ELECTRIC_CURRENT
+
     def test_electric_currency_zero(self):
         i = quantity.ElectricCurrency(0, 'A')
 
@@ -230,13 +231,39 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(i('fA'), Decimal('2.33e15'))
         self.assertEqual(i('aA'), Decimal('2.33e18'))
 
-    def test_non_si_length(self):
-        l = quantity.Length(1, 'm')
-        self.assertAlmostEqual(l('in'), Decimal('39.37'), delta=1e-2)
-        self.assertAlmostEqual(l('ft'), Decimal('3.28'), delta=1e-2)
-        self.assertAlmostEqual(l('mi'), Decimal('0.000621'), delta=1e-2)
+    # NONE SI
 
+    def test_none_si_length_m_to_in_ft_mi(self):
+        l = quantity.Length(1, 'm')
+
+        self.assertAlmostEqual(l('in'), Decimal('39.37'), delta=1e-4)
+        self.assertAlmostEqual(l('ft'), Decimal('3.2808'), delta=1e-4)
+        self.assertAlmostEqual(l('mi'), Decimal('0.000621'), delta=1e-4)
+
+    def test_none_si_length_m_to_in_ft_mi_233(self):
+        l = quantity.Length(2.33, 'm')
+
+        self.assertAlmostEqual(l('in'), Decimal('91.7322'), delta=1e-4)
+        self.assertAlmostEqual(l('ft'), Decimal('7.6443'), delta=1e-4)
+        self.assertAlmostEqual(l('mi'), Decimal('0.00144'), delta=1e-4)
+
+    def test_none_si_length_inch_to_ft_mi(self):
         l = quantity.Length(1, 'in')
+
+        self.assertAlmostEqual(l('ft'), Decimal('0.0833'), delta=1e-2)
+        self.assertAlmostEqual(l('mi'), Decimal('1.578e-5'), delta=1e-2)
+        self.assertAlmostEqual(l('in'), Decimal('1'), delta=1e-2)
+
+    def test_none_si_length_inch_to_ft_mi_233(self):
+        l = quantity.Length(2.33, 'in')
+
+        self.assertAlmostEqual(l('ft'), Decimal('0.1941'), delta=1e-4)
+        self.assertAlmostEqual(l('mi'), Decimal('3.677e-5'), delta=1e-2)
+        self.assertAlmostEqual(l('in'), Decimal('2.33'), delta=1e-2)
+
+    def test_none_si_length_inch_in_to_prefix_m(self):
+        l = quantity.Length(1, 'in')
+
         self.assertEqual(l('Em'), Decimal('0.0254e-18'))
         self.assertEqual(l('Pm'), Decimal('0.0254e-15'))
         self.assertEqual(l('Tm'), Decimal('0.0254e-12'))
@@ -255,53 +282,40 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(l('fm'), Decimal('0.0254e15'))
         self.assertEqual(l('am'), Decimal('0.0254e18'))
 
-    # @unittest.skip("inch to prefix_yard")
-    # def test_non_si_length(self):
-    #     l = quantity.Length(1, 'in')
-    #     self.assertEqual(l('Eyd'), Decimal('0.02778993435448577680525164114e-18'))
-    #     self.assertEqual(l('Pyd'), Decimal('0.02778993435448577680525164114e-15'))
-    #     self.assertEqual(l('Tyd'), Decimal('0.02778993435448577680525164114e-12'))
-    #     self.assertEqual(l('Gyd'), Decimal('0.02778993435448577680525164114e-9'))
-    #     self.assertEqual(l('Myd'), Decimal('0.02778993435448577680525164114e-6'))
-    #     self.assertEqual(l('kyd'), Decimal('0.02778993435448577680525164114e-3'))
-    #     self.assertEqual(l('hyd'), Decimal('0.02778993435448577680525164114e-2'))
-    #     self.assertEqual(l('dayd'), Decimal('0.02778993435448577680525164114e-1'))
-    #     self.assertEqual(l('yd'), Decimal('0.02778993435448577680525164114'))
-    #     self.assertEqual(l('dyd'), Decimal('0.02778993435448577680525164114e1'))
-    #     self.assertEqual(l('cyd'), Decimal('0.02778993435448577680525164114e2'))
-    #     self.assertEqual(l('myd'), Decimal('0.02778993435448577680525164114e3'))
-    #     self.assertEqual(l('μyd'), Decimal('0.02778993435448577680525164114e6'))
-    #     self.assertEqual(l('nyd'), Decimal('0.02778993435448577680525164114e9'))
-    #     self.assertEqual(l('pyd'), Decimal('0.02778993435448577680525164114e12'))
-    #     self.assertEqual(l('fyd'), Decimal('0.02778993435448577680525164114e15'))
-    #     self.assertEqual(l('ayd'), Decimal('0.02778993435448577680525164114e18'))
+    @unittest.skip("inch to prefix_yard")
+    def test_non_si_length(self):
+        l = quantity.Length(1, 'in')
+        self.assertEqual(l('Eyd'), Decimal('0.02778993435448577680525164114e-18'))
+        self.assertEqual(l('Pyd'), Decimal('0.02778993435448577680525164114e-15'))
+        self.assertEqual(l('Tyd'), Decimal('0.02778993435448577680525164114e-12'))
+        self.assertEqual(l('Gyd'), Decimal('0.02778993435448577680525164114e-9'))
+        self.assertEqual(l('Myd'), Decimal('0.02778993435448577680525164114e-6'))
+        self.assertEqual(l('kyd'), Decimal('0.02778993435448577680525164114e-3'))
+        self.assertEqual(l('hyd'), Decimal('0.02778993435448577680525164114e-2'))
+        self.assertEqual(l('dayd'), Decimal('0.02778993435448577680525164114e-1'))
+        self.assertEqual(l('yd'), Decimal('0.02778993435448577680525164114'))
+        self.assertEqual(l('dyd'), Decimal('0.02778993435448577680525164114e1'))
+        self.assertEqual(l('cyd'), Decimal('0.02778993435448577680525164114e2'))
+        self.assertEqual(l('myd'), Decimal('0.02778993435448577680525164114e3'))
+        self.assertEqual(l('μyd'), Decimal('0.02778993435448577680525164114e6'))
+        self.assertEqual(l('nyd'), Decimal('0.02778993435448577680525164114e9'))
+        self.assertEqual(l('pyd'), Decimal('0.02778993435448577680525164114e12'))
+        self.assertEqual(l('fyd'), Decimal('0.02778993435448577680525164114e15'))
+        self.assertEqual(l('ayd'), Decimal('0.02778993435448577680525164114e18'))
 
-    def test_non_si_mass(self):
+    def test_mass_g_to_oz_lb_t(self):
         m = quantity.Mass(1, 'g')
-        self.assertAlmostEqual(m('oz'), Decimal('0.035'), delta=1e-2)
-        self.assertAlmostEqual(m('lb'), Decimal('0.0022'), delta=1e-2)
-        self.assertAlmostEqual(m('t'), Decimal('1e-6'), delta=1e-2)
 
-    def test_mass(self):
-        m = quantity.Mass(1.0, 'kg')
+        self.assertAlmostEqual(m('oz'), Decimal('0.0352'), delta=1e-4)
+        self.assertAlmostEqual(m('lb'), Decimal('0.0022'), delta=1e-4)
+        self.assertEqual(m('t'), Decimal('1e-6'))
 
-        self.assertEqual(m('Eg'), Decimal('1e-15'))
-        self.assertEqual(m('Pg'), Decimal('1e-12'))
-        self.assertEqual(m('Tg'), Decimal('1e-9'))
-        self.assertEqual(m('Gg'), Decimal('1e-6'))
-        self.assertEqual(m('Mg'), Decimal('1e-3'))
-        self.assertEqual(m('kg'), Decimal('1'))
-        self.assertEqual(m('hg'), Decimal('10'))
-        self.assertEqual(m('dag'), Decimal('100'))
-        self.assertEqual(m('dg'), Decimal('10000.'))
-        self.assertEqual(m('cg'), Decimal('100000.'))
-        self.assertEqual(m('mg'), Decimal('1000000.'))
-        self.assertEqual(m('μg'), Decimal('1e9'))
-        self.assertEqual(m('ng'), Decimal('1e12'))
-        self.assertEqual(m('pg'), Decimal('1e15'))
-        self.assertEqual(m('fg'), Decimal('1e18'))
-        self.assertEqual(m('ag'), Decimal('1e21'))
+    def test_mass_g_to_oz_lb_t_233(self):
+        m = quantity.Mass(2.33, 'g')
 
+        self.assertAlmostEqual(m('oz'), Decimal('0.0821'), delta=1e-4)
+        self.assertAlmostEqual(m('lb'), Decimal('0.00513'), delta=1e-4)
+        self.assertEqual(m('t'), Decimal('2.33e-6'))
 
     def test_time_from_s_to_min(self):
         t = quantity.Time(30, "s")
@@ -357,7 +371,7 @@ class TestQuantityBaseUnitConversion(TestCase):
         self.assertEqual(t('°C'), Decimal('-40.0'))
 
 
-class TestQuantityBaseUnitComparison(TestCase):
+class TestQuantityBaseUnitComparison(unittest.TestCase):
     def test_comparing_base_with_base_equal(self):
         m1 = quantity.Mass(1., 'g')
         m2 = quantity.Mass(1., 'g')
@@ -511,7 +525,7 @@ class TestQuantityBaseUnitComparison(TestCase):
         self.assertTrue(t1 != t2)
 
 
-class TestQuantityValidUnit(TestCase):
+class TestQuantityValidUnit(unittest.TestCase):
     def test_valid_mass_unit(self):
         self.assertTrue(quantity.Mass.is_valid_unit("kg"))
 
@@ -528,7 +542,7 @@ class TestQuantityValidUnit(TestCase):
         self.assertTrue(quantity.Temperature.is_valid_unit("°C"))
 
 
-class TestQuantityAddition(TestCase):
+class TestQuantityAddition(unittest.TestCase):
     def test_adding_mass_to_mass(self):
         m1 = quantity.Mass(1000., "g")
         m2 = quantity.Mass(1., "kg")
@@ -540,7 +554,7 @@ class TestQuantityAddition(TestCase):
         self.assertFalse(id(m2) == id(m3))
 
 
-class TestQuantityDerivedUnitsConversion(TestCase):
+class TestQuantityDerivedUnitsConversion(unittest.TestCase):
     def test_convert_velocity_from_mps_to_kmph(self):
         v = quantity.Velocity(1.0, 'm s-1')
         self.assertEqual(v('km h-1'), Decimal('3.6'))
@@ -579,6 +593,75 @@ class TestQuantityDerivedUnitsConversion(TestCase):
         self.assertEqual(f('lb yd s-2'), Decimal('2.412061728866277343179999663'))
 
     def test_convert_concentration(self):
-        c = quantity.Concentration(1.,  'mg l-1')
+        c = quantity.Concentration(1., 'mg l-1')
         self.assertEqual(c('mg dm-3'), Decimal('1.0'))
         self.assertEqual(c('g m-3'), Decimal('1.0'))
+
+
+class test_derived_units_from_base_units(unittest.TestCase):
+    def test_acceleration_from_l_t_zero(self):
+        l = quantity.Length(0, "m")
+        t = quantity.Time(1, "s")
+        a1 = l / (t * t)
+        a2 = l / (t ** 2)
+        a3 = l / t / t
+
+        self.assertIsInstance(a1, quantity.Acceleration)
+        self.assertIsInstance(a2, quantity.Acceleration)
+        self.assertIsInstance(a3, quantity.Acceleration)
+
+    def test_acceleration_from_l_t(self):
+        l = quantity.Length(1, "m")
+        t = quantity.Time(1, "s")
+        a1 = l / (t * t)
+        a2 = l / (t ** 2)
+        a3 = l / t / t
+
+        self.assertIsInstance(a1, quantity.Acceleration)
+        self.assertIsInstance(a2, quantity.Acceleration)
+        self.assertIsInstance(a3, quantity.Acceleration)
+
+    def test_acceleration_from_l_t_none_zero(self):
+        l = quantity.Length(2.33, "m")
+        t = quantity.Time(2.33, "s")
+        a1 = l / (t * t)
+        a2 = l / (t ** 2)
+        a3 = l / t / t
+
+        self.assertAlmostEqual(a1('m s-2'), Decimal('0.4229'), delta=1e-2)
+        self.assertAlmostEqual(a2('m s-2'), Decimal('0.4229'), delta=1e-2)
+        self.assertAlmostEqual(a3('m s-2'), Decimal('0.4229'), delta=1e-2)
+
+    def test_force_from_m_a_zero(self):
+        m = quantity.Mass(0, "g")
+        a = quantity.Acceleration(0, 'm s-2')
+        f1 = m * a
+        self.assertIsInstance(f1, quantity.Force)
+        self.assertEqual(f1('kg m s-2'), Decimal('0.'))
+
+    def test_force_from_m_a(self):
+        m = quantity.Mass(1, "kg")
+        a = quantity.Acceleration(1, 'm s-2')
+        f1 = m * a
+        self.assertEqual(f1('kg m s-2'), Decimal('1'))
+
+    def test_force_from_m_a_233(self):
+        m = quantity.Mass(2.33, "kg")
+        a = quantity.Acceleration(1, 'm s-2')
+        f1 = m * a
+        self.assertEqual(f1('kg m s-2'), Decimal('2.33'))
+
+    def test_volumetricflow_zero(self):
+        v = quantity.Volume(0, 'm3')
+        t = quantity.Time(1, 'h')
+        vf = v / t
+        self.assertIsInstance(vf, quantity.VolumetricFlow)
+        self.assertEqual(vf('m3 h-1'), Decimal('0.'))
+
+    def test_volumetricflow_(self):
+        v = quantity.Length(1, 'm')
+        v2 = v * v * v
+        t = quantity.Time(1, 'h')
+        vf = v2 / t
+        self.assertIsInstance(vf, quantity.VolumetricFlow)
+        self.assertEqual(vf('m3 h-1'), Decimal('1.'))

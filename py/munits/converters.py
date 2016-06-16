@@ -69,7 +69,7 @@ class LengthConvert(Converter):
             additional_units = {}
         Converter.__init__(self, base_unit, {**{
             "in": Converter.ConverterFunction(Decimal('0.0254')),
-            "ft": Converter.ConverterFunction(Decimal('0.304')),
+            "ft": Converter.ConverterFunction(Decimal('0.3048')),
             "yd": Converter.ConverterFunction(Decimal('0.914')),
             "mi": Converter.ConverterFunction(Decimal('1609.344'))
         },
@@ -82,7 +82,7 @@ class MassConvert(Converter):
             additional_units = {}
 
         Converter.__init__(self, base_unit, {**{
-            "oz": Converter.ConverterFunction(Decimal('28.345')),
+            "oz": Converter.ConverterFunction(Decimal('28.3495')),
             "lb": Converter.ConverterFunction(Decimal('453.592')),
             "t": Converter.ConverterFunction(Decimal('1e6')),
             "tonne_uk": Converter.ConverterFunction(Decimal('1016046 ')),

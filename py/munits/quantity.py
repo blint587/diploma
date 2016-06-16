@@ -78,7 +78,7 @@ class Quantity:
                 new = op2(self.value, other(self.unit))
             return new
         else:
-            raise TypeError()  # TODO: add proper exception
+            raise TypeError("Unsupported type: {}".format(type(other)))  # TODO: add proper exception
 
     def __math_operation_1(self, other, op):
         """
@@ -303,6 +303,8 @@ class Force(Quantity):
 class Concentration(Quantity):
     dim_vector = (-3, 1, 0, 0, 0, 0, 0)
 
+class MolarConcentration(Quantity):
+    dim_vector = (-3, 0, 0, 0, 0, 1, 0)
 
 LIST_OF_CLASSES = list(
     filter(lambda cls: Quantity in cls[1].mro(), inspect.getmembers(sys.modules[__name__], inspect.isclass)))
