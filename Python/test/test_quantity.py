@@ -1,6 +1,6 @@
 # encoding: utf-8
 from unittest import TestCase
-import src.quantity as quantity
+import munits.quantity as quantity
 from decimal import Decimal
 
 

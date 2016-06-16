@@ -2,9 +2,10 @@ import inspect
 import sys
 import operator
 from decimal import Decimal
-from src.unitnotation import UnitNotation
-from src.converters import Converter, LengthConvert, MassConvert, TimeConvert, TemperatureConvert, AreaConvert, \
-    VolumeConvert
+from munits.unitnotation import UnitNotation
+from munits.converters import (Converter, LengthConvert, MassConvert,
+                               TimeConvert, TemperatureConvert, AreaConvert,
+                               VolumeConvert)
 
 
 class Quantity:
@@ -29,6 +30,8 @@ class Quantity:
 
         elif isinstance(unit, list) and len(unit) == 7:
             self._unit = self.__unit_rep(self.dim_vector, unit)
+        else:
+            raise Exception()  # TODO: raise some proper exceptions
 
     @staticmethod
     def __type_search(dim_vector):

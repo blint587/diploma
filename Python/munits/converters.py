@@ -1,6 +1,6 @@
 # encoding: utf-8
 from decimal import Decimal
-from src.unitnotation import UnitNotation
+from munits.unitnotation import UnitNotation
 
 
 class Converter:
