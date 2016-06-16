@@ -129,10 +129,13 @@ class TemperatureConvert(Converter):
 
 
 class AreaConvert(LengthConvert):
-    additional_units = {"ac": Converter.ConverterFunction(Decimal('4046.85')),
-                        "are": Converter.ConverterFunction(Decimal('100'))
+    def __init__(self, base_unit):
+        LengthConvert.__init__(self, base_unit, {
+            "ac": Converter.ConverterFunction(Decimal('63.6148567553')),
+            "are": Converter.ConverterFunction(Decimal('10'))
+            }
+                               )
 
-                        }
 
 
 class VolumeConvert(LengthConvert):
