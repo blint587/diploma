@@ -1,3 +1,4 @@
+import copy
 import inspect
 import sys
 import operator
@@ -22,11 +23,14 @@ class Quantity:
     unit_vector = ["", "", "", "", "", "", ""]
     _converter = Converter("")
 
-    def __init__(self, value, unit):
+    def __init__(self, value, unit, check_unit=True):
+
+        print(args)
+
         self._value = Decimal(str(value))
         if isinstance(unit, str):
             self._unit = unit
-            self.unit_vector = Quantity.__compose_unit(unit, self.__class__.dim_vector)
+            self.unit_vector = Quantity.__compose_unit(unit, self.dim_vector, check_unit)
 
         elif isinstance(unit, list) and len(unit) == 7:
             self._unit = self.__unit_rep(self.dim_vector, unit)
@@ -59,36 +63,21 @@ class Quantity:
 
         return dim_vector, unit_vector
 
-    def __truediv__(self, other):
-        """
-        Division operator.
-        :param other:
-        :return:
-        """
+    def __math_operator_2(self, other, op1, op2):
         if isinstance(other, Quantity):
+            dim_vector, unit_vector = self.__dimension_determination(other, op1)
+            if dim_vector != (0, 0, 0, 0, 0, 0, 0):
+                check_unit = True
+                cls = self.__type_search(dim_vector)
+                new = object.__new__(cls)
+                if new.dim_vector == (0, 0, 0, 0, 0, 0, 0):
+                    new.dim_vector = dim_vector
+                    new.unit_vector = unit_vector
+                    check_unit = False
 
-            dim_vector, unit_vector = self.__dimension_determination(other, operator.sub)
-
-            new = self.__type_search(dim_vector)(self.value / other.value, "")
-            new.dim_vector = dim_vector
-            new.unit_vector = unit_vector
-            return new
-        else:
-            raise TypeError
-
-    def __mul__(self, other):
-        """
-        Multiplication operator.
-        :param other:
-        :return:
-        """
-        if isinstance(other, Quantity):
-            dim_vector, unit_vector = self.__dimension_determination(other, operator.add)
-
-            new = self.__type_search(dim_vector)(self.value * other.value,
-                                                 self.__unit_rep(dim_vector, unit_vector))
-            new.dim_vector = dim_vector
-            new.unit_vector = unit_vector
+                new.__init__(op2(self.value, other.value), self.__unit_rep(dim_vector, unit_vector), check_unit)
+            else:
+                new = op2(self.value, other(self.unit))
             return new
         else:
             raise TypeError()  # TODO: add proper exception
@@ -106,6 +95,12 @@ class Quantity:
         else:
             TypeError()  # TODO: add proper exception
 
+    def __truediv__(self, other):
+        return self.__math_operator_2(other, operator.sub, operator.truediv)
+
+    def __mul__(self, other):
+        return self.__math_operator_2(other, operator.add, operator.mul)
+
     def __add__(self, other):
         return self.__math_operation_1(other, operator.add)
 
@@ -114,6 +109,16 @@ class Quantity:
 
     def __str__(self):
         return "{0} {1}".format(self.value, self.__unit_rep(self.dim_vector, self.unit_vector, supercase=True))
+
+    def __pow__(self, power):
+
+        if isinstance(power, int) and power >= 1:
+            x = copy.deepcopy(self)
+            for i in range(power - 1):
+                x *= self
+            return x
+        else:
+            raise Exception("incorrect exponent")  # TODO: add proper exception
 
     @property
     def value(self):
@@ -197,7 +202,7 @@ class Quantity:
         return matrix
 
     @staticmethod
-    def __compose_unit(inunit, dim_v):
+    def __compose_unit(inunit, dim_v, check_unit=True):
 
         unit_vector = ["", "", "", "", "", "", ""]
 
@@ -209,7 +214,7 @@ class Quantity:
                 quantity_class = Quantity.__fallback_type_search(quantity_v)
                 for unit in units:
                     unit_to_check = unit.notation
-                    if quantity_class.is_valid_unit(unit_to_check):
+                    if quantity_class.is_valid_unit(unit_to_check) or not check_unit:
                         unit_vector[index] = unit.notation
                         units.remove(unit)
                         break
@@ -237,32 +242,20 @@ class Length(Quantity):
     dim_vector = (1, 0, 0, 0, 0, 0, 0)
     _converter = LengthConvert("m")
 
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
-
 
 class Mass(Quantity):
     dim_vector = (0, 1, 0, 0, 0, 0, 0)
     _converter = MassConvert("g")
-
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
 
 
 class Time(Quantity):
     dim_vector = (0, 0, 1, 0, 0, 0, 0)
     _converter = TimeConvert("s")
 
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit, )
-
 
 class ElectricCurrency(Quantity):
     dim_vector = (0, 0, 0, 1, 0, 0, 0)
     _converter = Converter("A")
-
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
 
 
 class Temperature(Quantity):
@@ -272,75 +265,45 @@ class Temperature(Quantity):
     dim_vector = (0, 0, 0, 0, 1, 0, 0)
     _converter = TemperatureConvert("K")
 
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
-
 
 class AmountOfSubstance(Quantity):
     dim_vector = (0, 0, 0, 0, 0, 1, 0)
     _converter = Converter("mol")
-
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
 
 
 class LuminousIntensity(Quantity):
     dim_vector = (0, 0, 0, 0, 0, 0, 1)
     _converter = Converter("cd")
 
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
-
 
 class Velocity(Quantity):
     dim_vector = (1, 0, -1, 0, 0, 0, 0)
-
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
 
 
 class Area(Quantity):
     dim_vector = (2, 0, 0, 0, 0, 0, 0)
     _converter = AreaConvert("m2")
 
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
-
 
 class Volume(Quantity):
     dim_vector = (3, 0, 0, 0, 0, 0, 0)
     _converter = VolumeConvert("m3")
 
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
-
 
 class VolumetricFlow(Quantity):
     dim_vector = (3, 0, -1, 0, 0, 0, 0)
-
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
 
 
 class Acceleration(Quantity):
     dim_vector = (1, 0, -2, 0, 0, 0, 0)
 
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
-
 
 class Force(Quantity):
     dim_vector = (1, 1, -2, 0, 0, 0, 0)
 
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
-
 
 class Concentration(Quantity):
     dim_vector = (-3, 1, 0, 0, 0, 0, 0)
-
-    def __init__(self, value, unit):
-        Quantity.__init__(self, value, unit)
 
 
 LIST_OF_CLASSES = list(
