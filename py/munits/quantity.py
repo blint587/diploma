@@ -106,7 +106,7 @@ class Quantity:
         return self.__math_operation_1(other, operator.sub)
 
     def __str__(self):
-        return "{0} {1}".format(self.value, self.__unit_rep(self.dim_vector, self.unit_vector, supercase=True))
+        return "{0} {1}".format(float(self.value), self.__unit_rep(self.dim_vector, self.unit_vector, supercase=True))
 
     def __pow__(self, power):
 
