@@ -2,7 +2,7 @@ import copy
 import inspect
 import sys
 import operator
-from decimal import Decimal
+# from decimal import float
 from munits.unitnotation import UnitNotation
 from munits.converters import (Converter, LengthConvert, MassConvert,
                                TimeConvert, TemperatureConvert, AreaConvert,
@@ -25,7 +25,10 @@ class Quantity:
 
     def __init__(self, value, unit, check_unit=True):
 
-        self._value = Decimal(str(value))
+        if value is None:
+            self._value = - float('inf')
+        else:
+            self._value = float(str(value))
         if isinstance(unit, str):
             self._unit = unit
             self.unit_vector = Quantity.__compose_unit(unit, self.dim_vector, check_unit)
@@ -75,8 +78,10 @@ class Quantity:
 
                 new.__init__(op2(self.value, other.value), self.__unit_rep(dim_vector, unit_vector), check_unit)
             else:
-                new = op2(self.value, other(self.unit))
+                new = float(op2(self.value, other(self.unit)))
             return new
+        elif isinstance(other, int) or isinstance(other, float) or isinstance(other, float):
+            return self.__class__(op2(self.value, float(other)), self.__unit_rep(self.dim_vector, self.unit_vector))
         else:
             raise TypeError("Unsupported type: {}".format(type(other)))  # TODO: add proper exception
 
@@ -171,7 +176,7 @@ class Quantity:
         if type(self) == type(rghsv):
             return op(round(self(self._unit), 6), round(rghsv(self.unit), 6))
         else:
-            raise TypeError("something")
+            raise TypeError("Unsupported type: {}".format(type(rghsv)))
 
     def __eq__(self, other):
         return self.__comparison_operation(other, operator.eq)
