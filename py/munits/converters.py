@@ -12,7 +12,7 @@ class Converter:
             return conv * (self._v ** exponent)
 
         def from_base(self, conv, exponent=1):
-            return conv / (self._v ** exponent)
+            return conv * (self._v ** -exponent)
 
     prefixes = {
         "E": ConverterFunction(float("1e18")),  # exa
