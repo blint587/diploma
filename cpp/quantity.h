@@ -7,6 +7,8 @@
 
 #include <vector>
 #include <string>
+#include <map>
+#include "ConverterFunction.h"
 
 namespace quantity {
 
@@ -17,10 +19,10 @@ namespace quantity {
 
     };
 
-    static std::vector<std::vector<int>> matrix = {
-            {1, 0, 0, 0, 0, 0, 0}, //Length
-            {0, 1, 0, 0, 0, 0, 0}, // Mass
-            {0, 0, 1, 0, 0, 0, 0}  //Time
+    static std::vector<std::pair<std::vector<int>, std::string>> matrix = {
+            {{1, 0, 0, 0, 0, 0, 0}, "m"}, //Length
+            {{0, 1, 0, 0, 0, 0, 0}, "g" }, // Mass
+            {{0, 0, 1, 0, 0, 0, 0}, "s"}  //Time
     };
 
     class Quantity {
@@ -37,10 +39,14 @@ namespace quantity {
         const metrics matrix_index;
         const std::vector<std::string> unit_vector;
         double value;
+        const quantity::Converter converter;
+        bool is_valid_unit() const;
     public:
         const std::string unit;
+        std::vector<int> getDimVector() const{return matrix[matrix_index].first;}
         Quantity(metrics, double, const char*);
-        std::vector<int> getDimVector() const{return matrix[matrix_index];}
+        double operator()(std::string) const;
+
         };
 
 }

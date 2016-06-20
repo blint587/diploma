@@ -1,12 +1,30 @@
-//
-// Created by bmolnar on 2016. 06. 17..
-//
-
-#include "quantity.h"
+#include "Quantity.h"
 
 
-quantity::Quantity::Quantity(quantity::metrics m, double value, const char *unit):matrix_index(m), value(value),
-                                                                                     unit(unit) {}
+quantity::Quantity::Quantity(quantity::metrics m, double value, const char *unit):matrix_index(m),
+                                                                                  value(value),
+                                                                                  unit(unit),
+                                                                                  converter(quantity::matrix[m].second) {
+
+}
+
+double quantity::Quantity::operator()(const std::string tunit) const {
+    if (converter.is_valid_unit(tunit)) {
+        return converter(value, unit, tunit);
+    }
+    else{
+        throw "invalid Unit";
+    }
+
+}
+
+bool quantity::Quantity::is_valid_unit() const {
+    return converter.is_valid_unit(unit);
+}
+
+
+
+
 
 
 

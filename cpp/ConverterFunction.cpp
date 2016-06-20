@@ -1,7 +1,3 @@
-//
-// Created by bmolnar on 2016. 06. 20..
-//
-
 #include "ConverterFunction.h"
 
 
@@ -85,6 +81,12 @@ quantity::Converter::Converter(std::string base_unit): base_unit(base_unit){
     }
 
 }
+
+bool quantity::Converter::is_valid_unit(const std::string & unit) const {
+    return 1 == units.count(unit) ||  1 == additional_units.count(unit);
+}
+
+
 
 
 

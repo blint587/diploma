@@ -34,6 +34,7 @@ namespace quantity {
     public:
         Converter(std::string);
         double operator()(double, std::string, std::string, double=1) const;
+        bool is_valid_unit(const std::string &) const;
     };
 
 }

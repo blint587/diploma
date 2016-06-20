@@ -1,6 +1,5 @@
 #include <iostream>
-#include "quantity.h"
-#include "ConverterFunction.h"
+#include "Quantity.h"
 
 using namespace std;
 using namespace quantity;
@@ -11,9 +10,9 @@ void foo(Quantity &);
 
 int main() {
 
-    quantity::Converter c("m");
+    Quantity m (Mass, 25, "kg");
 
-    cout << c(1., "m", "Em") << endl;
+    cout << m("Eg") << endl;
 
     return 0;
 }
