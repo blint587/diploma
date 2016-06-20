@@ -28,7 +28,7 @@ class Quantity:
         if value is None:
             self._value = - float('inf')
         else:
-            self._value = float(str(value))
+            self._value = float(value)
         if isinstance(unit, str):
             self._unit = unit
             self.unit_vector = Quantity.__compose_unit(unit, self.dim_vector, check_unit)
