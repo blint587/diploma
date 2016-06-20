@@ -4,3 +4,9 @@
 
 #include "quantity.h"
 
+
+quantity::Quantity::Quantity(quantity::metrics m, double value, const char *unit):matrix_index(m), value(value),
+                                                                                     unit(unit) {}
+
+
+
