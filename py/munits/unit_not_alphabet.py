@@ -1,23 +1,58 @@
 # encoding: utf-8
 import re
 
+superscripts = {
+    '-': '\u207B',
+    '0': '\u2070',
+    '1': '\u00B9',
+    '2': '\u00B2',
+    '3': '\u00B3',
+    '4': '\u2074',
+    '5': '\u2075',
+    '6': '\u2076',
+    '7': '\u2077',
+    '8': '\u2078',
+    '9': '\u2079'
+}
 
-def unit_parser(u: str):
+def unit_parser2(u: str):
     units_non_exp = []
     units_pos_exp = []
+
     units_neg_exp = []
+    eunits=[]
     for unit in u.split(' '):
         if not unit[0].isdigit():
-            if not unit[-1:].isdigit() and not unit[0].isdigit():
+            if not unit[-1:].isdigit():
                 units_non_exp.append(unit)
             elif (unit[-1:]).isdigit() and (int(unit[-1:])) > 1 and unit[-2:-1] != "-":
+                # exp_orig=int(unit[-1:])
+                # exp_new=superscripts.get(str(exp_orig))
+                # unit=unit.replace(unit[-1:],exp_new)
                 units_pos_exp.append(unit)
+
             else:
-                if not unit[0].isdigit():
-                    units_neg_exp.append(unit)
+                exp_orig = int(unit[-1:])
+                # exp_new = superscripts.get(str(exp_orig))
+                # unit = unit.replace(unit[-2:-1],"\u207B")
+                # unit = unit.replace(unit[-1:], exp_new)
+                units_neg_exp.append(unit)
         else:
             raise Exception ("invalid unit!")
-    print("no index", sorted(units_non_exp), "pos index", sorted(units_pos_exp), "neg index", sorted(units_neg_exp))
 
 
-unit_parser("kg 2m s2")
+    unit3=sorted(units_non_exp)+sorted(units_pos_exp)+sorted(units_neg_exp)
+    print (unit3)
+    for unit in unit3:
+
+        exponent=(re.sub('[a-zA-z°Åμ]+', "", unit)) or '1'
+        u = unit.replace(exponent, "")
+
+        eunits.append(u)
+        eunits.append(exponent)
+    print (eunits)
+
+
+
+
+unit_parser2("m-2 kg2 s-2")
