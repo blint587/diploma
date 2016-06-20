@@ -80,7 +80,7 @@ class Quantity:
             else:
                 new = float(op2(self.value, other(self.unit)))
             return new
-        elif isinstance(other, int) or isinstance(other, float) or isinstance(other, float):
+        elif isinstance(other, int) or isinstance(other, float):
             return self.__class__(op2(self.value, float(other)), self.__unit_rep(self.dim_vector, self.unit_vector))
         else:
             raise TypeError("Unsupported type: {}".format(type(other)))  # TODO: add proper exception

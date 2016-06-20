@@ -906,7 +906,7 @@ class  TestDerivedUnitName(unittest.TestCase):
         a=quantity.Area(2, "m2")
         self.assertEquals(str(a), '2.0 m\u00B2')
 
-    @unittest.skip("2m!=m2")
+    # @unittest.skip("2m!=m2")
     def test_area_name_2m(self):
         a = quantity.Area(2, "2m")
         self.assertNotEquals(str(a), '2.0 m\u00B2')
