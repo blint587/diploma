@@ -42,7 +42,10 @@ class UnitNotation:
     def unit_parser(u: str):
         units = list()
         for unit in u.split(' '):
-            exponent = (re.sub('[a-zA-z°Åμ]+', "", unit)) or '1'
-            u = unit.replace(exponent, "")
-            units.append(UnitNotation(u, exponent))
+            if re.match('^[a-zA-z°Åμ]+(\-?[0-9]?)$', unit):
+                exponent = (re.sub('[a-zA-z°Åμ]+', "", unit)) or '1'
+                u = unit.replace(exponent, "")
+                units.append(UnitNotation(u, exponent))
+            else:
+                raise Exception
         return units
