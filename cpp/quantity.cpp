@@ -4,7 +4,9 @@
 quantity::Quantity::Quantity(quantity::metrics m, double value, const char *unit):matrix_index(m),
                                                                                   value(value),
                                                                                   unit(unit),
-                                                                                  converter(quantity::matrix[m].second) {
+                                                                                  converter(quantity::matrix[m].base_unit,
+                                                                                            quantity::matrix[m].remove,
+                                                                                  quantity::matrix[m].additional_units) {
 
 }
 

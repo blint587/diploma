@@ -6,6 +6,9 @@
 #include <math.h>
 #include <string>
 #include <map>
+#include <set>
+#include <string>
+#include <memory>
 
 namespace quantity {
 
@@ -26,14 +29,16 @@ namespace quantity {
     class Converter {
 
     private:
-        const std::map<std::string, ConverterFunction> & GetPrefixes() const;
+        const std::map<std::string, const std::shared_ptr<ConverterFunction>> & GetPrefixes() const;
         std::string base_unit;
-        std::map<std::string, const ConverterFunction*> units;
+        std::map<std::string, const std::shared_ptr<ConverterFunction>> units;
     protected:
-        std::map<std::string, const ConverterFunction*> additional_units;
+        const std::map<std::string, const std::shared_ptr<ConverterFunction>> additional_units;
     public:
-        Converter(std::string);
-        double operator()(double, std::string, std::string, double=1) const;
+        Converter(std::string,
+                  const std::set<std::string> & = std::set<std::string>(),
+                  const std::map<std::string, const std::shared_ptr<ConverterFunction>> = std::map<std::string, const std::shared_ptr<ConverterFunction>>());
+        double operator()(double, std::string, std::string, double=1.) const;
         bool is_valid_unit(const std::string &) const;
     };
 

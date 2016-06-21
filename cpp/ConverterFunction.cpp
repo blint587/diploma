@@ -1,4 +1,6 @@
+#include <iostream>
 #include "ConverterFunction.h"
+#include <memory>
 
 
 quantity::ConverterFunction::ConverterFunction(double a, double b): first_order(a), zero_order(b){ }
@@ -16,8 +18,8 @@ double quantity::ConverterFunction::from_bsas(double v, double e = 1) const {
 
 double quantity::Converter::operator()(double val, std::string funit, std::string tunut, double exponent) const {
 
-    const ConverterFunction * to_base_func;
-    const ConverterFunction * from_base_func;
+    std::shared_ptr<ConverterFunction> to_base_func;
+    std::shared_ptr<ConverterFunction> from_base_func;
 
     if (1 == units.count(funit)){
         to_base_func = units.find(funit)->second;
@@ -49,35 +51,45 @@ double quantity::Converter::operator()(double val, std::string funit, std::strin
 
 
 
-const std::map<std::string, quantity::ConverterFunction> & quantity::Converter::GetPrefixes() const {
+const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> & quantity::Converter::GetPrefixes() const {
 
-    static const std::map<std::string, quantity::ConverterFunction> prefixes  = {
-            {"E", ConverterFunction(1e18)}, //exa
-            {"P", ConverterFunction(1e15)},  // peta
-            {"T", ConverterFunction(1e12)},  // tera
-            {"G", ConverterFunction(1e9)}, // giga
-            {"M", ConverterFunction(1e6)},  // mega
-            {"k", ConverterFunction(1e3)},  // kilo
-            {"h", ConverterFunction(1e2)},  // hecto
-            {"da", ConverterFunction(1e1)},  // deca
-            {"", ConverterFunction(1.)},
-            {"d", ConverterFunction(0.1)},   // deci
-            {"c", ConverterFunction(0.01)},  // centi
-            {"m", ConverterFunction(0.001)},  // milli
-            {"μ", ConverterFunction(0.000001)},  // micro
-            {"n", ConverterFunction(0.000000001)},  // nano
-            {"p", ConverterFunction(0.000000000001)},  // pico
-            {"f", ConverterFunction(0.000000000000001)},  // femto
-            {"a", ConverterFunction(0.000000000000000001)}  // atto
+    static const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> prefixes  = {
+            {"E", std::make_shared<ConverterFunction>(ConverterFunction(1e18))}, //exa
+            {"P", std::make_shared<ConverterFunction>(ConverterFunction(1e15))},  // peta
+            {"T", std::make_shared<ConverterFunction>(ConverterFunction(1e12))},  // tera
+            {"G", std::make_shared<ConverterFunction>(ConverterFunction(1e9))}, // giga
+            {"M", std::make_shared<ConverterFunction>(ConverterFunction(1e6))},  // mega
+            {"k", std::make_shared<ConverterFunction>(ConverterFunction(1e3))},  // kilo
+            {"h", std::make_shared<ConverterFunction>(ConverterFunction(1e2))},  // hecto
+            {"da", std::make_shared<ConverterFunction>(ConverterFunction(1e1))},  // deca
+            {"", std::make_shared<ConverterFunction>(ConverterFunction(1.))},
+            {"d", std::make_shared<ConverterFunction>(ConverterFunction(0.1))},   // deci
+            {"c", std::make_shared<ConverterFunction>(ConverterFunction(0.01))},  // centi
+            {"m", std::make_shared<ConverterFunction>(ConverterFunction(0.001))},  // milli
+            {"μ", std::make_shared<ConverterFunction>(ConverterFunction(0.000001))},  // micro
+            {"n", std::make_shared<ConverterFunction>(ConverterFunction(0.000000001))},  // nano
+            {"p", std::make_shared<ConverterFunction>(ConverterFunction(0.000000000001))},  // pico
+            {"f", std::make_shared<ConverterFunction>(ConverterFunction(0.000000000000001))},  // femto
+            {"a", std::make_shared<ConverterFunction>(ConverterFunction(0.000000000000000001))}  // atto
     };
 
  return prefixes;
 }
 
-quantity::Converter::Converter(std::string base_unit): base_unit(base_unit){
-    const std::map<std::string, quantity::ConverterFunction> prefixes = GetPrefixes();
+quantity::Converter::Converter(std::string base_unit,
+                               const std::set<std::string> & remove,
+                               const std::map<std::string, const std::shared_ptr<ConverterFunction>> additional_units):
+        base_unit(base_unit), additional_units(additional_units){
+
+
+    const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> prefixes = GetPrefixes();
+
     for(auto b = prefixes.begin(); b != prefixes.end(); b++){
-        units[b->first + base_unit] = &b->second;
+        std::string prefix = b->first;
+        const std::shared_ptr<quantity::ConverterFunction> foo = b->second;
+        if (remove.find(prefix) == remove.end()){
+            units.insert(std::pair<std::string, const std::shared_ptr<quantity::ConverterFunction>>(b->first + base_unit, foo));
+        }
     }
 
 }
