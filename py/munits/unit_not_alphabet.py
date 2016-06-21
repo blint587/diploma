@@ -55,4 +55,4 @@ def unit_parser2(u: str):
 
 
 
-unit_parser2("m-2 kg2 s-2")
+unit_parser2("m-2 kg2 l-1")
