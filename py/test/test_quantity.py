@@ -7,9 +7,6 @@ import munits.quantity as quantity
 # from float import float
 
 
-
-
-
 class TestQuantityBaseUnitConversion(unittest.TestCase):
     def test_length_zero(self):
         l = quantity.Length(0, 'm')
@@ -882,10 +879,9 @@ class TestDerivedUnitName(unittest.TestCase):
         v = quantity.Velocity(2, 'h-1 km')
         self.assertEquals(str(v), "2.0 km h\u207B\u00B9")
 
-    @unittest.skip("m/s=m /s")
     def test_velocity_name(self):
-        v = quantity.Velocity(2, 'm/s')
-        self.assertEquals(str(v), "2.0 ms\u207B\u00B9")
+        self.assertRaises(Exception, quantity.Velocity, 2, 'm/s')
+
 
     def test_volume_name(self):
         v = quantity.Volume(2, 'm')
@@ -930,7 +926,7 @@ class TestDerivedUnitName(unittest.TestCase):
         f = quantity.Force(2, "kg m s-2")
         self.assertEquals(str(f), "2.0 kg m s\u207B\u00B2")
 
-    @unittest.skip("mg m-3!=,m-3 mg")
+    @unittest.skip("mg m-3!= m-3 mg")
     def test_concentration_name_mg_m3(self):
         c = quantity.Concentration(2, "mg m-3")
         self.assertEquals(str(c), "2.0 mg m\u207B\u00B3")

@@ -1,21 +1,26 @@
 #include <iostream>
-#include "quantity.h"
+#include "Quantity.h"
 
 using namespace std;
-void foo(Quantity & m) {
-    for(int i = 0; i < 7; i++){
-        cout << m.dim_vector[i] << endl;
-    }
+using namespace quantity;
 
-}
+
+void foo(Quantity &);
 
 
 int main() {
-    Mass m;
-//    Length l;
 
-    foo(m);
+    Quantity m (Mass, 25, "kg");
+
+    cout << m("Eg") << endl;
 
     return 0;
 }
 
+void foo(Quantity & q){
+    vector<int> v = q.getDimVector();
+    for(int i = 0; i < 7; i++){
+        cout << v[i] << endl;
+    }
+
+}

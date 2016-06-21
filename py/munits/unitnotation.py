@@ -40,29 +40,12 @@ class UnitNotation:
 
     @staticmethod
     def unit_parser(u: str):
-        units_non_exp = []
-        units_pos_exp = []
-        units_neg_exp = []
-        eunits = []
+        units = list()
         for unit in u.split(' '):
-            if not unit[0].isdigit():
-                if not unit[-1:].isdigit():
-                    units_non_exp.append(unit)
-                elif (unit[-1:]).isdigit() and (int(unit[-1:])) > 1 and unit[-2:-1] != "-":
-                    units_pos_exp.append(unit)
-
-                else:
-                    units_neg_exp.append(unit)
+            if re.match('^[a-zA-z°Åμ]+(\-?[0-9]?)$', unit):
+                exponent = (re.sub('[a-zA-z°Åμ]+', "", unit)) or '1'
+                u = unit.replace(exponent, "")
+                units.append(UnitNotation(u, exponent))
             else:
-                raise Exception("invalid unit!")
-        units = sorted(units_non_exp) + sorted(units_pos_exp) + sorted(units_neg_exp)
-
-        for unit in units:
-            exponent = (re.sub('[a-zA-z°Åμ]+', "", unit)) or '1'
-            u = unit.replace(exponent, "")
-            eunits.append(UnitNotation(u, exponent))
-
-        return eunits
-
-if __name__ == '__main__':
-    print(UnitNotation.unit_parser('kg m s-2'))
+                raise Exception
+        return units
