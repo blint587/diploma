@@ -9,10 +9,17 @@ using namespace quantity;
 
 int main() {
 
-    Quantity m (Quantity::Mass, 25, "kg");
-//
-    cout << m("g") << endl;
+    try {
+        Quantity m1(Quantity::Mass, 25, "kg");
+        Quantity m2(Quantity::Mass, 25, "kg");
+        Quantity m3(Quantity::Mass, 25, "kg");
+        Quantity m4(Quantity::Mass, 25, "kg");
+        Quantity m5(Quantity::Mass, 25, "kg");
 
+        cout << m1("g") << endl;
+    }catch (...){
+
+    }
 
 
 

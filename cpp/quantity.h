@@ -39,13 +39,18 @@ namespace quantity {
                   const std::set<std::string> & = std::set<std::string>(),
                   const std::map<std::string, const std::shared_ptr<ConverterFunction>> = std::map<std::string, const std::shared_ptr<ConverterFunction>>());
 
-        double operator()(double, std::string, std::string, double=1.) const;
+//        double operator()(double, std::string, std::string, double=1.) const;
+        double Convert(double, std::string, std::string, double=1.) const;
+
         bool is_valid_unit(const std::string &) const;
+        ~Converter(){
+            std::cout << "Destructing Converter with " << base_unit<< " at "  << this << std::endl;
+        }
     };
 
     struct Metric{
         const std::vector<int> dim_vector;
-        const Converter converter;
+        const std::shared_ptr<Converter> converter;
 
         Metric(std::vector<int>,
                std::string = "",
@@ -69,23 +74,23 @@ namespace quantity {
         };
 
     private:
-        const std::vector<quantity::Metric> GetMatrix() const;
+        const std::vector<quantity::Metric> & GetMatrix() const;
 
         const metrics matrix_index;
         const std::vector<std::string> unit_vector;
         double value;
-        const quantity::Converter & converter;
+        std::shared_ptr<quantity::Converter> converter;
 
         bool is_valid_unit() const;
        // Quantity(int, double, const char*);
 
 
     public:
+
         const std::string unit;
-        std::vector<int> getDimVector() const{return GetMatrix()[matrix_index].dim_vector;}
-        Quantity(metrics, double, const char*);
+        std::vector<int> GetDimVector() const{return GetMatrix()[matrix_index].dim_vector;}
+        Quantity(metrics, double, const std::string);
         ~Quantity(){
-            std::cout << "Destructing" << std::endl;
         };
         double operator()(std::string) const;
         friend Quantity operator + (const Quantity &, const Quantity &);

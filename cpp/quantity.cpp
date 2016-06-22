@@ -11,7 +11,7 @@ double quantity::ConverterFunction::from_bsas(double v, double e = 1) const {
     return v * pow(first_order, -e) - (e==1?zero_order:0);
 }
 
-double quantity::Converter::operator()(double val, std::string funit, std::string tunut, double exponent) const {
+double quantity::Converter::Convert(double val, std::string funit, std::string tunut, double exponent) const {
 
     std::shared_ptr<ConverterFunction> to_base_func;
     std::shared_ptr<ConverterFunction> from_base_func;
@@ -74,6 +74,7 @@ quantity::Converter::Converter(std::string base_unit,
         base_unit(base_unit), additional_units(additional_units){
 
 
+
     const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> prefixes = GetPrefixes();
 
     for(auto b = prefixes.begin(); b != prefixes.end(); b++){
@@ -82,7 +83,7 @@ quantity::Converter::Converter(std::string base_unit,
             units.insert(std::pair<std::string, const std::shared_ptr<quantity::ConverterFunction>>(b->first + base_unit, b->second));
         }
     }
-
+    std::cout << "Creating converter with " << base_unit << " at " << this<< std::endl;
 }
 
 bool quantity::Converter::is_valid_unit(const std::string & unit) const {
@@ -93,9 +94,9 @@ quantity::Metric:: Metric(std::vector<int> dim_vector,
                           std::string base_unit,
                           std::set<std::string> remove,
                           const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> additional_units ):
-        dim_vector(dim_vector), converter(base_unit, remove, additional_units){};
+        dim_vector(dim_vector), converter(std::make_shared<Converter>(base_unit, remove, additional_units)){};
 
-const std::vector<quantity::Metric> quantity::Quantity::GetMatrix() const {
+const std::vector<quantity::Metric> & quantity::Quantity::GetMatrix() const {
     static const std::vector<quantity::Metric> matrix = {
             {{1, 0, 0, 0, 0, 0, 0}, "m"}, //Length
             {{0, 1, 0, 0, 0, 0, 0}, "g"}, // Mass
@@ -112,12 +113,18 @@ const std::vector<quantity::Metric> quantity::Quantity::GetMatrix() const {
     };
     return matrix;
 }
-quantity::Quantity::Quantity(quantity::Quantity::metrics m, double value, const char *unit):
-        matrix_index(m), value(value),unit(unit),converter(quantity::Quantity::GetMatrix()[m].converter){}
+
+
+quantity::Quantity::Quantity(quantity::Quantity::metrics m, double value, const std::string unit):
+        matrix_index(m), value(value), unit(unit){
+    converter = quantity::Quantity::GetMatrix()[m].converter;
+}
 
 double quantity::Quantity::operator()(const std::string tunit) const {
-    if (converter.is_valid_unit(tunit)) {
-        return converter(value, unit, tunit);
+    if (converter->is_valid_unit(tunit)) {
+
+        return this->converter->Convert(value, unit, tunit);
+
     }
     else{
         throw "invalid Unit";
@@ -125,5 +132,5 @@ double quantity::Quantity::operator()(const std::string tunit) const {
 }
 
 bool quantity::Quantity::is_valid_unit() const {
-    return converter.is_valid_unit(unit);
+    return converter->is_valid_unit(unit);
 }
