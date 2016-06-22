@@ -8,6 +8,7 @@
 #include <math.h>
 #include <string>
 #include <memory>
+#include <iostream>
 
 namespace quantity {
 
@@ -68,12 +69,12 @@ namespace quantity {
         };
 
     private:
-        static const std::vector<quantity::Metric> matrix;
+        const std::vector<quantity::Metric> GetMatrix() const;
 
         const metrics matrix_index;
         const std::vector<std::string> unit_vector;
         double value;
-        const std::shared_ptr<const quantity::Converter> converter;
+        const quantity::Converter & converter;
 
         bool is_valid_unit() const;
        // Quantity(int, double, const char*);
@@ -81,8 +82,11 @@ namespace quantity {
 
     public:
         const std::string unit;
-        std::vector<int> getDimVector() const{return matrix[matrix_index].dim_vector;}
+        std::vector<int> getDimVector() const{return GetMatrix()[matrix_index].dim_vector;}
         Quantity(metrics, double, const char*);
+        ~Quantity(){
+            std::cout << "Destructing" << std::endl;
+        };
         double operator()(std::string) const;
         friend Quantity operator + (const Quantity &, const Quantity &);
         };

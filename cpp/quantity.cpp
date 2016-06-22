@@ -95,33 +95,35 @@ quantity::Metric:: Metric(std::vector<int> dim_vector,
                           const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> additional_units ):
         dim_vector(dim_vector), converter(base_unit, remove, additional_units){};
 
-const std::vector<quantity::Metric> quantity::Quantity::matrix = {
-        {{1, 0, 0, 0, 0, 0, 0}, "m"}, //Length
-        {{0, 1, 0, 0, 0, 0, 0}, "g"}, // Mass
-        {{0, 0, 1, 0, 0, 0, 0}, "s"},  //Time
-        {{0, 0, 0, 1, 0, 0, 0}, "A"},  //Electric Currency
-        {{0, 0, 0, 0, 1, 0, 0}, "K", {"E","P","T", "G", "M","k", "h", "da", "d", "c", "m", "μ", "n", "p", "f", "a"},//Temperature
-                {
-                        {"°C", std::make_shared<ConverterFunction>(ConverterFunction(1., 273.15))},
-                        {"°F", std::make_shared<ConverterFunction>(ConverterFunction(1., 273.15))},
-                }
-        },
-        {{0, 0, 0, 0, 0, 1, 0}, "mol"},  //Amount of Substance
-        {{0, 0, 0, 0, 0, 0, 1}, "cd"}  //Luminous Intensity
-};
-
-quantity::Quantity::Quantity(quantity::Quantity::metrics m, double value, const char *unit):matrix_index(m), value(value),unit(unit),converter(&quantity::Quantity::matrix[m].converter){}
+const std::vector<quantity::Metric> quantity::Quantity::GetMatrix() const {
+    static const std::vector<quantity::Metric> matrix = {
+            {{1, 0, 0, 0, 0, 0, 0}, "m"}, //Length
+            {{0, 1, 0, 0, 0, 0, 0}, "g"}, // Mass
+            {{0, 0, 1, 0, 0, 0, 0}, "s"},  //Time
+            {{0, 0, 0, 1, 0, 0, 0}, "A"},  //Electric Currency
+            {{0, 0, 0, 0, 1, 0, 0}, "K", {"E", "P", "T", "G", "M", "k", "h", "da", "d", "c", "m", "μ", "n", "p", "f", "a"},//Temperature
+                    {
+                            {"°C", std::make_shared<quantity::ConverterFunction>(quantity::ConverterFunction(1., 273.15))},
+                            {"°F", std::make_shared<quantity::ConverterFunction>(quantity::ConverterFunction(1., 273.15))},
+                    }
+            },
+            {{0, 0, 0, 0, 0, 1, 0}, "mol"},  //Amount of Substance
+            {{0, 0, 0, 0, 0, 0, 1}, "cd"}  //Luminous Intensity
+    };
+    return matrix;
+}
+quantity::Quantity::Quantity(quantity::Quantity::metrics m, double value, const char *unit):
+        matrix_index(m), value(value),unit(unit),converter(quantity::Quantity::GetMatrix()[m].converter){}
 
 double quantity::Quantity::operator()(const std::string tunit) const {
-    if (converter->is_valid_unit(tunit)) {
-        return converter->operator()(value, unit, tunit);
+    if (converter.is_valid_unit(tunit)) {
+        return converter(value, unit, tunit);
     }
     else{
         throw "invalid Unit";
     }
-
 }
 
 bool quantity::Quantity::is_valid_unit() const {
-    return converter->is_valid_unit(unit);
+    return converter.is_valid_unit(unit);
 }
