@@ -1,7 +1,3 @@
-//
-// Created by bmolnar on 2016. 06. 17..
-//
-
 #ifndef MUSYS_QUANTITY_H
 #define MUSYS_QUANTITY_H
 
@@ -9,22 +5,53 @@
 #include <set>
 #include <string>
 #include <map>
-#include "ConverterFunction.h"
+#include <math.h>
+#include <string>
+#include <memory>
 
 namespace quantity {
 
+    class ConverterFunction {
+
+    private:
+        const double first_order;
+        const double zero_order;
+    public:
+        double to_base(double, double) const;
+
+        double from_bsas(double, double) const;
+
+        ConverterFunction(double, double=0);
+
+    };
+
+    class Converter {
+
+    private:
+        const std::map<std::string, const std::shared_ptr<ConverterFunction>> & GetPrefixes() const;
+        std::string base_unit;
+        std::map<std::string, const std::shared_ptr<ConverterFunction>> units;
+    protected:
+        const std::map<std::string, const std::shared_ptr<ConverterFunction>> additional_units;
+    public:
+        Converter(std::string,
+                  const std::set<std::string> & = std::set<std::string>(),
+                  const std::map<std::string, const std::shared_ptr<ConverterFunction>> = std::map<std::string, const std::shared_ptr<ConverterFunction>>());
+
+        double operator()(double, std::string, std::string, double=1.) const;
+        bool is_valid_unit(const std::string &) const;
+    };
+
+
     struct Metric{
         const std::vector<int> dim_vector;
-        const std::string base_unit;
-        const std::set<std::string> remove;
-        const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> additional_units;
+        const Converter converter;
 
-        Metric(std::vector<int> dim_vector,
-               std::string base_unit = "",
-               std::set<std::string> remove = std::set<std::string>(),
-               const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> additional_units = std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>>()
-        )
-                :dim_vector(dim_vector), base_unit(base_unit),remove(remove), additional_units(additional_units){};
+        Metric(std::vector<int>,
+               std::string = "",
+               std::set<std::string> = std::set<std::string>(),
+               const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> =
+               std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>>());
 
     };
 
@@ -35,8 +62,8 @@ namespace quantity {
         ElectricCurrency = 3,
         Temperature = 4,
         AmountOfSubstance = 5,
-        LuminousIntensity = 6
-
+        LuminousIntensity = 6,
+        _Last
     };
 
     static const std::vector<quantity::Metric> matrix = {
@@ -68,7 +95,7 @@ namespace quantity {
         const metrics matrix_index;
         const std::vector<std::string> unit_vector;
         double value;
-        const quantity::Converter converter;
+        const std::shared_ptr<const quantity::Converter> converter;
         bool is_valid_unit() const;
     public:
         const std::string unit;

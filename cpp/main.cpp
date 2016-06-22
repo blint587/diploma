@@ -10,9 +10,10 @@ void foo(Quantity &);
 
 int main() {
 
-    Quantity m (Temperature, 0, "°C");
+    Quantity m (Mass, 25, "kg");
 
-    cout << m("K") << endl;
+    cout << m("g") << endl;
+
 
     return 0;
 }
