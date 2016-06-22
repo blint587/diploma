@@ -29,14 +29,32 @@ class UnitNotation:
     def exponent(self):
         return int(self.__exponent)
 
+    def __gt__(self, other):
+        if isinstance(other, UnitNotation):
+            if self.exponent == other.exponent and self.notation[0] < other.notation[0]:
+                return True
+            if self.exponent == other.exponent and self.notation[0] > other.notation[0]:
+                return False
+            if self.exponent > 0 and other.exponent > 0 and self.exponent >= other.exponent:
+                return True
+            if self.exponent > 0 and other.exponent > 0 and self.exponent < other.exponent:
+                return False
+            if self.exponent < 0 and other.exponent < 0 and self.exponent >= other.exponent:
+                return True
+            if self.exponent < 0 and other.exponent < 0 and self.exponent < other.exponent:
+                return False
+
     def __str__(self):
+
         if self.exponent != 1:
             exp = self.__exponent
             for n in self.superscripts.keys():
                 exp = exp.replace(n, self.superscripts.get(n))
         else:
             exp = ""
+
         return '{}{}'.format(self.notation, exp)
+
 
     @staticmethod
     def unit_parser(u: str):
@@ -49,3 +67,5 @@ class UnitNotation:
             else:
                 raise Exception
         return units
+
+# if __name__ == '__main__':
