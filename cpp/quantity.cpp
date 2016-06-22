@@ -1,33 +1,5 @@
 #include "Quantity.h"
 
-
-quantity::Quantity::Quantity(quantity::metrics m, double value, const char *unit):matrix_index(m),
-                                                                                  value(value),
-                                                                                  unit(unit),
-                                                                                  converter(&quantity::matrix[m].converter)
-{}
-
-double quantity::Quantity::operator()(const std::string tunit) const {
-    if (converter->is_valid_unit(tunit)) {
-        return converter->operator()(value, unit, tunit);
-    }
-    else{
-        throw "invalid Unit";
-    }
-
-}
-
-bool quantity::Quantity::is_valid_unit() const {
-    return converter->is_valid_unit(unit);
-}
-
-quantity::Metric:: Metric(std::vector<int> dim_vector,
-                          std::string base_unit,
-                          std::set<std::string> remove,
-                          const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> additional_units ):
-                          dim_vector(dim_vector), converter(base_unit, remove, additional_units){};
-
-
 quantity::ConverterFunction::ConverterFunction(double a, double b): first_order(a), zero_order(b){ }
 
 double quantity::ConverterFunction::to_base(double v, double e=1) const {
@@ -38,8 +10,6 @@ double quantity::ConverterFunction::to_base(double v, double e=1) const {
 double quantity::ConverterFunction::from_bsas(double v, double e = 1) const {
     return v * pow(first_order, -e) - (e==1?zero_order:0);
 }
-
-
 
 double quantity::Converter::operator()(double val, std::string funit, std::string tunut, double exponent) const {
 
@@ -72,9 +42,6 @@ double quantity::Converter::operator()(double val, std::string funit, std::strin
     return from_base_func->from_bsas(in_base, exponent);
 
 }
-
-
-
 
 const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> & quantity::Converter::GetPrefixes() const {
 
@@ -122,10 +89,39 @@ bool quantity::Converter::is_valid_unit(const std::string & unit) const {
     return 1 == units.count(unit) ||  1 == additional_units.count(unit);
 }
 
+quantity::Metric:: Metric(std::vector<int> dim_vector,
+                          std::string base_unit,
+                          std::set<std::string> remove,
+                          const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> additional_units ):
+        dim_vector(dim_vector), converter(base_unit, remove, additional_units){};
 
+const std::vector<quantity::Metric> quantity::Quantity::matrix = {
+        {{1, 0, 0, 0, 0, 0, 0}, "m"}, //Length
+        {{0, 1, 0, 0, 0, 0, 0}, "g"}, // Mass
+        {{0, 0, 1, 0, 0, 0, 0}, "s"},  //Time
+        {{0, 0, 0, 1, 0, 0, 0}, "A"},  //Electric Currency
+        {{0, 0, 0, 0, 1, 0, 0}, "K", {"E","P","T", "G", "M","k", "h", "da", "d", "c", "m", "μ", "n", "p", "f", "a"},//Temperature
+                {
+                        {"°C", std::make_shared<ConverterFunction>(ConverterFunction(1., 273.15))},
+                        {"°F", std::make_shared<ConverterFunction>(ConverterFunction(1., 273.15))},
+                }
+        },
+        {{0, 0, 0, 0, 0, 1, 0}, "mol"},  //Amount of Substance
+        {{0, 0, 0, 0, 0, 0, 1}, "cd"}  //Luminous Intensity
+};
 
+quantity::Quantity::Quantity(quantity::Quantity::metrics m, double value, const char *unit):matrix_index(m), value(value),unit(unit),converter(&quantity::Quantity::matrix[m].converter){}
 
+double quantity::Quantity::operator()(const std::string tunit) const {
+    if (converter->is_valid_unit(tunit)) {
+        return converter->operator()(value, unit, tunit);
+    }
+    else{
+        throw "invalid Unit";
+    }
 
+}
 
-
-
+bool quantity::Quantity::is_valid_unit() const {
+    return converter->is_valid_unit(unit);
+}

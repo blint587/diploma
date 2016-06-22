@@ -42,7 +42,6 @@ namespace quantity {
         bool is_valid_unit(const std::string &) const;
     };
 
-
     struct Metric{
         const std::vector<int> dim_vector;
         const Converter converter;
@@ -55,54 +54,37 @@ namespace quantity {
 
     };
 
-    enum metrics{
-        Length = 0,
-        Mass = 1,
-        Time = 2,
-        ElectricCurrency = 3,
-        Temperature = 4,
-        AmountOfSubstance = 5,
-        LuminousIntensity = 6,
-        _Last
-    };
-
-    static const std::vector<quantity::Metric> matrix = {
-            {{1, 0, 0, 0, 0, 0, 0}, "m"}, //Length
-            {{0, 1, 0, 0, 0, 0, 0}, "g"}, // Mass
-            {{0, 0, 1, 0, 0, 0, 0}, "s"},  //Time
-            {{0, 0, 0, 1, 0, 0, 0}, "A"},  //Electric Currency
-            {{0, 0, 0, 0, 1, 0, 0}, "K", {"E","P","T", "G", "M","k", "h", "da", "d", "c", "m", "μ", "n", "p", "f", "a"},//Temperature
-                                          {
-                                                  {"°C", std::make_shared<ConverterFunction>(ConverterFunction(1., 273.15))},
-                                                  {"°F", std::make_shared<ConverterFunction>(ConverterFunction(1., 273.15))},
-                                          }
-            },
-            {{0, 0, 0, 0, 0, 1, 0}, "mol"},  //Amount of Substance
-            {{0, 0, 0, 0, 0, 0, 1}, "cd"}  //Luminous Intensity
-    };
-
     class Quantity {
-        /*
-        # 1. length
-        # 2. mass
-        # 3. time
-        # 4. electric_current
-        # 5. temperature
-        # 6. amount_of_substance
-        # 7. luminous_intensity
-         */
+    public:
+        enum metrics{
+            Length = 0,
+            Mass = 1,
+            Time = 2,
+            ElectricCurrency = 3,
+            Temperature = 4,
+            AmountOfSubstance = 5,
+            LuminousIntensity = 6,
+            _Last
+        };
+
     private:
+        static const std::vector<quantity::Metric> matrix;
+
         const metrics matrix_index;
         const std::vector<std::string> unit_vector;
         double value;
         const std::shared_ptr<const quantity::Converter> converter;
+
         bool is_valid_unit() const;
+       // Quantity(int, double, const char*);
+
+
     public:
         const std::string unit;
         std::vector<int> getDimVector() const{return matrix[matrix_index].dim_vector;}
         Quantity(metrics, double, const char*);
         double operator()(std::string) const;
-
+        friend Quantity operator + (const Quantity &, const Quantity &);
         };
 
 }
