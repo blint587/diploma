@@ -27,7 +27,7 @@ class TestDerivedUnitName(unittest.TestCase):
         v = quantity.Volume(2, 'dm')
         self.assertEquals(str(v), '2.0 dm\u00B3')
 
-    @unittest.skip("l!=l3")
+    # @unittest.skip("l!=l3")
     def test_volume_name_l_l3(self):
         v = quantity.Volume(2, 'cl')
         self.assertEquals(str(v), '2.0 cl')
