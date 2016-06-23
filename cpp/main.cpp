@@ -13,8 +13,8 @@ int main() {
         Quantity m1(Quantity::Mass, 25, "kg");
         Quantity m2(Quantity::Mass, 25, "kg");
         Quantity m3 = m1 + m2;
-
-        cout << m3("g") << endl;
+//
+        cout << m1("g") << endl;
     }catch (...){
 
     }

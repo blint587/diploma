@@ -9,6 +9,10 @@
 #include <string>
 #include <memory>
 #include <iostream>
+#include <algorithm>
+#include <sstream>
+#include <iterator>
+#include <list>
 
 namespace quantity {
 
@@ -62,6 +66,8 @@ namespace quantity {
 
     };
 
+    const std::vector<quantity::Metric> & GetMatrix();
+
     class Quantity {
     public:
         enum metrics{
@@ -76,20 +82,17 @@ namespace quantity {
         };
 
     private:
-        const std::vector<quantity::Metric> & GetMatrix() const;
 
         const metrics matrix_index;
-        const std::vector<std::string> unit_vector;
+        std::vector<std::string> unit_vector = {"", "", "", "", "", "", ""};
         double value;
         const std::string unit;
         std::shared_ptr<quantity::Converter> converter;
 
         bool is_valid_unit() const;
-       // Quantity(int, double, const char*);
-
-
+//        Quantity(int, double, std::string);
+        std::vector<std::string> compose_unit_vector(const std::string & unit) const;
     public:
-
 
         std::vector<int> GetDimVector() const{return GetMatrix()[matrix_index].dim_vector;}
         Quantity(metrics, double, const std::string);
@@ -98,7 +101,17 @@ namespace quantity {
             double operator()(std::string) const;
             friend Quantity operator+ (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value + b(a.unit), a.unit);};
             friend Quantity operator- (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value - b(a.unit), a.unit);};
-        };
+            friend Quantity operator* (const Quantity & a, const Quantity & b) {
+                const std::vector<quantity::Metric> & rmatrix = GetMatrix();
+                for(int i = 0; i < 7; ++i){
+
+                }
+
+            } ;
+
+    };
+
+
 
 }
 
