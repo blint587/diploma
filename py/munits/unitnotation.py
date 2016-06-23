@@ -1,8 +1,8 @@
 # encoding: utf-8
 import re
 
-class UnitNotation:
 
+class UnitNotation:
     superscripts = {
         '-': '\u207B',
         '0': '\u2070',
@@ -29,8 +29,24 @@ class UnitNotation:
     def exponent(self):
         return int(self.__exponent)
 
+    def __gt__(self, other):
+        if isinstance(other, UnitNotation):
+            if self.exponent == other.exponent and self.notation[0] < other.notation[0]:
+                return True
+            elif self.exponent == other.exponent and self.notation[0] > other.notation[0]:
+                return False
+            elif self.exponent > 0 and 0 < other.exponent <= self.exponent:
+                return True
+            elif other.exponent > 0 and 0 < self.exponent < other.exponent:
+                return False
+            elif other.exponent < 0 and 0 > self.exponent >= other.exponent:
+                return True
+            elif self.exponent < 0 and 0 > other.exponent > self.exponent:
+                return False
+
     def __str__(self):
-        if self.exponent != 1:
+
+        if self.exponent != 1 and self.exponent != " " and self.exponent != 0:
             exp = self.__exponent
             for n in self.superscripts.keys():
                 exp = exp.replace(n, self.superscripts.get(n))
@@ -48,4 +64,6 @@ class UnitNotation:
                 units.append(UnitNotation(u, exponent))
             else:
                 raise Exception
-        return units
+        return sorted(units, reverse=True)
+
+# if __name__ == '__main__':
