@@ -44,7 +44,9 @@ namespace quantity {
 
         bool is_valid_unit(const std::string &) const;
         ~Converter(){
+#ifdef DEBUG
             std::cout << "Destructing Converter with " << base_unit<< " at "  << this << std::endl;
+#endif
         }
     };
 
@@ -79,6 +81,7 @@ namespace quantity {
         const metrics matrix_index;
         const std::vector<std::string> unit_vector;
         double value;
+        const std::string unit;
         std::shared_ptr<quantity::Converter> converter;
 
         bool is_valid_unit() const;
@@ -87,13 +90,14 @@ namespace quantity {
 
     public:
 
-        const std::string unit;
+
         std::vector<int> GetDimVector() const{return GetMatrix()[matrix_index].dim_vector;}
         Quantity(metrics, double, const std::string);
         ~Quantity(){
-        };
-        double operator()(std::string) const;
-        friend Quantity operator + (const Quantity &, const Quantity &);
+            };
+            double operator()(std::string) const;
+            friend Quantity operator+ (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value + b(a.unit), a.unit);};
+            friend Quantity operator- (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value - b(a.unit), a.unit);};
         };
 
 }

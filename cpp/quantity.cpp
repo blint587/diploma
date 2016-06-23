@@ -83,7 +83,9 @@ quantity::Converter::Converter(std::string base_unit,
             units.insert(std::pair<std::string, const std::shared_ptr<quantity::ConverterFunction>>(b->first + base_unit, b->second));
         }
     }
+#ifdef DEBUG
     std::cout << "Creating converter with " << base_unit << " at " << this<< std::endl;
+#endif
 }
 
 bool quantity::Converter::is_valid_unit(const std::string & unit) const {
@@ -134,3 +136,6 @@ double quantity::Quantity::operator()(const std::string tunit) const {
 bool quantity::Quantity::is_valid_unit() const {
     return converter->is_valid_unit(unit);
 }
+
+
+
