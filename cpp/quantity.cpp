@@ -83,20 +83,22 @@ quantity::Converter::Converter(std::string base_unit,
             units.insert(std::pair<std::string, const std::shared_ptr<quantity::ConverterFunction>>(b->first + base_unit, b->second));
         }
     }
+#ifdef DEBUG
     std::cout << "Creating converter with " << base_unit << " at " << this<< std::endl;
+#endif
 }
 
 bool quantity::Converter::is_valid_unit(const std::string & unit) const {
     return 1 == units.count(unit) ||  1 == additional_units.count(unit);
 }
 
-quantity::Metric:: Metric(std::vector<int> dim_vector,
+quantity::Metric::Metric(std::vector<int> dim_vector,
                           std::string base_unit,
                           std::set<std::string> remove,
                           const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> additional_units ):
         dim_vector(dim_vector), converter(std::make_shared<Converter>(base_unit, remove, additional_units)){};
 
-const std::vector<quantity::Metric> & quantity::Quantity::GetMatrix() const {
+const std::vector<quantity::Metric> & quantity::GetMatrix() {
     static const std::vector<quantity::Metric> matrix = {
             {{1, 0, 0, 0, 0, 0, 0}, "m"}, //Length
             {{0, 1, 0, 0, 0, 0, 0}, "g"}, // Mass
@@ -109,22 +111,43 @@ const std::vector<quantity::Metric> & quantity::Quantity::GetMatrix() const {
                     }
             },
             {{0, 0, 0, 0, 0, 1, 0}, "mol"},  //Amount of Substance
-            {{0, 0, 0, 0, 0, 0, 1}, "cd"}  //Luminous Intensity
+            {{0, 0, 0, 0, 0, 0, 1}, "cd"} , //Luminous Intensity
+            {{2, 0, 0, 0, 0, 0, 0}, "m"} //Area
     };
     return matrix;
 }
 
 
-quantity::Quantity::Quantity(quantity::Quantity::metrics m, double value, const std::string unit):
-        matrix_index(m), value(value), unit(unit){
-    converter = quantity::Quantity::GetMatrix()[m].converter;
+std::vector<std::string> quantity::Quantity::compose_unit_vector(const std::string & unit) const {
+    std::vector<std::string> uv(7);
+    std::istringstream iss(unit);
+    std::vector<std::string> tokens;
+
+    copy(std::istream_iterator<std::string>(iss),
+         std::istream_iterator<std::string>(),
+         back_inserter(tokens));
+
+    const std::vector<quantity::Metric> & rmatrix = quantity::GetMatrix();
+
+    for(int ui = 0; ui < quantity::Quantity::_Last; ++ui){
+        for(auto b = tokens.begin(); b != tokens.end();){
+            if (rmatrix[ui].converter->is_valid_unit(*b)){
+                uv[ui] = *b;
+                tokens.erase(b);
+            }
+            else{
+                ++b;
+            }
+        }
+    }
+    //TODO: check if tokens is empty
+    return uv;
 }
 
 double quantity::Quantity::operator()(const std::string tunit) const {
     if (converter->is_valid_unit(tunit)) {
 
         return this->converter->Convert(value, unit, tunit);
-
     }
     else{
         throw "invalid Unit";
@@ -134,3 +157,15 @@ double quantity::Quantity::operator()(const std::string tunit) const {
 bool quantity::Quantity::is_valid_unit() const {
     return converter->is_valid_unit(unit);
 }
+
+
+
+
+quantity::Quantity::Quantity(quantity::Quantity::metrics m, double value, const std::string unit):
+        matrix_index(m), value(value), unit(unit){
+    converter = quantity::GetMatrix()[m].converter;
+
+    unit_vector = this->compose_unit_vector(unit);
+
+}
+
