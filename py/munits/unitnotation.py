@@ -1,8 +1,8 @@
 # encoding: utf-8
 import re
 
-class UnitNotation:
 
+class UnitNotation:
     superscripts = {
         '-': '\u207B',
         '0': '\u2070',
@@ -33,28 +33,26 @@ class UnitNotation:
         if isinstance(other, UnitNotation):
             if self.exponent == other.exponent and self.notation[0] < other.notation[0]:
                 return True
-            if self.exponent == other.exponent and self.notation[0] > other.notation[0]:
+            elif self.exponent == other.exponent and self.notation[0] > other.notation[0]:
                 return False
-            if self.exponent > 0 and other.exponent > 0 and self.exponent >= other.exponent:
+            elif self.exponent > 0 and 0 < other.exponent <= self.exponent:
                 return True
-            if self.exponent > 0 and other.exponent > 0 and self.exponent < other.exponent:
+            elif other.exponent > 0 and 0 < self.exponent < other.exponent:
                 return False
-            if self.exponent < 0 and other.exponent < 0 and self.exponent >= other.exponent:
+            elif other.exponent < 0 and 0 > self.exponent >= other.exponent:
                 return True
-            if self.exponent < 0 and other.exponent < 0 and self.exponent < other.exponent:
+            elif self.exponent < 0 and 0 > other.exponent > self.exponent:
                 return False
 
     def __str__(self):
 
-        if self.exponent != 1:
+        if self.exponent != 1 and self.exponent != " " and self.exponent != 0:
             exp = self.__exponent
             for n in self.superscripts.keys():
                 exp = exp.replace(n, self.superscripts.get(n))
         else:
             exp = ""
-
         return '{}{}'.format(self.notation, exp)
-
 
     @staticmethod
     def unit_parser(u: str):
@@ -66,6 +64,6 @@ class UnitNotation:
                 units.append(UnitNotation(u, exponent))
             else:
                 raise Exception
-        return units
+        return sorted(units, reverse=True)
 
 # if __name__ == '__main__':
