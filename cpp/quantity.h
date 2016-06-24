@@ -8,11 +8,13 @@
 #include <math.h>
 #include <string>
 #include <memory>
-#include <iostream>
+#ifdef DEBUG
+    #include <iostream>
+#endif
 #include <algorithm>
 #include <sstream>
 #include <iterator>
-#include <list>
+#include <regex>
 
 namespace quantity {
 
@@ -21,38 +23,79 @@ namespace quantity {
     private:
         const double first_order;
         const double zero_order;
+        const char * signature;
+
     public:
         double to_base(double, double) const;
 
-        double from_bsas(double, double) const;
+        double from_base(double, double) const;
 
-        ConverterFunction(double, double=0);
+        explicit ConverterFunction(double, double, const char *);
 
     };
+
+    class Unit: public quantity::ConverterFunction {
+
+    public:
+//        const std::string unit;
+        const bool applay_prefix;
+        const bool ignor_exponent;
+
+        explicit Unit(double a = 1, double b = 0, const char * s="Default",  /*std::string unit,*/ bool applay_prefix = true, bool ignor_exponent = false) :
+                ConverterFunction(a, b, s), /* unit(unit),*/ applay_prefix(applay_prefix), ignor_exponent(ignor_exponent) {
+        };
+    };
+
+
+    class UnitNotation  {
+        private:
+
+            std::string unit;
+            std::string prefix;
+            int exponent;
+        protected:
+            std::vector<std::string> parser(std::string);
+        public:
+            UnitNotation(std::string unit);
+            friend std::ostream& operator<< (std::ostream & str, const UnitNotation & un){
+                str << un.prefix << " " << un.unit << " " << un.exponent;
+                return str;
+            }
+            const std::string & GetUnit() const { return unit;};
+            const std::string & GetPrefix() const { return prefix;};
+            const int & GetExponent() const { return exponent;};
+        };
+
+
 
     class Converter {
 
     private:
         const std::map<std::string, const std::shared_ptr<ConverterFunction>> & GetPrefixes() const;
         std::string base_unit;
-        std::map<std::string, const std::shared_ptr<ConverterFunction>> units;
+
+        std::map<std::string, const std::shared_ptr<ConverterFunction>> prefixes;
+        std::map<std::string, const std::shared_ptr<Unit>> units;
     protected:
-        const std::map<std::string, const std::shared_ptr<ConverterFunction>> additional_units;
+//        const std::map<std::string, const std::shared_ptr<ConverterFunction>> additional_units;
     public:
+        const std::map<std::string, const std::shared_ptr<ConverterFunction>> & Prefixes() const{return prefixes;};
+        const std::map<std::string, const std::shared_ptr<Unit>> & Units() const{return units;};
         Converter(std::string,
                   const std::set<std::string> & = std::set<std::string>(),
-                  const std::map<std::string, const std::shared_ptr<ConverterFunction>> = std::map<std::string, const std::shared_ptr<ConverterFunction>>());
+                  const std::map<std::string, const std::shared_ptr<Unit>> = std::map<std::string, const std::shared_ptr<Unit>>());
 
-//        double operator()(double, std::string, std::string, double=1.) const;
-        double Convert(double, std::string, std::string, double=1.) const;
-
-        bool is_valid_unit(const std::string &) const;
         ~Converter(){
-#ifdef DEBUG
+        #ifdef DEBUG
             std::cout << "Destructing Converter with " << base_unit<< " at "  << this << std::endl;
-#endif
+        #endif
         }
+        double Convert(double, std::string, std::string, double=1.) const;
+        bool is_valid_unit(const UnitNotation &) const;
     };
+
+
+
 
     struct Metric{
         const std::vector<int> dim_vector;
@@ -61,8 +104,8 @@ namespace quantity {
         Metric(std::vector<int>,
                std::string = "",
                std::set<std::string> = std::set<std::string>(),
-               const std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>> =
-               std::map<std::string, const std::shared_ptr<quantity::ConverterFunction>>());
+               const std::map<std::string, const std::shared_ptr<quantity::Unit>> =
+               std::map<std::string, const std::shared_ptr<quantity::Unit>>());
 
     };
 
@@ -78,36 +121,43 @@ namespace quantity {
             Temperature = 4,
             AmountOfSubstance = 5,
             LuminousIntensity = 6,
+            Area = 7,
+            Volume = 8,
+            VolumetricFlow = 9,
+            Concentration = 10,
             _Last
         };
 
     private:
 
-        const metrics matrix_index;
+        const int matrix_index;
         std::vector<std::string> unit_vector = {"", "", "", "", "", "", ""};
         double value;
-        const std::string unit;
+        const UnitNotation unit;
         std::shared_ptr<quantity::Converter> converter;
 
         bool is_valid_unit() const;
-//        Quantity(int, double, std::string);
+        Quantity(int, double, std::vector<std::string>);
         std::vector<std::string> compose_unit_vector(const std::string & unit) const;
+        std::string compose_unit(const std::vector<std::string> &) const;
+        static Quantity mathop(const Quantity &a, const Quantity &b, int p=1);
+
     public:
 
         std::vector<int> GetDimVector() const{return GetMatrix()[matrix_index].dim_vector;}
         Quantity(metrics, double, const std::string);
         ~Quantity(){
             };
-            double operator()(std::string) const;
-            friend Quantity operator+ (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value + b(a.unit), a.unit);};
-            friend Quantity operator- (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value - b(a.unit), a.unit);};
-            friend Quantity operator* (const Quantity & a, const Quantity & b) {
-                const std::vector<quantity::Metric> & rmatrix = GetMatrix();
-                for(int i = 0; i < 7; ++i){
+            double operator()(const std::string) const;
+            friend std::ostream& operator<< (std::ostream& str, const Quantity & a){
+                str << a.value << " " << a.unit;
+                return str;
+            };
+            friend Quantity operator+ (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value + b(a.unit.GetUnit()), a.unit_vector);};
+            friend Quantity operator- (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value - b(a.unit.GetUnit()), a.unit_vector);};
+            friend Quantity operator* (const Quantity & a, const Quantity & b) {return mathop(a, b, 1);};
+            friend Quantity operator/ (const Quantity & a, const Quantity & b) {return mathop(a, b, -1);};
 
-                }
-
-            } ;
 
     };
 
