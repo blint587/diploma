@@ -7,3 +7,5 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D DEBUG")
 
 set(SOURCE_FILES main.cpp Quantity.cpp Quantity.h )
 add_executable(musys ${SOURCE_FILES})
+
+add_subdirectory(test)
