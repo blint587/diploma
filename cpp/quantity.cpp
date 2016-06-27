@@ -19,26 +19,40 @@ double quantity::ConverterFunction::from_base(double v, double e = 1) const {
     return v * pow(first_order, -e) - (e==1?zero_order:0);
 }
 
-double quantity::Converter::Convert(double val, string funit, string tunit, double exponent) const {
+double quantity::Converter::Convert(double val, quantity::UnitNotation funit, quantity::UnitNotation tunit, double exponent) const {
 
 
-    UnitNotation from_unit(funit);
-    UnitNotation to_unit(tunit);
+    if (!units.count(funit.GetUnit()) == 1) {
+        cerr << "invalid unit "<< funit.GetUnit() << endl;
+    } // TODO: raise exception
+    else {
+        shared_ptr<Unit> to_base_func_unit = units.find(funit.GetUnit())->second;
+        shared_ptr<ConverterFunction> to_base_func_prefix =1 == prefixes.count(funit.GetPrefix()) ? prefixes.find(funit.GetPrefix())->second: make_shared<ConverterFunction>(ConverterFunction(1., 0, ""));
+
+        val = to_base_func_prefix->to_base(val, to_base_func_unit->ignor_exponent?1:exponent);
+        val = to_base_func_unit->to_base(val, to_base_func_unit->ignor_exponent?1:exponent);
+
+    }
+    if (!units.count(tunit.GetUnit()) == 1) {
+#ifdef DEBUG
+        cerr << "invalid unit "<< tunit.GetUnit() << endl; // TODO: raise exception
+
+        for(auto u = units.begin(); u != units.end(); u++){
+            cerr << u->first << endl;
+        }
+
+#endif
+    }
+    else {
+        shared_ptr<Unit> from_base_func_unit = units.find(tunit.GetUnit())->second;
+        shared_ptr<ConverterFunction> from_base_func_prefix =1 == prefixes.count(tunit.GetPrefix()) ? prefixes.find(tunit.GetPrefix())->second: make_shared<ConverterFunction>(ConverterFunction(1., 0, ""));
+
+        val = from_base_func_prefix->from_base(val, from_base_func_unit->ignor_exponent?1:exponent);
+        val = from_base_func_unit->from_base(val, from_base_func_unit->ignor_exponent?1:exponent);
+
+    }
 
 
-    if (!units.count(from_unit.GetUnit()) == 1) {cout << "invalid unit "<< funit << endl; }
-    shared_ptr<Unit> to_base_func_unit = units.find(from_unit.GetUnit())->second;
-    shared_ptr<ConverterFunction> to_base_func_prefix =  1 == prefixes.count(from_unit.GetPrefix())?prefixes.find(from_unit.GetPrefix())->second:make_shared<ConverterFunction>(ConverterFunction(1., 0, ""));
-
-
-    shared_ptr<Unit> from_base_func_unit = units.find(to_unit.GetUnit())->second;
-    shared_ptr<ConverterFunction> from_base_func_prefix = 1 ==  prefixes.count(to_unit.GetPrefix())? prefixes.find(to_unit.GetPrefix())->second:make_shared<ConverterFunction>(ConverterFunction(1., 0, ""));
-
-    val = to_base_func_prefix->to_base(val, to_base_func_unit->ignor_exponent?1:exponent);
-    val = to_base_func_unit->to_base(val, to_base_func_unit->ignor_exponent?1:exponent);
-
-    val = from_base_func_prefix->from_base(val, from_base_func_unit->ignor_exponent?1:exponent);
-    val = from_base_func_unit->from_base(val, from_base_func_unit->ignor_exponent?1:exponent);
 
     return val;
 }
@@ -126,7 +140,7 @@ const vector<quantity::Metric> & quantity::GetMatrix() {
             {{2, 0, 0, 0, 0, 0, 0}, "m"}, //Area
             {{3, 0, 0, 0, 0, 0, 0}, "m", {}, //Volume
                     {
-                            {"l", make_shared<quantity::Unit>(quantity::Unit(0.001, 0., "l", true, true))}
+                            {"l", make_shared<quantity::Unit>(quantity::Unit(1000., 0., "l", true, true))}
                     }
 
             },
@@ -137,17 +151,17 @@ const vector<quantity::Metric> & quantity::GetMatrix() {
 }
 
 
-vector<string> quantity::Quantity::compose_unit_vector(const string & unit) const {
-    vector<string> uv = {"", "","", "", "", "", "" };
+vector<quantity::UnitNotation> quantity::Quantity::compose_unit_vector(const string &unit) const {
+    vector<UnitNotation> uv = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation() };
     istringstream iss(unit);
-    vector<string> tokens;
+    vector<UnitNotation> tokens;
 
     copy(istream_iterator<string>(iss),
          istream_iterator<string>(),
          back_inserter(tokens));
 
     const vector<quantity::Metric> & rmatrix = quantity::GetMatrix();
-    cout << unit << endl;
+//    cout << unit << endl;
     for(int ui = 0; ui < 7; ++ui){
         for(auto b = tokens.begin(); b != tokens.end();){
             if (rmatrix[ui].converter->is_valid_unit(*b)){
@@ -162,9 +176,13 @@ vector<string> quantity::Quantity::compose_unit_vector(const string & unit) cons
     }
     for(int uii = 7; uii < _Last; ++uii){
         for(auto b = tokens.begin(); b != tokens.end();){
-            if (rmatrix[uii].converter->is_valid_unit(*b)){
+            if (rmatrix[uii].converter->is_valid_unit(UnitNotation(*b))){
+                int position = 0;
+                while(rmatrix[uii].dim_vector[position] == 0 && position < 6){ // searching the position where the dim_vector is not 0
+                    ++position;
+                };
 
-                    uv[0] = *b;
+                    uv[position] = UnitNotation(*b);
                     tokens.erase(b);
                 }
                 else{
@@ -177,13 +195,13 @@ vector<string> quantity::Quantity::compose_unit_vector(const string & unit) cons
 }
 
 
-string quantity::Quantity::compose_unit(const vector<string> & uv) const {
+string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
     stringstream tmp;
-    for(int idx = 0; idx < 7; idx++){
-        if (uv[idx] != "") {
-            tmp << uv[idx];
+    for(auto unit = uv.begin(); unit != uv.end(); ++unit){
+        if (unit->GetUnit() != "") {
+            tmp << unit->GetPrefix() << unit->GetUnit() << (unit->GetExponent()!=1?to_string(unit->GetExponent()):"");
         }
-        if (idx != 6 && uv[idx+1] != ""){
+        if (unit != uv.end()-1 && (unit+1)->GetUnit() != ""){
             tmp << " ";
         }
     };
@@ -193,43 +211,54 @@ string quantity::Quantity::compose_unit(const vector<string> & uv) const {
 
 double quantity::Quantity::operator()(const string tunit) const {
 
-    UnitNotation unit(tunit);
-    vector<string> tmp_unit_vector = quantity::Quantity::compose_unit_vector(unit.GetUnit());
 
     const vector<Metric> & rmatrix = GetMatrix();
+    const vector<int> & dim_vector = GetDimVector(); // dime vector of current quantity
+    vector<vector<int>> dim_matrix; // the search matrix composed by tearing down the dim_vector
+
+    vector<UnitNotation> tunit_vector = compose_unit_vector(tunit);
+
+    for(int i = 0; i < 7; ++i){
+        if(dim_vector[i] !=0){
+            vector<int> tmp_dim_vector = {0,0,0,0,0,0,0};
+            tmp_dim_vector[i] = abs(dim_vector[i]);
+            dim_matrix.push_back(tmp_dim_vector);
+        }
+    }
 
     double tmp = value;
 
-    for(int pos = 0; pos < _Last; ++pos){
-        for(int unitpos = 0; unitpos < 7 ; ++unitpos){
-#ifdef DEBUG
+    for(auto dmv = dim_matrix.begin(); dmv != dim_matrix.end(); ){ // could be better with a Q
+        int position = 0;
+        while(dmv->operator[](position) == 0 && position < 6){ // searching the position where the dim_vector is not 0
+            ++position;
+        };
 
-#endif
-            if(rmatrix[pos].converter->is_valid_unit(tmp_unit_vector[unitpos]) && rmatrix[pos].dim_vector[unitpos] == abs(unit.GetExponent())){
-
-                std::string funit = unit_vector[unitpos];
-                std::string tunit_ = tmp_unit_vector[unitpos];
-                int exp = GetDimVector()[unitpos];
-
-                tmp = rmatrix[pos].converter->Convert(tmp, funit, tunit_, exp);
-                tmp_unit_vector[unitpos] = "";
+        for(auto q = rmatrix.begin(); q != rmatrix.end(); ++q){
+            vector<int> normalized_dim = {0,0,0,0,0,0,0};
+            normalized_dim[position] = 1;
+            if((q->dim_vector == *dmv || q->dim_vector == normalized_dim) &&(q->converter->is_valid_unit(unit_vector[position]) && q->converter->is_valid_unit(tunit_vector[position]))){
+                tmp = q->converter->Convert(tmp, unit_vector[position], tunit_vector[position], dim_vector[position]);
+                dim_matrix.erase(dmv);
+                break;
             }
-
         }
 
+
     }
+
     return tmp;
 
 }
 
-bool quantity::Quantity::is_valid_unit() const {
-    return converter->is_valid_unit(unit);
-}
+//bool quantity::Quantity::is_valid_unit() const {
+//    return converter->is_valid_unit(unit);
+//}
 
 
 quantity::Quantity quantity::Quantity::mathop(const Quantity &a, const Quantity &b, int p) {
     const vector<Metric> & rmatrix = GetMatrix();
-    vector<string> nunit_vector = {"", "", "", "", "", "", ""};
+    vector<UnitNotation> nunit_vector(7);
 
     vector<int> ndim_vector = {0, 0, 0, 0, 0, 0, 0};
 
@@ -253,23 +282,16 @@ quantity::Quantity quantity::Quantity::mathop(const Quantity &a, const Quantity 
 
 
 quantity::Quantity::Quantity(quantity::Quantity::metrics m, double value, const string unit):
-        matrix_index(m), value(value), unit(unit){
+        matrix_index(m), value(value){
     converter = quantity::GetMatrix()[m].converter;
 
     unit_vector = this->compose_unit_vector(unit);
 
-    if(!is_valid_unit()){
-        cout << "invalid unit: " << unit << endl;
-    }
-
 }
 
 
-quantity::Quantity::Quantity(int i, double value, vector<string> uv):
-        matrix_index(i), value(value), unit_vector(uv), unit(quantity::Quantity::compose_unit(uv)) {
+quantity::Quantity::Quantity(int i, double value, vector<UnitNotation> uv):matrix_index(i), value(value), unit_vector(uv) {
     converter = quantity::GetMatrix()[i].converter;
-
-
 
 
 }
@@ -300,8 +322,9 @@ vector<string> quantity::UnitNotation::parser(string unit) {
         }
 
         rp << ")(\\-?[0-9])?";
-
-
+//#ifdef DEBUG
+//        cerr  << rp.str() << endl;
+//#endif
         try {
             regex re(rp.str());
             sregex_iterator next(unit.begin(), unit.end(), re);
@@ -310,14 +333,14 @@ vector<string> quantity::UnitNotation::parser(string unit) {
                 no_matc = false;
                 smatch match = *next;
 
-                for (auto e = match.begin() + 1; e != match.end(); ++e) {
-
-                    if(1 == units.count(*e) && "" == parsed[1]){
-                        parsed[1] = *e;
-                    }else if(1 == prefixes.count(*e)){
-                        parsed[0] = *e;
+                for (unsigned long long i = 1; i < match.size(); ++i) {
+                    string tmp_str = match[i];
+                    if(atoi(tmp_str.c_str())){
+                        parsed[2] = tmp_str;
+                    }else if (parsed[1] == ""){
+                        parsed[1] = tmp_str;
                     }else{
-                        parsed[2] = *e;
+                        parsed[0] = tmp_str;
                     }
                 }
                 next++;

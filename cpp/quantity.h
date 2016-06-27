@@ -50,12 +50,13 @@ namespace quantity {
     class UnitNotation  {
         private:
 
-            std::string unit;
+            std::string unit = "";
             std::string prefix;
             int exponent;
         protected:
             std::vector<std::string> parser(std::string);
         public:
+            explicit UnitNotation(){};
             UnitNotation(std::string unit);
             friend std::ostream& operator<< (std::ostream & str, const UnitNotation & un){
                 str << un.prefix << " " << un.unit << " " << un.exponent;
@@ -90,7 +91,7 @@ namespace quantity {
             std::cout << "Destructing Converter with " << base_unit<< " at "  << this << std::endl;
         #endif
         }
-        double Convert(double, std::string, std::string, double=1.) const;
+        double Convert(double, UnitNotation, UnitNotation, double=1.) const;
         bool is_valid_unit(const UnitNotation &) const;
     };
 
@@ -131,15 +132,16 @@ namespace quantity {
     private:
 
         const int matrix_index;
-        std::vector<std::string> unit_vector = {"", "", "", "", "", "", ""};
+        std::vector<UnitNotation> unit_vector = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation()};
         double value;
-        const UnitNotation unit;
+//        const UnitNotation unit;
         std::shared_ptr<quantity::Converter> converter;
 
-        bool is_valid_unit() const;
-        Quantity(int, double, std::vector<std::string>);
-        std::vector<std::string> compose_unit_vector(const std::string & unit) const;
-        std::string compose_unit(const std::vector<std::string> &) const;
+//        bool is_valid_unit() const;
+        Quantity(int, double, std::vector<UnitNotation>);
+        std::vector<UnitNotation> compose_unit_vector(const std::string &unit) const;
+        std::string compose_unit(const std::vector<UnitNotation> &) const;
+
         static Quantity mathop(const Quantity &a, const Quantity &b, int p=1);
 
     public:
@@ -150,14 +152,13 @@ namespace quantity {
             };
             double operator()(const std::string) const;
             friend std::ostream& operator<< (std::ostream& str, const Quantity & a){
-                str << a.value << " " << a.unit;
+                str << a.value << " " << a.compose_unit(a.unit_vector);
                 return str;
             };
-            friend Quantity operator+ (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value + b(a.unit.GetUnit()), a.unit_vector);};
-            friend Quantity operator- (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value - b(a.unit.GetUnit()), a.unit_vector);};
+            friend Quantity operator+ (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value + b(a.compose_unit(a.unit_vector)), a.unit_vector);};
+            friend Quantity operator- (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value - b(a.compose_unit(a.unit_vector)), a.unit_vector);};
             friend Quantity operator* (const Quantity & a, const Quantity & b) {return mathop(a, b, 1);};
             friend Quantity operator/ (const Quantity & a, const Quantity & b) {return mathop(a, b, -1);};
-
 
     };
 
