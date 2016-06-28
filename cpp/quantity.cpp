@@ -152,22 +152,28 @@ const vector<quantity::Metric> & quantity::GetMatrix() {
 
 
 vector<quantity::UnitNotation> quantity::Quantity::compose_unit_vector(const string &unit) const {
+
     vector<UnitNotation> uv = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation() };
     istringstream iss(unit);
-    vector<UnitNotation> tokens;
+    vector<string> tokens;
+    vector<UnitNotation> unTokens;
 
     copy(istream_iterator<string>(iss),
          istream_iterator<string>(),
          back_inserter(tokens));
 
+    for(auto unt = tokens.begin(); unt != tokens.end(); ++unt){
+        unTokens.push_back(UnitNotation(*unt));
+    }
+
     const vector<quantity::Metric> & rmatrix = quantity::GetMatrix();
 //    cout << unit << endl;
     for(int ui = 0; ui < 7; ++ui){
-        for(auto b = tokens.begin(); b != tokens.end();){
+        for(auto b = unTokens.begin(); b != unTokens.end();){
             if (rmatrix[ui].converter->is_valid_unit(*b)){
 
                 uv[ui] = *b;
-                tokens.erase(b);
+                unTokens.erase(b);
             }
             else{
                 ++b;
@@ -175,15 +181,15 @@ vector<quantity::UnitNotation> quantity::Quantity::compose_unit_vector(const str
         }
     }
     for(int uii = 7; uii < _Last; ++uii){
-        for(auto b = tokens.begin(); b != tokens.end();){
-            if (rmatrix[uii].converter->is_valid_unit(UnitNotation(*b))){
+        for(auto b = unTokens.begin(); b != unTokens.end();){
+            if (rmatrix[uii].converter->is_valid_unit(*b)){
                 int position = 0;
                 while(rmatrix[uii].dim_vector[position] == 0 && position < 6){ // searching the position where the dim_vector is not 0
                     ++position;
                 };
 
                     uv[position] = UnitNotation(*b);
-                    tokens.erase(b);
+                    unTokens.erase(b);
                 }
                 else{
                     ++b;
@@ -333,7 +339,7 @@ vector<string> quantity::UnitNotation::parser(string unit) {
                 no_matc = false;
                 smatch match = *next;
 
-                for (unsigned long long i = 1; i < match.size(); ++i) {
+                for (unsigned long long i = match.size(); i > 0; --i) {
                     string tmp_str = match[i];
                     if(atoi(tmp_str.c_str())){
                         parsed[2] = tmp_str;

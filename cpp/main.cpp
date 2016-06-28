@@ -20,10 +20,8 @@ int main() {
 //    cout << "Prefix: " << u.GetPrefix() << endl;
 //    cout <<  "Unit: " <<u.GetUnit() << endl;
 //
-    Quantity l1(Quantity::Volume, 1, "m3");
-    Quantity l2(Quantity::Time, 1, "h");
-    Quantity v = l1 /l2;
-    cout << v("m3 d-1") << endl;
+    Quantity l1(Quantity::Length, 0, "m");
+    cout << l1("Mm") << endl;
 
 
 
