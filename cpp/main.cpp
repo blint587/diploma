@@ -20,8 +20,11 @@ int main() {
 //    cout << "Prefix: " << u.GetPrefix() << endl;
 //    cout <<  "Unit: " <<u.GetUnit() << endl;
 //
-    Quantity l1(Quantity::Length, 0, "m");
-    cout << l1("Mm") << endl;
+    Quantity l1(Quantity::Mass, 0, "g");
+    cout << l1("mg") << endl;
+
+
+
 
 
 

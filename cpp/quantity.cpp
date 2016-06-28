@@ -1,4 +1,5 @@
 #include <regex>
+#include <iostream>
 #include "Quantity.h"
 
 using namespace std;
@@ -328,35 +329,26 @@ vector<string> quantity::UnitNotation::parser(string unit) {
         }
 
         rp << ")(\\-?[0-9])?";
-//#ifdef DEBUG
-//        cerr  << rp.str() << endl;
-//#endif
+
         try {
             regex re(rp.str());
             sregex_iterator next(unit.begin(), unit.end(), re);
             sregex_iterator end;
             while (next != end) {
-                no_matc = false;
                 smatch match = *next;
 
-                for (unsigned long long i = match.size(); i > 0; --i) {
-                    string tmp_str = match[i];
-                    if(atoi(tmp_str.c_str())){
-                        parsed[2] = tmp_str;
-                    }else if (parsed[1] == ""){
-                        parsed[1] = tmp_str;
-                    }else{
-                        parsed[0] = tmp_str;
-                    }
+                if(string(match[1])+string(match[2])+string(match[3]) == unit){
+                    no_matc = false;
+                    parsed[0] = match[1];
+                    parsed[1] = match[2];
+                    parsed[2] = match[3];
                 }
                 next++;
             }
-
         }
         catch (regex_error &e) {
+
         }
-
-
     }
 
     return parsed;
