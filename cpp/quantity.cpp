@@ -4,23 +4,23 @@
 
 using namespace std;
 
-quantity::ConverterFunction::ConverterFunction(double a, double b=0, const char* s ="Default"): first_order(a), zero_order(b), signature(s){
+quantity::ConverterFunction::ConverterFunction( double a,  double b=0, const char* s ="Default"): first_order(a), zero_order(b), signature(s){
 //#ifdef DEBUG
 //    cout << "Cnverter Function has been initialized with signature: " << signature << " " << a << " " << b << endl;
 //#endif
 
 }
 
-double quantity::ConverterFunction::to_base(double v, double e=1) const {
+ double quantity::ConverterFunction::to_base( double v,  double e=1) const {
 
     return (v * pow(first_order, e)) + (e==1?zero_order:0);
 }
 
-double quantity::ConverterFunction::from_base(double v, double e = 1) const {
+ double quantity::ConverterFunction::from_base( double v,  double e = 1) const {
     return v * pow(first_order, -e) - (e==1?zero_order:0);
 }
 
-double quantity::Converter::Convert(double val, quantity::UnitNotation funit, quantity::UnitNotation tunit, double exponent) const {
+ double quantity::Converter::Convert( double val, quantity::UnitNotation funit, quantity::UnitNotation tunit,  double exponent) const {
 
 
     if (!units.count(funit.GetUnit()) == 1) {
@@ -216,7 +216,7 @@ string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
 };
 
 
-double quantity::Quantity::operator()(const string tunit) const {
+ double quantity::Quantity::operator()(const string tunit) const {
 
 
     const vector<Metric> & rmatrix = GetMatrix();
@@ -233,7 +233,7 @@ double quantity::Quantity::operator()(const string tunit) const {
         }
     }
 
-    double tmp = value;
+     double tmp = value;
 
     for(auto dmv = dim_matrix.begin(); dmv != dim_matrix.end(); ){ // could be better with a Q
         int position = 0;
@@ -270,7 +270,7 @@ quantity::Quantity quantity::Quantity::mathop(const Quantity &a, const Quantity 
     vector<int> ndim_vector = {0, 0, 0, 0, 0, 0, 0};
 
     int nmindex = 0;
-    double tmp = b.value;
+     double tmp = b.value;
 
     for(int i = 0; i < 7; ++i){
         ndim_vector[i] = a.GetDimVector()[i] + p * b.GetDimVector()[i];
@@ -288,7 +288,7 @@ quantity::Quantity quantity::Quantity::mathop(const Quantity &a, const Quantity 
 };
 
 
-quantity::Quantity::Quantity(quantity::Quantity::metrics m, double value, const string unit):
+quantity::Quantity::Quantity(quantity::Quantity::metrics m,  double value, const string unit):
         matrix_index(m), value(value){
     converter = quantity::GetMatrix()[m].converter;
 
@@ -297,7 +297,7 @@ quantity::Quantity::Quantity(quantity::Quantity::metrics m, double value, const 
 }
 
 
-quantity::Quantity::Quantity(int i, double value, vector<UnitNotation> uv):matrix_index(i), value(value), unit_vector(uv) {
+quantity::Quantity::Quantity(int i,  double value, vector<UnitNotation> uv):matrix_index(i), value(value), unit_vector(uv) {
     converter = quantity::GetMatrix()[i].converter;
 
 
@@ -328,7 +328,7 @@ vector<string> quantity::UnitNotation::parser(string unit) {
             ++c1;
         }
 
-        rp << ")(\\-?[0-9])?";
+        rp << ")(\\-?[0-9])?$";
 
         try {
             regex re(rp.str());
