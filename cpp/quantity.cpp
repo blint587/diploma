@@ -120,7 +120,14 @@ quantity::Metric::Metric(vector<int> dim_vector,
 
 const vector<quantity::Metric> & quantity::GetMatrix() {
     static const vector<quantity::Metric> matrix = {
-            {{1, 0, 0, 0, 0, 0, 0}, "m"}, //Length
+            {{1, 0, 0, 0, 0, 0, 0}, "m", {},
+                    {
+                            {"in", make_shared<quantity::Unit>(quantity::Unit(1., 0., "in", true, true))},
+                            {"ft", make_shared<quantity::Unit>(quantity::Unit(1., 0., "ft", true, true))},
+                            {"mi", make_shared<quantity::Unit>(quantity::Unit(1., 0., "mi", true, true))}
+                    }
+
+            }, //Length
             {{0, 1, 0, 0, 0, 0, 0}, "g"}, // Mass
             {{0, 0, 1, 0, 0, 0, 0}, "s", {}, //Time
                     {
