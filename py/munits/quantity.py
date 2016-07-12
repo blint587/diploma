@@ -96,7 +96,7 @@ class Quantity:
             new = self.__class__(op(self.value, other(self.unit)), self.unit)
             return new
         else:
-            TypeError()  # TODO: add proper exception
+            raise TypeError("Not matching objects.")  # TODO: add proper exception
 
     def __truediv__(self, other):
         return self.__math_operator_2(other, operator.sub, operator.truediv)
