@@ -9,7 +9,7 @@ from munits.converters import (Converter, LengthConvert, MassConvert,
                                VolumeConvert)
 
 
-class Quantity:
+class Quantity(object):
     """
     # 1. length
     # 2. mass
@@ -36,7 +36,7 @@ class Quantity:
         elif isinstance(unit, list) and len(unit) == 7:
             self._unit = self.__unit_rep(self.dim_vector, unit)
         else:
-            raise Exception()  # TODO: raise some proper exceptions
+            raise Exception("")  # TODO: raise some proper exceptions
 
     @staticmethod
     def __type_search(dim_vector):
@@ -101,6 +101,9 @@ class Quantity:
     def __truediv__(self, other):
         return self.__math_operator_2(other, operator.sub, operator.truediv)
 
+    def __div__(self, other):
+        return self.__math_operator_2(other, operator.sub, operator.div)
+
     def __mul__(self, other):
         return self.__math_operator_2(other, operator.add, operator.mul)
 
@@ -111,7 +114,8 @@ class Quantity:
         return self.__math_operation_1(other, operator.sub)
 
     def __str__(self):
-        return "{0} {1}".format(float(self.value), self.__unit_rep_for_str(self.dim_vector, self.unit_vector, supercase=True))
+        return "{0} {1}".format(float(self.value),
+                                self.__unit_rep_for_str(self.dim_vector, self.unit_vector, supercase=True))
 
     def __pow__(self, power):
 
@@ -138,7 +142,7 @@ class Quantity:
             exponent = dim_vector[index]
             if exponent != 0:
                 l.append(UnitNotation(unit, exponent))
-        l = list(sorted(l, reverse=True))
+        l = sorted(l, reverse=True)
         l = [str(u) for u in l]
         return " ".join(l)
 
@@ -187,7 +191,7 @@ class Quantity:
         if type(self) == type(rghsv):
             return op(round(self(self._unit), 6), round(rghsv(self.unit), 6))
         else:
-            raise TypeError("Unsupported type: {}".format(type(rghsv)))
+            return NotImplemented
 
     def __eq__(self, other):
         return self.__comparison_operation(other, operator.eq)
@@ -207,8 +211,12 @@ class Quantity:
     def __ne__(self, other):
         return self.__comparison_operation(other, operator.ne)
 
+    def serializable(self):
+        return {"value": self._value,
+                "unit": self._unit}
+
     @staticmethod
-    def __quantity_matrix_from_dimension_vector(v: tuple):
+    def __quantity_matrix_from_dimension_vector(v):
         matrix = [[0 for i in v] for i in v]
         for index, value in enumerate(v):
             matrix[index][index] = abs(value)
@@ -236,7 +244,8 @@ class Quantity:
                 continue
 
         if len(units) != 0:
-            raise ValueError('Unsupported unit!')
+            print(list(map(lambda x: str(x), units)))
+            raise ValueError('Unsupported unit {}!'.format(" ".join(map(lambda x: str(x), units))))
         else:
             return unit_vector
 
@@ -319,8 +328,12 @@ class Force(Quantity):
 class Concentration(Quantity):
     dim_vector = (-3, 1, 0, 0, 0, 0, 0)
 
+
 class MolarConcentration(Quantity):
     dim_vector = (-3, 0, 0, 0, 0, 1, 0)
 
+
 LIST_OF_CLASSES = list(
-    filter(lambda cls: Quantity in cls[1].mro(), inspect.getmembers(sys.modules[__name__], inspect.isclass)))
+    filter(lambda cls: issubclass(cls[1], Quantity) or cls is Quantity, inspect.getmembers(sys.modules[__name__], inspect.isclass)))
+
+
