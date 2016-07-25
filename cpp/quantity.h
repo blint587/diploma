@@ -21,16 +21,16 @@ namespace quantity {
     class ConverterFunction {
 
     private:
-        const double first_order;
-        const double zero_order;
+        const  double first_order;
+        const  double zero_order;
         const char * signature;
 
     public:
-        double to_base(double, double) const;
+         double to_base( double,  double) const;
 
-        double from_base(double, double) const;
+         double from_base( double,  double) const;
 
-        explicit ConverterFunction(double, double, const char *);
+        explicit ConverterFunction( double,  double, const char *);
 
     };
 
@@ -41,7 +41,7 @@ namespace quantity {
         const bool applay_prefix;
         const bool ignor_exponent;
 
-        explicit Unit(double a = 1, double b = 0, const char * s="Default",  /*std::string unit,*/ bool applay_prefix = true, bool ignor_exponent = false) :
+        explicit Unit( double a = 1,  double b = 0, const char * s="Default",  /*std::string unit,*/ bool applay_prefix = true, bool ignor_exponent = false) :
                 ConverterFunction(a, b, s), /* unit(unit),*/ applay_prefix(applay_prefix), ignor_exponent(ignor_exponent) {
         };
     };
@@ -91,7 +91,7 @@ namespace quantity {
             std::cout << "Destructing Converter with " << base_unit<< " at "  << this << std::endl;
         #endif
         }
-        double Convert(double, UnitNotation, UnitNotation, double=1.) const;
+         double Convert( double, UnitNotation, UnitNotation,  double=1.) const;
         bool is_valid_unit(const UnitNotation &) const;
     };
 
@@ -133,12 +133,12 @@ namespace quantity {
 
         const int matrix_index;
         std::vector<UnitNotation> unit_vector = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation()};
-        double value;
+         double value;
 //        const UnitNotation unit;
         std::shared_ptr<quantity::Converter> converter;
 
 //        bool is_valid_unit() const;
-        Quantity(int, double, std::vector<UnitNotation>);
+        Quantity(int,  double, std::vector<UnitNotation>);
         std::vector<UnitNotation> compose_unit_vector(const std::string &unit) const;
         std::string compose_unit(const std::vector<UnitNotation> &) const;
 
@@ -147,10 +147,10 @@ namespace quantity {
     public:
 
         std::vector<int> GetDimVector() const{return GetMatrix()[matrix_index].dim_vector;}
-        Quantity(metrics, double, const std::string);
+        Quantity(metrics,  double, const std::string);
         ~Quantity(){
             };
-            double operator()(const std::string) const;
+             double operator()(const std::string) const;
             friend std::ostream& operator<< (std::ostream& str, const Quantity & a){
                 str << a.value << " " << a.compose_unit(a.unit_vector);
                 return str;

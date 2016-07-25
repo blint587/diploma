@@ -2,6 +2,11 @@
 # from decimal import float
 from munits.unitnotation import UnitNotation
 
+def dictmerge(d1, d2):
+    for key, val in d2.items():
+        d1[key] = val
+
+    return d1
 
 class Converter:
     class ConverterFunction():
@@ -35,7 +40,7 @@ class Converter:
 
     remove_prefix = []
 
-    def __init__(self, base_unit, additional_units: dict = None):
+    def __init__(self, base_unit, additional_units=None):
         self.units = {}
         if base_unit:
             self.base_unit = UnitNotation.unit_parser(base_unit)[0].notation
@@ -49,7 +54,7 @@ class Converter:
                 for key, value in additional_units.items():
                     self.units[key] = value
 
-    def __call__(self, val, funit: str, tunit: str, exp: int):
+    def __call__(self, val, funit, tunit, exp):
 
         to_base_func = self.units.get(funit)
         in_base = to_base_func.to_base(val, exponent=exp)
@@ -64,44 +69,42 @@ class Converter:
 
 
 class LengthConvert(Converter):
-    def __init__(self, base_unit, additional_units: dict = None):
+    def __init__(self, base_unit, additional_units= None):
         if not additional_units:
             additional_units = {}
-        Converter.__init__(self, base_unit, {**{
+        Converter.__init__(self, base_unit, dictmerge({
             "in": Converter.ConverterFunction(float('0.0254')),
             "ft": Converter.ConverterFunction(float('0.3048')),
             "yd": Converter.ConverterFunction(float('0.914')),
             "mi": Converter.ConverterFunction(float('1609.344'))
-        },
-                                             **additional_units})
+        }, additional_units))
 
 
 class MassConvert(Converter):
-    def __init__(self, base_unit, additional_units: dict = None):
+    def __init__(self, base_unit, additional_units=None):
         if not additional_units:
             additional_units = {}
 
-        Converter.__init__(self, base_unit, {**{
+        Converter.__init__(self, base_unit, dictmerge({
             "oz": Converter.ConverterFunction(float('28.3495')),
             "lb": Converter.ConverterFunction(float('453.592')),
             "t": Converter.ConverterFunction(float('1e6')),
             "tonne_uk": Converter.ConverterFunction(float('1016046 ')),
             "tonne_us": Converter.ConverterFunction(float('907184. ')),
-        },
-                                             **additional_units})
+        }, additional_units))
 
 
 class TimeConvert(Converter):
     remove_prefix = ["E", "P", "T", "G", "M", "k", "h", "da", "d", "c"]
 
-    def __init__(self, base_unit, additional_units: dict = None):
+    def __init__(self, base_unit, additional_units= None):
         if not additional_units:
             additional_units = {}
-        Converter.__init__(self, base_unit, {**{
+        Converter.__init__(self, base_unit, dictmerge({
             "min": Converter.ConverterFunction(float('60')),
             "h": Converter.ConverterFunction(float('3600')),
             "d": Converter.ConverterFunction(float('86400'))
-        }, **additional_units})
+        }, additional_units))
 
 
 class TemperatureConvert(Converter):
@@ -118,14 +121,14 @@ class TemperatureConvert(Converter):
 
     remove_prefix = Converter.prefixes.keys()
 
-    def __init__(self, base_unit, additional_units: dict = None):
+    def __init__(self, base_unit, additional_units= None):
         if not additional_units:
             additional_units = {}
-        Converter.__init__(self, base_unit, {**{
+        Converter.__init__(self, base_unit, dictmerge({
             "K": TemperatureConvert.TempConverterFunction(float('1.0'), float('0.0')),
             "°C": TemperatureConvert.TempConverterFunction(float('1.0'), float('273.15')),
             "°F": TemperatureConvert.TempConverterFunction(float('5.') / float('9.'), float('459.67'))
-        }, **additional_units})
+        },additional_units))
 
 
 class AreaConvert(LengthConvert):
@@ -135,7 +138,6 @@ class AreaConvert(LengthConvert):
             "are": Converter.ConverterFunction(float('10'))
             }
                                )
-
 
 
 class VolumeConvert(LengthConvert):

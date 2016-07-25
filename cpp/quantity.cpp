@@ -1,25 +1,26 @@
 #include <regex>
+#include <iostream>
 #include "Quantity.h"
 
 using namespace std;
 
-quantity::ConverterFunction::ConverterFunction(double a, double b=0, const char* s ="Default"): first_order(a), zero_order(b), signature(s){
+quantity::ConverterFunction::ConverterFunction( double a,  double b=0, const char* s ="Default"): first_order(a), zero_order(b), signature(s){
 //#ifdef DEBUG
 //    cout << "Cnverter Function has been initialized with signature: " << signature << " " << a << " " << b << endl;
 //#endif
 
 }
 
-double quantity::ConverterFunction::to_base(double v, double e=1) const {
+ double quantity::ConverterFunction::to_base( double v,  double e=1) const {
 
     return (v * pow(first_order, e)) + (e==1?zero_order:0);
 }
 
-double quantity::ConverterFunction::from_base(double v, double e = 1) const {
+ double quantity::ConverterFunction::from_base( double v,  double e = 1) const {
     return v * pow(first_order, -e) - (e==1?zero_order:0);
 }
 
-double quantity::Converter::Convert(double val, quantity::UnitNotation funit, quantity::UnitNotation tunit, double exponent) const {
+ double quantity::Converter::Convert( double val, quantity::UnitNotation funit, quantity::UnitNotation tunit,  double exponent) const {
 
 
     if (!units.count(funit.GetUnit()) == 1) {
@@ -119,7 +120,14 @@ quantity::Metric::Metric(vector<int> dim_vector,
 
 const vector<quantity::Metric> & quantity::GetMatrix() {
     static const vector<quantity::Metric> matrix = {
-            {{1, 0, 0, 0, 0, 0, 0}, "m"}, //Length
+            {{1, 0, 0, 0, 0, 0, 0}, "m", {},
+                    {
+                            {"in", make_shared<quantity::Unit>(quantity::Unit(1., 0., "in", true, true))},
+                            {"ft", make_shared<quantity::Unit>(quantity::Unit(1., 0., "ft", true, true))},
+                            {"mi", make_shared<quantity::Unit>(quantity::Unit(1., 0., "mi", true, true))}
+                    }
+
+            }, //Length
             {{0, 1, 0, 0, 0, 0, 0}, "g"}, // Mass
             {{0, 0, 1, 0, 0, 0, 0}, "s", {}, //Time
                     {
@@ -152,22 +160,28 @@ const vector<quantity::Metric> & quantity::GetMatrix() {
 
 
 vector<quantity::UnitNotation> quantity::Quantity::compose_unit_vector(const string &unit) const {
+
     vector<UnitNotation> uv = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation() };
     istringstream iss(unit);
-    vector<UnitNotation> tokens;
+    vector<string> tokens;
+    vector<UnitNotation> unTokens;
 
     copy(istream_iterator<string>(iss),
          istream_iterator<string>(),
          back_inserter(tokens));
 
+    for(auto unt = tokens.begin(); unt != tokens.end(); ++unt){
+        unTokens.push_back(UnitNotation(*unt));
+    }
+
     const vector<quantity::Metric> & rmatrix = quantity::GetMatrix();
 //    cout << unit << endl;
     for(int ui = 0; ui < 7; ++ui){
-        for(auto b = tokens.begin(); b != tokens.end();){
+        for(auto b = unTokens.begin(); b != unTokens.end();){
             if (rmatrix[ui].converter->is_valid_unit(*b)){
 
                 uv[ui] = *b;
-                tokens.erase(b);
+                unTokens.erase(b);
             }
             else{
                 ++b;
@@ -175,15 +189,15 @@ vector<quantity::UnitNotation> quantity::Quantity::compose_unit_vector(const str
         }
     }
     for(int uii = 7; uii < _Last; ++uii){
-        for(auto b = tokens.begin(); b != tokens.end();){
-            if (rmatrix[uii].converter->is_valid_unit(UnitNotation(*b))){
+        for(auto b = unTokens.begin(); b != unTokens.end();){
+            if (rmatrix[uii].converter->is_valid_unit(*b)){
                 int position = 0;
                 while(rmatrix[uii].dim_vector[position] == 0 && position < 6){ // searching the position where the dim_vector is not 0
                     ++position;
                 };
 
                     uv[position] = UnitNotation(*b);
-                    tokens.erase(b);
+                    unTokens.erase(b);
                 }
                 else{
                     ++b;
@@ -209,7 +223,7 @@ string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
 };
 
 
-double quantity::Quantity::operator()(const string tunit) const {
+ double quantity::Quantity::operator()(const string tunit) const {
 
 
     const vector<Metric> & rmatrix = GetMatrix();
@@ -226,7 +240,7 @@ double quantity::Quantity::operator()(const string tunit) const {
         }
     }
 
-    double tmp = value;
+     double tmp = value;
 
     for(auto dmv = dim_matrix.begin(); dmv != dim_matrix.end(); ){ // could be better with a Q
         int position = 0;
@@ -263,7 +277,7 @@ quantity::Quantity quantity::Quantity::mathop(const Quantity &a, const Quantity 
     vector<int> ndim_vector = {0, 0, 0, 0, 0, 0, 0};
 
     int nmindex = 0;
-    double tmp = b.value;
+     double tmp = b.value;
 
     for(int i = 0; i < 7; ++i){
         ndim_vector[i] = a.GetDimVector()[i] + p * b.GetDimVector()[i];
@@ -281,7 +295,7 @@ quantity::Quantity quantity::Quantity::mathop(const Quantity &a, const Quantity 
 };
 
 
-quantity::Quantity::Quantity(quantity::Quantity::metrics m, double value, const string unit):
+quantity::Quantity::Quantity(quantity::Quantity::metrics m,  double value, const string unit):
         matrix_index(m), value(value){
     converter = quantity::GetMatrix()[m].converter;
 
@@ -290,7 +304,7 @@ quantity::Quantity::Quantity(quantity::Quantity::metrics m, double value, const 
 }
 
 
-quantity::Quantity::Quantity(int i, double value, vector<UnitNotation> uv):matrix_index(i), value(value), unit_vector(uv) {
+quantity::Quantity::Quantity(int i,  double value, vector<UnitNotation> uv):matrix_index(i), value(value), unit_vector(uv) {
     converter = quantity::GetMatrix()[i].converter;
 
 
@@ -321,36 +335,27 @@ vector<string> quantity::UnitNotation::parser(string unit) {
             ++c1;
         }
 
-        rp << ")(\\-?[0-9])?";
-//#ifdef DEBUG
-//        cerr  << rp.str() << endl;
-//#endif
+        rp << ")(\\-?[0-9])?$";
+
         try {
             regex re(rp.str());
             sregex_iterator next(unit.begin(), unit.end(), re);
             sregex_iterator end;
             while (next != end) {
-                no_matc = false;
                 smatch match = *next;
 
-                for (unsigned long long i = 1; i < match.size(); ++i) {
-                    string tmp_str = match[i];
-                    if(atoi(tmp_str.c_str())){
-                        parsed[2] = tmp_str;
-                    }else if (parsed[1] == ""){
-                        parsed[1] = tmp_str;
-                    }else{
-                        parsed[0] = tmp_str;
-                    }
+                if(string(match[1])+string(match[2])+string(match[3]) == unit){
+                    no_matc = false;
+                    parsed[0] = match[1];
+                    parsed[1] = match[2];
+                    parsed[2] = match[3];
                 }
                 next++;
             }
-
         }
         catch (regex_error &e) {
+
         }
-
-
     }
 
     return parsed;
