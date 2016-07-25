@@ -17,7 +17,7 @@ class UnitNotation:
         '9': '\u2079'
     }
 
-    def __init__(self, unotation, exponent: str):
+    def __init__(self, unotation, exponent):
         self.__unotation = unotation
         self.__exponent = str(exponent)
 
@@ -55,7 +55,7 @@ class UnitNotation:
         return '{}{}'.format(self.notation, exp)
 
     @staticmethod
-    def unit_parser(u: str):
+    def unit_parser(u):
         units = list()
         for unit in u.split(' '):
             if re.match('^[a-zA-z°Åμ]+(\-?[0-9]?)$', unit):
