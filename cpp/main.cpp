@@ -1,4 +1,7 @@
 #include <iostream>
+#ifdef DEBUG
+    #include <conio.h>
+#endif
 #include "Quantity.h"
 
 
@@ -7,19 +10,32 @@ using namespace quantity;
 
 
 
+
+
 int main() {
 
-    try {
-        Quantity m1(Quantity::Mass, 25, "kg");
-        Quantity m2(Quantity::Mass, 25, "kg");
-        Quantity m3 = m1 + m2;
+
+//    UnitNotation u("m");
 //
-        cout << m1("g") << endl;
-    }catch (...){
+//    cout << "Prefix: " << u.GetPrefix() << endl;
+//    cout <<  "Unit: " <<u.GetUnit() << endl;
+//
+    Quantity l1(Quantity::Mass, 0, "g");
+    cout << l1("mg") << endl;
 
-    }
 
 
+
+
+
+
+
+
+
+#ifdef DEBUG
+    cerr << "Press a key to close..." << endl;
+    getch();
+#endif
 
     return 0;
 }
