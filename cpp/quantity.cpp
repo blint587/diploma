@@ -4,11 +4,9 @@
 
 using namespace std;
 
-quantity::ConverterFunction::ConverterFunction( double a,  double b=0, const char* s ="Default"): first_order(a), zero_order(b), signature(s){
-//#ifdef DEBUG
-//    cout << "Cnverter Function has been initialized with signature: " << signature << " " << a << " " << b << endl;
-//#endif
-
+quantity::ConverterFunction::ConverterFunction( double a,  double b=0, const char* s ="Default"): first_order(a),
+                                                                                                  zero_order(b),
+                                                                                                  signature(s){
 }
 
  double quantity::ConverterFunction::to_base( double v,  double e=1) const {
@@ -24,8 +22,8 @@ quantity::ConverterFunction::ConverterFunction( double a,  double b=0, const cha
 
 
     if (!units.count(funit.GetUnit()) == 1) {
-        cerr << "invalid unit "<< funit.GetUnit() << endl;
-    } // TODO: raise exception
+        throw logic_error("Invalid funit: " + string(funit));
+    }
     else {
         shared_ptr<Unit> to_base_func_unit = units.find(funit.GetUnit())->second;
         shared_ptr<ConverterFunction> to_base_func_prefix =1 == prefixes.count(funit.GetPrefix()) ? prefixes.find(funit.GetPrefix())->second: make_shared<ConverterFunction>(ConverterFunction(1., 0, ""));
@@ -35,14 +33,7 @@ quantity::ConverterFunction::ConverterFunction( double a,  double b=0, const cha
 
     }
     if (!units.count(tunit.GetUnit()) == 1) {
-#ifdef DEBUG
-        cerr << "invalid unit "<< tunit.GetUnit() << endl; // TODO: raise exception
-
-        for(auto u = units.begin(); u != units.end(); u++){
-            cerr << u->first << endl;
-        }
-
-#endif
+        throw logic_error("Invalid tunit: " + string(tunit));
     }
     else {
         shared_ptr<Unit> from_base_func_unit = units.find(tunit.GetUnit())->second;
@@ -100,15 +91,11 @@ quantity::Converter::Converter(string base_unit,
 
     units.insert(pair<string, const shared_ptr<quantity::Unit>>(
             base_unit, make_shared<quantity::Unit>(quantity::Unit(1., 0., base_unit.c_str()))));
-
-#ifdef DEBUG
-    cout << "Creating converter with " << base_unit << " at " << this<< endl;
-#endif
 }
 
 bool quantity::Converter::is_valid_unit(const UnitNotation & unit) const {
 
-    bool isv = 1 == units.count(unit.GetUnit()) && (unit.GetPrefix() == ""?true :1 == prefixes.count(unit.GetPrefix()));
+    bool isv = (1 == units.count(unit.GetUnit()) && (unit.GetPrefix() == ""?true :1 == prefixes.count(unit.GetPrefix())));
     return isv;
 }
 
@@ -148,11 +135,11 @@ const vector<quantity::Metric> & quantity::GetMatrix() {
             {{2, 0, 0, 0, 0, 0, 0}, "m"}, //Area
             {{3, 0, 0, 0, 0, 0, 0}, "m", {}, //Volume
                     {
-                            {"l", make_shared<quantity::Unit>(quantity::Unit(1000., 0., "l", true, true))}
+                            {"l", make_shared<quantity::Unit>(quantity::Unit(0.001, 0., "l", true, true))}
                     }
 
             },
-            {{3, 0, -1, 0, 0, 0, 0}, "m"},  //VolumetricFlow
+            {{3, 0, -1, 0, 0, 0, 0}, "m d"},  //VolumetricFlow
             {{-3, 0, 0, 0, 0, 1, 0}, "mol m"}  //Concentration
     };
     return matrix;
@@ -175,7 +162,7 @@ vector<quantity::UnitNotation> quantity::Quantity::compose_unit_vector(const str
     }
 
     const vector<quantity::Metric> & rmatrix = quantity::GetMatrix();
-//    cout << unit << endl;
+
     for(int ui = 0; ui < 7; ++ui){
         for(auto b = unTokens.begin(); b != unTokens.end();){
             if (rmatrix[ui].converter->is_valid_unit(*b)){
@@ -195,16 +182,17 @@ vector<quantity::UnitNotation> quantity::Quantity::compose_unit_vector(const str
                 while(rmatrix[uii].dim_vector[position] == 0 && position < 6){ // searching the position where the dim_vector is not 0
                     ++position;
                 };
-
                     uv[position] = UnitNotation(*b);
                     unTokens.erase(b);
-                }
-                else{
-                    ++b;
-                }
+            }
+            else{
+                ++b;
             }
         }
-
+    }
+    if (unTokens.size() != 0){
+        throw std::logic_error("Incorrect unit: " + unit);
+    };
     return uv;
 }
 
@@ -265,10 +253,6 @@ string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
 
 }
 
-//bool quantity::Quantity::is_valid_unit() const {
-//    return converter->is_valid_unit(unit);
-//}
-
 
 quantity::Quantity quantity::Quantity::mathop(const Quantity &a, const Quantity &b, int p) {
     const vector<Metric> & rmatrix = GetMatrix();
@@ -296,16 +280,14 @@ quantity::Quantity quantity::Quantity::mathop(const Quantity &a, const Quantity 
 
 
 quantity::Quantity::Quantity(quantity::Quantity::metrics m,  double value, const string unit):
-        matrix_index(m), value(value){
-    converter = quantity::GetMatrix()[m].converter;
-
-    unit_vector = this->compose_unit_vector(unit);
+        matrix_index(m), value(value), converter(quantity::GetMatrix()[m].converter), unit_vector(this->compose_unit_vector(unit)){
 
 }
 
 
-quantity::Quantity::Quantity(int i,  double value, vector<UnitNotation> uv):matrix_index(i), value(value), unit_vector(uv) {
-    converter = quantity::GetMatrix()[i].converter;
+quantity::Quantity::Quantity(int i,  double value, vector<UnitNotation> uv):matrix_index(i), value(value),
+                                                                            unit_vector(uv), converter(quantity::GetMatrix()[i].converter) {
+//    converter = quantity::GetMatrix()[i].converter;
 
 
 }

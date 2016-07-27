@@ -46,18 +46,18 @@ namespace quantity {
         };
     };
 
-
     class UnitNotation  {
         private:
 
             std::string unit = "";
-            std::string prefix;
-            int exponent;
+            std::string prefix = "";
+            int exponent = 0;
         protected:
             std::vector<std::string> parser(std::string);
         public:
             explicit UnitNotation(){};
             UnitNotation(std::string unit);
+            operator std::string() const { return prefix + " " + unit + " " + std::to_string(exponent);};
             friend std::ostream& operator<< (std::ostream & str, const UnitNotation & un){
                 str << un.prefix << " " << un.unit << " " << un.exponent;
                 return str;
@@ -66,8 +66,6 @@ namespace quantity {
             const std::string & GetPrefix() const { return prefix;};
             const int & GetExponent() const { return exponent;};
         };
-
-
 
     class Converter {
 
@@ -86,17 +84,10 @@ namespace quantity {
                   const std::set<std::string> & = std::set<std::string>(),
                   const std::map<std::string, const std::shared_ptr<Unit>> = std::map<std::string, const std::shared_ptr<Unit>>());
 
-        ~Converter(){
-        #ifdef DEBUG
-            std::cout << "Destructing Converter with " << base_unit<< " at "  << this << std::endl;
-        #endif
-        }
+        ~Converter(){}
          double Convert( double, UnitNotation, UnitNotation,  double=1.) const;
         bool is_valid_unit(const UnitNotation &) const;
     };
-
-
-
 
     struct Metric{
         const std::vector<int> dim_vector;
@@ -161,8 +152,6 @@ namespace quantity {
             friend Quantity operator/ (const Quantity & a, const Quantity & b) {return mathop(a, b, -1);};
 
     };
-
-
 
 }
 
