@@ -109,25 +109,33 @@ const vector<quantity::Metric> & quantity::GetMatrix() {
     static const vector<quantity::Metric> matrix = {
             {{1, 0, 0, 0, 0, 0, 0}, "m", {},
                     {
-                            {"in", make_shared<quantity::Unit>(quantity::Unit(1., 0., "in", true, true))},
-                            {"ft", make_shared<quantity::Unit>(quantity::Unit(1., 0., "ft", true, true))},
-                            {"mi", make_shared<quantity::Unit>(quantity::Unit(1., 0., "mi", true, true))}
+                            {"in", make_shared<quantity::Unit>(quantity::Unit(0.0254, 0., "in"))},
+                            {"ft", make_shared<quantity::Unit>(quantity::Unit(0.3048, 0., "ft"))},
+                            {"mi", make_shared<quantity::Unit>(quantity::Unit(1609.344, 0., "mi"))},
+                            {"yd", make_shared<quantity::Unit>(quantity::Unit(0.914, 0., "yd"))}
                     }
 
             }, //Length
-            {{0, 1, 0, 0, 0, 0, 0}, "g"}, // Mass
+            {{0, 1, 0, 0, 0, 0, 0}, "g", {},
+                    {
+                        {"oz", make_shared<quantity::Unit>(quantity::Unit(28.3495, 0., "oz"))},
+                        {"lb", make_shared<quantity::Unit>(quantity::Unit(453.592, 0., "lb"))},
+                        {"t", make_shared<quantity::Unit>(quantity::Unit(1e6, 0., "t"))},
+
+                    }
+            }, // Mass
             {{0, 0, 1, 0, 0, 0, 0}, "s", {}, //Time
                     {
-                             {"min", make_shared<quantity::Unit>(quantity::Unit(60., 0., "min",false))},
-                             {"h", make_shared<quantity::Unit>(quantity::Unit(3600., 0., "h",false))},
-                             {"d", make_shared<quantity::Unit>(quantity::Unit(86400., 0., "d",false))}
+                             {"min", make_shared<quantity::Unit>(quantity::Unit(60., 0., "min", false))},
+                             {"h", make_shared<quantity::Unit>(quantity::Unit(3600., 0., "h", false))},
+                             {"d", make_shared<quantity::Unit>(quantity::Unit(86400., 0., "d", false))}
                     }
             },
             {{0, 0, 0, 1, 0, 0, 0}, "A"},  //Electric Currency
             {{0, 0, 0, 0, 1, 0, 0}, "K", {"E", "P", "T", "G", "M", "k", "h", "da", "d", "c", "m", "μ", "n", "p", "f", "a"},//Temperature
                     {
-                            {"°C", make_shared<quantity::Unit>(quantity::Unit(1., 273.15, "C" ,false))},
-                            {"°F", make_shared<quantity::Unit>(quantity::Unit(1., 273.15, "F",false))},
+                            {"°C", make_shared<quantity::Unit>(quantity::Unit(1., 273.15, "C" , false))},
+                            {"°F", make_shared<quantity::Unit>(quantity::Unit(1., 273.15, "F", false))} // TODO: correct parameters
                     }
             },
             {{0, 0, 0, 0, 0, 1, 0}, "mol"},  //Amount of Substance
