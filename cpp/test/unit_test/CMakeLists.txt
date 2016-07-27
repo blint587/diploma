@@ -1,6 +1,6 @@
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-set(SOURCE_FILES ../../quantity.h ../../quantity.cpp run_unit_tests.cpp)
+set(SOURCE_FILES ../../quantity.h ../../quantity.cpp run_unit_tests.cpp quantity_test.hpp)
 
 add_executable(runUnitTest
         ${SOURCE_FILES})

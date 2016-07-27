@@ -27,10 +27,8 @@ namespace quantity {
 
     public:
          double to_base( double,  double) const;
-
          double from_base( double,  double) const;
-
-        explicit ConverterFunction( double,  double, const char *);
+         explicit ConverterFunction( double,  double, const char *);
 
     };
 

@@ -251,8 +251,8 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_aos_one){
     EXPECT_EQ(n("mol"), 1000.0);
 }
 
-// NONE SI
 
+// NONE SI
 
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_si_length_m_to_in_ft_mi) {
    quantity::Quantity l (quantity::Quantity::Length, 1, "m");
@@ -260,21 +260,23 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_si_length_m_to_in_ft_mi) {
     EXPECT_NEAR(l("in"), 39.37, 1e-4);
     EXPECT_NEAR(l("ft"), 3.2808, 1e-4);
     EXPECT_NEAR(l("mi"), 0.000621, 1e-4);
+    EXPECT_NEAR(l("yd"), 1.0940919037199124, 1e-4);
 }
-//def test_si_length_m_to_in_ft_mi_233(self):
-//l = quantity.Length(2.33, "m")
-//
-//EXPECT_NEAR(l("in"), "91.7322"), delta=1e-4)
-//EXPECT_NEAR(l("ft"), "7.6443"), delta=1e-4)
-//EXPECT_NEAR(l("mi"), "0.00144"), delta=1e-4)
-//
-//def test_none_si_length_inch_to_ft_mi(self):
-//l = quantity.Length(1, "in")
-//
-//EXPECT_NEAR(l("ft"), "0.0833"), delta=1e-2)
-//EXPECT_NEAR(l("mi"), "1.578e-5"), delta=1e-2)
-//EXPECT_NEAR(l("in"), "1"), delta=1e-2)
-//
+TEST_F(TestQuantityBaseUnitConversionNoneSI, test_si_length_m_to_in_ft_mi_233){
+    quantity::Quantity l(quantity::Quantity::Length, 2.33, "m");
+
+    EXPECT_NEAR(l("in"), 91.7322, 1e-4);
+    EXPECT_NEAR(l("ft"), 7.6443, 1e-4);
+    EXPECT_NEAR(l("mi"), 0.00144, 1e-4);
+    EXPECT_NEAR(l("yd"), 2.5492341356673958, 1e-4);
+}
+TEST_F(TestQuantityBaseUnitConversionNoneSI, test_none_si_length_inch_to_ft_mi){
+    quantity::Quantity l(quantity::Quantity::Length, 1, "in");
+
+    EXPECT_NEAR(l("ft"), 0.0833, 1e-2);
+    EXPECT_NEAR(l("mi"), 1.578e-5, 1e-2);
+    EXPECT_NEAR(l("in"), 1, 1e-2);
+}
 //def test_none_si_length_inch_to_ft_mi_233(self):
 //l = quantity.Length(2.33, "in")
 //
