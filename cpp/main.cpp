@@ -20,8 +20,14 @@ int main() {
 //    cout << "Prefix: " << u.GetPrefix() << endl;
 //    cout <<  "Unit: " <<u.GetUnit() << endl;
 //
-    Quantity l1(Quantity::Mass, 0, "g");
-    cout << l1("mg") << endl;
+    try {
+        Quantity l1(Quantity::VolumetricFlow, 1, "l s-1");
+        cout << l1("m3 h") << endl;
+    }
+    catch (exception & e){
+        cerr << e.what() << endl;
+
+    }
 
 
 
