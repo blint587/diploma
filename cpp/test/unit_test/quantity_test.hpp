@@ -145,12 +145,14 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_mass_233){
 TEST_F(TestQuantityBaseUnitConversionSI, test_time_zero) {
     quantity::Quantity t(quantity::Quantity::Time, 0.0, "s");
 
+    // TODO: implement non prefixed conversions (min, d, h)
     EXPECT_EQ(t("ms"), 0);
     EXPECT_EQ(t("μs"), 0);
     EXPECT_EQ(t("ns"), 0);
     EXPECT_EQ(t("ps"), 0);
     EXPECT_EQ(t("fs"), 0);
     EXPECT_EQ(t("as"), 0);
+    EXPECT_EQ(t("min"), 0);
 
 }
 
