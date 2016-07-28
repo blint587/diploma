@@ -1,5 +1,6 @@
 #include <regex>
 #include <iostream>
+#include <queue>
 #include "Quantity.h"
 
 using namespace std;
@@ -227,7 +228,7 @@ string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
 
     const vector<Metric> & rmatrix = GetMatrix();
     const vector<int> & dim_vector = GetDimVector(); // dime vector of current quantity
-    vector<vector<int>> dim_matrix; // the search matrix composed by tearing down the dim_vector
+    queue<vector<int>> dim_matrix; // the search matrix composed by tearing down the dim_vector
 
     vector<UnitNotation> tunit_vector = compose_unit_vector(tunit);
 
@@ -235,16 +236,16 @@ string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
         if(dim_vector[i] !=0){
             vector<int> tmp_dim_vector = {0,0,0,0,0,0,0};
             tmp_dim_vector[i] = abs(dim_vector[i]);
-            dim_matrix.push_back(tmp_dim_vector);
+            dim_matrix.push(tmp_dim_vector);
         }
     }
 
      double tmp = value;
 
-    // TODO: revise cycles
-    for(auto dmv = dim_matrix.begin(); dmv != dim_matrix.end(); ){ // could be better with a Queue
+    while(!dim_matrix.empty()){
+        vector<int> dmv = dim_matrix.front();
         int position = 0;
-        while((*dmv)[position] == 0 && position < 6){ // searching the position where the dim_vector is not 0
+        while((dmv)[position] == 0 && position < 6){ // searching the position where the dim_vector is not 0
             ++position;
         };
 
@@ -252,11 +253,14 @@ string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
             vector<int> normalized_dim = {0,0,0,0,0,0,0};
             normalized_dim[position] = 1;
 
-            if((q->dim_vector == *dmv || q->dim_vector == normalized_dim) &&(q->converter->is_valid_unit(unit_vector[position]) && q->converter->is_valid_unit(tunit_vector[position]))){
+            if((q->dim_vector == dmv || q->dim_vector == normalized_dim) &&(q->converter->is_valid_unit(unit_vector[position]) && q->converter->is_valid_unit(tunit_vector[position]))){
                 tmp = q->converter->Convert(tmp, unit_vector[position], tunit_vector[position], dim_vector[position]);
-                dim_matrix.erase(dmv);
-                break;
+                dim_matrix.pop();
+                break; // TODO: could integrate condition into loop criteria.
             }
+        }
+        if(dmv == dim_matrix.front()){
+            throw logic_error("Invalid unit: " + tunit);
         }
     }
 

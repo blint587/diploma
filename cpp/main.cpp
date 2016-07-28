@@ -22,7 +22,7 @@ int main() {
 //
     try {
         Quantity l1(Quantity::Volume, 1, "ml ");
-        cout << l1("dm3") << endl;
+        cout << l1("g") << endl;
     }
     catch (exception & e){
         cerr << e.what() << endl;
