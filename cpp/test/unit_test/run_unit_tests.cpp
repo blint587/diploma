@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "quantity_test.hpp"
+#include "quantity_test_conversion.hpp"
 
 int main(int argc, char* argv[])
 {
