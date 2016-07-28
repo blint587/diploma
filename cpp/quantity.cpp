@@ -242,7 +242,7 @@ string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
      double tmp = value;
 
     // TODO: revise cycles
-    for(auto dmv = dim_matrix.begin(); dmv != dim_matrix.end(); ){ // could be better with a Q
+    for(auto dmv = dim_matrix.begin(); dmv != dim_matrix.end(); ){ // could be better with a Queue
         int position = 0;
         while((*dmv)[position] == 0 && position < 6){ // searching the position where the dim_vector is not 0
             ++position;
@@ -258,8 +258,6 @@ string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
                 break;
             }
         }
-
-
     }
 
     return tmp;
