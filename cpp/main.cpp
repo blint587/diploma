@@ -21,8 +21,8 @@ int main() {
 //    cout <<  "Unit: " <<u.GetUnit() << endl;
 //
     try {
-        Quantity l1(Quantity::VolumetricFlow, 1, "l s-1");
-        cout << l1("m3 h") << endl;
+        Quantity l1(Quantity::Volume, 1, "ml ");
+        cout << l1("dm3") << endl;
     }
     catch (exception & e){
         cerr << e.what() << endl;
