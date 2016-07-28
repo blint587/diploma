@@ -16,7 +16,7 @@
 #include <iterator>
 #include <regex>
 
-namespace quantity {
+namespace munits {
 
     class ConverterFunction {
 
@@ -32,7 +32,7 @@ namespace quantity {
 
     };
 
-    class Unit: public quantity::ConverterFunction {
+    class Unit: public munits::ConverterFunction {
 
     public:
 //        const std::string unit;
@@ -94,12 +94,12 @@ namespace quantity {
         Metric(std::vector<int>,
                std::string = "",
                std::set<std::string> = std::set<std::string>(),
-               const std::map<std::string, const std::shared_ptr<quantity::Unit>> =
-               std::map<std::string, const std::shared_ptr<quantity::Unit>>());
+               const std::map<std::string, const std::shared_ptr<munits::Unit>> =
+               std::map<std::string, const std::shared_ptr<munits::Unit>>());
 
     };
 
-    const std::vector<quantity::Metric> & GetMatrix();
+    const std::vector<munits::Metric> & GetMatrix();
 
     class Quantity {
     public:
@@ -124,7 +124,7 @@ namespace quantity {
         std::vector<UnitNotation> unit_vector = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation()};
          double value;
 //        const UnitNotation unit;
-        std::shared_ptr<quantity::Converter> converter;
+        std::shared_ptr<munits::Converter> converter;
 
 //        bool is_valid_unit() const;
         Quantity(int,  double, std::vector<UnitNotation>);
@@ -144,8 +144,8 @@ namespace quantity {
                 str << a.value << " " << a.compose_unit(a.unit_vector);
                 return str;
             };
-            friend Quantity operator+ (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value + b(a.compose_unit(a.unit_vector)), a.unit_vector);};
-            friend Quantity operator- (const Quantity & a, const Quantity & b) {return quantity::Quantity(a.matrix_index, a.value - b(a.compose_unit(a.unit_vector)), a.unit_vector);};
+            friend Quantity operator+ (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value + b(a.compose_unit(a.unit_vector)), a.unit_vector);};
+            friend Quantity operator- (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value - b(a.compose_unit(a.unit_vector)), a.unit_vector);};
             friend Quantity operator* (const Quantity & a, const Quantity & b) {return mathop(a, b, 1);};
             friend Quantity operator/ (const Quantity & a, const Quantity & b) {return mathop(a, b, -1);};
 

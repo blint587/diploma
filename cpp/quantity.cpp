@@ -5,21 +5,21 @@
 
 using namespace std;
 
-quantity::ConverterFunction::ConverterFunction( double a,  double b=0, const char* s ="Default"): first_order(a),
+munits::ConverterFunction::ConverterFunction( double a,  double b=0, const char* s ="Default"): first_order(a),
                                                                                                   zero_order(b),
                                                                                                   signature(s){
 }
 
- double quantity::ConverterFunction::to_base( double v,  double e=1) const {
+ double munits::ConverterFunction::to_base( double v,  double e=1) const {
 
     return (v * pow(first_order, e)) + (e==1?zero_order:0);
 }
 
- double quantity::ConverterFunction::from_base( double v,  double e = 1) const {
+ double munits::ConverterFunction::from_base( double v,  double e = 1) const {
     return v * pow(first_order, -e) - (e==1?zero_order:0);
 }
 
- double quantity::Converter::Convert( double val, quantity::UnitNotation funit, quantity::UnitNotation tunit,  double exponent) const {
+ double munits::Converter::Convert( double val, munits::UnitNotation funit, munits::UnitNotation tunit,  double exponent) const {
 
 
     if (!units.count(funit.GetUnit()) == 1) {
@@ -50,9 +50,9 @@ quantity::ConverterFunction::ConverterFunction( double a,  double b=0, const cha
     return val;
 }
 
-const map<string, const shared_ptr<quantity::ConverterFunction>> & quantity::Converter::GetPrefixes() const {
+const map<string, const shared_ptr<munits::ConverterFunction>> & munits::Converter::GetPrefixes() const {
 
-    static const map<string, const shared_ptr<quantity::ConverterFunction>> prefixes  = {
+    static const map<string, const shared_ptr<munits::ConverterFunction>> prefixes  = {
             {"E", make_shared<ConverterFunction>(ConverterFunction(1e18, 0,"E"))}, //exa
             {"P", make_shared<ConverterFunction>(ConverterFunction(1e15, 0,"P"))},  // peta
             {"T", make_shared<ConverterFunction>(ConverterFunction(1e12, 0,"I"))},  // tera
@@ -75,69 +75,69 @@ const map<string, const shared_ptr<quantity::ConverterFunction>> & quantity::Con
     return prefixes;
 }
 
-quantity::Converter::Converter(string base_unit,
+munits::Converter::Converter(string base_unit,
                                const set<string> & remove,
                                const map<string, const shared_ptr<Unit>> additional_units):
         base_unit(base_unit), units(additional_units){
 
 
 
-    const map<string, const shared_ptr<quantity::ConverterFunction>> refixes = GetPrefixes();
+    const map<string, const shared_ptr<munits::ConverterFunction>> refixes = GetPrefixes();
 
     for(auto prx = refixes.begin(); prx != refixes.end(); prx++){
         if (remove.find(prx->first) == remove.end()){
-            prefixes.insert(pair<string, const shared_ptr<quantity::ConverterFunction>>(prx->first, prx->second));
+            prefixes.insert(pair<string, const shared_ptr<munits::ConverterFunction>>(prx->first, prx->second));
         }
     }
 
-    units.insert(pair<string, const shared_ptr<quantity::Unit>>(
-            base_unit, make_shared<quantity::Unit>(quantity::Unit(1., 0., base_unit.c_str()))));
+    units.insert(pair<string, const shared_ptr<munits::Unit>>(
+            base_unit, make_shared<munits::Unit>(munits::Unit(1., 0., base_unit.c_str()))));
 }
 
-bool quantity::Converter::is_valid_unit(const UnitNotation & unit) const {
+bool munits::Converter::is_valid_unit(const UnitNotation & unit) const {
 
 
     bool isv = (1 == units.count(unit.GetUnit()) && (unit.GetPrefix() == ""?true :1 == prefixes.count(unit.GetPrefix())));
     return isv;
 }
 
-quantity::Metric::Metric(vector<int> dim_vector,
+munits::Metric::Metric(vector<int> dim_vector,
                           string base_unit,
                           set<string> remove,
-                          const map<string, const shared_ptr<quantity::Unit>> additional_units ):
+                          const map<string, const shared_ptr<munits::Unit>> additional_units ):
         dim_vector(dim_vector), converter(make_shared<Converter>(base_unit, remove, additional_units)){};
 
-const vector<quantity::Metric> & quantity::GetMatrix() {
-    static const vector<quantity::Metric> matrix = {
+const vector<munits::Metric> & munits::GetMatrix() {
+    static const vector<munits::Metric> matrix = {
             {{1, 0, 0, 0, 0, 0, 0}, "m", {},
                     {
-                            {"inc", make_shared<quantity::Unit>(quantity::Unit(0.0254, 0., "inc"))},
-                            {"ft", make_shared<quantity::Unit>(quantity::Unit(0.3048, 0., "ft"))},
-                            {"mi", make_shared<quantity::Unit>(quantity::Unit(1609.344, 0., "mi"))},
-                            {"yd", make_shared<quantity::Unit>(quantity::Unit(0.914, 0., "yd"))}
+                            {"inc", make_shared<munits::Unit>(munits::Unit(0.0254, 0., "inc"))},
+                            {"ft", make_shared<munits::Unit>(munits::Unit(0.3048, 0., "ft"))},
+                            {"mi", make_shared<munits::Unit>(munits::Unit(1609.344, 0., "mi"))},
+                            {"yd", make_shared<munits::Unit>(munits::Unit(0.914, 0., "yd"))}
                     }
 
             }, //Length
             {{0, 1, 0, 0, 0, 0, 0}, "g", {},
                     {
-                        {"oz", make_shared<quantity::Unit>(quantity::Unit(28.3495, 0., "oz"))},
-                        {"lb", make_shared<quantity::Unit>(quantity::Unit(453.592, 0., "lb"))},
-                        {"t", make_shared<quantity::Unit>(quantity::Unit(1e6, 0., "t"))},
+                        {"oz", make_shared<munits::Unit>(munits::Unit(28.3495, 0., "oz"))},
+                        {"lb", make_shared<munits::Unit>(munits::Unit(453.592, 0., "lb"))},
+                        {"t", make_shared<munits::Unit>(munits::Unit(1e6, 0., "t"))},
 
                     }
             }, // Mass
             {{0, 0, 1, 0, 0, 0, 0}, "s", {}, //Time
                     {
-                             {"min", make_shared<quantity::Unit>(quantity::Unit(60., 0., "min", false))},
-                             {"h", make_shared<quantity::Unit>(quantity::Unit(3600., 0., "h", false))},
-                             {"d", make_shared<quantity::Unit>(quantity::Unit(86400., 0., "d", false))}
+                             {"min", make_shared<munits::Unit>(munits::Unit(60., 0., "min", false))},
+                             {"h", make_shared<munits::Unit>(munits::Unit(3600., 0., "h", false))},
+                             {"d", make_shared<munits::Unit>(munits::Unit(86400., 0., "d", false))}
                     }
             },
             {{0, 0, 0, 1, 0, 0, 0}, "A"},  //Electric Currency
             {{0, 0, 0, 0, 1, 0, 0}, "K", {"E", "P", "T", "G", "M", "k", "h", "da", "d", "c", "m", "μ", "n", "p", "f", "a"},//Temperature
                     {
-                            {"°C", make_shared<quantity::Unit>(quantity::Unit(1., 273.15, "C" , false))},
-                            {"°F", make_shared<quantity::Unit>(quantity::Unit(1., 273.15, "F", false))} // TODO: correct parameters
+                            {"°C", make_shared<munits::Unit>(munits::Unit(1., 273.15, "C" , false))},
+                            {"°F", make_shared<munits::Unit>(munits::Unit(1., 273.15, "F", false))} // TODO: correct parameters
                     }
             },
             {{0, 0, 0, 0, 0, 1, 0}, "mol"},  //Amount of Substance
@@ -145,9 +145,9 @@ const vector<quantity::Metric> & quantity::GetMatrix() {
             {{2, 0, 0, 0, 0, 0, 0}, "m"}, //Area
             {{3, 0, 0, 0, 0, 0, 0}, "m", {}, //Volume
                     {
-                            {"l", make_shared<quantity::Unit>(quantity::Unit(0.001, 0., "l", true, true))},
-                            {"gal", make_shared<quantity::Unit>(quantity::Unit(0.15584912791, 0., "gal", true, true))},
-                            {"oz", make_shared<quantity::Unit>(quantity::Unit(2.957e-5, 0., "oz", true, true))}
+                            {"l", make_shared<munits::Unit>(munits::Unit(0.001, 0., "l", true, true))},
+                            {"gal", make_shared<munits::Unit>(munits::Unit(0.15584912791, 0., "gal", true, true))},
+                            {"oz", make_shared<munits::Unit>(munits::Unit(2.957e-5, 0., "oz", true, true))}
                     }
 
             },
@@ -158,7 +158,7 @@ const vector<quantity::Metric> & quantity::GetMatrix() {
 }
 
 
-vector<quantity::UnitNotation> quantity::Quantity::compose_unit_vector(const string &unit) const {
+vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string &unit) const {
 
     vector<UnitNotation> uv = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation() };
     istringstream iss(unit);
@@ -173,7 +173,7 @@ vector<quantity::UnitNotation> quantity::Quantity::compose_unit_vector(const str
         unTokens.push_back(UnitNotation(*unt));
     }
 
-    const vector<quantity::Metric> & rmatrix = quantity::GetMatrix();
+    const vector<munits::Metric> & rmatrix = munits::GetMatrix();
 
     for(int ui = 0; ui < 7; ++ui){
         for(auto b = unTokens.begin(); b != unTokens.end();){
@@ -209,7 +209,7 @@ vector<quantity::UnitNotation> quantity::Quantity::compose_unit_vector(const str
 }
 
 
-string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
+string munits::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
     stringstream tmp;
     for(auto unit = uv.begin(); unit != uv.end(); ++unit){
         if (unit->GetUnit() != "") {
@@ -223,11 +223,11 @@ string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
 };
 
 
- double quantity::Quantity::operator()(const string tunit) const {
+ double munits::Quantity::operator()(const string tunit) const {
 
 
     const vector<Metric> & rmatrix = GetMatrix();
-    const vector<int> & dim_vector = GetDimVector(); // dime vector of current quantity
+    const vector<int> & dim_vector = GetDimVector(); // dime vector of current munits
     queue<vector<int>> dim_matrix; // the search matrix composed by tearing down the dim_vector
 
     vector<UnitNotation> tunit_vector = compose_unit_vector(tunit);
@@ -269,7 +269,7 @@ string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
 }
 
 
-quantity::Quantity quantity::Quantity::mathop(const Quantity &a, const Quantity &b, int p) {
+munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, int p) {
     const vector<Metric> & rmatrix = GetMatrix();
     vector<UnitNotation> nunit_vector(7);
 
@@ -294,22 +294,22 @@ quantity::Quantity quantity::Quantity::mathop(const Quantity &a, const Quantity 
 };
 
 
-quantity::Quantity::Quantity(quantity::Quantity::metrics m,  double value, const string unit):
-        matrix_index(m), value(value), converter(quantity::GetMatrix()[m].converter), unit_vector(this->compose_unit_vector(unit)){
+munits::Quantity::Quantity(munits::Quantity::metrics m,  double value, const string unit):
+        matrix_index(m), value(value), converter(munits::GetMatrix()[m].converter), unit_vector(this->compose_unit_vector(unit)){
 
 }
 
 
-quantity::Quantity::Quantity(int i,  double value, vector<UnitNotation> uv):matrix_index(i), value(value),
-                                                                            unit_vector(uv), converter(quantity::GetMatrix()[i].converter) {
-//    converter = quantity::GetMatrix()[i].converter;
+munits::Quantity::Quantity(int i,  double value, vector<UnitNotation> uv):matrix_index(i), value(value),
+                                                                            unit_vector(uv), converter(munits::GetMatrix()[i].converter) {
+//    converter = munits::GetMatrix()[i].converter;
 
 
 }
 
 
-vector<string> quantity::UnitNotation::parser(string unit) {
-    const vector<quantity::Metric> & rmatrix = quantity::GetMatrix();
+vector<string> munits::UnitNotation::parser(string unit) {
+    const vector<munits::Metric> & rmatrix = munits::GetMatrix();
     vector<string> parsed = {"", "", ""};
 
     bool no_matc = true;
@@ -359,7 +359,7 @@ vector<string> quantity::UnitNotation::parser(string unit) {
 }
 
 
-quantity::UnitNotation::UnitNotation(string u) {
+munits::UnitNotation::UnitNotation(string u) {
 
     vector<string> parsed = parser(u);
 
