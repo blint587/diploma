@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "quantity_test_conversion.hpp"
+#include "quantity_test_comparison.hpp"
 
 int main(int argc, char* argv[])
 {
