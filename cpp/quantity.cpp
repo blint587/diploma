@@ -95,6 +95,7 @@ quantity::Converter::Converter(string base_unit,
 
 bool quantity::Converter::is_valid_unit(const UnitNotation & unit) const {
 
+
     bool isv = (1 == units.count(unit.GetUnit()) && (unit.GetPrefix() == ""?true :1 == prefixes.count(unit.GetPrefix())));
     return isv;
 }
@@ -109,7 +110,7 @@ const vector<quantity::Metric> & quantity::GetMatrix() {
     static const vector<quantity::Metric> matrix = {
             {{1, 0, 0, 0, 0, 0, 0}, "m", {},
                     {
-                            {"in", make_shared<quantity::Unit>(quantity::Unit(0.0254, 0., "in"))},
+                            {"inc", make_shared<quantity::Unit>(quantity::Unit(0.0254, 0., "inc"))},
                             {"ft", make_shared<quantity::Unit>(quantity::Unit(0.3048, 0., "ft"))},
                             {"mi", make_shared<quantity::Unit>(quantity::Unit(1609.344, 0., "mi"))},
                             {"yd", make_shared<quantity::Unit>(quantity::Unit(0.914, 0., "yd"))}
@@ -143,12 +144,14 @@ const vector<quantity::Metric> & quantity::GetMatrix() {
             {{2, 0, 0, 0, 0, 0, 0}, "m"}, //Area
             {{3, 0, 0, 0, 0, 0, 0}, "m", {}, //Volume
                     {
-                            {"l", make_shared<quantity::Unit>(quantity::Unit(0.001, 0., "l", true, true))}
+                            {"l", make_shared<quantity::Unit>(quantity::Unit(0.001, 0., "l", true, true))},
+                            {"gal", make_shared<quantity::Unit>(quantity::Unit(0.15584912791, 0., "gal", true, true))},
+                            {"oz", make_shared<quantity::Unit>(quantity::Unit(2.957e-5, 0., "oz", true, true))}
                     }
 
             },
-            {{3, 0, -1, 0, 0, 0, 0}, "m d"},  //VolumetricFlow
-            {{-3, 0, 0, 0, 0, 1, 0}, "mol m"}  //Concentration
+            {{3, 0, -1, 0, 0, 0, 0}, "m3 s-1"},  //VolumetricFlow
+            {{-3, 0, 0, 0, 0, 1, 0}, "mol m-3"}  //Concentration
     };
     return matrix;
 }
@@ -238,23 +241,23 @@ string quantity::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
 
      double tmp = value;
 
-    for(auto dmv = dim_matrix.begin(); dmv != dim_matrix.end(); ){ // could be better with a Q
+    // TODO: revise cycles
+    for(auto dmv = dim_matrix.begin(); dmv != dim_matrix.end(); ){ // could be better with a Queue
         int position = 0;
-        while(dmv->operator[](position) == 0 && position < 6){ // searching the position where the dim_vector is not 0
+        while((*dmv)[position] == 0 && position < 6){ // searching the position where the dim_vector is not 0
             ++position;
         };
 
         for(auto q = rmatrix.begin(); q != rmatrix.end(); ++q){
             vector<int> normalized_dim = {0,0,0,0,0,0,0};
             normalized_dim[position] = 1;
+
             if((q->dim_vector == *dmv || q->dim_vector == normalized_dim) &&(q->converter->is_valid_unit(unit_vector[position]) && q->converter->is_valid_unit(tunit_vector[position]))){
                 tmp = q->converter->Convert(tmp, unit_vector[position], tunit_vector[position], dim_vector[position]);
                 dim_matrix.erase(dmv);
                 break;
             }
         }
-
-
     }
 
     return tmp;
