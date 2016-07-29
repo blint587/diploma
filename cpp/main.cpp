@@ -21,8 +21,9 @@ int main() {
 //    cout <<  "Unit: " <<u.GetUnit() << endl;
 //
     try {
-        Quantity l1(Quantity::Volume, 1, "ml ");
-        cout << l1("g") << endl;
+        Quantity l1(Quantity::Volume, 1, "l");
+        Quantity l2(Quantity::Volume, 1, "l");
+        cout << (l1 > l2) << endl;
     }
     catch (exception & e){
         cerr << e.what() << endl;

@@ -15,6 +15,7 @@
 #include <sstream>
 #include <iterator>
 #include <regex>
+#include "lib/Accesories/accessories.hpp"
 
 namespace munits {
 
@@ -123,19 +124,18 @@ namespace munits {
         const int matrix_index;
         std::vector<UnitNotation> unit_vector = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation()};
          double value;
-//        const UnitNotation unit;
         std::shared_ptr<munits::Converter> converter;
 
-//        bool is_valid_unit() const;
         Quantity(int,  double, std::vector<UnitNotation>);
         std::vector<UnitNotation> compose_unit_vector(const std::string &unit) const;
-        std::string compose_unit(const std::vector<UnitNotation> &) const;
+        static std::string compose_unit(const std::vector<UnitNotation> &);
 
         static Quantity mathop(const Quantity &a, const Quantity &b, int p=1);
+        static bool compop(const Quantity &a, const Quantity &b, bool (*f)(const double &, const double &));
 
     public:
 
-        std::vector<int> GetDimVector() const{return GetMatrix()[matrix_index].dim_vector;}
+        std::vector<int> GetDimVector() const{return GetMatrix()[matrix_index].dim_vector;};
         Quantity(metrics,  double, const std::string);
         ~Quantity(){
             };
@@ -144,10 +144,16 @@ namespace munits {
                 str << a.value << " " << a.compose_unit(a.unit_vector);
                 return str;
             };
-            friend Quantity operator+ (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value + b(a.compose_unit(a.unit_vector)), a.unit_vector);};
-            friend Quantity operator- (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value - b(a.compose_unit(a.unit_vector)), a.unit_vector);};
+            friend Quantity operator+ (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value + b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
+            friend Quantity operator- (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value - b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
             friend Quantity operator* (const Quantity & a, const Quantity & b) {return mathop(a, b, 1);};
             friend Quantity operator/ (const Quantity & a, const Quantity & b) {return mathop(a, b, -1);};
+            friend bool operator < (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::lt<const double>);};
+            friend bool operator <= (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::le<const double>);};
+            friend bool operator > (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::gt<const double>);};
+            friend bool operator >= (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::ge<const double>);};
+            friend bool operator == (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::eq<const double>);};
+            friend bool operator != (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::ne<const double>);};
 
     };
 

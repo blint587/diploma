@@ -209,7 +209,7 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
 }
 
 
-string munits::Quantity::compose_unit(const vector<UnitNotation> & uv) const {
+string munits::Quantity::compose_unit(const vector<UnitNotation> & uv){
     stringstream tmp;
     for(auto unit = uv.begin(); unit != uv.end(); ++unit){
         if (unit->GetUnit() != "") {
@@ -281,7 +281,7 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
     for(int i = 0; i < 7; ++i){
         ndim_vector[i] = a.GetDimVector()[i] + p * b.GetDimVector()[i];
         if (a.GetDimVector()[i] != 0 && b.GetDimVector()[i] !=0){
-            tmp = rmatrix[i].converter->Convert(tmp, b.unit_vector[i], a.unit_vector[i]);
+            tmp = rmatrix[i].converter->Convert(tmp, b.unit_vector[i], a.unit_vector[i]); // converting if there is a common dimension in bout units
         }
         nunit_vector[i] = a.GetDimVector()[i] != 0?a.unit_vector[i]:b.unit_vector[i];
 
@@ -305,6 +305,15 @@ munits::Quantity::Quantity(int i,  double value, vector<UnitNotation> uv):matrix
 //    converter = munits::GetMatrix()[i].converter;
 
 
+}
+
+bool munits::Quantity::compop(const munits::Quantity &a, const munits::Quantity &b, bool (*f)(const double &, const double &)) {
+    if (a.matrix_index == b.matrix_index) {
+        return f(a.value, b(Quantity::compose_unit(a.unit_vector)));
+    }
+    else{
+        throw logic_error("Comparison cannot be done! Measurement unit types do not match. ( '" + Quantity::compose_unit(a.unit_vector) + "', '" + Quantity::compose_unit(b.unit_vector) +"' )" );
+    }
 }
 
 
