@@ -5,13 +5,9 @@
 
 using namespace std;
 
-munits::ConverterFunction::ConverterFunction( double a,  double b=0, const char* s ="Default"): first_order(a),
-                                                                                                  zero_order(b),
-                                                                                                  signature(s){
-}
+munits::ConverterFunction::ConverterFunction( double a,  double b=0, const char* s ="Default"): first_order(a), zero_order(b),signature(s){}
 
  double munits::ConverterFunction::to_base( double v,  double e=1) const {
-
     return (v * pow(first_order, e)) + (e==1?zero_order:0);
 }
 
@@ -75,37 +71,27 @@ const map<string, const shared_ptr<munits::ConverterFunction>> & munits::Convert
     return prefixes;
 }
 
-munits::Converter::Converter(string base_unit,
-                               const set<string> & remove,
-                               const map<string, const shared_ptr<Unit>> additional_units):
-        base_unit(base_unit), units(additional_units){
-
-
+munits::Converter::Converter(string base_unit, const set<string> & remove, const map<string, const shared_ptr<Unit>> additional_units):
+                             base_unit(base_unit), units(additional_units){
 
     const map<string, const shared_ptr<munits::ConverterFunction>> refixes = GetPrefixes();
 
     for(auto prx = refixes.begin(); prx != refixes.end(); prx++){
-        if (remove.find(prx->first) == remove.end()){
+        if (remove.find(prx->first) == remove.end()){ // removing prefixes which are not usable in the given unit type
             prefixes.insert(pair<string, const shared_ptr<munits::ConverterFunction>>(prx->first, prx->second));
         }
     }
-
-    units.insert(pair<string, const shared_ptr<munits::Unit>>(
-            base_unit, make_shared<munits::Unit>(munits::Unit(1., 0., base_unit.c_str()))));
+    units.insert(pair<string, const shared_ptr<munits::Unit>>(base_unit, make_shared<munits::Unit>(munits::Unit(1., 0., base_unit.c_str()))));
 }
 
 bool munits::Converter::is_valid_unit(const UnitNotation & unit) const {
-
 
     bool isv = (1 == units.count(unit.GetUnit()) && (unit.GetPrefix() == ""?true :1 == prefixes.count(unit.GetPrefix())));
     return isv;
 }
 
-munits::Metric::Metric(vector<int> dim_vector,
-                          string base_unit,
-                          set<string> remove,
-                          const map<string, const shared_ptr<munits::Unit>> additional_units ):
-        dim_vector(dim_vector), converter(make_shared<Converter>(base_unit, remove, additional_units)){};
+munits::Metric::Metric(vector<int> dim_vector, string base_unit, set<string> remove, const map<string, const shared_ptr<munits::Unit>> additional_units ):
+                       dim_vector(dim_vector), converter(make_shared<Converter>(base_unit, remove, additional_units)){};
 
 const vector<munits::Metric> & munits::GetMatrix() {
     static const vector<munits::Metric> matrix = {
@@ -118,14 +104,14 @@ const vector<munits::Metric> & munits::GetMatrix() {
                     }
 
             }, //Length
-            {{0, 1, 0, 0, 0, 0, 0}, "g", {},
+            {{0, 1, 0, 0, 0, 0, 0}, "g", {}, // Mass
                     {
                         {"oz", make_shared<munits::Unit>(munits::Unit(28.3495, 0., "oz"))},
                         {"lb", make_shared<munits::Unit>(munits::Unit(453.592, 0., "lb"))},
                         {"t", make_shared<munits::Unit>(munits::Unit(1e6, 0., "t"))},
 
                     }
-            }, // Mass
+            },
             {{0, 0, 1, 0, 0, 0, 0}, "s", {}, //Time
                     {
                              {"min", make_shared<munits::Unit>(munits::Unit(60., 0., "min", false))},
@@ -134,7 +120,8 @@ const vector<munits::Metric> & munits::GetMatrix() {
                     }
             },
             {{0, 0, 0, 1, 0, 0, 0}, "A"},  //Electric Currency
-            {{0, 0, 0, 0, 1, 0, 0}, "K", {"E", "P", "T", "G", "M", "k", "h", "da", "d", "c", "m", "μ", "n", "p", "f", "a"},//Temperature
+            {{0, 0, 0, 0, 1, 0, 0}, "K",  //Temperature
+                    {"E", "P", "T", "G", "M", "k", "h", "da", "d", "c", "m", "μ", "n", "p", "f", "a"},
                     {
                             {"°C", make_shared<munits::Unit>(munits::Unit(1., 273.15, "C" , false))},
                             {"°F", make_shared<munits::Unit>(munits::Unit(1., 273.15, "F", false))} // TODO: correct parameters
@@ -152,7 +139,7 @@ const vector<munits::Metric> & munits::GetMatrix() {
 
             },
             {{3, 0, -1, 0, 0, 0, 0}, "m3 s-1"},  //VolumetricFlow
-            {{-3, 0, 0, 0, 0, 1, 0}, "mol m-3"}  //Concentration
+            {{-3, 0, 0, 0, 0, 1, 0}, "mol m-3"}  //MolarConcentration
     };
     return matrix;
 }
@@ -160,25 +147,23 @@ const vector<munits::Metric> & munits::GetMatrix() {
 
 vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string &unit) const {
 
-    vector<UnitNotation> uv = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation() };
     istringstream iss(unit);
     vector<string> tokens;
     vector<UnitNotation> unTokens;
 
-    copy(istream_iterator<string>(iss),
-         istream_iterator<string>(),
-         back_inserter(tokens));
+    copy(istream_iterator<string>(iss), istream_iterator<string>(), back_inserter(tokens)); // splitting up string representations (by default at " ")
 
-    for(auto unt = tokens.begin(); unt != tokens.end(); ++unt){
+    for(auto unt = tokens.begin(); unt != tokens.end(); ++unt){ // composing UnitNotation objects from string representations
         unTokens.push_back(UnitNotation(*unt));
     }
 
     const vector<munits::Metric> & rmatrix = munits::GetMatrix();
 
-    for(int ui = 0; ui < 7; ++ui){
+    vector<UnitNotation> uv = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation() }; // creating default 7 element long unit vector
+
+    for(int ui = 0; ui < 7; ++ui){ // checking if any of the tokens is a base unit
         for(auto b = unTokens.begin(); b != unTokens.end();){
             if (rmatrix[ui].converter->is_valid_unit(*b)){
-
                 uv[ui] = *b;
                 unTokens.erase(b);
             }
@@ -187,22 +172,24 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
             }
         }
     }
-    for(int uii = 7; uii < _Last; ++uii){
-        for(auto b = unTokens.begin(); b != unTokens.end();){
-            if (rmatrix[uii].converter->is_valid_unit(*b)){
-                int position = 0;
-                while(rmatrix[uii].dim_vector[position] == 0 && position < 6){ // searching the position where the dim_vector is not 0
-                    ++position;
-                };
-                    uv[position] = UnitNotation(*b);
-                    unTokens.erase(b);
-            }
-            else{
-                ++b;
+    if (unTokens.size() != 0){ // if no tokens left no point checking for none base units
+        for(int uii = 7; uii < _Last; ++uii){  // checking if any of the tokens is a none base unit
+            for(auto b = unTokens.begin(); b != unTokens.end();){
+                if (rmatrix[uii].converter->is_valid_unit(*b)){
+                    int position = 0;
+                    while(rmatrix[uii].dim_vector[position] == 0 && position < 6){ // searching the position where the dim_vector is not 0
+                        ++position;
+                    };
+                        uv[position] = UnitNotation(*b);
+                        unTokens.erase(b);
+                }
+                else{
+                    ++b;
+                }
             }
         }
     }
-    if (unTokens.size() != 0){
+    if (unTokens.size() != 0){ // if any tokens left it means that what was left is invalid.
         throw std::logic_error("Incorrect unit: " + unit);
     };
     return uv;
@@ -240,7 +227,7 @@ string munits::Quantity::compose_unit(const vector<UnitNotation> & uv){
         }
     }
 
-     double tmp = value;
+    double tmp = value;
 
     while(!dim_matrix.empty()){
         vector<int> dmv = dim_matrix.front();
@@ -270,23 +257,22 @@ string munits::Quantity::compose_unit(const vector<UnitNotation> & uv){
 
 
 munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, int p) {
+
     const vector<Metric> & rmatrix = GetMatrix();
     vector<UnitNotation> nunit_vector(7);
-
     vector<int> ndim_vector = {0, 0, 0, 0, 0, 0, 0};
+    double tmp = b.value;
+
+    for(int i = 0; i < ndim_vector.size(); ++i){
+        ndim_vector[i] = a.GetDimVector()[i] + p * b.GetDimVector()[i]; // composing the new dimension vector (exponents)
+        if (a.GetDimVector()[i] != 0 && b.GetDimVector()[i] !=0){ // checking if there is a common dimension
+            tmp = rmatrix[i].converter->Convert(tmp, b.unit_vector[i], a.unit_vector[i]); // converting if there is a common dimension in both units
+        }
+        nunit_vector[i] = a.GetDimVector()[i] != 0?a.unit_vector[i]:b.unit_vector[i]; // composing the new unit vector (units)
+    }
 
     int nmindex = 0;
-     double tmp = b.value;
-
-    for(int i = 0; i < 7; ++i){
-        ndim_vector[i] = a.GetDimVector()[i] + p * b.GetDimVector()[i];
-        if (a.GetDimVector()[i] != 0 && b.GetDimVector()[i] !=0){
-            tmp = rmatrix[i].converter->Convert(tmp, b.unit_vector[i], a.unit_vector[i]); // converting if there is a common dimension in bout units
-        }
-        nunit_vector[i] = a.GetDimVector()[i] != 0?a.unit_vector[i]:b.unit_vector[i];
-
-    }
-    while(nmindex < _Last && ndim_vector != rmatrix[nmindex].dim_vector){
+    while(nmindex < _Last && ndim_vector != rmatrix[nmindex].dim_vector){ // determining the unit type by searching a the matching dimension vector
         ++nmindex;
     }
 
@@ -296,20 +282,16 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
 
 munits::Quantity::Quantity(munits::Quantity::metrics m,  double value, const string unit):
         matrix_index(m), value(value), converter(munits::GetMatrix()[m].converter), unit_vector(this->compose_unit_vector(unit)){
-
 }
 
 
 munits::Quantity::Quantity(int i,  double value, vector<UnitNotation> uv):matrix_index(i), value(value),
                                                                             unit_vector(uv), converter(munits::GetMatrix()[i].converter) {
-//    converter = munits::GetMatrix()[i].converter;
-
-
 }
 
 bool munits::Quantity::compop(const munits::Quantity &a, const munits::Quantity &b, bool (*f)(const double &, const double &)) {
-    if (a.matrix_index == b.matrix_index) {
-        return f(a.value, b(Quantity::compose_unit(a.unit_vector)));
+    if (a.matrix_index == b.matrix_index) { // if the matrix indexes do not match they are not the same types and comparison is not possible
+        return f(a.value, b(Quantity::compose_unit(a.unit_vector))); // converting 'b' to the same unit as 'a' and comparing there value
     }
     else{
         throw logic_error("Comparison cannot be done! Measurement unit types do not match. ( '" + Quantity::compose_unit(a.unit_vector) + "', '" + Quantity::compose_unit(b.unit_vector) +"' )" );
@@ -325,24 +307,25 @@ vector<string> munits::UnitNotation::parser(string unit) {
 
     for(int u = 0; u < Quantity::_Last && no_matc; ++u) {
         stringstream rp;
-        rp << "^(" ;
-        const map<string, const shared_ptr<ConverterFunction>> & prefixes = rmatrix[u].converter->Prefixes();
-        int c1 = 0;
-        for(auto prx = prefixes.begin(); prx != prefixes.end(); ++prx){
-            rp << prx->first << (c1 != prefixes.size()-1?"|": "");
-            ++c1;
+        { // composing the regex for each unit type
+            rp << "^(";
+            const map<string, const shared_ptr<ConverterFunction>> &prefixes = rmatrix[u].converter->Prefixes();
+            int c1 = 0;
+            for (auto prx = prefixes.begin(); prx != prefixes.end(); ++prx) {
+                rp << prx->first << (c1 != prefixes.size() - 1 ? "|" : "");
+                ++c1;
+            }
+
+            rp << ")?(";
+            c1 = 0;
+            const map<string, const shared_ptr<Unit>> &units = rmatrix[u].converter->Units();
+            for (auto unt = units.begin(); unt != units.end(); ++unt) {
+                rp << unt->first << (c1 != units.size() - 1 ? "|" : "");
+                ++c1;
+            }
+
+            rp << ")(\\-?[0-9])?$";
         }
-
-        rp << ")?(";
-        c1 = 0;
-        const map<string, const shared_ptr<Unit>> & units = rmatrix[u].converter->Units();
-        for(auto unt = units.begin(); unt != units.end(); ++unt){
-            rp << unt->first << (c1 != units.size()-1?"|": "");
-            ++c1;
-        }
-
-        rp << ")(\\-?[0-9])?$";
-
         try {
             regex re(rp.str());
             sregex_iterator next(unit.begin(), unit.end(), re);

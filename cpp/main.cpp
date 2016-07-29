@@ -14,12 +14,6 @@ using namespace munits;
 
 int main() {
 
-
-//    UnitNotation u("m");
-//
-//    cout << "Prefix: " << u.GetPrefix() << endl;
-//    cout <<  "Unit: " <<u.GetUnit() << endl;
-//
     try {
         Quantity l1(Quantity::Volume, 1, "l");
         Quantity l2(Quantity::Volume, 1, "l");
@@ -29,14 +23,6 @@ int main() {
         cerr << e.what() << endl;
 
     }
-
-
-
-
-
-
-
-
 
 
 #ifdef DEBUG

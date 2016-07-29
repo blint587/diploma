@@ -55,7 +55,7 @@ namespace munits {
             std::vector<std::string> parser(std::string);
         public:
             explicit UnitNotation(){};
-            UnitNotation(std::string unit);
+            explicit UnitNotation(std::string unit);
             operator std::string() const { return prefix + " " + unit + " " + std::to_string(exponent);};
             friend std::ostream& operator<< (std::ostream & str, const UnitNotation & un){
                 str << un.prefix << " " << un.unit << " " << un.exponent;
@@ -79,7 +79,7 @@ namespace munits {
     public:
         const std::map<std::string, const std::shared_ptr<ConverterFunction>> & Prefixes() const{return prefixes;};
         const std::map<std::string, const std::shared_ptr<Unit>> & Units() const{return units;};
-        Converter(std::string,
+        explicit Converter(std::string,
                   const std::set<std::string> & = std::set<std::string>(),
                   const std::map<std::string, const std::shared_ptr<Unit>> = std::map<std::string, const std::shared_ptr<Unit>>());
 
@@ -92,7 +92,7 @@ namespace munits {
         const std::vector<int> dim_vector;
         const std::shared_ptr<Converter> converter;
 
-        Metric(std::vector<int>,
+        Metric(std::vector<int>, // cannot be explicit due to use of initaliser list in GetMatrix
                std::string = "",
                std::set<std::string> = std::set<std::string>(),
                const std::map<std::string, const std::shared_ptr<munits::Unit>> =
@@ -115,7 +115,7 @@ namespace munits {
             Area = 7,
             Volume = 8,
             VolumetricFlow = 9,
-            Concentration = 10,
+            MolarConcentration = 10,
             _Last
         };
 
@@ -123,10 +123,10 @@ namespace munits {
 
         const int matrix_index;
         std::vector<UnitNotation> unit_vector = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation()};
-         double value;
+        double value;
         std::shared_ptr<munits::Converter> converter;
 
-        Quantity(int,  double, std::vector<UnitNotation>);
+        explicit Quantity(int,  double, std::vector<UnitNotation>);
         std::vector<UnitNotation> compose_unit_vector(const std::string &unit) const;
         static std::string compose_unit(const std::vector<UnitNotation> &);
 
@@ -136,24 +136,24 @@ namespace munits {
     public:
 
         std::vector<int> GetDimVector() const{return GetMatrix()[matrix_index].dim_vector;};
-        Quantity(metrics,  double, const std::string);
-        ~Quantity(){
-            };
-             double operator()(const std::string) const;
-            friend std::ostream& operator<< (std::ostream& str, const Quantity & a){
-                str << a.value << " " << a.compose_unit(a.unit_vector);
+        explicit Quantity(metrics,  double, const std::string);
+        ~Quantity(){};
+        double operator()(const std::string) const;
+        friend std::ostream& operator<< (std::ostream& str, const Quantity & a){
+                str << a.value << " " <<  munits::Quantity::compose_unit(a.unit_vector);
                 return str;
             };
-            friend Quantity operator+ (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value + b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
-            friend Quantity operator- (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value - b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
-            friend Quantity operator* (const Quantity & a, const Quantity & b) {return mathop(a, b, 1);};
-            friend Quantity operator/ (const Quantity & a, const Quantity & b) {return mathop(a, b, -1);};
-            friend bool operator < (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::lt<const double>);};
-            friend bool operator <= (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::le<const double>);};
-            friend bool operator > (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::gt<const double>);};
-            friend bool operator >= (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::ge<const double>);};
-            friend bool operator == (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::eq<const double>);};
-            friend bool operator != (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::ne<const double>);};
+        // TODO: convert friend functions to inline
+        friend Quantity operator+ (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value + b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
+        friend Quantity operator- (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value - b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
+        friend Quantity operator* (const Quantity & a, const Quantity & b) {return mathop(a, b, 1);};
+        friend Quantity operator/ (const Quantity & a, const Quantity & b) {return mathop(a, b, -1);};
+        friend bool operator < (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::lt<const double>);};
+        friend bool operator <= (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::le<const double>);};
+        friend bool operator > (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::gt<const double>);};
+        friend bool operator >= (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::ge<const double>);};
+        friend bool operator == (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::eq<const double>);};
+        friend bool operator != (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::ne<const double>);};
 
     };
 
