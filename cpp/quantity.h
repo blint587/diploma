@@ -156,7 +156,6 @@ namespace munits {
         friend bool operator != (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::ne<const double>);};
 
     };
-
 }
 
 

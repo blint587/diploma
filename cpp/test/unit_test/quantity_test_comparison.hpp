@@ -46,78 +46,76 @@ TEST_F(TestQuantityBaseUnitComparison, test_comparing_none_base_with_base_equal)
     EXPECT_FALSE(l1 < l2);
     EXPECT_FALSE(l1 != l2);
 }
-//TEST_F(TestQuantityBaseUnitComparison, test_comparing_none_base_with_base_greater){
-//l1 = munits.Length(10000., "mm")
-//l2 = munits.Length(1., "m")
-//EXPECT_FALSE(l1 == l2)
-//EXPECT_FALSE(l1 <= l2)
-//EXPECT_TRUE(l1 >= l2)
-//EXPECT_TRUE(l1 > l2)
-//EXPECT_FALSE(l1 < l2)
-//EXPECT_TRUE(l1 != l2)
-//
-//TEST_F(TestQuantityBaseUnitComparison, test_comparing_none_base_with_base_less){
-//l1 = munits.Length(100., "mm")
-//l2 = munits.Length(1., "m")
-//EXPECT_FALSE(l1 == l2)
-//EXPECT_TRUE(l1 <= l2)
-//EXPECT_FALSE(l1 >= l2)
-//EXPECT_FALSE(l1 > l2)
-//EXPECT_TRUE(l1 < l2)
-//EXPECT_TRUE(l1 != l2)
-//
-//TEST_F(TestQuantityBaseUnitComparison, test_comparing_none_base_with_none_base_equal){
-//m1 = munits.Mass(100., "dag")
-//m2 = munits.Mass(1., "kg")
-//EXPECT_TRUE(m1 == m2)
-//EXPECT_TRUE(m1 <= m2)
-//EXPECT_TRUE(m1 >= m2)
-//EXPECT_FALSE(m1 > m2)
-//EXPECT_FALSE(m1 < m2)
-//EXPECT_FALSE(m1 != m2)
-//
-//TEST_F(TestQuantityBaseUnitComparison, test_comparing_none_base_with_none_base_less){
-//m1 = munits.Mass(10., "dag")
-//m2 = munits.Mass(1., "kg")
-//EXPECT_FALSE(m1 == m2)
-//EXPECT_TRUE(m1 <= m2)
-//EXPECT_FALSE(m1 >= m2)
-//EXPECT_FALSE(m1 > m2)
-//EXPECT_TRUE(m1 < m2)
-//EXPECT_TRUE(m1 != m2)
-//
-//TEST_F(TestQuantityBaseUnitComparison, test_comparing_none_base_with_none_base_greater){
-//m1 = munits.Mass(1000., "dag")
-//m2 = munits.Mass(1., "kg")
-//EXPECT_FALSE(m1 == m2)
-//EXPECT_FALSE(m1 <= m2)
-//EXPECT_TRUE(m1 >= m2)
-//EXPECT_TRUE(m1 > m2)
-//EXPECT_FALSE(m1 < m2)
-//EXPECT_TRUE(m1 != m2)
-//
-//# TIME
-//
-//TEST_F(TestQuantityBaseUnitComparison, test_comparing_time_none_base_with_none_base_equal){
-//t1 = munits.Time(1., "d")
-//t2 = munits.Time(24., "h")
-//EXPECT_TRUE(t1 == t2)
-//EXPECT_TRUE(t1 <= t2)
-//EXPECT_TRUE(t1 >= t2)
-//EXPECT_FALSE(t1 > t2)
-//EXPECT_FALSE(t1 < t2)
-//EXPECT_FALSE(t1 != t2)
-//
-//TEST_F(TestQuantityBaseUnitComparison, test_comparing_time_none_base_with_none_base_less){
-//t1 = munits.Time(1., "d")
-//t2 = munits.Time(25., "h")
-//EXPECT_FALSE(t1 == t2)
-//EXPECT_TRUE(t1 <= t2)
-//EXPECT_FALSE(t1 >= t2)
-//EXPECT_FALSE(t1 > t2)
-//EXPECT_TRUE(t1 < t2)
-//EXPECT_TRUE(t1 != t2)
-//
+TEST_F(TestQuantityBaseUnitComparison, test_comparing_none_base_with_base_greater) {
+    munits::Quantity l1 (munits::Quantity::Length, 10000., "mm");
+    munits::Quantity l2 (munits::Quantity::Length, 1., "m");
+    EXPECT_FALSE(l1 == l2);
+    EXPECT_FALSE(l1 <= l2);
+    EXPECT_TRUE(l1 >= l2);
+    EXPECT_TRUE(l1 > l2);
+    EXPECT_FALSE(l1 < l2);
+    EXPECT_TRUE(l1 != l2);
+}
+TEST_F(TestQuantityBaseUnitComparison, test_comparing_none_base_with_base_less) {
+    munits::Quantity l1 (munits::Quantity::Length, 100., "mm");
+    munits::Quantity l2 (munits::Quantity::Length, 1., "m");
+    EXPECT_FALSE(l1 == l2);
+    EXPECT_TRUE(l1 <= l2);
+    EXPECT_FALSE(l1 >= l2);
+    EXPECT_FALSE(l1 > l2);
+    EXPECT_TRUE(l1 < l2);
+    EXPECT_TRUE(l1 != l2);
+}
+TEST_F(TestQuantityBaseUnitComparison, test_comparing_none_base_with_none_base_equal) {
+    munits::Quantity m1 (munits::Quantity::Mass, 100., "dag");
+    munits::Quantity m2 (munits::Quantity::Mass, 1., "kg");
+    EXPECT_TRUE(m1 == m2);
+    EXPECT_TRUE(m1 <= m2);
+    EXPECT_TRUE(m1 >= m2);
+    EXPECT_FALSE(m1 > m2);
+    EXPECT_FALSE(m1 < m2);
+    EXPECT_FALSE(m1 != m2);
+}
+TEST_F(TestQuantityBaseUnitComparison, test_comparing_none_base_with_none_base_less) {
+    munits::Quantity m1 (munits::Quantity::Mass, 10., "dag");
+    munits::Quantity m2 (munits::Quantity::Mass, 1., "kg");
+    EXPECT_FALSE(m1 == m2);
+    EXPECT_TRUE(m1 <= m2);
+    EXPECT_FALSE(m1 >= m2);
+    EXPECT_FALSE(m1 > m2);
+    EXPECT_TRUE(m1 < m2);
+    EXPECT_TRUE(m1 != m2);
+}
+TEST_F(TestQuantityBaseUnitComparison, test_comparing_none_base_with_none_base_greater) {
+    munits::Quantity m1 (munits::Quantity::Mass, 1000., "dag");
+    munits::Quantity m2 (munits::Quantity::Mass, 1., "kg");
+    EXPECT_FALSE(m1 == m2);
+    EXPECT_FALSE(m1 <= m2);
+    EXPECT_TRUE(m1 >= m2);
+    EXPECT_TRUE(m1 > m2);
+    EXPECT_FALSE(m1 < m2);
+    EXPECT_TRUE(m1 != m2);
+}
+TEST_F(TestQuantityBaseUnitComparison, test_comparing_time_none_base_with_none_base_equal) {
+    munits::Quantity t1 (munits::Quantity::Time, 1., "d");
+    munits::Quantity t2  (munits::Quantity::Time , 24., "h");
+    EXPECT_TRUE(t1 == t2);
+    EXPECT_TRUE(t1 <= t2);
+    EXPECT_TRUE(t1 >= t2);
+    EXPECT_FALSE(t1 > t2);
+    EXPECT_FALSE(t1 < t2);
+    EXPECT_FALSE(t1 != t2);
+}
+TEST_F(TestQuantityBaseUnitComparison, test_comparing_time_none_base_with_none_base_less) {
+    munits::Quantity t1 (munits::Quantity::Time, 1., "d");
+    munits::Quantity t2 (munits::Quantity::Time, 25., "h");
+    EXPECT_FALSE(t1 == t2);
+    EXPECT_TRUE(t1 <= t2);
+    EXPECT_FALSE(t1 >= t2);
+    EXPECT_FALSE(t1 > t2);
+    EXPECT_TRUE(t1 < t2);
+    EXPECT_TRUE(t1 != t2);
+}
 //TEST_F(TestQuantityBaseUnitComparison, test_comparing_time_none_base_with_none_base_greater){
 //t1 = munits.Time(1., "d")
 //t2 = munits.Time(23., "h")
