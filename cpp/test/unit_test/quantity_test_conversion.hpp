@@ -10,7 +10,7 @@ class TestQuantityBaseUnitConversionSI : public testing::Test{};
 class TestQuantityBaseUnitConversionNoneSI : public testing::Test{};
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_length_zero){
-    munits::Quantity l (munits::Quantity::Length, 0, "m");
+    munits::Quantity l (munits::Length, 0, "m");
 
     EXPECT_EQ(l("Em"), 0.);
     EXPECT_EQ(l("Pm"), 0.);
@@ -32,7 +32,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_length_zero){
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_length_one){
-    munits::Quantity l (munits::Quantity::Length, 1, "m");
+    munits::Quantity l (munits::Length, 1, "m");
 
     EXPECT_EQ(l("Em"), 1e-18);
     EXPECT_EQ(l("Pm"), 1e-15);
@@ -54,7 +54,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_length_one){
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_lengt233){
-    munits::Quantity l (munits::Quantity::Length, 2.33, "m");
+    munits::Quantity l (munits::Length, 2.33, "m");
 
     EXPECT_NEAR(l("Em"), 2.33e-18, 4e-34);
     EXPECT_NEAR(l("Pm"), 2.33e-15, 4e-31);
@@ -77,7 +77,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_lengt233){
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_mass_zero){
-    munits::Quantity l (munits::Quantity::Mass, 0, "g");
+    munits::Quantity l (munits::Mass, 0, "g");
 
     EXPECT_EQ(l("Eg"), 0.);
     EXPECT_EQ(l("Pg"), 0.);
@@ -99,7 +99,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_mass_zero){
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_mass_one){
-    munits::Quantity l (munits::Quantity::Mass, 1, "g");
+    munits::Quantity l (munits::Mass, 1, "g");
 
     EXPECT_EQ(l("Eg"), 1e-18);
     EXPECT_EQ(l("Pg"), 1e-15);
@@ -121,7 +121,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_mass_one){
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_mass_233){
-    munits::Quantity l (munits::Quantity::Mass, 2.33, "g");
+    munits::Quantity l (munits::Mass, 2.33, "g");
 
     EXPECT_NEAR(l("Eg"), 2.33e-18, 4e-34);
     EXPECT_NEAR(l("Pg"), 2.33e-15, 4e-31);
@@ -143,7 +143,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_mass_233){
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_time_zero) {
-    munits::Quantity t(munits::Quantity::Time, 0.0, "s");
+    munits::Quantity t(munits::Time, 0.0, "s");
 
     // TODO: implement non prefixed conversions (min, d, h)
     EXPECT_EQ(t("ms"), 0);
@@ -158,7 +158,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_time_zero) {
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_time_one){
 
-    munits::Quantity t(munits::Quantity::Time, 1.0, "s");
+    munits::Quantity t(munits::Time, 1.0, "s");
 
     EXPECT_EQ(t("ms"), 1000.);
     EXPECT_EQ(t("μs"), 1e6);
@@ -170,7 +170,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_time_one){
  }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_time_233) {
-    munits::Quantity t (munits::Quantity::Time, 2.33, "s");
+    munits::Quantity t (munits::Time, 2.33, "s");
 
     EXPECT_EQ(t("ms"), 2330.);
     EXPECT_EQ(t("μs"), 2.33e6);
@@ -181,7 +181,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_time_233) {
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_zero) {
-    munits::Quantity i(munits::Quantity::ElectricCurrency, 0, "A");
+    munits::Quantity i(munits::ElectricCurrency, 0, "A");
 
     EXPECT_EQ(i("EA"), 0);
     EXPECT_EQ(i("PA"), 0);
@@ -203,7 +203,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_zero) {
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_one) {
-    munits::Quantity i(munits::Quantity::ElectricCurrency, 1, "A");
+    munits::Quantity i(munits::ElectricCurrency, 1, "A");
 
     EXPECT_EQ(i("EA"), 1e-18);
     EXPECT_EQ(i("PA"), 1e-15);
@@ -226,7 +226,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_one) {
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_233){
 
-    munits::Quantity i (munits::Quantity::ElectricCurrency, 2.33, "A");
+    munits::Quantity i (munits::ElectricCurrency, 2.33, "A");
 
     EXPECT_NEAR(i("EA"), 2.33e-18, 4e-34);
     EXPECT_NEAR(i("PA"), 2.33e-15, 4e-31);
@@ -248,7 +248,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_233){
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_aos_one){
-   munits::Quantity n (munits::Quantity::AmountOfSubstance, 1.0, "kmol");
+   munits::Quantity n (munits::AmountOfSubstance, 1.0, "kmol");
 
     EXPECT_EQ(n("mol"), 1000.0);
 }
@@ -257,7 +257,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_aos_one){
 // NONE SI
 
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_si_length_m_to_in_ft_mi) {
-   munits::Quantity l (munits::Quantity::Length, 1, "m");
+   munits::Quantity l (munits::Length, 1, "m");
 
     EXPECT_NEAR(l("inc"), 39.37, 1e-4);
     EXPECT_NEAR(l("ft"), 3.2808, 1e-4);
@@ -265,7 +265,7 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_si_length_m_to_in_ft_mi) {
     EXPECT_NEAR(l("yd"), 1.0940919037199124, 1e-4);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_si_length_m_to_in_ft_mi_233){
-    munits::Quantity l(munits::Quantity::Length, 2.33, "m");
+    munits::Quantity l(munits::Length, 2.33, "m");
 
     EXPECT_NEAR(l("inc"), 91.7322, 1e-4);
     EXPECT_NEAR(l("ft"), 7.6443, 1e-4);
@@ -273,14 +273,14 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_si_length_m_to_in_ft_mi_233){
     EXPECT_NEAR(l("yd"), 2.5492341356673958, 1e-4);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_none_si_length_inch_to_ft_mi){
-    munits::Quantity l(munits::Quantity::Length, 1, "inc");
+    munits::Quantity l(munits::Length, 1, "inc");
 
     EXPECT_NEAR(l("ft"), 0.0833, 1e-2);
     EXPECT_NEAR(l("mi"), 1.578e-5, 1e-2);
     EXPECT_NEAR(l("inc"), 1, 1e-2);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_none_si_length_inch_to_ft_mi_233){
-    munits::Quantity l (munits::Quantity::Length, 2.33, "inc");
+    munits::Quantity l (munits::Length, 2.33, "inc");
 
     EXPECT_NEAR(l("ft"), 0.1941, 1e-4);
     EXPECT_NEAR(l("mi"), 3.677e-5, 1e-2);
@@ -288,7 +288,7 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_none_si_length_inch_to_ft_mi_2
 }
 
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_none_si_length_inch_in_to_prefix_m){
-    munits::Quantity l (munits::Quantity::Length, 1, "inc");
+    munits::Quantity l (munits::Length, 1, "inc");
 
     EXPECT_EQ(l("Em"), 0.0254e-18);
     EXPECT_EQ(l("Pm"), 0.0254e-15);
@@ -310,7 +310,7 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_none_si_length_inch_in_to_pref
 }
 
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_non_si_length){
-    munits::Quantity l (munits::Quantity::Length, 1, "inc");
+    munits::Quantity l (munits::Length, 1, "inc");
     EXPECT_NEAR(l("Eyd"), 2.77777778e-20, 1e-22);
     EXPECT_NEAR(l("Pyd"), 2.7789934354485774e-17, 1e-20);
     EXPECT_NEAR(l("Tyd"), 2.7789934354485771e-14, 1e-18);
@@ -330,49 +330,49 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_non_si_length){
 //    EXPECT_NEAR(l("ayd"), 0.0277899e18, 1e-20);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_mass_g_to_oz_lb_t){
-    munits::Quantity m (munits::Quantity::Mass, 1, "g");
+    munits::Quantity m (munits::Mass, 1, "g");
 
     EXPECT_NEAR(m("oz"), 0.0352, 1e-4);
     EXPECT_NEAR(m("lb"), 0.0022, 1e-4);
     EXPECT_EQ(m("t"), 1e-6);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_mass_g_to_oz_lb_t_233){
-    munits::Quantity m (munits::Quantity::Mass, 2.33, "g");
+    munits::Quantity m (munits::Mass, 2.33, "g");
 
     EXPECT_NEAR(m("oz"), 0.0821, 1e-4);
     EXPECT_NEAR(m("lb"), 0.00513, 1e-4);
     EXPECT_EQ(m("t"), 2.33e-6);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_s_to_min){
-   munits::Quantity t (munits::Quantity::Time, 30, "s");
+   munits::Quantity t (munits::Time, 30, "s");
     EXPECT_EQ(t("min"), 0.5);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_min_to_s){
-    munits::Quantity t (munits::Quantity::Time, 1.0, "min");
+    munits::Quantity t (munits::Time, 1.0, "min");
     EXPECT_EQ(t("s"), 60);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_hour_to_s){
-    munits::Quantity t (munits::Quantity::Time, 1.0, "h");
+    munits::Quantity t (munits::Time, 1.0, "h");
     EXPECT_EQ(t("s"), 3600);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_s_to_hour){
-    munits::Quantity t (munits::Quantity::Time, 3600, "s");
+    munits::Quantity t (munits::Time, 3600, "s");
     EXPECT_EQ(t("h"), 1);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_d_to_s){
-    munits::Quantity t (munits::Quantity::Time, 1.0, "d");
+    munits::Quantity t (munits::Time, 1.0, "d");
     EXPECT_EQ(t("s"), 86400.);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_s_to_d){
-    munits::Quantity  t (munits::Quantity::Time, 43200, "s");
+    munits::Quantity  t (munits::Time, 43200, "s");
     EXPECT_EQ(t("d"), 0.5);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_day_to_hour){
-    munits::Quantity t (munits::Quantity::Time, 1, "d");
+    munits::Quantity t (munits::Time, 1, "d");
     EXPECT_EQ(t("h"), 24);
 }
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_hour_to_day){
-    munits::Quantity t (munits::Quantity::Time, 48, "h");
+    munits::Quantity t (munits::Time, 48, "h");
     EXPECT_EQ(t("d"), 2);
 }
 

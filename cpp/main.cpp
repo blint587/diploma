@@ -15,8 +15,8 @@ using namespace munits;
 int main() {
 
     try {
-        Quantity l1(Quantity::Volume, 1, "l");
-        Quantity l2(Quantity::Volume, 1, "l");
+        Quantity l1(Volume, 1, "l");
+        Quantity l2(Volume, 1, "l");
         cout << (l1 > l2) << endl;
     }
     catch (exception & e){

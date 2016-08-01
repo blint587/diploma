@@ -100,24 +100,25 @@ namespace munits {
 
     };
 
+    enum metrics{
+        Length = 0,
+        Mass = 1,
+        Time = 2,
+        ElectricCurrency = 3,
+        Temperature = 4,
+        AmountOfSubstance = 5,
+        LuminousIntensity = 6,
+        Area = 7,
+        Volume = 8,
+        VolumetricFlow = 9,
+        MolarConcentration = 10,
+        Acceleration = 11,
+        _Last = 12
+
+    };
     const std::vector<munits::Metric> & GetMatrix();
 
     class Quantity {
-    public:
-        enum metrics{
-            Length = 0,
-            Mass = 1,
-            Time = 2,
-            ElectricCurrency = 3,
-            Temperature = 4,
-            AmountOfSubstance = 5,
-            LuminousIntensity = 6,
-            Area = 7,
-            Volume = 8,
-            VolumetricFlow = 9,
-            MolarConcentration = 10,
-            _Last
-        };
 
     private:
 
@@ -137,13 +138,17 @@ namespace munits {
 
         std::vector<int> GetDimVector() const{return GetMatrix()[matrix_index].dim_vector;};
         explicit Quantity(metrics,  double, const std::string);
+        Quantity(const Quantity &);
         ~Quantity(){};
         double operator()(const std::string) const;
-        friend std::ostream& operator<< (std::ostream& str, const Quantity & a){
-                str << a.value << " " <<  munits::Quantity::compose_unit(a.unit_vector);
-                return str;
-            };
+        operator std::string() const {std::stringstream ss; ss << value << " " << compose_unit(unit_vector); return ss.str();}
+
+        // TODO: include only if used for Cython
+        std::string toString(){return std::string(*this); }
+
         // TODO: convert friend functions to inline
+        friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.value << " " <<  munits::Quantity::compose_unit(a.unit_vector);return str;};
+
         friend Quantity operator+ (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value + b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
         friend Quantity operator- (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value - b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
         friend Quantity operator* (const Quantity & a, const Quantity & b) {return mathop(a, b, 1);};
@@ -156,6 +161,7 @@ namespace munits {
         friend bool operator != (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::ne<const double>);};
 
     };
+
 }
 
 

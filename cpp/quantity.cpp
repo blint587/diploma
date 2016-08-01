@@ -1,7 +1,7 @@
 #include <regex>
 #include <iostream>
 #include <queue>
-#include "Quantity.h"
+#include "quantity.h"
 
 using namespace std;
 
@@ -139,7 +139,8 @@ const vector<munits::Metric> & munits::GetMatrix() {
 
             },
             {{3, 0, -1, 0, 0, 0, 0}, "m3 s-1"},  //VolumetricFlow
-            {{-3, 0, 0, 0, 0, 1, 0}, "mol m-3"}  //MolarConcentration
+            {{-3, 0, 0, 0, 0, 1, 0}, "mol m-3"},  //MolarConcentration
+            {{1, 0, -2, 0, 0, 0, 0}, "m s-2"}  //Acceleration
     };
     return matrix;
 }
@@ -165,7 +166,7 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
         for(auto b = unTokens.begin(); b != unTokens.end();){
             if (rmatrix[ui].converter->is_valid_unit(*b)){
                 uv[ui] = *b;
-                unTokens.erase(b);
+                b = unTokens.erase(b);
             }
             else{
                 ++b;
@@ -173,7 +174,7 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
         }
     }
     if (unTokens.size() != 0){ // if no tokens left no point checking for none base units
-        for(int uii = 7; uii < _Last; ++uii){  // checking if any of the tokens is a none base unit
+        for(int uii = 7; uii < munits::metrics::_Last; ++uii){  // checking if any of the tokens is a none base unit
             for(auto b = unTokens.begin(); b != unTokens.end();){
                 if (rmatrix[uii].converter->is_valid_unit(*b)){
                     int position = 0;
@@ -181,7 +182,7 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
                         ++position;
                     };
                         uv[position] = UnitNotation(*b);
-                        unTokens.erase(b);
+                        b = unTokens.erase(b);
                 }
                 else{
                     ++b;
@@ -246,7 +247,7 @@ string munits::Quantity::compose_unit(const vector<UnitNotation> & uv){
                 break; // TODO: could integrate condition into loop criteria.
             }
         }
-        if(dmv == dim_matrix.front()){
+        if(!dim_matrix.empty() && dmv == dim_matrix.front()){
             throw logic_error("Invalid unit: " + tunit);
         }
     }
@@ -272,7 +273,7 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
     }
 
     int nmindex = 0;
-    while(nmindex < _Last && ndim_vector != rmatrix[nmindex].dim_vector){ // determining the unit type by searching a the matching dimension vector
+    while(nmindex < munits::_Last && ndim_vector != rmatrix[nmindex].dim_vector){ // determining the unit type by searching a the matching dimension vector
         ++nmindex;
     }
 
@@ -280,8 +281,12 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
 };
 
 
-munits::Quantity::Quantity(munits::Quantity::metrics m,  double value, const string unit):
+munits::Quantity::Quantity(munits::metrics m,  double value, const string unit):
         matrix_index(m), value(value), converter(munits::GetMatrix()[m].converter), unit_vector(this->compose_unit_vector(unit)){
+    if (matrix_index > _Last){
+        std::cout << "Shit something whent wrong";
+        throw logic_error("Invalid unit type");
+    }
 }
 
 
@@ -298,6 +303,13 @@ bool munits::Quantity::compop(const munits::Quantity &a, const munits::Quantity 
     }
 }
 
+munits::Quantity::Quantity(const munits::Quantity & other):matrix_index(other.matrix_index),
+                                                           unit_vector(other.unit_vector),
+                                                           value(other.value),
+                                                           converter(other.converter){
+
+}
+
 
 vector<string> munits::UnitNotation::parser(string unit) {
     const vector<munits::Metric> & rmatrix = munits::GetMatrix();
@@ -305,7 +317,7 @@ vector<string> munits::UnitNotation::parser(string unit) {
 
     bool no_matc = true;
 
-    for(int u = 0; u < Quantity::_Last && no_matc; ++u) {
+    for(int u = 0; u < munits::_Last && no_matc; ++u) {
         stringstream rp;
         { // composing the regex for each unit type
             rp << "^(";
