@@ -1,6 +1,7 @@
 #include <regex>
 #include <iostream>
 #include <queue>
+#include <algorithm>
 #include "quantity.h"
 
 using namespace std;
@@ -283,6 +284,7 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
 
 munits::Quantity::Quantity(munits::metrics m,  double value, const string unit):
         matrix_index(m), value(value), converter(munits::GetMatrix()[m].converter), unit_vector(this->compose_unit_vector(unit)){
+    cout << "Coonstructing Quantity at: " << this << endl;
     if (matrix_index > _Last){
         std::cout << "Shit something whent wrong";
         throw logic_error("Invalid unit type");
@@ -307,7 +309,13 @@ munits::Quantity::Quantity(const munits::Quantity & other):matrix_index(other.ma
                                                            unit_vector(other.unit_vector),
                                                            value(other.value),
                                                            converter(other.converter){
+    cout << "Triggering copy constructor" << endl;
 
+}
+
+munits::Quantity munits::Quantity::operator=(Quantity & other) {
+    cout << "Triggering copy assignment" << endl;
+    return Quantity(other);
 }
 
 
