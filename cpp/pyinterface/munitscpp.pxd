@@ -2,7 +2,7 @@ from libcpp.string cimport string
 
 cdef extern from "../quantity.h" namespace "munits":
 
-    cdef  enum metrics:
+    cdef enum metrics:
             Length = 0,
             Mass = 1,
             Time = 2,
@@ -21,8 +21,21 @@ cdef extern from "../quantity.h" namespace "munits":
         Quantity(metrics, double, const string)
         Quantity(const Quantity)
 
-        bint operator< (const Quantity)
-        double operator()(string)
+        int getMatrixIndex()
+
+        bint operator< (const Quantity) except + ValueError
+        bint operator<= (const Quantity) except + ValueError
+        bint operator> (const Quantity) except + ValueError
+        bint operator>= (const Quantity) except + ValueError
+        bint operator== (const Quantity) except + ValueError
+        bint operator!= (const Quantity) except + ValueError
+
+        double operator()(string) except + ValueError
 
         Quantity operator+(const Quantity)
+        Quantity operator-(const Quantity)
+        Quantity operator*(const Quantity)
+        Quantity operator/(const Quantity)
+
+        string toString() except + RuntimeError
 

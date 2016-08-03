@@ -8,9 +8,10 @@
 #include <math.h>
 #include <string>
 #include <memory>
-//#ifdef DEBUG
+#ifdef DEBUG
     #include <iostream>
-//#endif
+#endif
+#include <iostream>
 #include <algorithm>
 #include <sstream>
 #include <iterator>
@@ -140,9 +141,9 @@ namespace munits {
         explicit Quantity(metrics,  double, const std::string);
         Quantity(const Quantity &);
         Quantity operator=(Quantity &);
-        ~Quantity(){
-            std::cout << "Destructing Quantity at " << this << std::endl;
-        };
+        ~Quantity(){};
+
+        const int getMatrixIndex()const {return matrix_index;};
         double operator()(const std::string) const;
         operator std::string() const {std::stringstream ss; ss << value << " " << compose_unit(unit_vector); return ss.str();}
 

@@ -1,6 +1,6 @@
 from libcpp.string cimport string
 from munitscpp cimport Quantity, metrics
-
+from cython.operator cimport dereference as deref
 
 cdef class PyQuantity:
 
@@ -36,14 +36,48 @@ cdef class PyQuantity:
         return False # propagate exceptions
 
     def __richcmp__(PyQuantity self, PyQuantity other, op):
-        if op == 0:
-            return self._thisptr[0] < other._thisptr[0]
+        if 0 == op:
+            return deref(self._thisptr) < deref(other._thisptr)
+        elif 1 == op:
+            return deref(self._thisptr) <= deref(other._thisptr)
+        elif 2 == op:
+            return deref(self._thisptr) == deref(other._thisptr)
+        elif 3 == op:
+            return deref(self._thisptr) != deref(other._thisptr)
+        elif 4 == op:
+            return deref(self._thisptr) > deref(other._thisptr)
+        elif 5 == op:
+            return deref(self._thisptr) >= deref(other._thisptr)
 
     def __call__(PyQuantity self, str unit):
         return self._thisptr[0](bytes(unit, "utf-8"))
 
     def __add__(PyQuantity self, PyQuantity other):
         cdef PyQuantity nobj = PyQuantity()
-        nobj._thisptr = new Quantity(self._thisptr[0] +  other._thisptr[0])
+        nobj._thisptr = new Quantity(deref(self._thisptr) +  deref(other._thisptr))
         return nobj
 
+    def __mul__(PyQuantity self, PyQuantity other):
+        cdef PyQuantity nobj = PyQuantity()
+        nobj._thisptr = new Quantity(deref(self._thisptr) *  deref(other._thisptr))
+        return nobj
+
+    def __sub__(PyQuantity self, PyQuantity other):
+        cdef PyQuantity nobj = PyQuantity()
+        nobj._thisptr = new Quantity(deref(self._thisptr) -  deref(other._thisptr))
+        return nobj
+
+
+    def __truediv__(PyQuantity self, PyQuantity other):
+        cdef PyQuantity nobj = PyQuantity()
+        nobj._thisptr = new Quantity(deref(self._thisptr) / deref(other._thisptr) )
+        return nobj
+
+    __div__ = __truediv__
+
+    def __str__(PyQuantity self):
+        return self._thisptr.toString().decode("utf-8")
+
+    @property
+    def matrix_index(PyQuantity self):
+        return self._thisptr.getMatrixIndex()

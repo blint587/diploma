@@ -517,6 +517,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
+  "pyinterface\\munitscpp.pxd",
   "pyinterface\\munitscpp.pyx",
   "stringsource",
 };
@@ -525,7 +526,7 @@ static const char *__pyx_f[] = {
 struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity;
 
 /* "pyinterface/munitscpp.pyx":5
- * 
+ * from cython.operator cimport dereference as deref
  * 
  * cdef class PyQuantity:             # <<<<<<<<<<<<<<
  * 
@@ -679,14 +680,38 @@ static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject 
 
 /* PyIntBinop.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
-static PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, long intval, int inplace);
+static PyObject* __Pyx_PyInt_EqCObj(PyObject *op1, PyObject *op2, long intval, int inplace);
 #else
-#define __Pyx_PyInt_EqObjC(op1, op2, intval, inplace)\
+#define __Pyx_PyInt_EqCObj(op1, op2, intval, inplace)\
     PyObject_RichCompare(op1, op2, Py_EQ)
     #endif
 
+/* IncludeCppStringH.proto */
+#include <string>
+
+/* decode_c_bytes.proto */
+static CYTHON_INLINE PyObject* __Pyx_decode_c_bytes(
+         const char* cstring, Py_ssize_t length, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors));
+
+/* decode_cpp_string.proto */
+static CYTHON_INLINE PyObject* __Pyx_decode_cpp_string(
+         std::string cppstring, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors)) {
+    return __Pyx_decode_c_bytes(
+        cppstring.data(), cppstring.size(), start, stop, encoding, errors, decode_func);
+}
+
 /* SetVTable.proto */
 static int __Pyx_SetVtable(PyObject *dict, void *vtable);
+
+/* GetModuleGlobalName.proto */
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
+
+/* GetNameInClass.proto */
+static PyObject *__Pyx_GetNameInClass(PyObject *nmspace, PyObject *name);
 
 /* CodeObjectCache.proto */
 typedef struct {
@@ -737,12 +762,19 @@ static int __pyx_f_11pyinterface_9munitscpp_10PyQuantity__check_alive(struct __p
 /* Module declarations from 'pyinterface.munitscpp' */
 static PyTypeObject *__pyx_ptype_11pyinterface_9munitscpp_PyQuantity = 0;
 static std::string __pyx_convert_string_from_py_std__in_string(PyObject *); /*proto*/
+static CYTHON_INLINE PyObject *__pyx_convert_PyObject_string_to_py_std__in_string(std::string const &); /*proto*/
+static CYTHON_INLINE PyObject *__pyx_convert_PyUnicode_string_to_py_std__in_string(std::string const &); /*proto*/
+static CYTHON_INLINE PyObject *__pyx_convert_PyStr_string_to_py_std__in_string(std::string const &); /*proto*/
+static CYTHON_INLINE PyObject *__pyx_convert_PyBytes_string_to_py_std__in_string(std::string const &); /*proto*/
+static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_string(std::string const &); /*proto*/
 #define __Pyx_MODULE_NAME "pyinterface.munitscpp"
 int __pyx_module_is_main_pyinterface__munitscpp = 0;
 
 /* Implementation of 'pyinterface.munitscpp' */
+static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_RuntimeError;
-static const char __pyx_k__4[] = "";
+static const char __pyx_k_[] = "";
+static const char __pyx_k_div[] = "__div__";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_unit[] = "unit";
@@ -753,12 +785,16 @@ static const char __pyx_k_exc_tb[] = "exc_tb";
 static const char __pyx_k_exc_tp[] = "exc_tp";
 static const char __pyx_k_metric[] = "metric";
 static const char __pyx_k_exc_val[] = "exc_val";
+static const char __pyx_k_truediv[] = "__truediv__";
+static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_Wrapped_C_object_is_deleted[] = "Wrapped C++ object is deleted";
+static PyObject *__pyx_kp_s_;
 static PyObject *__pyx_n_s_RuntimeError;
+static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_kp_s_Wrapped_C_object_is_deleted;
-static PyObject *__pyx_kp_b__4;
+static PyObject *__pyx_n_s_div;
 static PyObject *__pyx_n_s_exc_tb;
 static PyObject *__pyx_n_s_exc_tp;
 static PyObject *__pyx_n_s_exc_val;
@@ -767,28 +803,38 @@ static PyObject *__pyx_n_s_metric;
 static PyObject *__pyx_n_s_other;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_n_s_truediv;
 static PyObject *__pyx_n_s_unit;
 static PyObject *__pyx_kp_s_utf_8;
 static PyObject *__pyx_n_s_value;
-static int __pyx_pf_11pyinterface_9munitscpp_10PyQuantity___cinit__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, enum munits::metrics __pyx_v_metric, double __pyx_v_value, std::string __pyx_v_unit, struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other); /* proto */
+static int __pyx_pf_11pyinterface_9munitscpp_10PyQuantity___cinit__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, enum munits::metrics __pyx_v_metric, double __pyx_v_value, PyObject *__pyx_v_unit, struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other); /* proto */
 static void __pyx_pf_11pyinterface_9munitscpp_10PyQuantity_2__dealloc__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_4__enter__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_6__exit__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v_exc_tp, CYTHON_UNUSED PyObject *__pyx_v_exc_val, CYTHON_UNUSED PyObject *__pyx_v_exc_tb); /* proto */
 static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_8__richcmp__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other, PyObject *__pyx_v_op); /* proto */
 static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_10__call__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, PyObject *__pyx_v_unit); /* proto */
 static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_12__add__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_14__mul__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_16__sub__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_18__truediv__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other); /* proto */
+static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_20__str__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_12matrix_index___get__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self); /* proto */
 static PyObject *__pyx_tp_new_11pyinterface_9munitscpp_PyQuantity(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_0;
-static enum munits::metrics __pyx_k_;
-static std::string __pyx_k__2;
+static PyObject *__pyx_int_1;
+static PyObject *__pyx_int_2;
+static PyObject *__pyx_int_3;
+static PyObject *__pyx_int_4;
+static PyObject *__pyx_int_5;
+static enum munits::metrics __pyx_k__2;
 static PyObject *__pyx_tuple__3;
 
 /* "pyinterface/munitscpp.pyx":10
  *         Quantity *_thisptr
  * 
- *     def __cinit__(self, metrics metric=_Last, double value=0, string unit=b"", PyQuantity other=None ):             # <<<<<<<<<<<<<<
+ *     def __cinit__(self, metrics metric=_Last, double value=0, str unit="", PyQuantity other=None ):             # <<<<<<<<<<<<<<
  *         if other is None and metric!=_Last:
- *             self._thisptr = new Quantity(metric, value, unit)
+ *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  */
 
 /* Python wrapper */
@@ -796,7 +842,7 @@ static int __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_1__cinit__(PyObject *_
 static int __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   enum munits::metrics __pyx_v_metric;
   double __pyx_v_value;
-  std::string __pyx_v_unit;
+  PyObject *__pyx_v_unit = 0;
   struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other = 0;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -804,6 +850,7 @@ static int __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_1__cinit__(PyObject *_
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_metric,&__pyx_n_s_value,&__pyx_n_s_unit,&__pyx_n_s_other,0};
     PyObject* values[4] = {0,0,0,0};
+    values[2] = ((PyObject*)__pyx_kp_s_);
     values[3] = (PyObject *)((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)Py_None);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -840,7 +887,7 @@ static int __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_1__cinit__(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 10, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(1, 10, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -853,31 +900,28 @@ static int __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_1__cinit__(PyObject *_
       }
     }
     if (values[0]) {
-      __pyx_v_metric = ((enum munits::metrics)__Pyx_PyInt_As_enum__munits_3a__3a_metrics(values[0])); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L3_error)
+      __pyx_v_metric = ((enum munits::metrics)__Pyx_PyInt_As_enum__munits_3a__3a_metrics(values[0])); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 10, __pyx_L3_error)
     } else {
-      __pyx_v_metric = __pyx_k_;
+      __pyx_v_metric = __pyx_k__2;
     }
     if (values[1]) {
-      __pyx_v_value = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_value == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L3_error)
+      __pyx_v_value = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_value == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 10, __pyx_L3_error)
     } else {
       __pyx_v_value = ((double)0.0);
     }
-    if (values[2]) {
-      __pyx_v_unit = __pyx_convert_string_from_py_std__in_string(values[2]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L3_error)
-    } else {
-      __pyx_v_unit = __pyx_k__2;
-    }
+    __pyx_v_unit = ((PyObject*)values[2]);
     __pyx_v_other = ((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)values[3]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 10, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 10, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyinterface.munitscpp.PyQuantity.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "other", 0))) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_unit), (&PyString_Type), 1, "unit", 1))) __PYX_ERR(1, 10, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "other", 0))) __PYX_ERR(1, 10, __pyx_L1_error)
   __pyx_r = __pyx_pf_11pyinterface_9munitscpp_10PyQuantity___cinit__(((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_self), __pyx_v_metric, __pyx_v_value, __pyx_v_unit, __pyx_v_other);
 
   /* function exit code */
@@ -889,19 +933,22 @@ static int __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_1__cinit__(PyObject *_
   return __pyx_r;
 }
 
-static int __pyx_pf_11pyinterface_9munitscpp_10PyQuantity___cinit__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, enum munits::metrics __pyx_v_metric, double __pyx_v_value, std::string __pyx_v_unit, struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other) {
+static int __pyx_pf_11pyinterface_9munitscpp_10PyQuantity___cinit__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, enum munits::metrics __pyx_v_metric, double __pyx_v_value, PyObject *__pyx_v_unit, struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   int __pyx_t_2;
   int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  std::string __pyx_t_6;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
   /* "pyinterface/munitscpp.pyx":11
  * 
- *     def __cinit__(self, metrics metric=_Last, double value=0, string unit=b"", PyQuantity other=None ):
+ *     def __cinit__(self, metrics metric=_Last, double value=0, str unit="", PyQuantity other=None ):
  *         if other is None and metric!=_Last:             # <<<<<<<<<<<<<<
- *             self._thisptr = new Quantity(metric, value, unit)
+ *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  *         elif other is not None:
  */
   __pyx_t_2 = (((PyObject *)__pyx_v_other) == Py_None);
@@ -917,19 +964,32 @@ static int __pyx_pf_11pyinterface_9munitscpp_10PyQuantity___cinit__(struct __pyx
   if (__pyx_t_1) {
 
     /* "pyinterface/munitscpp.pyx":12
- *     def __cinit__(self, metrics metric=_Last, double value=0, string unit=b"", PyQuantity other=None ):
+ *     def __cinit__(self, metrics metric=_Last, double value=0, str unit="", PyQuantity other=None ):
  *         if other is None and metric!=_Last:
- *             self._thisptr = new Quantity(metric, value, unit)             # <<<<<<<<<<<<<<
+ *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))             # <<<<<<<<<<<<<<
  *         elif other is not None:
  *             self._thisptr = new Quantity(other._thisptr[0])
  */
-    __pyx_v_self->_thisptr = new munits::Quantity(__pyx_v_metric, __pyx_v_value, __pyx_v_unit);
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 12, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_INCREF(__pyx_v_unit);
+    __Pyx_GIVEREF(__pyx_v_unit);
+    PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_unit);
+    __Pyx_INCREF(__pyx_kp_s_utf_8);
+    __Pyx_GIVEREF(__pyx_kp_s_utf_8);
+    PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_kp_s_utf_8);
+    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)(&PyBytes_Type)), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 12, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_6 = __pyx_convert_string_from_py_std__in_string(__pyx_t_5); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_v_self->_thisptr = new munits::Quantity(__pyx_v_metric, __pyx_v_value, __pyx_t_6);
 
     /* "pyinterface/munitscpp.pyx":11
  * 
- *     def __cinit__(self, metrics metric=_Last, double value=0, string unit=b"", PyQuantity other=None ):
+ *     def __cinit__(self, metrics metric=_Last, double value=0, str unit="", PyQuantity other=None ):
  *         if other is None and metric!=_Last:             # <<<<<<<<<<<<<<
- *             self._thisptr = new Quantity(metric, value, unit)
+ *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  *         elif other is not None:
  */
     goto __pyx_L3;
@@ -937,7 +997,7 @@ static int __pyx_pf_11pyinterface_9munitscpp_10PyQuantity___cinit__(struct __pyx
 
   /* "pyinterface/munitscpp.pyx":13
  *         if other is None and metric!=_Last:
- *             self._thisptr = new Quantity(metric, value, unit)
+ *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  *         elif other is not None:             # <<<<<<<<<<<<<<
  *             self._thisptr = new Quantity(other._thisptr[0])
  *         else:
@@ -947,7 +1007,7 @@ static int __pyx_pf_11pyinterface_9munitscpp_10PyQuantity___cinit__(struct __pyx
   if (__pyx_t_3) {
 
     /* "pyinterface/munitscpp.pyx":14
- *             self._thisptr = new Quantity(metric, value, unit)
+ *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  *         elif other is not None:
  *             self._thisptr = new Quantity(other._thisptr[0])             # <<<<<<<<<<<<<<
  *         else:
@@ -957,7 +1017,7 @@ static int __pyx_pf_11pyinterface_9munitscpp_10PyQuantity___cinit__(struct __pyx
 
     /* "pyinterface/munitscpp.pyx":13
  *         if other is None and metric!=_Last:
- *             self._thisptr = new Quantity(metric, value, unit)
+ *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  *         elif other is not None:             # <<<<<<<<<<<<<<
  *             self._thisptr = new Quantity(other._thisptr[0])
  *         else:
@@ -980,13 +1040,20 @@ static int __pyx_pf_11pyinterface_9munitscpp_10PyQuantity___cinit__(struct __pyx
   /* "pyinterface/munitscpp.pyx":10
  *         Quantity *_thisptr
  * 
- *     def __cinit__(self, metrics metric=_Last, double value=0, string unit=b"", PyQuantity other=None ):             # <<<<<<<<<<<<<<
+ *     def __cinit__(self, metrics metric=_Last, double value=0, str unit="", PyQuantity other=None ):             # <<<<<<<<<<<<<<
  *         if other is None and metric!=_Last:
- *             self._thisptr = new Quantity(metric, value, unit)
+ *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  */
 
   /* function exit code */
   __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("pyinterface.munitscpp.PyQuantity.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -1087,11 +1154,11 @@ static int __pyx_f_11pyinterface_9munitscpp_10PyQuantity__check_alive(struct __p
  *         else:
  *             return 0
  */
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 24, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 24, __pyx_L1_error)
+    __PYX_ERR(1, 24, __pyx_L1_error)
 
     /* "pyinterface/munitscpp.pyx":23
  * 
@@ -1166,7 +1233,7 @@ static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_4__enter__(struc
  *         return self
  * 
  */
-  __pyx_t_1 = ((struct __pyx_vtabstruct_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_self->__pyx_vtab)->_check_alive(__pyx_v_self); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_1 = ((struct __pyx_vtabstruct_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_self->__pyx_vtab)->_check_alive(__pyx_v_self); if (unlikely(__pyx_t_1 == -1)) __PYX_ERR(1, 29, __pyx_L1_error)
 
   /* "pyinterface/munitscpp.pyx":30
  *     def __enter__(self):
@@ -1236,16 +1303,16 @@ static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_7__exit__(PyObje
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_exc_val)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__exit__", 1, 3, 3, 1); __PYX_ERR(0, 32, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__exit__", 1, 3, 3, 1); __PYX_ERR(1, 32, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_exc_tb)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__exit__", 1, 3, 3, 2); __PYX_ERR(0, 32, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__exit__", 1, 3, 3, 2); __PYX_ERR(1, 32, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__exit__") < 0)) __PYX_ERR(0, 32, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__exit__") < 0)) __PYX_ERR(1, 32, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -1260,7 +1327,7 @@ static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_7__exit__(PyObje
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__exit__", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 32, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__exit__", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 32, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyinterface.munitscpp.PyQuantity.__exit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1347,8 +1414,8 @@ static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_6__exit__(struct
  *         return False # propagate exceptions
  * 
  *     def __richcmp__(PyQuantity self, PyQuantity other, op):             # <<<<<<<<<<<<<<
- *         if op == 0:
- *             return self._thisptr[0] < other._thisptr[0]
+ *         if 0 == op:
+ *             return deref(self._thisptr) < deref(other._thisptr)
  */
 
 /* Python wrapper */
@@ -1358,7 +1425,7 @@ static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_9__richcmp__(PyO
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__richcmp__ (wrapper)", 0);
-  __pyx_v_op = __Pyx_PyInt_From_int(__pyx_arg_op); if (unlikely(!__pyx_v_op)) __PYX_ERR(0, 38, __pyx_L3_error)
+  __pyx_v_op = __Pyx_PyInt_From_int(__pyx_arg_op); if (unlikely(!__pyx_v_op)) __PYX_ERR(1, 38, __pyx_L3_error)
   __Pyx_GOTREF(__pyx_v_op);
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1366,8 +1433,8 @@ static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_9__richcmp__(PyO
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "self", 0))) __PYX_ERR(0, 38, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "other", 0))) __PYX_ERR(0, 38, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "self", 0))) __PYX_ERR(1, 38, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "other", 0))) __PYX_ERR(1, 38, __pyx_L1_error)
   __pyx_r = __pyx_pf_11pyinterface_9munitscpp_10PyQuantity_8__richcmp__(((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_self), ((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_other), ((PyObject *)__pyx_v_op));
 
   /* function exit code */
@@ -1390,25 +1457,32 @@ static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_8__richcmp__(str
   /* "pyinterface/munitscpp.pyx":39
  * 
  *     def __richcmp__(PyQuantity self, PyQuantity other, op):
- *         if op == 0:             # <<<<<<<<<<<<<<
- *             return self._thisptr[0] < other._thisptr[0]
- * 
+ *         if 0 == op:             # <<<<<<<<<<<<<<
+ *             return deref(self._thisptr) < deref(other._thisptr)
+ *         elif 1 == op:
  */
-  __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_v_op, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_EqCObj(__pyx_int_0, __pyx_v_op, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 39, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(1, 39, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
     /* "pyinterface/munitscpp.pyx":40
  *     def __richcmp__(PyQuantity self, PyQuantity other, op):
- *         if op == 0:
- *             return self._thisptr[0] < other._thisptr[0]             # <<<<<<<<<<<<<<
- * 
- *     def __call__(PyQuantity self, str unit):
+ *         if 0 == op:
+ *             return deref(self._thisptr) < deref(other._thisptr)             # <<<<<<<<<<<<<<
+ *         elif 1 == op:
+ *             return deref(self._thisptr) <= deref(other._thisptr)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = __Pyx_PyBool_FromLong(((__pyx_v_self->_thisptr[0]) < (__pyx_v_other->_thisptr[0]))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
+    try {
+      __pyx_t_2 = ((*__pyx_v_self->_thisptr) < (*__pyx_v_other->_thisptr));
+    } catch(...) {
+      try { throw; } catch(const std::exception& exn) { PyErr_SetString(__pyx_builtin_ValueError, exn.what()); } catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+      __PYX_ERR(1, 40, __pyx_L1_error)
+    }
+    __pyx_t_2 = ((*__pyx_v_self->_thisptr) < (*__pyx_v_other->_thisptr));
+    __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 40, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_r = __pyx_t_1;
     __pyx_t_1 = 0;
@@ -1417,8 +1491,223 @@ static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_8__richcmp__(str
     /* "pyinterface/munitscpp.pyx":39
  * 
  *     def __richcmp__(PyQuantity self, PyQuantity other, op):
- *         if op == 0:             # <<<<<<<<<<<<<<
- *             return self._thisptr[0] < other._thisptr[0]
+ *         if 0 == op:             # <<<<<<<<<<<<<<
+ *             return deref(self._thisptr) < deref(other._thisptr)
+ *         elif 1 == op:
+ */
+  }
+
+  /* "pyinterface/munitscpp.pyx":41
+ *         if 0 == op:
+ *             return deref(self._thisptr) < deref(other._thisptr)
+ *         elif 1 == op:             # <<<<<<<<<<<<<<
+ *             return deref(self._thisptr) <= deref(other._thisptr)
+ *         elif 2 == op:
+ */
+  __pyx_t_1 = __Pyx_PyInt_EqCObj(__pyx_int_1, __pyx_v_op, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 41, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(1, 41, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "pyinterface/munitscpp.pyx":42
+ *             return deref(self._thisptr) < deref(other._thisptr)
+ *         elif 1 == op:
+ *             return deref(self._thisptr) <= deref(other._thisptr)             # <<<<<<<<<<<<<<
+ *         elif 2 == op:
+ *             return deref(self._thisptr) == deref(other._thisptr)
+ */
+    __Pyx_XDECREF(__pyx_r);
+    try {
+      __pyx_t_2 = ((*__pyx_v_self->_thisptr) <= (*__pyx_v_other->_thisptr));
+    } catch(...) {
+      try { throw; } catch(const std::exception& exn) { PyErr_SetString(__pyx_builtin_ValueError, exn.what()); } catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+      __PYX_ERR(1, 42, __pyx_L1_error)
+    }
+    __pyx_t_2 = ((*__pyx_v_self->_thisptr) <= (*__pyx_v_other->_thisptr));
+    __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 42, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_r = __pyx_t_1;
+    __pyx_t_1 = 0;
+    goto __pyx_L0;
+
+    /* "pyinterface/munitscpp.pyx":41
+ *         if 0 == op:
+ *             return deref(self._thisptr) < deref(other._thisptr)
+ *         elif 1 == op:             # <<<<<<<<<<<<<<
+ *             return deref(self._thisptr) <= deref(other._thisptr)
+ *         elif 2 == op:
+ */
+  }
+
+  /* "pyinterface/munitscpp.pyx":43
+ *         elif 1 == op:
+ *             return deref(self._thisptr) <= deref(other._thisptr)
+ *         elif 2 == op:             # <<<<<<<<<<<<<<
+ *             return deref(self._thisptr) == deref(other._thisptr)
+ *         elif 3 == op:
+ */
+  __pyx_t_1 = __Pyx_PyInt_EqCObj(__pyx_int_2, __pyx_v_op, 2, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 43, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(1, 43, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "pyinterface/munitscpp.pyx":44
+ *             return deref(self._thisptr) <= deref(other._thisptr)
+ *         elif 2 == op:
+ *             return deref(self._thisptr) == deref(other._thisptr)             # <<<<<<<<<<<<<<
+ *         elif 3 == op:
+ *             return deref(self._thisptr) != deref(other._thisptr)
+ */
+    __Pyx_XDECREF(__pyx_r);
+    try {
+      __pyx_t_2 = ((*__pyx_v_self->_thisptr) == (*__pyx_v_other->_thisptr));
+    } catch(...) {
+      try { throw; } catch(const std::exception& exn) { PyErr_SetString(__pyx_builtin_ValueError, exn.what()); } catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+      __PYX_ERR(1, 44, __pyx_L1_error)
+    }
+    __pyx_t_2 = ((*__pyx_v_self->_thisptr) == (*__pyx_v_other->_thisptr));
+    __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 44, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_r = __pyx_t_1;
+    __pyx_t_1 = 0;
+    goto __pyx_L0;
+
+    /* "pyinterface/munitscpp.pyx":43
+ *         elif 1 == op:
+ *             return deref(self._thisptr) <= deref(other._thisptr)
+ *         elif 2 == op:             # <<<<<<<<<<<<<<
+ *             return deref(self._thisptr) == deref(other._thisptr)
+ *         elif 3 == op:
+ */
+  }
+
+  /* "pyinterface/munitscpp.pyx":45
+ *         elif 2 == op:
+ *             return deref(self._thisptr) == deref(other._thisptr)
+ *         elif 3 == op:             # <<<<<<<<<<<<<<
+ *             return deref(self._thisptr) != deref(other._thisptr)
+ *         elif 4 == op:
+ */
+  __pyx_t_1 = __Pyx_PyInt_EqCObj(__pyx_int_3, __pyx_v_op, 3, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 45, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(1, 45, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "pyinterface/munitscpp.pyx":46
+ *             return deref(self._thisptr) == deref(other._thisptr)
+ *         elif 3 == op:
+ *             return deref(self._thisptr) != deref(other._thisptr)             # <<<<<<<<<<<<<<
+ *         elif 4 == op:
+ *             return deref(self._thisptr) > deref(other._thisptr)
+ */
+    __Pyx_XDECREF(__pyx_r);
+    try {
+      __pyx_t_2 = ((*__pyx_v_self->_thisptr) != (*__pyx_v_other->_thisptr));
+    } catch(...) {
+      try { throw; } catch(const std::exception& exn) { PyErr_SetString(__pyx_builtin_ValueError, exn.what()); } catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+      __PYX_ERR(1, 46, __pyx_L1_error)
+    }
+    __pyx_t_2 = ((*__pyx_v_self->_thisptr) != (*__pyx_v_other->_thisptr));
+    __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 46, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_r = __pyx_t_1;
+    __pyx_t_1 = 0;
+    goto __pyx_L0;
+
+    /* "pyinterface/munitscpp.pyx":45
+ *         elif 2 == op:
+ *             return deref(self._thisptr) == deref(other._thisptr)
+ *         elif 3 == op:             # <<<<<<<<<<<<<<
+ *             return deref(self._thisptr) != deref(other._thisptr)
+ *         elif 4 == op:
+ */
+  }
+
+  /* "pyinterface/munitscpp.pyx":47
+ *         elif 3 == op:
+ *             return deref(self._thisptr) != deref(other._thisptr)
+ *         elif 4 == op:             # <<<<<<<<<<<<<<
+ *             return deref(self._thisptr) > deref(other._thisptr)
+ *         elif 5 == op:
+ */
+  __pyx_t_1 = __Pyx_PyInt_EqCObj(__pyx_int_4, __pyx_v_op, 4, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 47, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(1, 47, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "pyinterface/munitscpp.pyx":48
+ *             return deref(self._thisptr) != deref(other._thisptr)
+ *         elif 4 == op:
+ *             return deref(self._thisptr) > deref(other._thisptr)             # <<<<<<<<<<<<<<
+ *         elif 5 == op:
+ *             return deref(self._thisptr) >= deref(other._thisptr)
+ */
+    __Pyx_XDECREF(__pyx_r);
+    try {
+      __pyx_t_2 = ((*__pyx_v_self->_thisptr) > (*__pyx_v_other->_thisptr));
+    } catch(...) {
+      try { throw; } catch(const std::exception& exn) { PyErr_SetString(__pyx_builtin_ValueError, exn.what()); } catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+      __PYX_ERR(1, 48, __pyx_L1_error)
+    }
+    __pyx_t_2 = ((*__pyx_v_self->_thisptr) > (*__pyx_v_other->_thisptr));
+    __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 48, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_r = __pyx_t_1;
+    __pyx_t_1 = 0;
+    goto __pyx_L0;
+
+    /* "pyinterface/munitscpp.pyx":47
+ *         elif 3 == op:
+ *             return deref(self._thisptr) != deref(other._thisptr)
+ *         elif 4 == op:             # <<<<<<<<<<<<<<
+ *             return deref(self._thisptr) > deref(other._thisptr)
+ *         elif 5 == op:
+ */
+  }
+
+  /* "pyinterface/munitscpp.pyx":49
+ *         elif 4 == op:
+ *             return deref(self._thisptr) > deref(other._thisptr)
+ *         elif 5 == op:             # <<<<<<<<<<<<<<
+ *             return deref(self._thisptr) >= deref(other._thisptr)
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyInt_EqCObj(__pyx_int_5, __pyx_v_op, 5, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 49, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(1, 49, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_2) {
+
+    /* "pyinterface/munitscpp.pyx":50
+ *             return deref(self._thisptr) > deref(other._thisptr)
+ *         elif 5 == op:
+ *             return deref(self._thisptr) >= deref(other._thisptr)             # <<<<<<<<<<<<<<
+ * 
+ *     def __call__(PyQuantity self, str unit):
+ */
+    __Pyx_XDECREF(__pyx_r);
+    try {
+      __pyx_t_2 = ((*__pyx_v_self->_thisptr) >= (*__pyx_v_other->_thisptr));
+    } catch(...) {
+      try { throw; } catch(const std::exception& exn) { PyErr_SetString(__pyx_builtin_ValueError, exn.what()); } catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+      __PYX_ERR(1, 50, __pyx_L1_error)
+    }
+    __pyx_t_2 = ((*__pyx_v_self->_thisptr) >= (*__pyx_v_other->_thisptr));
+    __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 50, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_r = __pyx_t_1;
+    __pyx_t_1 = 0;
+    goto __pyx_L0;
+
+    /* "pyinterface/munitscpp.pyx":49
+ *         elif 4 == op:
+ *             return deref(self._thisptr) > deref(other._thisptr)
+ *         elif 5 == op:             # <<<<<<<<<<<<<<
+ *             return deref(self._thisptr) >= deref(other._thisptr)
  * 
  */
   }
@@ -1427,8 +1716,8 @@ static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_8__richcmp__(str
  *         return False # propagate exceptions
  * 
  *     def __richcmp__(PyQuantity self, PyQuantity other, op):             # <<<<<<<<<<<<<<
- *         if op == 0:
- *             return self._thisptr[0] < other._thisptr[0]
+ *         if 0 == op:
+ *             return deref(self._thisptr) < deref(other._thisptr)
  */
 
   /* function exit code */
@@ -1444,8 +1733,8 @@ static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_8__richcmp__(str
   return __pyx_r;
 }
 
-/* "pyinterface/munitscpp.pyx":42
- *             return self._thisptr[0] < other._thisptr[0]
+/* "pyinterface/munitscpp.pyx":52
+ *             return deref(self._thisptr) >= deref(other._thisptr)
  * 
  *     def __call__(PyQuantity self, str unit):             # <<<<<<<<<<<<<<
  *         return self._thisptr[0](bytes(unit, "utf-8"))
@@ -1477,7 +1766,7 @@ static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_11__call__(PyObj
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__call__") < 0)) __PYX_ERR(0, 42, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__call__") < 0)) __PYX_ERR(1, 52, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
       goto __pyx_L5_argtuple_error;
@@ -1488,13 +1777,13 @@ static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_11__call__(PyObj
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__call__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 42, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__call__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 52, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyinterface.munitscpp.PyQuantity.__call__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_unit), (&PyString_Type), 1, "unit", 1))) __PYX_ERR(0, 42, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_unit), (&PyString_Type), 1, "unit", 1))) __PYX_ERR(1, 52, __pyx_L1_error)
   __pyx_r = __pyx_pf_11pyinterface_9munitscpp_10PyQuantity_10__call__(((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_self), __pyx_v_unit);
 
   /* function exit code */
@@ -1512,9 +1801,10 @@ static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_10__call__(struc
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   std::string __pyx_t_3;
+  double __pyx_t_4;
   __Pyx_RefNannySetupContext("__call__", 0);
 
-  /* "pyinterface/munitscpp.pyx":43
+  /* "pyinterface/munitscpp.pyx":53
  * 
  *     def __call__(PyQuantity self, str unit):
  *         return self._thisptr[0](bytes(unit, "utf-8"))             # <<<<<<<<<<<<<<
@@ -1522,7 +1812,7 @@ static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_10__call__(struc
  *     def __add__(PyQuantity self, PyQuantity other):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_unit);
   __Pyx_GIVEREF(__pyx_v_unit);
@@ -1530,19 +1820,25 @@ static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_10__call__(struc
   __Pyx_INCREF(__pyx_kp_s_utf_8);
   __Pyx_GIVEREF(__pyx_kp_s_utf_8);
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_kp_s_utf_8);
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)(&PyBytes_Type)), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)(&PyBytes_Type)), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __pyx_convert_string_from_py_std__in_string(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_t_3 = __pyx_convert_string_from_py_std__in_string(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_self->_thisptr[0])(__pyx_t_3)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
+  try {
+    __pyx_t_4 = (__pyx_v_self->_thisptr[0])(__pyx_t_3);
+  } catch(...) {
+    try { throw; } catch(const std::exception& exn) { PyErr_SetString(__pyx_builtin_ValueError, exn.what()); } catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+    __PYX_ERR(1, 53, __pyx_L1_error)
+  }
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pyinterface/munitscpp.pyx":42
- *             return self._thisptr[0] < other._thisptr[0]
+  /* "pyinterface/munitscpp.pyx":52
+ *             return deref(self._thisptr) >= deref(other._thisptr)
  * 
  *     def __call__(PyQuantity self, str unit):             # <<<<<<<<<<<<<<
  *         return self._thisptr[0](bytes(unit, "utf-8"))
@@ -1561,12 +1857,12 @@ static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_10__call__(struc
   return __pyx_r;
 }
 
-/* "pyinterface/munitscpp.pyx":45
+/* "pyinterface/munitscpp.pyx":55
  *         return self._thisptr[0](bytes(unit, "utf-8"))
  * 
  *     def __add__(PyQuantity self, PyQuantity other):             # <<<<<<<<<<<<<<
  *         cdef PyQuantity nobj = PyQuantity()
- *         nobj._thisptr = new Quantity(self._thisptr[0] +  other._thisptr[0])
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) +  deref(other._thisptr))
  */
 
 /* Python wrapper */
@@ -1575,8 +1871,8 @@ static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_13__add__(PyObje
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__add__ (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "self", 0))) __PYX_ERR(0, 45, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "other", 0))) __PYX_ERR(0, 45, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "self", 0))) __PYX_ERR(1, 55, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "other", 0))) __PYX_ERR(1, 55, __pyx_L1_error)
   __pyx_r = __pyx_pf_11pyinterface_9munitscpp_10PyQuantity_12__add__(((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_self), ((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_other));
 
   /* function exit code */
@@ -1595,44 +1891,45 @@ static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_12__add__(struct
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__add__", 0);
 
-  /* "pyinterface/munitscpp.pyx":46
+  /* "pyinterface/munitscpp.pyx":56
  * 
  *     def __add__(PyQuantity self, PyQuantity other):
  *         cdef PyQuantity nobj = PyQuantity()             # <<<<<<<<<<<<<<
- *         nobj._thisptr = new Quantity(self._thisptr[0] +  other._thisptr[0])
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) +  deref(other._thisptr))
  *         return nobj
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11pyinterface_9munitscpp_PyQuantity), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11pyinterface_9munitscpp_PyQuantity), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 56, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_nobj = ((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pyinterface/munitscpp.pyx":47
+  /* "pyinterface/munitscpp.pyx":57
  *     def __add__(PyQuantity self, PyQuantity other):
  *         cdef PyQuantity nobj = PyQuantity()
- *         nobj._thisptr = new Quantity(self._thisptr[0] +  other._thisptr[0])             # <<<<<<<<<<<<<<
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) +  deref(other._thisptr))             # <<<<<<<<<<<<<<
  *         return nobj
  * 
  */
-  __pyx_v_nobj->_thisptr = new munits::Quantity(((__pyx_v_self->_thisptr[0]) + (__pyx_v_other->_thisptr[0])));
+  __pyx_v_nobj->_thisptr = new munits::Quantity(((*__pyx_v_self->_thisptr) + (*__pyx_v_other->_thisptr)));
 
-  /* "pyinterface/munitscpp.pyx":48
+  /* "pyinterface/munitscpp.pyx":58
  *         cdef PyQuantity nobj = PyQuantity()
- *         nobj._thisptr = new Quantity(self._thisptr[0] +  other._thisptr[0])
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) +  deref(other._thisptr))
  *         return nobj             # <<<<<<<<<<<<<<
  * 
+ *     def __mul__(PyQuantity self, PyQuantity other):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_nobj));
   __pyx_r = ((PyObject *)__pyx_v_nobj);
   goto __pyx_L0;
 
-  /* "pyinterface/munitscpp.pyx":45
+  /* "pyinterface/munitscpp.pyx":55
  *         return self._thisptr[0](bytes(unit, "utf-8"))
  * 
  *     def __add__(PyQuantity self, PyQuantity other):             # <<<<<<<<<<<<<<
  *         cdef PyQuantity nobj = PyQuantity()
- *         nobj._thisptr = new Quantity(self._thisptr[0] +  other._thisptr[0])
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) +  deref(other._thisptr))
  */
 
   /* function exit code */
@@ -1642,6 +1939,390 @@ static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_12__add__(struct
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_nobj);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pyinterface/munitscpp.pyx":60
+ *         return nobj
+ * 
+ *     def __mul__(PyQuantity self, PyQuantity other):             # <<<<<<<<<<<<<<
+ *         cdef PyQuantity nobj = PyQuantity()
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) *  deref(other._thisptr))
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_15__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_15__mul__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__mul__ (wrapper)", 0);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "self", 0))) __PYX_ERR(1, 60, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "other", 0))) __PYX_ERR(1, 60, __pyx_L1_error)
+  __pyx_r = __pyx_pf_11pyinterface_9munitscpp_10PyQuantity_14__mul__(((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_self), ((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_other));
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_14__mul__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other) {
+  struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_nobj = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__mul__", 0);
+
+  /* "pyinterface/munitscpp.pyx":61
+ * 
+ *     def __mul__(PyQuantity self, PyQuantity other):
+ *         cdef PyQuantity nobj = PyQuantity()             # <<<<<<<<<<<<<<
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) *  deref(other._thisptr))
+ *         return nobj
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11pyinterface_9munitscpp_PyQuantity), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 61, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_nobj = ((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "pyinterface/munitscpp.pyx":62
+ *     def __mul__(PyQuantity self, PyQuantity other):
+ *         cdef PyQuantity nobj = PyQuantity()
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) *  deref(other._thisptr))             # <<<<<<<<<<<<<<
+ *         return nobj
+ * 
+ */
+  __pyx_v_nobj->_thisptr = new munits::Quantity(((*__pyx_v_self->_thisptr) * (*__pyx_v_other->_thisptr)));
+
+  /* "pyinterface/munitscpp.pyx":63
+ *         cdef PyQuantity nobj = PyQuantity()
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) *  deref(other._thisptr))
+ *         return nobj             # <<<<<<<<<<<<<<
+ * 
+ *     def __sub__(PyQuantity self, PyQuantity other):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(((PyObject *)__pyx_v_nobj));
+  __pyx_r = ((PyObject *)__pyx_v_nobj);
+  goto __pyx_L0;
+
+  /* "pyinterface/munitscpp.pyx":60
+ *         return nobj
+ * 
+ *     def __mul__(PyQuantity self, PyQuantity other):             # <<<<<<<<<<<<<<
+ *         cdef PyQuantity nobj = PyQuantity()
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) *  deref(other._thisptr))
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pyinterface.munitscpp.PyQuantity.__mul__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_nobj);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pyinterface/munitscpp.pyx":65
+ *         return nobj
+ * 
+ *     def __sub__(PyQuantity self, PyQuantity other):             # <<<<<<<<<<<<<<
+ *         cdef PyQuantity nobj = PyQuantity()
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) -  deref(other._thisptr))
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_17__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_17__sub__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__sub__ (wrapper)", 0);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "self", 0))) __PYX_ERR(1, 65, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "other", 0))) __PYX_ERR(1, 65, __pyx_L1_error)
+  __pyx_r = __pyx_pf_11pyinterface_9munitscpp_10PyQuantity_16__sub__(((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_self), ((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_other));
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_16__sub__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other) {
+  struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_nobj = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__sub__", 0);
+
+  /* "pyinterface/munitscpp.pyx":66
+ * 
+ *     def __sub__(PyQuantity self, PyQuantity other):
+ *         cdef PyQuantity nobj = PyQuantity()             # <<<<<<<<<<<<<<
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) -  deref(other._thisptr))
+ *         return nobj
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11pyinterface_9munitscpp_PyQuantity), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 66, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_nobj = ((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "pyinterface/munitscpp.pyx":67
+ *     def __sub__(PyQuantity self, PyQuantity other):
+ *         cdef PyQuantity nobj = PyQuantity()
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) -  deref(other._thisptr))             # <<<<<<<<<<<<<<
+ *         return nobj
+ * 
+ */
+  __pyx_v_nobj->_thisptr = new munits::Quantity(((*__pyx_v_self->_thisptr) - (*__pyx_v_other->_thisptr)));
+
+  /* "pyinterface/munitscpp.pyx":68
+ *         cdef PyQuantity nobj = PyQuantity()
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) -  deref(other._thisptr))
+ *         return nobj             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(((PyObject *)__pyx_v_nobj));
+  __pyx_r = ((PyObject *)__pyx_v_nobj);
+  goto __pyx_L0;
+
+  /* "pyinterface/munitscpp.pyx":65
+ *         return nobj
+ * 
+ *     def __sub__(PyQuantity self, PyQuantity other):             # <<<<<<<<<<<<<<
+ *         cdef PyQuantity nobj = PyQuantity()
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) -  deref(other._thisptr))
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pyinterface.munitscpp.PyQuantity.__sub__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_nobj);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pyinterface/munitscpp.pyx":71
+ * 
+ * 
+ *     def __truediv__(PyQuantity self, PyQuantity other):             # <<<<<<<<<<<<<<
+ *         cdef PyQuantity nobj = PyQuantity()
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) / deref(other._thisptr) )
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_19__truediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other); /*proto*/
+static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_19__truediv__(PyObject *__pyx_v_self, PyObject *__pyx_v_other) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__truediv__ (wrapper)", 0);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_self), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "self", 0))) __PYX_ERR(1, 71, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_other), __pyx_ptype_11pyinterface_9munitscpp_PyQuantity, 1, "other", 0))) __PYX_ERR(1, 71, __pyx_L1_error)
+  __pyx_r = __pyx_pf_11pyinterface_9munitscpp_10PyQuantity_18__truediv__(((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_self), ((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_other));
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_18__truediv__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self, struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_other) {
+  struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_nobj = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__truediv__", 0);
+
+  /* "pyinterface/munitscpp.pyx":72
+ * 
+ *     def __truediv__(PyQuantity self, PyQuantity other):
+ *         cdef PyQuantity nobj = PyQuantity()             # <<<<<<<<<<<<<<
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) / deref(other._thisptr) )
+ *         return nobj
+ */
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11pyinterface_9munitscpp_PyQuantity), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_nobj = ((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "pyinterface/munitscpp.pyx":73
+ *     def __truediv__(PyQuantity self, PyQuantity other):
+ *         cdef PyQuantity nobj = PyQuantity()
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) / deref(other._thisptr) )             # <<<<<<<<<<<<<<
+ *         return nobj
+ * 
+ */
+  __pyx_v_nobj->_thisptr = new munits::Quantity(((*__pyx_v_self->_thisptr) / (*__pyx_v_other->_thisptr)));
+
+  /* "pyinterface/munitscpp.pyx":74
+ *         cdef PyQuantity nobj = PyQuantity()
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) / deref(other._thisptr) )
+ *         return nobj             # <<<<<<<<<<<<<<
+ * 
+ *     __div__ = __truediv__
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(((PyObject *)__pyx_v_nobj));
+  __pyx_r = ((PyObject *)__pyx_v_nobj);
+  goto __pyx_L0;
+
+  /* "pyinterface/munitscpp.pyx":71
+ * 
+ * 
+ *     def __truediv__(PyQuantity self, PyQuantity other):             # <<<<<<<<<<<<<<
+ *         cdef PyQuantity nobj = PyQuantity()
+ *         nobj._thisptr = new Quantity(deref(self._thisptr) / deref(other._thisptr) )
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pyinterface.munitscpp.PyQuantity.__truediv__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_nobj);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pyinterface/munitscpp.pyx":78
+ *     __div__ = __truediv__
+ * 
+ *     def __str__(PyQuantity self):             # <<<<<<<<<<<<<<
+ *         return self._thisptr.toString().decode("utf-8")
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_21__str__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_21__str__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__str__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_11pyinterface_9munitscpp_10PyQuantity_20__str__(((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_20__str__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  std::string __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  __Pyx_RefNannySetupContext("__str__", 0);
+
+  /* "pyinterface/munitscpp.pyx":79
+ * 
+ *     def __str__(PyQuantity self):
+ *         return self._thisptr.toString().decode("utf-8")             # <<<<<<<<<<<<<<
+ * 
+ *     @property
+ */
+  __Pyx_XDECREF(__pyx_r);
+  try {
+    __pyx_t_1 = __pyx_v_self->_thisptr->toString();
+  } catch(...) {
+    try { throw; } catch(const std::exception& exn) { PyErr_SetString(__pyx_builtin_RuntimeError, exn.what()); } catch(...) { PyErr_SetNone(__pyx_builtin_RuntimeError); }
+    __PYX_ERR(1, 79, __pyx_L1_error)
+  }
+  __pyx_t_2 = __Pyx_decode_cpp_string(__pyx_t_1, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 79, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "pyinterface/munitscpp.pyx":78
+ *     __div__ = __truediv__
+ * 
+ *     def __str__(PyQuantity self):             # <<<<<<<<<<<<<<
+ *         return self._thisptr.toString().decode("utf-8")
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("pyinterface.munitscpp.PyQuantity.__str__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pyinterface/munitscpp.pyx":82
+ * 
+ *     @property
+ *     def matrix_index(PyQuantity self):             # <<<<<<<<<<<<<<
+ *         return self._thisptr.getMatrixIndex()
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_12matrix_index_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_12matrix_index_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_11pyinterface_9munitscpp_10PyQuantity_12matrix_index___get__(((struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11pyinterface_9munitscpp_10PyQuantity_12matrix_index___get__(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__get__", 0);
+
+  /* "pyinterface/munitscpp.pyx":83
+ *     @property
+ *     def matrix_index(PyQuantity self):
+ *         return self._thisptr.getMatrixIndex()             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->_thisptr->getMatrixIndex()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 83, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pyinterface/munitscpp.pyx":82
+ * 
+ *     @property
+ *     def matrix_index(PyQuantity self):             # <<<<<<<<<<<<<<
+ *         return self._thisptr.getMatrixIndex()
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("pyinterface.munitscpp.PyQuantity.matrix_index.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -1670,7 +2351,7 @@ static std::string __pyx_convert_string_from_py_std__in_string(PyObject *__pyx_v
  *     return string(data, length)
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_AsStringAndSize(__pyx_v_o, (&__pyx_v_length)); if (unlikely(__pyx_t_1 == NULL)) __PYX_ERR(1, 15, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_AsStringAndSize(__pyx_v_o, (&__pyx_v_length)); if (unlikely(__pyx_t_1 == NULL)) __PYX_ERR(2, 15, __pyx_L1_error)
   __pyx_v_data = __pyx_t_1;
 
   /* "string.from_py":16
@@ -1695,6 +2376,240 @@ static std::string __pyx_convert_string_from_py_std__in_string(PyObject *__pyx_v
   __pyx_L1_error:;
   __Pyx_AddTraceback("string.from_py.__pyx_convert_string_from_py_std__in_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "string.to_py":31
+ * 
+ * @cname("__pyx_convert_PyObject_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyObject_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyObject_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+static CYTHON_INLINE PyObject *__pyx_convert_PyObject_string_to_py_std__in_string(std::string const &__pyx_v_s) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__pyx_convert_PyObject_string_to_py_std__in_string", 0);
+
+  /* "string.to_py":32
+ * @cname("__pyx_convert_PyObject_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyObject_string_to_py_std__in_string(const string& s):
+ *     return __Pyx_PyObject_FromStringAndSize(s.data(), s.size())             # <<<<<<<<<<<<<<
+ * cdef extern from *:
+ *     cdef object __Pyx_PyUnicode_FromStringAndSize(char*, size_t)
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_FromStringAndSize(__pyx_v_s.data(), __pyx_v_s.size()); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 32, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "string.to_py":31
+ * 
+ * @cname("__pyx_convert_PyObject_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyObject_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyObject_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("string.to_py.__pyx_convert_PyObject_string_to_py_std__in_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "string.to_py":37
+ * 
+ * @cname("__pyx_convert_PyUnicode_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyUnicode_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyUnicode_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+static CYTHON_INLINE PyObject *__pyx_convert_PyUnicode_string_to_py_std__in_string(std::string const &__pyx_v_s) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__pyx_convert_PyUnicode_string_to_py_std__in_string", 0);
+
+  /* "string.to_py":38
+ * @cname("__pyx_convert_PyUnicode_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyUnicode_string_to_py_std__in_string(const string& s):
+ *     return __Pyx_PyUnicode_FromStringAndSize(s.data(), s.size())             # <<<<<<<<<<<<<<
+ * cdef extern from *:
+ *     cdef object __Pyx_PyStr_FromStringAndSize(char*, size_t)
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyUnicode_FromStringAndSize(__pyx_v_s.data(), __pyx_v_s.size()); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 38, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "string.to_py":37
+ * 
+ * @cname("__pyx_convert_PyUnicode_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyUnicode_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyUnicode_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("string.to_py.__pyx_convert_PyUnicode_string_to_py_std__in_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "string.to_py":43
+ * 
+ * @cname("__pyx_convert_PyStr_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyStr_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyStr_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+static CYTHON_INLINE PyObject *__pyx_convert_PyStr_string_to_py_std__in_string(std::string const &__pyx_v_s) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__pyx_convert_PyStr_string_to_py_std__in_string", 0);
+
+  /* "string.to_py":44
+ * @cname("__pyx_convert_PyStr_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyStr_string_to_py_std__in_string(const string& s):
+ *     return __Pyx_PyStr_FromStringAndSize(s.data(), s.size())             # <<<<<<<<<<<<<<
+ * cdef extern from *:
+ *     cdef object __Pyx_PyBytes_FromStringAndSize(char*, size_t)
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyStr_FromStringAndSize(__pyx_v_s.data(), __pyx_v_s.size()); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 44, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "string.to_py":43
+ * 
+ * @cname("__pyx_convert_PyStr_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyStr_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyStr_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("string.to_py.__pyx_convert_PyStr_string_to_py_std__in_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "string.to_py":49
+ * 
+ * @cname("__pyx_convert_PyBytes_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyBytes_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyBytes_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+static CYTHON_INLINE PyObject *__pyx_convert_PyBytes_string_to_py_std__in_string(std::string const &__pyx_v_s) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__pyx_convert_PyBytes_string_to_py_std__in_string", 0);
+
+  /* "string.to_py":50
+ * @cname("__pyx_convert_PyBytes_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyBytes_string_to_py_std__in_string(const string& s):
+ *     return __Pyx_PyBytes_FromStringAndSize(s.data(), s.size())             # <<<<<<<<<<<<<<
+ * cdef extern from *:
+ *     cdef object __Pyx_PyByteArray_FromStringAndSize(char*, size_t)
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyBytes_FromStringAndSize(__pyx_v_s.data(), __pyx_v_s.size()); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 50, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "string.to_py":49
+ * 
+ * @cname("__pyx_convert_PyBytes_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyBytes_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyBytes_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("string.to_py.__pyx_convert_PyBytes_string_to_py_std__in_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "string.to_py":55
+ * 
+ * @cname("__pyx_convert_PyByteArray_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyByteArray_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyByteArray_FromStringAndSize(s.data(), s.size())
+ * 
+ */
+
+static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_string(std::string const &__pyx_v_s) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__pyx_convert_PyByteArray_string_to_py_std__in_string", 0);
+
+  /* "string.to_py":56
+ * @cname("__pyx_convert_PyByteArray_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyByteArray_string_to_py_std__in_string(const string& s):
+ *     return __Pyx_PyByteArray_FromStringAndSize(s.data(), s.size())             # <<<<<<<<<<<<<<
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyByteArray_FromStringAndSize(__pyx_v_s.data(), __pyx_v_s.size()); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 56, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "string.to_py":55
+ * 
+ * @cname("__pyx_convert_PyByteArray_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyByteArray_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyByteArray_FromStringAndSize(s.data(), s.size())
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("string.to_py.__pyx_convert_PyByteArray_string_to_py_std__in_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -1734,16 +2649,25 @@ static void __pyx_tp_dealloc_11pyinterface_9munitscpp_PyQuantity(PyObject *o) {
   (*Py_TYPE(o)->tp_free)(o);
 }
 
+static PyObject *__pyx_getprop_11pyinterface_9munitscpp_10PyQuantity_matrix_index(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_12matrix_index_1__get__(o);
+}
+
 static PyMethodDef __pyx_methods_11pyinterface_9munitscpp_PyQuantity[] = {
   {"__enter__", (PyCFunction)__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_5__enter__, METH_NOARGS, 0},
   {"__exit__", (PyCFunction)__pyx_pw_11pyinterface_9munitscpp_10PyQuantity_7__exit__, METH_VARARGS|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 
+static struct PyGetSetDef __pyx_getsets_11pyinterface_9munitscpp_PyQuantity[] = {
+  {(char *)"matrix_index", __pyx_getprop_11pyinterface_9munitscpp_10PyQuantity_matrix_index, 0, (char *)0, 0},
+  {0, 0, 0, 0, 0}
+};
+
 static PyNumberMethods __pyx_tp_as_number_PyQuantity = {
   __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_13__add__, /*nb_add*/
-  0, /*nb_subtract*/
-  0, /*nb_multiply*/
+  __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_17__sub__, /*nb_subtract*/
+  __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_15__mul__, /*nb_multiply*/
   #if PY_MAJOR_VERSION < 3 || CYTHON_COMPILING_IN_PYPY
   0, /*nb_divide*/
   #endif
@@ -1790,7 +2714,7 @@ static PyNumberMethods __pyx_tp_as_number_PyQuantity = {
   0, /*nb_inplace_xor*/
   0, /*nb_inplace_or*/
   0, /*nb_floor_divide*/
-  0, /*nb_true_divide*/
+  __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_19__truediv__, /*nb_true_divide*/
   0, /*nb_inplace_floor_divide*/
   0, /*nb_inplace_true_divide*/
   0, /*nb_index*/
@@ -1823,7 +2747,7 @@ static PyTypeObject __pyx_type_11pyinterface_9munitscpp_PyQuantity = {
   0, /*tp_as_mapping*/
   0, /*tp_hash*/
   __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_11__call__, /*tp_call*/
-  0, /*tp_str*/
+  __pyx_pw_11pyinterface_9munitscpp_10PyQuantity_21__str__, /*tp_str*/
   0, /*tp_getattro*/
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
@@ -1837,7 +2761,7 @@ static PyTypeObject __pyx_type_11pyinterface_9munitscpp_PyQuantity = {
   0, /*tp_iternext*/
   __pyx_methods_11pyinterface_9munitscpp_PyQuantity, /*tp_methods*/
   0, /*tp_members*/
-  0, /*tp_getset*/
+  __pyx_getsets_11pyinterface_9munitscpp_PyQuantity, /*tp_getset*/
   0, /*tp_base*/
   0, /*tp_dict*/
   0, /*tp_descr_get*/
@@ -1883,9 +2807,11 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_kp_s_, __pyx_k_, sizeof(__pyx_k_), 0, 0, 1, 0},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
+  {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_kp_s_Wrapped_C_object_is_deleted, __pyx_k_Wrapped_C_object_is_deleted, sizeof(__pyx_k_Wrapped_C_object_is_deleted), 0, 0, 1, 0},
-  {&__pyx_kp_b__4, __pyx_k__4, sizeof(__pyx_k__4), 0, 0, 0, 0},
+  {&__pyx_n_s_div, __pyx_k_div, sizeof(__pyx_k_div), 0, 0, 1, 1},
   {&__pyx_n_s_exc_tb, __pyx_k_exc_tb, sizeof(__pyx_k_exc_tb), 0, 0, 1, 1},
   {&__pyx_n_s_exc_tp, __pyx_k_exc_tp, sizeof(__pyx_k_exc_tp), 0, 0, 1, 1},
   {&__pyx_n_s_exc_val, __pyx_k_exc_val, sizeof(__pyx_k_exc_val), 0, 0, 1, 1},
@@ -1894,13 +2820,15 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_other, __pyx_k_other, sizeof(__pyx_k_other), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_n_s_truediv, __pyx_k_truediv, sizeof(__pyx_k_truediv), 0, 0, 1, 1},
   {&__pyx_n_s_unit, __pyx_k_unit, sizeof(__pyx_k_unit), 0, 0, 1, 1},
   {&__pyx_kp_s_utf_8, __pyx_k_utf_8, sizeof(__pyx_k_utf_8), 0, 0, 1, 0},
   {&__pyx_n_s_value, __pyx_k_value, sizeof(__pyx_k_value), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(0, 40, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -1917,7 +2845,7 @@ static int __Pyx_InitCachedConstants(void) {
  *         else:
  *             return 0
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_Wrapped_C_object_is_deleted); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_Wrapped_C_object_is_deleted); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
   __Pyx_RefNannyFinishContext();
@@ -1928,8 +2856,13 @@ static int __Pyx_InitCachedConstants(void) {
 }
 
 static int __Pyx_InitGlobals(void) {
-  if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
-  __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_int_2 = PyInt_FromLong(2); if (unlikely(!__pyx_int_2)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_int_3 = PyInt_FromLong(3); if (unlikely(!__pyx_int_3)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_int_4 = PyInt_FromLong(4); if (unlikely(!__pyx_int_4)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_int_5 = PyInt_FromLong(5); if (unlikely(!__pyx_int_5)) __PYX_ERR(1, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -1943,8 +2876,7 @@ PyMODINIT_FUNC PyInit_munitscpp(void); /*proto*/
 PyMODINIT_FUNC PyInit_munitscpp(void)
 #endif
 {
-  std::string __pyx_t_1;
-  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannyDeclarations
   #if CYTHON_REFNANNY
   __Pyx_RefNanny = __Pyx_RefNannyImportAPI("refnanny");
@@ -1956,24 +2888,24 @@ PyMODINIT_FUNC PyInit_munitscpp(void)
   }
   #endif
   __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit_munitscpp(void)", 0);
-  if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_empty_unicode = PyUnicode_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_unicode)) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_check_binary_version() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_empty_unicode = PyUnicode_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_unicode)) __PYX_ERR(1, 1, __pyx_L1_error)
   #ifdef __Pyx_CyFunction_USED
-  if (__pyx_CyFunction_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_CyFunction_init() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_FusedFunction_USED
-  if (__pyx_FusedFunction_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_FusedFunction_init() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_Coroutine_USED
-  if (__pyx_Coroutine_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_Coroutine_init() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_Generator_USED
-  if (__pyx_Generator_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_Generator_init() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   #ifdef __Pyx_StopAsyncIteration_USED
-  if (__pyx_StopAsyncIteration_init() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__pyx_StopAsyncIteration_init() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   /*--- Library function declarations ---*/
   /*--- Threads initialization code ---*/
@@ -1988,87 +2920,98 @@ PyMODINIT_FUNC PyInit_munitscpp(void)
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
-  if (unlikely(!__pyx_m)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_d = PyModule_GetDict(__pyx_m); if (unlikely(!__pyx_d)) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (unlikely(!__pyx_m)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_d = PyModule_GetDict(__pyx_m); if (unlikely(!__pyx_d)) __PYX_ERR(1, 1, __pyx_L1_error)
   Py_INCREF(__pyx_d);
-  __pyx_b = PyImport_AddModule(__Pyx_BUILTIN_MODULE_NAME); if (unlikely(!__pyx_b)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_b = PyImport_AddModule(__Pyx_BUILTIN_MODULE_NAME); if (unlikely(!__pyx_b)) __PYX_ERR(1, 1, __pyx_L1_error)
   #if CYTHON_COMPILING_IN_PYPY
   Py_INCREF(__pyx_b);
   #endif
-  if (PyObject_SetAttrString(__pyx_m, "__builtins__", __pyx_b) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  if (PyObject_SetAttrString(__pyx_m, "__builtins__", __pyx_b) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   /*--- Initialize various global constants etc. ---*/
-  if (__Pyx_InitGlobals() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_InitGlobals() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
-  if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
   if (__pyx_module_is_main_pyinterface__munitscpp) {
-    if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
-    PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
+    PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(1, 1, __pyx_L1_error)
     if (!PyDict_GetItemString(modules, "pyinterface.munitscpp")) {
-      if (unlikely(PyDict_SetItemString(modules, "pyinterface.munitscpp", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+      if (unlikely(PyDict_SetItemString(modules, "pyinterface.munitscpp", __pyx_m) < 0)) __PYX_ERR(1, 1, __pyx_L1_error)
     }
   }
   #endif
   /*--- Builtin init code ---*/
-  if (__Pyx_InitCachedBuiltins() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_InitCachedBuiltins() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   /*--- Constants init code ---*/
-  if (__Pyx_InitCachedConstants() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_InitCachedConstants() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   /*--- Global init code ---*/
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
   __pyx_vtabptr_11pyinterface_9munitscpp_PyQuantity = &__pyx_vtable_11pyinterface_9munitscpp_PyQuantity;
   __pyx_vtable_11pyinterface_9munitscpp_PyQuantity._check_alive = (int (*)(struct __pyx_obj_11pyinterface_9munitscpp_PyQuantity *))__pyx_f_11pyinterface_9munitscpp_10PyQuantity__check_alive;
-  if (PyType_Ready(&__pyx_type_11pyinterface_9munitscpp_PyQuantity) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_11pyinterface_9munitscpp_PyQuantity) < 0) __PYX_ERR(1, 5, __pyx_L1_error)
   __pyx_type_11pyinterface_9munitscpp_PyQuantity.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_11pyinterface_9munitscpp_PyQuantity.tp_dict, __pyx_vtabptr_11pyinterface_9munitscpp_PyQuantity) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
-  if (PyObject_SetAttrString(__pyx_m, "PyQuantity", (PyObject *)&__pyx_type_11pyinterface_9munitscpp_PyQuantity) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_type_11pyinterface_9munitscpp_PyQuantity.tp_dict, __pyx_vtabptr_11pyinterface_9munitscpp_PyQuantity) < 0) __PYX_ERR(1, 5, __pyx_L1_error)
+  if (PyObject_SetAttrString(__pyx_m, "PyQuantity", (PyObject *)&__pyx_type_11pyinterface_9munitscpp_PyQuantity) < 0) __PYX_ERR(1, 5, __pyx_L1_error)
   __pyx_ptype_11pyinterface_9munitscpp_PyQuantity = &__pyx_type_11pyinterface_9munitscpp_PyQuantity;
   /*--- Type import code ---*/
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
   #if defined(__Pyx_Generator_USED) || defined(__Pyx_Coroutine_USED)
-  if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_patch_abc() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
 
   /* "pyinterface/munitscpp.pyx":10
  *         Quantity *_thisptr
  * 
- *     def __cinit__(self, metrics metric=_Last, double value=0, string unit=b"", PyQuantity other=None ):             # <<<<<<<<<<<<<<
+ *     def __cinit__(self, metrics metric=_Last, double value=0, str unit="", PyQuantity other=None ):             # <<<<<<<<<<<<<<
  *         if other is None and metric!=_Last:
- *             self._thisptr = new Quantity(metric, value, unit)
+ *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  */
-  __pyx_k_ = munits::_Last;
-  __pyx_t_1 = __pyx_convert_string_from_py_std__in_string(__pyx_kp_b__4); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 10, __pyx_L1_error)
-  __pyx_k__2 = __pyx_t_1;
+  __pyx_k__2 = munits::_Last;
+
+  /* "pyinterface/munitscpp.pyx":76
+ *         return nobj
+ * 
+ *     __div__ = __truediv__             # <<<<<<<<<<<<<<
+ * 
+ *     def __str__(PyQuantity self):
+ */
+  __pyx_t_1 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_11pyinterface_9munitscpp_PyQuantity, __pyx_n_s_truediv); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 76, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_11pyinterface_9munitscpp_PyQuantity->tp_dict, __pyx_n_s_div, __pyx_t_1) < 0) __PYX_ERR(1, 76, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  PyType_Modified(__pyx_ptype_11pyinterface_9munitscpp_PyQuantity);
 
   /* "pyinterface/munitscpp.pyx":1
  * from libcpp.string cimport string             # <<<<<<<<<<<<<<
  * from munitscpp cimport Quantity, metrics
- * 
+ * from cython.operator cimport dereference as deref
  */
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "string.from_py":13
+  /* "string.to_py":55
  * 
- * @cname("__pyx_convert_string_from_py_std__in_string")
- * cdef string __pyx_convert_string_from_py_std__in_string(object o) except *:             # <<<<<<<<<<<<<<
- *     cdef Py_ssize_t length
- *     cdef char* data = __Pyx_PyObject_AsStringAndSize(o, &length)
+ * @cname("__pyx_convert_PyByteArray_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyByteArray_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyByteArray_FromStringAndSize(s.data(), s.size())
+ * 
  */
 
   /*--- Wrapped vars code ---*/
 
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
       __Pyx_AddTraceback("init pyinterface.munitscpp", __pyx_clineno, __pyx_lineno, __pyx_filename);
@@ -2496,14 +3439,14 @@ bad:
 
 /* PyIntBinop */
   #if CYTHON_COMPILING_IN_CPYTHON
-static PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED int inplace) {
+static PyObject* __Pyx_PyInt_EqCObj(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED int inplace) {
     if (op1 == op2) {
         Py_RETURN_TRUE;
     }
     #if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_CheckExact(op1))) {
-        const long b = intval;
-        long a = PyInt_AS_LONG(op1);
+    if (likely(PyInt_CheckExact(op2))) {
+        const long a = intval;
+        long b = PyInt_AS_LONG(op2);
         if (a == b) {
             Py_RETURN_TRUE;
         } else {
@@ -2512,48 +3455,48 @@ static PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED 
     }
     #endif
     #if CYTHON_USE_PYLONG_INTERNALS && PY_MAJOR_VERSION >= 3
-    if (likely(PyLong_CheckExact(op1))) {
-        const long b = intval;
-        long a;
-        const digit* digits = ((PyLongObject*)op1)->ob_digit;
-        const Py_ssize_t size = Py_SIZE(op1);
+    if (likely(PyLong_CheckExact(op2))) {
+        const long a = intval;
+        long b;
+        const digit* digits = ((PyLongObject*)op2)->ob_digit;
+        const Py_ssize_t size = Py_SIZE(op2);
         if (likely(__Pyx_sst_abs(size) <= 1)) {
-            a = likely(size) ? digits[0] : 0;
-            if (size == -1) a = -a;
+            b = likely(size) ? digits[0] : 0;
+            if (size == -1) b = -b;
         } else {
             switch (size) {
                 case -2:
                     if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                        a = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        b = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
                         break;
                     }
                 case 2:
                     if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                        a = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        b = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
                         break;
                     }
                 case -3:
                     if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                        a = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        b = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
                         break;
                     }
                 case 3:
                     if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                        a = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        b = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
                         break;
                     }
                 case -4:
                     if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                        a = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        b = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
                         break;
                     }
                 case 4:
                     if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                        a = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        b = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
                         break;
                     }
                 #if PyLong_SHIFT < 30 && PyLong_SHIFT != 15
-                default: return PyLong_Type.tp_richcompare(op1, op2, Py_EQ);
+                default: return PyLong_Type.tp_richcompare(op2, op1, Py_EQ);
                 #else
                 default: Py_RETURN_FALSE;
                 #endif
@@ -2566,9 +3509,9 @@ static PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED 
             }
     }
     #endif
-    if (PyFloat_CheckExact(op1)) {
-        const long b = intval;
-        double a = PyFloat_AS_DOUBLE(op1);
+    if (PyFloat_CheckExact(op2)) {
+        const long a = intval;
+        double b = PyFloat_AS_DOUBLE(op2);
             if ((double)a == (double)b) {
                 Py_RETURN_TRUE;
             } else {
@@ -2578,6 +3521,33 @@ static PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED 
     return PyObject_RichCompare(op1, op2, Py_EQ);
 }
 #endif
+
+/* decode_c_bytes */
+  static CYTHON_INLINE PyObject* __Pyx_decode_c_bytes(
+         const char* cstring, Py_ssize_t length, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors)) {
+    if (unlikely((start < 0) | (stop < 0))) {
+        if (start < 0) {
+            start += length;
+            if (start < 0)
+                start = 0;
+        }
+        if (stop < 0)
+            stop += length;
+    }
+    if (stop > length)
+        stop = length;
+    length = stop - start;
+    if (unlikely(length <= 0))
+        return PyUnicode_FromUnicode(NULL, 0);
+    cstring += start;
+    if (decode_func) {
+        return decode_func(cstring, length, errors);
+    } else {
+        return PyUnicode_Decode(cstring, length, encoding, errors);
+    }
+}
 
 /* SetVTable */
   static int __Pyx_SetVtable(PyObject *dict, void *vtable) {
@@ -2597,8 +3567,35 @@ bad:
     return -1;
 }
 
+/* GetModuleGlobalName */
+  static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
+    PyObject *result;
+#if CYTHON_COMPILING_IN_CPYTHON
+    result = PyDict_GetItem(__pyx_d, name);
+    if (likely(result)) {
+        Py_INCREF(result);
+    } else {
+#else
+    result = PyObject_GetItem(__pyx_d, name);
+    if (!result) {
+        PyErr_Clear();
+#endif
+        result = __Pyx_GetBuiltinName(name);
+    }
+    return result;
+}
+
+/* GetNameInClass */
+    static PyObject *__Pyx_GetNameInClass(PyObject *nmspace, PyObject *name) {
+    PyObject *result;
+    result = __Pyx_PyObject_GetAttrStr(nmspace, name);
+    if (!result)
+        result = __Pyx_GetModuleGlobalName(name);
+    return result;
+}
+
 /* CodeObjectCache */
-  static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
+    static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
     int start = 0, mid = 0, end = count - 1;
     if (end >= 0 && code_line > entries[end].code_line) {
         return count;
@@ -2678,7 +3675,7 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object) {
 }
 
 /* AddTraceback */
-  #include "compile.h"
+    #include "compile.h"
 #include "frameobject.h"
 #include "traceback.h"
 static PyCodeObject* __Pyx_CreateCodeObjectForTraceback(
@@ -2759,7 +3756,7 @@ bad:
 }
 
 /* CIntFromPyVerify */
-  #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
+    #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
     __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 0)
 #define __PYX_VERIFY_RETURN_INT_EXC(target_type, func_type, func_value)\
     __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 1)
@@ -2781,7 +3778,7 @@ bad:
     }
 
 /* CIntToPy */
-  static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
+    static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
     const int neg_one = (int) -1, const_zero = (int) 0;
     const int is_unsigned = neg_one > const_zero;
     if (is_unsigned) {
@@ -2808,7 +3805,7 @@ bad:
 }
 
 /* CIntFromPy */
-  static CYTHON_INLINE enum munits::metrics __Pyx_PyInt_As_enum__munits_3a__3a_metrics(PyObject *x) {
+    static CYTHON_INLINE enum munits::metrics __Pyx_PyInt_As_enum__munits_3a__3a_metrics(PyObject *x) {
     const enum munits::metrics neg_one = (enum munits::metrics) -1, const_zero = (enum munits::metrics) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -2993,7 +3990,7 @@ raise_neg_overflow:
 }
 
 /* CIntToPy */
-  static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
+    static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
     const long neg_one = (long) -1, const_zero = (long) 0;
     const int is_unsigned = neg_one > const_zero;
     if (is_unsigned) {
@@ -3020,7 +4017,7 @@ raise_neg_overflow:
 }
 
 /* CIntFromPy */
-  static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
+    static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
     const long neg_one = (long) -1, const_zero = (long) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -3205,7 +4202,7 @@ raise_neg_overflow:
 }
 
 /* CIntFromPy */
-  static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
+    static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
     const int neg_one = (int) -1, const_zero = (int) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -3390,7 +4387,7 @@ raise_neg_overflow:
 }
 
 /* CheckBinaryVersion */
-  static int __Pyx_check_binary_version(void) {
+    static int __Pyx_check_binary_version(void) {
     char ctversion[4], rtversion[4];
     PyOS_snprintf(ctversion, 4, "%d.%d", PY_MAJOR_VERSION, PY_MINOR_VERSION);
     PyOS_snprintf(rtversion, 4, "%s", Py_GetVersion());
@@ -3406,7 +4403,7 @@ raise_neg_overflow:
 }
 
 /* InitStrings */
-  static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
+    static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
     while (t->p) {
         #if PY_MAJOR_VERSION < 3
         if (t->is_unicode) {

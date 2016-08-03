@@ -200,6 +200,7 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
 
 string munits::Quantity::compose_unit(const vector<UnitNotation> & uv){
     stringstream tmp;
+    // TODO: exponents are ignored in cases when unit is composed during math operations
     for(auto unit = uv.begin(); unit != uv.end(); ++unit){
         if (unit->GetUnit() != "") {
             tmp << unit->GetPrefix() << unit->GetUnit() << (unit->GetExponent()!=1?to_string(unit->GetExponent()):"");
@@ -284,9 +285,7 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
 
 munits::Quantity::Quantity(munits::metrics m,  double value, const string unit):
         matrix_index(m), value(value), converter(munits::GetMatrix()[m].converter), unit_vector(this->compose_unit_vector(unit)){
-    cout << "Coonstructing Quantity at: " << this << endl;
     if (matrix_index > _Last){
-        std::cout << "Shit something whent wrong";
         throw logic_error("Invalid unit type");
     }
 }
