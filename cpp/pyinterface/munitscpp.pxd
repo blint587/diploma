@@ -18,7 +18,7 @@ cdef extern from "../quantity.h" namespace "munits":
             _Last = 12
 
     cdef cppclass Quantity:
-        Quantity(metrics, double, const string)
+        Quantity(metrics, double, const string) except + ValueError
         Quantity(const Quantity)
 
         int getMatrixIndex()
