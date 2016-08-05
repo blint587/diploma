@@ -7,7 +7,7 @@ cdef class PyQuantity:
     cdef :
         Quantity *_thisptr
 
-    def __cinit__(self, metrics metric=_Last, double value=0, str unit="", PyQuantity other=None ):
+    def __cinit__(self, metrics metric=_Last, double value=0., str unit="", PyQuantity other=None ):
         if other is None and metric!=_Last:
             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
         elif other is not None:
