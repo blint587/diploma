@@ -193,74 +193,68 @@ TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_ac
     EXPECT_TRUE(a1 != a2);
 }
 //# FORCE
-//
-//TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_force_equal){
-//f1 = munits.Force(1, "kg m s-2")
-//f2 = munits.Force(1, "kg m s-2")
-//
-//EXPECT_TRUE(f1 == f2)
-//EXPECT_TRUE(f1 <= f2)
-//EXPECT_TRUE(f1 >= f2)
-//EXPECT_FALSE(f1 > f2)
-//EXPECT_FALSE(f1 < f2)
-//EXPECT_FALSE(f1 != f2)
-//
-//TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_force_greater){
-//f1 = munits.Force(2, "kg m s-2")
-//f2 = munits.Force(1, "kg m s-2")
-//
-//EXPECT_FALSE(f1 == f2)
-//EXPECT_FALSE(f1 <= f2)
-//EXPECT_TRUE(f1 >= f2)
-//EXPECT_TRUE(f1 > f2)
-//EXPECT_FALSE(f1 < f2)
-//EXPECT_TRUE(f1 != f2)
-//
-//TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_force_less){
-//f1 = munits.Force(1, "kg m s-2")
-//f2 = munits.Force(2, "kg m s-2")
-//
-//EXPECT_FALSE(f1 == f2)
-//EXPECT_TRUE(f1 <= f2)
-//EXPECT_FALSE(f1 >= f2)
-//EXPECT_FALSE(f1 > f2)
-//EXPECT_TRUE(f1 < f2)
-//EXPECT_TRUE(f1 != f2)
-//
+
+TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_force_equal) {
+    munits::Quantity f1 (munits::Force, 1, "kg m s-2");
+    munits::Quantity f2 (munits::Force, 1, "kg m s-2");
+    EXPECT_TRUE(f1 == f2);
+    EXPECT_TRUE(f1 <= f2);
+    EXPECT_TRUE(f1 >= f2);
+    EXPECT_FALSE(f1 > f2);
+    EXPECT_FALSE(f1 < f2);
+    EXPECT_FALSE(f1 != f2);
+}
+TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_force_greater) {
+    munits::Quantity f1 (munits::Force, 2, "kg m s-2");
+    munits::Quantity f2 (munits::Force, 1, "kg m s-2");
+    EXPECT_FALSE(f1 == f2);
+    EXPECT_FALSE(f1 <= f2);
+    EXPECT_TRUE(f1 >= f2);
+    EXPECT_TRUE(f1 > f2);
+    EXPECT_FALSE(f1 < f2);
+    EXPECT_TRUE(f1 != f2);
+}
+TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_force_less) {
+    munits::Quantity f1 (munits::Force, 1, "kg m s-2");
+    munits::Quantity f2 (munits::Force, 2, "kg m s-2");
+    EXPECT_FALSE(f1 == f2);
+    EXPECT_TRUE(f1 <= f2);
+    EXPECT_FALSE(f1 >= f2);
+    EXPECT_FALSE(f1 > f2);
+    EXPECT_TRUE(f1 < f2);
+    EXPECT_TRUE(f1 != f2);
+}
 //# MOLARCCONCENTRATION
-//
-//TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_molar_concentration_equal){
-//c1 = munits.MolarConcentration(1, "mol m-3")
-//c2 = munits.MolarConcentration(1, "mol m-3")
-//
-//EXPECT_TRUE(c1 == c2)
-//EXPECT_TRUE(c1 <= c2)
-//EXPECT_TRUE(c1 >= c2)
-//EXPECT_FALSE(c1 > c2)
-//EXPECT_FALSE(c1 < c2)
-//EXPECT_FALSE(c1 != c2)
-//
-//TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_molar_concentration_greater){
-//c1 = munits.MolarConcentration(2, "mol m-3")
-//c2 = munits.MolarConcentration(1, "mol m-3")
-//
-//EXPECT_FALSE(c1 == c2)
-//EXPECT_FALSE(c1 <= c2)
-//EXPECT_TRUE(c1 >= c2)
-//EXPECT_TRUE(c1 > c2)
-//EXPECT_FALSE(c1 < c2)
-//EXPECT_TRUE(c1 != c2)
-//
-//TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_molar_concentration_less){
-//c1 = munits.MolarConcentration(1, "mol m-3")
-//c2 = munits.MolarConcentration(2, "mol m-3")
-//
-//EXPECT_FALSE(c1 == c2)
-//EXPECT_TRUE(c1 <= c2)
-//EXPECT_FALSE(c1 >= c2)
-//EXPECT_FALSE(c1 > c2)
-//EXPECT_TRUE(c1 < c2)
-//EXPECT_TRUE(c1 != c2)
-//
+
+TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_molar_concentration_equal) {
+    munits::Quantity c1 (munits::MolarConcentration, 1, "mol m-3");
+    munits::Quantity c2 (munits::MolarConcentration, 1, "mol m-3");
+    EXPECT_TRUE(c1 == c2);
+    EXPECT_TRUE(c1 <= c2);
+    EXPECT_TRUE(c1 >= c2);
+    EXPECT_FALSE(c1 > c2);
+    EXPECT_FALSE(c1 < c2);
+    EXPECT_FALSE(c1 != c2);
+}
+TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_molar_concentration_greater) {
+    munits::Quantity c1 (munits::MolarConcentration, 2, "mol m-3");
+    munits::Quantity c2 (munits::MolarConcentration, 1, "mol m-3");
+    EXPECT_FALSE(c1 == c2);
+    EXPECT_FALSE(c1 <= c2);
+    EXPECT_TRUE(c1 >= c2);
+    EXPECT_TRUE(c1 > c2);
+    EXPECT_FALSE(c1 < c2);
+    EXPECT_TRUE(c1 != c2);
+}
+TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_molar_concentration_less) {
+    munits::Quantity c1 (munits::MolarConcentration, 1, "mol m-3");
+    munits::Quantity c2 (munits::MolarConcentration, 2, "mol m-3");
+    EXPECT_FALSE(c1 == c2);
+    EXPECT_TRUE(c1 <= c2);
+    EXPECT_FALSE(c1 >= c2);
+    EXPECT_FALSE(c1 > c2);
+    EXPECT_TRUE(c1 < c2);
+    EXPECT_TRUE(c1 != c2);
+}
 
 #endif //MUSYS_QUANTITY_TEST_COMPARISON_HPP

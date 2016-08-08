@@ -9,6 +9,8 @@ class TestQuantityBaseUnitConversionSI : public testing::Test{};
 
 class TestQuantityBaseUnitConversionNoneSI : public testing::Test{};
 
+class TestQuantityDerivedUnitsConversion : public testing::Test{};
+
 TEST_F(TestQuantityBaseUnitConversionSI, test_length_zero){
     munits::Quantity l (munits::Length, 0, "m");
 
@@ -376,7 +378,7 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_hour_to_day){
     EXPECT_EQ(t("d"), 2);
 }
 
-//
+
 //TEST_F(test_temperature_from_K){
 //t = munits.Temperature(0.0, "K")
 //EXPECT_EQ(t("K"), "0.0"))
@@ -402,234 +404,60 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_hour_to_day){
 //
 //
 
+TEST_F(TestQuantityDerivedUnitsConversion, test_convert_velocity_from_mps_to_kmph){
+    munits::Quantity v (munits::Velocity, 1.0, "m s-1");
+    EXPECT_EQ(v("km h-1"), 3.6);
+}
+TEST_F(TestQuantityDerivedUnitsConversion, test_convert_velocity_from_kmph_to_kmph){
+    munits::Quantity v (munits::Velocity, 3.6, "km h-1");
+    EXPECT_EQ(v("km h-1"), 3.6);
+}
+TEST_F(TestQuantityDerivedUnitsConversion, test_convert_velocity_from_kmph_to_mps){
+    munits::Quantity v (munits::Velocity, 3.6, "km h-1");
+    EXPECT_EQ(v("m s-1"), 1.);
+}
+TEST_F(TestQuantityDerivedUnitsConversion, test_convert_velocity_from_miph_to_kmph){
+    munits::Quantity v (munits::Velocity, 1., "mi h-1");
+    EXPECT_EQ(v("km h-1"), 1.609344);
+}
+TEST_F(TestQuantityDerivedUnitsConversion, test_convert_area_from_inch2_to_yd2){
+    munits::Quantity a (munits::Area, 2.33, "inc2");
+    EXPECT_NEAR(a("yd2"), 0.00179783951, 1e-4);
+}
+//TEST_F(TestQuantityDerivedUnitsConversion, test_convert_area_from_m2_to_are){
+//    munits::Quantity a (munits::Area, 200, "m2");
+//    EXPECT_NEAR(a("are"), 2, 1e-3);
+//}
+//TEST_F(TestQuantityDerivedUnitsConversion, test_convert_area_from_acre_to_are){
+//    munits::Quantity a (munits::Area, 1, "ac");
+//    EXPECT_NEAR(a("are"), 40.4684, 1e-4);
+//}
+TEST_F(TestQuantityDerivedUnitsConversion, test_converting_volume_from_m3_to_in3){
+    munits::Quantity v (munits::Volume, 1., "m3");
+    EXPECT_NEAR(v("cm3"), 1000000., 1e-6);
+    EXPECT_NEAR(v("gal"), 264.1720526372959086633370175, 1e-6);
+    EXPECT_NEAR(v("inc3"), 61023.74409473228395275688189, 1e-6);
+//    EXPECT_NEAR(v("oz"), 33814.0227, 1e-6);
+}
+TEST_F(TestQuantityDerivedUnitsConversion, test_converting_volumetric_flow_from_m3ph_to){
+    munits::Quantity v (munits::VolumetricFlow, 1.0, "m3 h-1");
+    EXPECT_NEAR(v("m3 d-1"), 24.0, 1e-6);
+    EXPECT_NEAR(v("gal min-1"), 4.402867543954931811055616958, 1e-6);
+    EXPECT_NEAR(v("l s-1"), 0.2777777777777777777777777778, 1e-6);
+}
+TEST_F(TestQuantityDerivedUnitsConversion, test_converting_acceleration){
+    munits::Quantity a (munits::Acceleration, 1.0, "m s-2");
+    EXPECT_EQ(a("inc s-2"), 39.37007874015748031496062992);
+    EXPECT_EQ(a("inc ms-2"), 0.00003937007874015748031496062992);
+}
+TEST_F(TestQuantityDerivedUnitsConversion, test_convert_force){
+    munits::Quantity f (munits::Force, 1.0, "kg m s-2");
+    EXPECT_EQ(f("lb yd s-2"), 2.412061728866277343179999663);
+}
+TEST_F(TestQuantityDerivedUnitsConversion, test_convert_concentration){
+    munits::Quantity c (munits::Concentration, 1., "mg l-1");
+    EXPECT_NEAR(c("mg dm-3"), 1.0, 1e-6);
+    EXPECT_NEAR(c("g m-3"), 1.0, 1e-6);
+}
 
-//
-//class TestQuantityValidUnit(unittest.TestCase):
-//TEST_F(test_valid_mass_unit){
-//self.assertTrue(munits.Mass.is_valid_unit("kg"))
-//
-//TEST_F(test_invalid_mass_unit){
-//self.assertFalse(munits.Mass.is_valid_unit("tg"))
-//
-//TEST_F(test_valid_time_unit_second){
-//self.assertTrue(munits.Time.is_valid_unit("s"))
-//
-//TEST_F(test_invalid_time_unit_second){
-//self.assertFalse(munits.Time.is_valid_unit("ts"))
-//
-//TEST_F(test_valid_temperature_unit){
-//self.assertTrue(munits.Temperature.is_valid_unit("°C"))
-//
-//
-//class TestQuantityAddition(unittest.TestCase):
-//TEST_F(test_adding_mass_to_mass){
-//m1 = munits.Mass(1000., "g")
-//m2 = munits.Mass(1., "kg")
-//m3 = m1 + m2
-//
-//EXPECT_EQ(m3.value, 2000.)
-//EXPECT_EQ(m3.unit, "g")
-//self.assertFalse(id(m1) == id(m3))
-//self.assertFalse(id(m2) == id(m3))
-//
-//
-//class TestQuantityDerivedUnitsConversion(unittest.TestCase):
-//TEST_F(test_convert_velocity_from_mps_to_kmph){
-//v = munits.Velocity(1.0, "m s-1")
-//EXPECT_EQ(v("km h-1"), "3.6"))
-//
-//TEST_F(test_convert_velocity_from_kmph_to_kmph){
-//v = munits.Velocity(3.6, "km h-1")
-//EXPECT_EQ(v("km h-1"), "3.6"))
-//
-//TEST_F(test_convert_velocity_from_kmph_to_mps){
-//v = munits.Velocity(3.6, "km h-1")
-//EXPECT_EQ(v("m s-1"), "1."))
-//
-//TEST_F(test_convert_velocity_from_miph_to_kmph){
-//v = munits.Velocity(1., "mi h-1")
-//EXPECT_EQ(v("km h-1"), "1.609344"))
-//
-//TEST_F(test_convert_area_from_inch2_to_yd2){
-//a = munits.Area(2.33, "in2")
-//EXPECT_NEAR(a("yd2"), "0.00179783951"), delta=1e-3)
-//
-//TEST_F(test_convert_area_from_m2_to_are){
-//a = munits.Area(200, "m2")
-//EXPECT_NEAR(a("are"), "2"), delta=1e-3)
-//
-//TEST_F(test_convert_area_from_acre_to_are){
-//a = munits.Area(1, "ac")
-//EXPECT_NEAR(a("are"), "40.4684"), delta=1e-3)
-//
-//TEST_F(test_converting_volume_from_m3_to_in3){
-//v = munits.Volume(1, "m3")
-//EXPECT_NEAR(v("cm3"), "1000000."), delta=1e-6)
-//EXPECT_NEAR(v("gal"), "264.1720526372959086633370175"), delta=1e-6)
-//EXPECT_NEAR(v("in3"), "61023.74409473228395275688189"), delta=1e-6)
-//
-//TEST_F(test_converting_volumetric_flow_from_m3ph_to){
-//v = munits.VolumetricFlow(1.0, "m3 h-1")
-//EXPECT_NEAR(v("m3 d-1"), "24.0"), delta=1e-6)
-//EXPECT_NEAR(v("gal min-1"), "4.402867543954931811055616958"), delta=1e-6)
-//EXPECT_NEAR(v("l s-1"), "0.2777777777777777777777777778"), delta=1e-6)
-//
-//TEST_F(test_converting_acceleration){
-//a = munits.Acceleration(1.0, "m s-2")
-//EXPECT_EQ(a("in s-2"), "39.37007874015748031496062992"))
-//EXPECT_EQ(a("in ms-2"), "0.00003937007874015748031496062992"))
-//
-//TEST_F(test_convert_force){
-//f = munits.Force(1.0, "kg m s-2")
-//EXPECT_EQ(f("lb yd s-2"), "2.412061728866277343179999663"))
-//
-//TEST_F(test_convert_concentration){
-//c = munits.Concentration(1., "mg l-1")
-//EXPECT_NEAR(c("mg dm-3"), "1.0"), delta=1e-6)
-//EXPECT_NEAR(c("g m-3"), "1.0"), delta=1e-6)
-//
-//
-//class test_derived_units_from_base_units(unittest.TestCase):
-//TEST_F(test_acceleration_from_l_t_zero){
-//l = munits.Length(0, "m")
-//t = munits.Time(1, "s")
-//a1 = l / (t * t)
-//a2 = l / (t ** 2)
-//a3 = l / t / t
-//
-//self.assertIsInstance(a1, munits.Acceleration)
-//self.assertIsInstance(a2, munits.Acceleration)
-//self.assertIsInstance(a3, munits.Acceleration)
-//
-//TEST_F(test_acceleration_from_l_t){
-//l = munits.Length(1, "m")
-//t = munits.Time(1, "s")
-//a1 = l / (t * t)
-//a2 = l / (t ** 2)
-//a3 = l / t / t
-//
-//self.assertIsInstance(a1, munits.Acceleration)
-//self.assertIsInstance(a2, munits.Acceleration)
-//self.assertIsInstance(a3, munits.Acceleration)
-//
-//TEST_F(test_acceleration_from_l_t_none_zero){
-//l = munits.Length(2.33, "m")
-//t = munits.Time(2.33, "s")
-//a1 = l / (t * t)
-//a2 = l / (t ** 2)
-//a3 = l / t / t
-//
-//EXPECT_NEAR(a1("m s-2"), "0.4229"), delta=1e-2)
-//EXPECT_NEAR(a2("m s-2"), "0.4229"), delta=1e-2)
-//EXPECT_NEAR(a3("m s-2"), "0.4229"), delta=1e-2)
-//
-//TEST_F(test_force_from_m_a_zero){
-//m = munits.Mass(0, "g")
-//a = munits.Acceleration(0, "m s-2")
-//f1 = m * a
-//self.assertIsInstance(f1, munits.Force)
-//EXPECT_EQ(f1("kg m s-2"), "0."))
-//
-//TEST_F(test_force_from_m_a){
-//m = munits.Mass(1, "kg")
-//a = munits.Acceleration(1, "m s-2")
-//f1 = m * a
-//EXPECT_EQ(f1("kg m s-2"), "1"))
-//
-//TEST_F(test_force_from_m_a_233){
-//m = munits.Mass(2.33, "kg")
-//a = munits.Acceleration(1, "m s-2")
-//f1 = m * a
-//EXPECT_EQ(f1("kg m s-2"), "2.33"))
-//
-//TEST_F(test_volumetricflow_zero){
-//v = munits.Volume(0, "m3")
-//t = munits.Time(1, "h")
-//vf = v / t
-//self.assertIsInstance(vf, munits.VolumetricFlow)
-//EXPECT_EQ(vf("m3 h-1"), "0."))
-//
-//TEST_F(test_volumetricflow_){
-//l = munits.Length(1, "m")
-//v1 = l * l * l
-//v2 = l ** 3
-//t = munits.Time(1, "h")
-//vf1 = v1 / t
-//vf2 = v2 / t
-//vf3 = l * l * l / t
-//self.assertIsInstance(vf1, munits.VolumetricFlow)
-//EXPECT_EQ(vf1("m3 h-1"), "1."))
-//
-//self.assertIsInstance(vf2, munits.VolumetricFlow)
-//EXPECT_EQ(vf2("m3 h-1"), "1."))
-//
-//self.assertIsInstance(vf3, munits.VolumetricFlow)
-//EXPECT_EQ(vf3("m3 h-1"), "1."))
-//
-//TEST_F(test_volumetricflow_233){
-//l = munits.Length(2.33, "m")
-//v = munits.Volume(12.649, "m3")
-//l1 = l * l * l
-//t = munits.Time(2.33, "h")
-//vf1 = l1 / t
-//vf2 = v / t
-//self.assertIsInstance(vf1, munits.VolumetricFlow)
-//EXPECT_NEAR(vf1("m3 h-1"), "5.4289"), delta=1e-6)
-//
-//self.assertIsInstance(vf2, munits.VolumetricFlow)
-//EXPECT_NEAR(vf2("m3 h-1"), "5.4289"), delta=1e-3)
-//
-//
-//TEST_F(test_molar_concentration_from_n_l_v_zero){
-//l = munits.Length(1, "m")
-//v = munits.Volume(1, "m3")
-//n = munits.AmountOfSubstance(0, "mol")
-//mc1 = n / (l * l * l)
-//mc2 = n / (l ** 3)
-//mc3 = n / l / l / l
-//mc4 = n / v
-//
-//self.assertIsInstance(mc1, munits.MolarConcentration)
-//self.assertIsInstance(mc2, munits.MolarConcentration)
-//self.assertIsInstance(mc3, munits.MolarConcentration)
-//self.assertIsInstance(mc4, munits.MolarConcentration)
-//
-//EXPECT_EQ(mc1("mol m-3"), "0."))
-//EXPECT_EQ(mc2("mol m-3"), "0."))
-//EXPECT_EQ(mc3("mol m-3"), "0."))
-//EXPECT_EQ(mc4("mol m-3"), "0."))
-//
-//
-//TEST_F(test_molar_concentration_from_n_l_v){
-//l = munits.Length(1, "m")
-//v = munits.Volume(1, "m3")
-//n = munits.AmountOfSubstance(1, "mol")
-//mc1 = n / (l * l * l)
-//mc2 = n / (l ** 3)
-//mc3 = n / l / l / l
-//mc4 = n / v
-//
-//EXPECT_EQ(mc1("mol m-3"), "1."))
-//EXPECT_EQ(mc2("mol m-3"), "1."))
-//EXPECT_EQ(mc3("mol m-3"), "1."))
-//EXPECT_EQ(mc4("mol m-3"), "1."))
-//
-//
-//TEST_F(test_molar_concentration_from_n_l_v_233){
-//l = munits.Length(2.33, "m")
-//v = munits.Volume(12.649, "m3")
-//n = munits.AmountOfSubstance(1, "mol")
-//mc1 = n / (l * l * l)
-//mc2 = n / (l ** 3)
-//mc3 = n / l / l / l
-//mc4 = n / v
-//
-//EXPECT_NEAR(mc1("mol m-3"), "0.0790"), delta=1e-3)
-//EXPECT_NEAR(mc2("mol m-3"), "0.0790"), delta=1e-3)
-//EXPECT_NEAR(mc3("mol m-3"), "0.0790"), delta=1e-3)
-//EXPECT_NEAR(mc4("mol m-3"), "0.0790"), delta=1e-3)
-//
-//
-//
-//
 #endif //MUSYS_QUANTITY_TEST_H

@@ -114,7 +114,10 @@ namespace munits {
         VolumetricFlow = 9,
         MolarConcentration = 10,
         Acceleration = 11,
-        _Last = 12
+        Force = 12,
+        Velocity = 13,
+        Concentration = 14,
+        _Last
 
     };
     const std::vector<munits::Metric> & GetMatrix();

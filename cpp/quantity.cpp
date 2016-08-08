@@ -133,19 +133,22 @@ const vector<munits::Metric> & munits::GetMatrix() {
             {{3, 0, 0, 0, 0, 0, 0}, "m", {}, //Volume
                     {
                             {"l", make_shared<munits::Unit>(munits::Unit(0.001, 0., "l", true, true))},
-                            {"gal", make_shared<munits::Unit>(munits::Unit(0.15584912791, 0., "gal", true, true))},
-                            {"oz", make_shared<munits::Unit>(munits::Unit(2.957e-5, 0., "oz", true, true))}
+                            {"gal", make_shared<munits::Unit>(munits::Unit(0.00378541178, 0., "gal", true, true))},
+//                            {"oz", make_shared<munits::Unit>(munits::Unit(2.957e-5, 0., "oz", true, true))},
                     }
 
             },
             {{3, 0, -1, 0, 0, 0, 0}, "m3 s-1"},  //VolumetricFlow
             {{-3, 0, 0, 0, 0, 1, 0}, "mol m-3"},  //MolarConcentration
-            {{1, 0, -2, 0, 0, 0, 0}, "m s-2"}  //Acceleration
+            {{1, 0, -2, 0, 0, 0, 0}, "m s-2"},  //Acceleration
+            {{1, 1, -2, 0, 0, 0, 0}, "kg m s-2"},  //Force
+            {{1, 0, -1, 0, 0, 0, 0}, "kg m s-2"}  //Velocity
+
     };
     return matrix;
 }
 
-
+// TODO: search only those units which are related to the unit type (based on dim vector)
 vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string &unit) const {
 
     istringstream iss(unit);
@@ -178,7 +181,7 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
             for(auto b = unTokens.begin(); b != unTokens.end();){
                 if (rmatrix[uii].converter->is_valid_unit(*b)){
                     int position = 0;
-                    while(rmatrix[uii].dim_vector[position] == 0 && position < 6){ // searching the position where the dim_vector is not 0
+                    while(rmatrix[uii].dim_vector[position] == 0 && position < 7){ // searching the position where the dim_vector is not 0
                         ++position;
                     };
                         uv[position] = UnitNotation(*b);

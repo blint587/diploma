@@ -31,12 +31,61 @@ class Length(Quantity):
     UNIT_INDEX = 0
 
 
+class Mass(Quantity):
+    UNIT_INDEX = 1
+
+
+class Time(Quantity):
+    UNIT_INDEX = 2
+
+
+class ElectricCurrency(Quantity):
+    UNIT_INDEX = 3
+
+
+class Temperature(Quantity):
+    UNIT_INDEX = 4
+
+
+class AmountOfSubstance(Quantity):
+    UNIT_INDEX = 5
+
+
+class LuminousIntensity(Quantity):
+    UNIT_INDEX = 6
+
+
 class Area(Quantity):
     UNIT_INDEX = 7
 
 
+class Volume(Quantity):
+    UNIT_INDEX = 8
+
+
+class VolumetricFlow(Quantity):
+    UNIT_INDEX = 9
+
+
+class MolarConcentration(Quantity):
+    UNIT_INDEX = 10
+
+
+class Acceleration(Quantity):
+    UNIT_INDEX = 11
+
+
+class Force(Quantity):
+    UNIT_INDEX = 12
+
+
+class Velocity(Quantity):
+    UNIT_INDEX = 13
+
+
 LIST_OF_CLASSES = list(
-    filter(lambda cls: issubclass(cls[1], Quantity) or cls is Quantity, inspect.getmembers(sys.modules[__name__], inspect.isclass)))
+    filter(lambda cls: issubclass(cls[1], Quantity) or cls is Quantity,
+           inspect.getmembers(sys.modules[__name__], inspect.isclass)))
 
 if __name__ == "__main__":
 

@@ -1,6 +1,8 @@
 #include "gtest/gtest.h"
 #include "quantity_test_conversion.hpp"
 #include "quantity_test_comparison.hpp"
+#include "quantity_test_mathop.hpp"
+#include "quantity_test_input_validation.hpp"
 
 int main(int argc, char* argv[])
 {
