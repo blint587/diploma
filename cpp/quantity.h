@@ -129,9 +129,11 @@ namespace munits {
         const int matrix_index;
         std::vector<UnitNotation> unit_vector = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation()};
         double value;
-        std::shared_ptr<munits::Converter> converter;
+        const std::shared_ptr<munits::Converter> converter;
+        const std::vector<int> dim_vector;
 
         explicit Quantity(int,  double, std::vector<UnitNotation>);
+        explicit Quantity(int, double, std::vector<UnitNotation>, std::vector<int>);
         std::vector<UnitNotation> compose_unit_vector(const std::string &unit) const;
         static std::string compose_unit(const std::vector<UnitNotation> &);
 
@@ -140,7 +142,7 @@ namespace munits {
 
     public:
 
-        std::vector<int> GetDimVector() const{return GetMatrix()[matrix_index].dim_vector;};
+        const std::vector<int> GetDimVector() const{return dim_vector;};
         explicit Quantity(metrics,  double, const std::string);
         Quantity(const Quantity &);
         Quantity operator=(Quantity &);

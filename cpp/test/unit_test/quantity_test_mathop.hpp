@@ -6,32 +6,28 @@
 #include "gtest/gtest.h"
 #include "../../quantity.h"
 
-//class TestQuantityAddition(unittest.TestCase):
-//TEST_F(test_adding_mass_to_mass){
-//m1 = munits.Mass(1000., "g")
-//m2 = munits.Mass(1., "kg")
-//m3 = m1 + m2
-//
-//EXPECT_EQ(m3.value, 2000.)
-//EXPECT_EQ(m3.unit, "g")
-//self.assertFalse(id(m1) == id(m3))
-//self.assertFalse(id(m2) == id(m3))
-//
-//
+class TestQuantityBaseUnitMathOperation : public testing::Test{};
 
-//
-//class test_derived_units_from_base_units(unittest.TestCase):
-//TEST_F(test_acceleration_from_l_t_zero){
-//l = munits.Length(0, "m")
-//t = munits.Time(1, "s")
-//a1 = l / (t * t)
-//a2 = l / (t ** 2)
-//a3 = l / t / t
-//
-//self.assertIsInstance(a1, munits.Acceleration)
-//self.assertIsInstance(a2, munits.Acceleration)
-//self.assertIsInstance(a3, munits.Acceleration)
-//
+class TestQuantityDerivedUnitsMathOperation : public testing::Test{};
+
+TEST_F(TestQuantityBaseUnitMathOperation, test_adding_mass_to_mass) {
+    munits::Quantity m1 (munits::Mass, 1000., "g");
+    munits::Quantity m2 (munits::Mass, 1., "kg");
+    munits::Quantity m3 = m1 + m2;
+    EXPECT_EQ(m3("g"), 2000.);
+}
+
+TEST_F(TestQuantityDerivedUnitsMathOperation, test_acceleration_from_l_t_zero) {
+    munits::Quantity l (munits::Length, 0, "m");
+    munits::Quantity t (munits::Time, 1, "s");
+    munits::Quantity a1 = l / (t * t);
+//    a2 = l / (t * *2);
+    munits::Quantity a3 = l / t / t;
+
+    EXPECT_EQ(a1.getMatrixIndex(), munits::Acceleration);
+//    EXPECT_EQ(a2.getMatrixIndex(), munits::Acceleration);
+    EXPECT_EQ(a3.getMatrixIndex(), munits::Acceleration);
+}
 //TEST_F(test_acceleration_from_l_t){
 //l = munits.Length(1, "m")
 //t = munits.Time(1, "s")

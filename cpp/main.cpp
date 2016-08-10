@@ -16,9 +16,9 @@ int main() {
 
     try {
         Quantity l1(Length, 2, "m");
-        Quantity l2(Length, 1, "m");
-        Quantity l3(  l1 / l2 );
-        cout << l3 << endl;
+//        Quantity l2(Length, 1, "m");
+//        Quantity l3(  l1 / l2 );
+        cout << l1 << endl;
     }
     catch (exception & e){
         cerr << e.what() << endl;

@@ -144,6 +144,7 @@ const vector<munits::Metric> & munits::GetMatrix() {
             {{1, 1, -2, 0, 0, 0, 0}, "kg m s-2"},  //Force
             {{1, 0, -1, 0, 0, 0, 0}, "kg m s-2"},  //Velocity
             {{-3, 1, 0, 0, 0, 0, 0}, "kg m3"},  //Concentration
+            {{0, 0, 0, 0, 0, 0, 0}, ""}, //_Last
 
     };
     return matrix;
@@ -282,20 +283,30 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
         ++nmindex;
     }
 
-    return Quantity(nmindex, a.value * pow(tmp, p), nunit_vector);
+    return Quantity(nmindex, a.value * pow(tmp, p), nunit_vector, ndim_vector);
 };
 
+munits::Quantity::Quantity(int m, double value, vector<munits::UnitNotation> unit_v, std::vector<int> dim_v) :
+        matrix_index(m),
+        value(value),
+        converter(munits::GetMatrix()[m].converter),
+        unit_vector(unit_v),
+        dim_vector(dim_v) {
 
-munits::Quantity::Quantity(munits::metrics m,  double value, const string unit):
-        matrix_index(m), value(value), converter(munits::GetMatrix()[m].converter), unit_vector(this->compose_unit_vector(unit)){
     if (matrix_index > _Last){
-        throw logic_error("Invalid unit type");
-    }
+            throw logic_error("Invalid unit type");
+        }
+
 }
 
 
-munits::Quantity::Quantity(int i,  double value, vector<UnitNotation> uv):matrix_index(i), value(value),
-                                                                            unit_vector(uv), converter(munits::GetMatrix()[i].converter) {
+munits::Quantity::Quantity(munits::metrics m, double value, const string unit):
+        munits::Quantity::Quantity(m, value, this->compose_unit_vector(unit), munits::GetMatrix()[m].dim_vector ) {
+}
+
+
+munits::Quantity::Quantity(int i,  double value, vector<UnitNotation> uv):
+        munits::Quantity::Quantity(i, value, uv, munits::GetMatrix()[i].dim_vector){
 }
 
 bool munits::Quantity::compop(const munits::Quantity &a, const munits::Quantity &b, bool (*f)(const double &, const double &)) {
@@ -307,16 +318,19 @@ bool munits::Quantity::compop(const munits::Quantity &a, const munits::Quantity 
     }
 }
 
-munits::Quantity::Quantity(const munits::Quantity & other):matrix_index(other.matrix_index),
-                                                           unit_vector(other.unit_vector),
-                                                           value(other.value),
-                                                           converter(other.converter){
-
+munits::Quantity::Quantity(const munits::Quantity & other):
+        matrix_index(other.matrix_index),
+        unit_vector(other.unit_vector),
+        value(other.value),
+        converter(other.converter),
+        dim_vector(other.dim_vector){
 }
 
 munits::Quantity munits::Quantity::operator=(Quantity & other) {
     return Quantity(other);
 }
+
+
 
 
 vector<string> munits::UnitNotation::parser(string unit) {
