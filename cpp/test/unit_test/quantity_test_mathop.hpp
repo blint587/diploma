@@ -21,11 +21,12 @@ TEST_F(TestQuantityDerivedUnitsMathOperation, test_acceleration_from_l_t_zero) {
     munits::Quantity l (munits::Length, 0, "m");
     munits::Quantity t (munits::Time, 1, "s");
     munits::Quantity a1 = l / (t * t);
-//    a2 = l / (t * *2);
+    munits::Quantity a2 = l /  pow(t, 2);
     munits::Quantity a3 = l / t / t;
 
     EXPECT_EQ(a1.getMatrixIndex(), munits::Acceleration);
-//    EXPECT_EQ(a2.getMatrixIndex(), munits::Acceleration);
+    EXPECT_EQ(a2.getMatrixIndex(), munits::Acceleration);
+
     EXPECT_EQ(a3.getMatrixIndex(), munits::Acceleration);
 }
 //TEST_F(test_acceleration_from_l_t){

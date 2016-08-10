@@ -126,11 +126,11 @@ namespace munits {
 
     private:
 
-        const int matrix_index;
+        int matrix_index;
         std::vector<UnitNotation> unit_vector = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation()};
         double value;
-        const std::shared_ptr<munits::Converter> converter;
-        const std::vector<int> dim_vector;
+        std::shared_ptr<munits::Converter> converter;
+        std::vector<int> dim_vector;
 
         explicit Quantity(int,  double, std::vector<UnitNotation>);
         explicit Quantity(int, double, std::vector<UnitNotation>, std::vector<int>);
@@ -144,8 +144,9 @@ namespace munits {
 
         const std::vector<int> GetDimVector() const{return dim_vector;};
         explicit Quantity(metrics,  double, const std::string);
+        Quantity(Quantity &);
         Quantity(const Quantity &);
-        Quantity operator=(Quantity &);
+        Quantity & operator=(const Quantity &);
         ~Quantity(){};
 
         const int getMatrixIndex()const {return matrix_index;};
@@ -162,6 +163,16 @@ namespace munits {
         friend Quantity operator- (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value - b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
         friend Quantity operator* (const Quantity & a, const Quantity & b) {return mathop(a, b, 1);};
         friend Quantity operator/ (const Quantity & a, const Quantity & b) {return mathop(a, b, -1);};
+        friend Quantity pow(Quantity  a, int e){
+            Quantity temp(a);
+            for (int i = 1; i < e; ++i) {
+                temp = temp * a;
+            }
+            for (auto b = temp.dim_vector.begin(); b != temp.dim_vector.end(); ++b){
+                std::cout << *b <<  std::endl;
+            }
+            return temp;
+        };
         friend bool operator < (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::lt<const double>);};
         friend bool operator <= (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::le<const double>);};
         friend bool operator > (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::gt<const double>);};

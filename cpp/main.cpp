@@ -16,9 +16,10 @@ int main() {
 
     try {
         Quantity l1(Length, 2, "m");
-//        Quantity l2(Length, 1, "m");
-//        Quantity l3(  l1 / l2 );
-        cout << l1 << endl;
+
+
+
+        cout <<  pow(l1, 2).getMatrixIndex() << endl;
     }
     catch (exception & e){
         cerr << e.what() << endl;

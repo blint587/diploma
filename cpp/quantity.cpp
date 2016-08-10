@@ -8,11 +8,11 @@ using namespace std;
 munits::ConverterFunction::ConverterFunction( double a,  double b=0, const char* s ="Default"): first_order(a), zero_order(b),signature(s){}
 
  double munits::ConverterFunction::to_base( double v,  double e=1) const {
-    return (v * pow(first_order, e)) + (e==1?zero_order:0);
+    return (v * std::pow(first_order, e)) + (e==1?zero_order:0);
 }
 
  double munits::ConverterFunction::from_base( double v,  double e = 1) const {
-    return v * pow(first_order, -e) - (e==1?zero_order:0);
+    return v * std::pow(first_order, -e) - (e==1?zero_order:0);
 }
 
  double munits::Converter::Convert( double val, munits::UnitNotation funit, munits::UnitNotation tunit,  double exponent) const {
@@ -283,7 +283,7 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
         ++nmindex;
     }
 
-    return Quantity(nmindex, a.value * pow(tmp, p), nunit_vector, ndim_vector);
+    return Quantity(nmindex, a.value * std::pow(tmp, p), nunit_vector, ndim_vector);
 };
 
 munits::Quantity::Quantity(int m, double value, vector<munits::UnitNotation> unit_v, std::vector<int> dim_v) :
@@ -318,6 +318,14 @@ bool munits::Quantity::compop(const munits::Quantity &a, const munits::Quantity 
     }
 }
 
+munits::Quantity::Quantity(munits::Quantity & other):
+        matrix_index(other.matrix_index),
+        unit_vector(other.unit_vector),
+        value(other.value),
+        converter(other.converter),
+        dim_vector(other.dim_vector){
+}
+
 munits::Quantity::Quantity(const munits::Quantity & other):
         matrix_index(other.matrix_index),
         unit_vector(other.unit_vector),
@@ -326,11 +334,21 @@ munits::Quantity::Quantity(const munits::Quantity & other):
         dim_vector(other.dim_vector){
 }
 
-munits::Quantity munits::Quantity::operator=(Quantity & other) {
-    return Quantity(other);
+
+
+munits::Quantity & munits::Quantity::operator=(const Quantity & other) {
+
+    if(this == &other){
+        return *this;
+    }
+    this->dim_vector = other.dim_vector;
+    this->unit_vector = other.unit_vector;
+    this->value = other.value;
+    this->converter = other.converter;
+    this->dim_vector = other.dim_vector;
+
+    return *this;
 }
-
-
 
 
 vector<string> munits::UnitNotation::parser(string unit) {
