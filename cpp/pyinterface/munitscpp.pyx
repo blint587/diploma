@@ -81,3 +81,5 @@ cdef class PyQuantity:
     @property
     def matrix_index(PyQuantity self):
         return self._thisptr.getMatrixIndex()
+
+NPOS = _Last

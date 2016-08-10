@@ -1,11 +1,11 @@
 # encoding: utf-8
-from munitscpp import PyQuantity
+from munitscpp import PyQuantity, NPOS
 import sys
 import inspect
 
 
 class Quantity(PyQuantity):
-    UNIT_INDEX = -1
+    UNIT_INDEX = NPOS
 
     def __new__(cls, value=0., unit="", other=None):
         if other is None:
@@ -25,6 +25,9 @@ class Quantity(PyQuantity):
 
     def __truediv__(self, other):
         return Quantity(other=PyQuantity.__truediv__(self, other))
+
+    def __call__(self, unit):
+        return PyQuantity.__call__(self, unit)
 
 
 class Length(Quantity):
@@ -82,6 +85,9 @@ class Force(Quantity):
 class Velocity(Quantity):
     UNIT_INDEX = 13
 
+
+class Concentration(Quantity):
+    UNIT_INDEX = 14
 
 LIST_OF_CLASSES = list(
     filter(lambda cls: issubclass(cls[1], Quantity) or cls is Quantity,

@@ -95,7 +95,7 @@ munits::Metric::Metric(vector<int> dim_vector, string base_unit, set<string> rem
 
 const vector<munits::Metric> & munits::GetMatrix() {
     static const vector<munits::Metric> matrix = {
-            {{1, 0, 0, 0, 0, 0, 0}, "m", {},
+            {{1, 0, 0, 0, 0, 0, 0}, "m", {}, //Length
                     {
                             {"inc", make_shared<munits::Unit>(munits::Unit(0.0254, 0., "inc"))},
                             {"ft", make_shared<munits::Unit>(munits::Unit(0.3048, 0., "ft"))},
@@ -103,7 +103,7 @@ const vector<munits::Metric> & munits::GetMatrix() {
                             {"yd", make_shared<munits::Unit>(munits::Unit(0.914, 0., "yd"))}
                     }
 
-            }, //Length
+            },
             {{0, 1, 0, 0, 0, 0, 0}, "g", {}, // Mass
                     {
                         {"oz", make_shared<munits::Unit>(munits::Unit(28.3495, 0., "oz"))},
@@ -142,7 +142,8 @@ const vector<munits::Metric> & munits::GetMatrix() {
             {{-3, 0, 0, 0, 0, 1, 0}, "mol m-3"},  //MolarConcentration
             {{1, 0, -2, 0, 0, 0, 0}, "m s-2"},  //Acceleration
             {{1, 1, -2, 0, 0, 0, 0}, "kg m s-2"},  //Force
-            {{1, 0, -1, 0, 0, 0, 0}, "kg m s-2"}  //Velocity
+            {{1, 0, -1, 0, 0, 0, 0}, "kg m s-2"},  //Velocity
+            {{-3, 1, 0, 0, 0, 0, 0}, "kg m3"},  //Concentration
 
     };
     return matrix;
