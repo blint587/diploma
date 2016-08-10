@@ -350,6 +350,14 @@ munits::Quantity & munits::Quantity::operator=(const Quantity & other) {
     return *this;
 }
 
+munits::Quantity munits::pow(munits::Quantity a, int e) {
+    Quantity temp(a);
+    for (int i = 1; i < e; ++i) {
+        temp = temp * a;
+    }
+    return temp;
+};
+
 
 vector<string> munits::UnitNotation::parser(string unit) {
     const vector<munits::Metric> & rmatrix = munits::GetMatrix();

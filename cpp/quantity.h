@@ -163,16 +163,7 @@ namespace munits {
         friend Quantity operator- (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value - b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
         friend Quantity operator* (const Quantity & a, const Quantity & b) {return mathop(a, b, 1);};
         friend Quantity operator/ (const Quantity & a, const Quantity & b) {return mathop(a, b, -1);};
-        friend Quantity pow(Quantity  a, int e){
-            Quantity temp(a);
-            for (int i = 1; i < e; ++i) {
-                temp = temp * a;
-            }
-            for (auto b = temp.dim_vector.begin(); b != temp.dim_vector.end(); ++b){
-                std::cout << *b <<  std::endl;
-            }
-            return temp;
-        };
+
         friend bool operator < (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::lt<const double>);};
         friend bool operator <= (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::le<const double>);};
         friend bool operator > (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::gt<const double>);};
@@ -181,6 +172,8 @@ namespace munits {
         friend bool operator != (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::ne<const double>);};
 
     };
+
+    Quantity pow(Quantity  a, int e);
 
 }
 
