@@ -15,11 +15,11 @@ using namespace munits;
 int main() {
 
     try {
-        Quantity l1(Length, 2, "m");
+        Quantity l1(Concentration, 1, "kg m-3");
 
+        double x = l1("g l-1");
 
-
-        cout <<  pow(l1, 2).getMatrixIndex() << endl;
+        cout << x << endl;
     }
     catch (exception & e){
         cerr << e.what() << endl;

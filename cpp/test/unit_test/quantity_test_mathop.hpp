@@ -14,6 +14,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_adding_mass_to_mass) {
     munits::Quantity m1 (munits::Mass, 1000., "g");
     munits::Quantity m2 (munits::Mass, 1., "kg");
     munits::Quantity m3 = m1 + m2;
+
     EXPECT_EQ(m3("g"), 2000.);
 }
 
@@ -26,31 +27,43 @@ TEST_F(TestQuantityDerivedUnitsMathOperation, test_acceleration_from_l_t_zero) {
 
     EXPECT_EQ(a1.getMatrixIndex(), munits::Acceleration);
     EXPECT_EQ(a2.getMatrixIndex(), munits::Acceleration);
-
     EXPECT_EQ(a3.getMatrixIndex(), munits::Acceleration);
+
+    EXPECT_EQ(a1("m s-2"), 0.);
+    EXPECT_EQ(a2("m s-2"), 0.);
+    EXPECT_EQ(a3("m s-2"), 0.);
 }
-//TEST_F(test_acceleration_from_l_t){
-//l = munits.Length(1, "m")
-//t = munits.Time(1, "s")
-//a1 = l / (t * t)
-//a2 = l / (t ** 2)
-//a3 = l / t / t
-//
-//self.assertIsInstance(a1, munits.Acceleration)
-//self.assertIsInstance(a2, munits.Acceleration)
-//self.assertIsInstance(a3, munits.Acceleration)
-//
-//TEST_F(test_acceleration_from_l_t_none_zero){
-//l = munits.Length(2.33, "m")
-//t = munits.Time(2.33, "s")
-//a1 = l / (t * t)
-//a2 = l / (t ** 2)
-//a3 = l / t / t
-//
-//EXPECT_NEAR(a1("m s-2"), "0.4229"), delta=1e-2)
-//EXPECT_NEAR(a2("m s-2"), "0.4229"), delta=1e-2)
-//EXPECT_NEAR(a3("m s-2"), "0.4229"), delta=1e-2)
-//
+TEST_F(TestQuantityDerivedUnitsMathOperation, test_acceleration_from_l_t) {
+    munits::Quantity l (munits::Length, 1, "m");
+    munits::Quantity t (munits::Time, 1, "s");
+
+    munits::Quantity a1 = l / (t * t);
+    munits::Quantity a2 = l / pow(t, 2);
+    munits::Quantity a3 = l / t / t;
+
+    EXPECT_EQ(a1.getMatrixIndex(), munits::Acceleration);
+    EXPECT_EQ(a2.getMatrixIndex(), munits::Acceleration);
+    EXPECT_EQ(a3.getMatrixIndex(), munits::Acceleration);
+
+    EXPECT_EQ(a1("m s-2"), 1.);
+    EXPECT_EQ(a2("m s-2"), 1.);
+    EXPECT_EQ(a3("m s-2"), 1.);
+}
+TEST_F(TestQuantityBaseUnitMathOperation, test_acceleration_from_l_t_none_zero){
+    munits::Quantity l (munits::Length, 2.33, "m");
+    munits::Quantity t (munits::Time, 2.33, "s");
+    munits::Quantity a1 = l / (t * t);
+    munits::Quantity a2 = l / pow(t, 2);
+    munits::Quantity a3 = l / t / t;
+
+    EXPECT_EQ(a1.getMatrixIndex(), munits::Acceleration);
+    EXPECT_EQ(a2.getMatrixIndex(), munits::Acceleration);
+    EXPECT_EQ(a3.getMatrixIndex(), munits::Acceleration);
+
+    EXPECT_NEAR(a1("m s-2"), 0.4229, 1e-2);
+    EXPECT_NEAR(a2("m s-2"), 0.4229, 1e-2);
+    EXPECT_NEAR(a3("m s-2"), 0.4229, 1e-2);
+}
 //TEST_F(test_force_from_m_a_zero){
 //m = munits.Mass(0, "g")
 //a = munits.Acceleration(0, "m s-2")

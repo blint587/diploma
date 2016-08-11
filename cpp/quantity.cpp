@@ -12,7 +12,7 @@ munits::ConverterFunction::ConverterFunction( double a,  double b=0, const char*
 }
 
  double munits::ConverterFunction::from_base( double v,  double e = 1) const {
-    return v * std::pow(first_order, -e) - (e==1?zero_order:0);
+    return (v * std::pow(first_order, -e)) - (e==1?zero_order:0);
 }
 
  double munits::Converter::Convert( double val, munits::UnitNotation funit, munits::UnitNotation tunit,  double exponent) const {
@@ -23,10 +23,10 @@ munits::ConverterFunction::ConverterFunction( double a,  double b=0, const char*
     }
     else {
         shared_ptr<Unit> to_base_func_unit = units.find(funit.GetUnit())->second;
-        shared_ptr<ConverterFunction> to_base_func_prefix =1 == prefixes.count(funit.GetPrefix()) ? prefixes.find(funit.GetPrefix())->second: make_shared<ConverterFunction>(ConverterFunction(1., 0, ""));
+        shared_ptr<ConverterFunction> to_base_func_prefix = (1 == prefixes.count(funit.GetPrefix()) ? prefixes.find(funit.GetPrefix())->second: make_shared<ConverterFunction>(ConverterFunction(1., 0, "")));
 
-        val = to_base_func_prefix->to_base(val, to_base_func_unit->ignor_exponent?1:exponent);
-        val = to_base_func_unit->to_base(val, to_base_func_unit->ignor_exponent?1:exponent);
+        val = to_base_func_prefix->to_base(val, to_base_func_unit->ignor_exponent?(exponent > 0?1:-1):exponent);
+        val = to_base_func_unit->to_base(val, to_base_func_unit->ignor_exponent?(exponent > 0?1:-1):exponent);
 
     }
     if (!units.count(tunit.GetUnit()) == 1) {
@@ -34,10 +34,10 @@ munits::ConverterFunction::ConverterFunction( double a,  double b=0, const char*
     }
     else {
         shared_ptr<Unit> from_base_func_unit = units.find(tunit.GetUnit())->second;
-        shared_ptr<ConverterFunction> from_base_func_prefix =1 == prefixes.count(tunit.GetPrefix()) ? prefixes.find(tunit.GetPrefix())->second: make_shared<ConverterFunction>(ConverterFunction(1., 0, ""));
+        shared_ptr<ConverterFunction> from_base_func_prefix =(1 == prefixes.count(tunit.GetPrefix()) ? prefixes.find(tunit.GetPrefix())->second: make_shared<ConverterFunction>(ConverterFunction(1., 0, "")));
 
-        val = from_base_func_prefix->from_base(val, from_base_func_unit->ignor_exponent?1:exponent);
-        val = from_base_func_unit->from_base(val, from_base_func_unit->ignor_exponent?1:exponent);
+        val = from_base_func_prefix->from_base(val, from_base_func_unit->ignor_exponent?(exponent > 0?1:-1):exponent);
+        val = from_base_func_unit->from_base(val, from_base_func_unit->ignor_exponent?(exponent > 0?1:-1):exponent);
 
     }
 
@@ -143,7 +143,7 @@ const vector<munits::Metric> & munits::GetMatrix() {
             {{1, 0, -2, 0, 0, 0, 0}, "m s-2"},  //Acceleration
             {{1, 1, -2, 0, 0, 0, 0}, "kg m s-2"},  //Force
             {{1, 0, -1, 0, 0, 0, 0}, "kg m s-2"},  //Velocity
-            {{-3, 1, 0, 0, 0, 0, 0}, "kg m3"},  //Concentration
+            {{-3, 1, 0, 0, 0, 0, 0}, "kg m-3"},  //Concentration
             {{0, 0, 0, 0, 0, 0, 0}, ""}, //_Last
 
     };
@@ -151,7 +151,7 @@ const vector<munits::Metric> & munits::GetMatrix() {
 }
 
 // TODO: search only those units which are related to the unit type (based on dim vector)
-vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string &unit) const {
+vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string &unit)  {
 
     istringstream iss(unit);
     vector<string> tokens;
@@ -233,6 +233,7 @@ string munits::Quantity::compose_unit(const vector<UnitNotation> & uv){
             dim_matrix.push(tmp_dim_vector);
         }
     }
+
 
     double tmp = value;
 

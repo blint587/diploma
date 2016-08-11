@@ -134,9 +134,9 @@ namespace munits {
 
         explicit Quantity(int,  double, std::vector<UnitNotation>);
         explicit Quantity(int, double, std::vector<UnitNotation>, std::vector<int>);
-        std::vector<UnitNotation> compose_unit_vector(const std::string &unit) const;
-        static std::string compose_unit(const std::vector<UnitNotation> &);
 
+        static std::vector<UnitNotation> compose_unit_vector(const std::string &unit);
+        static std::string compose_unit(const std::vector<UnitNotation> &);
         static Quantity mathop(const Quantity &a, const Quantity &b, int p=1);
         static bool compop(const Quantity &a, const Quantity &b, bool (*f)(const double &, const double &));
 
@@ -147,6 +147,7 @@ namespace munits {
         Quantity(Quantity &);
         Quantity(const Quantity &);
         Quantity & operator=(const Quantity &);
+        // TODO: implement move semantics
         ~Quantity(){};
 
         const int getMatrixIndex()const {return matrix_index;};
@@ -154,7 +155,7 @@ namespace munits {
         operator std::string() const {std::stringstream ss; ss << value << " " << compose_unit(unit_vector); return ss.str();}
 
         // TODO: include only if used for Cython
-        std::string toString(){return std::string(*this); }
+        std::string toString() const {return std::string(*this); }
 
         // TODO: convert friend functions to inline
         friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.value << " " <<  munits::Quantity::compose_unit(a.unit_vector);return str;};
