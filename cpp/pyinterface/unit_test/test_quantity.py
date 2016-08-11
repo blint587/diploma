@@ -720,7 +720,7 @@ class TestQuantityDerivedUnitsConversion(unittest.TestCase):
         self.assertAlmostEqual(c('g m-3'), float('1.0'), delta=1e-6)
 
 
-class test_derived_units_from_base_units(unittest.TestCase):
+class TestDerivedUnitsFromBaseUnits(unittest.TestCase):
     def test_acceleration_from_l_t_zero(self):
         l = quantity.Length(0, "m")
         t = quantity.Time(1, "s")
@@ -751,6 +751,7 @@ class test_derived_units_from_base_units(unittest.TestCase):
         a3 = l / t / t
 
         self.assertAlmostEqual(a1('m s-2'), float('0.4229'), delta=1e-2)
+        # noinspection PyCallingNonCallable
         self.assertAlmostEqual(a2('m s-2'), float('0.4229'), delta=1e-2)
         self.assertAlmostEqual(a3('m s-2'), float('0.4229'), delta=1e-2)
 
@@ -841,6 +842,7 @@ class test_derived_units_from_base_units(unittest.TestCase):
         mc4 = n / v
 
         self.assertEqual(mc1('mol m-3'), float('1.'))
+        # noinspection PyCallingNonCallable
         self.assertEqual(mc2('mol m-3'), float('1.'))
         self.assertEqual(mc3('mol m-3'), float('1.'))
         self.assertEqual(mc4('mol m-3'), float('1.'))
@@ -855,6 +857,7 @@ class test_derived_units_from_base_units(unittest.TestCase):
         mc4 = n / v
 
         self.assertAlmostEqual(mc1('mol m-3'), float('0.0790'), delta=1e-3)
+        # noinspection PyCallingNonCallable
         self.assertAlmostEqual(mc2('mol m-3'), float('0.0790'), delta=1e-3)
         self.assertAlmostEqual(mc3('mol m-3'), float('0.0790'), delta=1e-3)
         self.assertAlmostEqual(mc4('mol m-3'), float('0.0790'), delta=1e-3)

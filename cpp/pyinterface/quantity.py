@@ -29,7 +29,7 @@ class Quantity(PyQuantity):
     def __call__(self, unit):
         return PyQuantity.__call__(self, unit)
 
-    def __pow__(self, power, modulo=None):
+    def __pow__(self, power):
         return Quantity(other=PyQuantity.__pow__(self, int(power)))
 
 
@@ -99,7 +99,7 @@ LIST_OF_CLASSES = list(
 if __name__ == "__main__":
 
     from datetime import datetime as dt
-    for i in range(10):
+    for j in range(10):
         start = dt.now()
         for i in range(10000):
             q1 = Length(1., "m")

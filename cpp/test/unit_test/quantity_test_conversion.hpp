@@ -9,7 +9,7 @@ class TestQuantityBaseUnitConversionSI : public testing::Test{};
 
 class TestQuantityBaseUnitConversionNoneSI : public testing::Test{};
 
-class TestQuantityDerivedUnitsConversion : public testing::Test{};
+class TestQuantityDerivedUnitConversion : public testing::Test{};
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_length_zero){
     munits::Quantity l (munits::Length, 0, "m");
@@ -266,6 +266,7 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_si_length_m_to_in_ft_mi) {
     EXPECT_NEAR(l("mi"), 0.000621, 1e-4);
     EXPECT_NEAR(l("yd"), 1.0940919037199124, 1e-4);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_si_length_m_to_in_ft_mi_233){
     munits::Quantity l(munits::Length, 2.33, "m");
 
@@ -274,6 +275,7 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_si_length_m_to_in_ft_mi_233){
     EXPECT_NEAR(l("mi"), 0.00144, 1e-4);
     EXPECT_NEAR(l("yd"), 2.5492341356673958, 1e-4);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_none_si_length_inch_to_ft_mi){
     munits::Quantity l(munits::Length, 1, "inc");
 
@@ -281,6 +283,7 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_none_si_length_inch_to_ft_mi){
     EXPECT_NEAR(l("mi"), 1.578e-5, 1e-2);
     EXPECT_NEAR(l("inc"), 1, 1e-2);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_none_si_length_inch_to_ft_mi_233){
     munits::Quantity l (munits::Length, 2.33, "inc");
 
@@ -331,6 +334,7 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_non_si_length){
 //    EXPECT_NEAR(l("fyd"), 0.0277899e15, 1e-20);
 //    EXPECT_NEAR(l("ayd"), 0.0277899e18, 1e-20);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_mass_g_to_oz_lb_t){
     munits::Quantity m (munits::Mass, 1, "g");
 
@@ -338,6 +342,7 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_mass_g_to_oz_lb_t){
     EXPECT_NEAR(m("lb"), 0.0022, 1e-4);
     EXPECT_EQ(m("t"), 1e-6);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_mass_g_to_oz_lb_t_233){
     munits::Quantity m (munits::Mass, 2.33, "g");
 
@@ -345,116 +350,136 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_mass_g_to_oz_lb_t_233){
     EXPECT_NEAR(m("lb"), 0.00513, 1e-4);
     EXPECT_EQ(m("t"), 2.33e-6);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_s_to_min){
    munits::Quantity t (munits::Time, 30, "s");
     EXPECT_EQ(t("min"), 0.5);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_min_to_s){
     munits::Quantity t (munits::Time, 1.0, "min");
     EXPECT_EQ(t("s"), 60);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_hour_to_s){
     munits::Quantity t (munits::Time, 1.0, "h");
     EXPECT_EQ(t("s"), 3600);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_s_to_hour){
     munits::Quantity t (munits::Time, 3600, "s");
     EXPECT_EQ(t("h"), 1);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_d_to_s){
     munits::Quantity t (munits::Time, 1.0, "d");
     EXPECT_EQ(t("s"), 86400.);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_s_to_d){
     munits::Quantity  t (munits::Time, 43200, "s");
     EXPECT_EQ(t("d"), 0.5);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_day_to_hour){
     munits::Quantity t (munits::Time, 1, "d");
     EXPECT_EQ(t("h"), 24);
 }
+
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_time_from_hour_to_day){
     munits::Quantity t (munits::Time, 48, "h");
     EXPECT_EQ(t("d"), 2);
 }
 
+TEST_F(TestQuantityBaseUnitConversionSI, test_temperature_from_K){
+    munits::Quantity t (munits::Temperature, 0.0, "K");
+    EXPECT_EQ(t("K"), 0.0);
+    EXPECT_EQ(t("°C"), -273.15);
+    EXPECT_EQ(t("°F"), -459.67);
+}
 
-//TEST_F(test_temperature_from_K){
-//t = munits.Temperature(0.0, "K")
-//EXPECT_EQ(t("K"), "0.0"))
-//EXPECT_EQ(t("°C"), "-273.15"))
-//EXPECT_EQ(t("°F"), "-459.67"))
-//
-//TEST_F(test_temperature_from_K_233){
-//t = munits.Temperature(2.33, "K")
-//EXPECT_EQ(t("K"), "2.33"))
-//EXPECT_EQ(t("°C"), "-270.82"))
-//EXPECT_EQ(t("°F"), "-455.476"))
-//
-//TEST_F(test_temperature_from_C){
-//t = munits.Temperature(-40.0, "°C")
-//EXPECT_EQ(t("°C"), "-40.0"))
-//EXPECT_NEAR(t("K"), "233.15"), delta=1e-9)
-//EXPECT_NEAR(t("°F"), "-40.0"), delta=1e-9)
-//
-//TEST_F(test_temperature_from_F){
-//t = munits.Temperature(-40.0, "°F")
-//EXPECT_NEAR(t("K"), "233.15"), delta=1e-9)
-//EXPECT_NEAR(t("°C"), "-40.0"), delta=1e-9)
-//
-//
+TEST_F(TestQuantityBaseUnitConversionSI, test_temperature_from_K_233){
+    munits::Quantity t (munits::Temperature, 2.33, "K");
+    EXPECT_EQ(t("K"), 2.33);
+    EXPECT_EQ(t("°C"), -270.82);
+    EXPECT_EQ(t("°F"), -455.476);
+}
 
-TEST_F(TestQuantityDerivedUnitsConversion, test_convert_velocity_from_mps_to_kmph){
+TEST_F(TestQuantityBaseUnitConversionSI, test_temperature_from_C){
+    munits::Quantity t (munits::Temperature, -40.0, "°C");
+    EXPECT_EQ(t("°C"), -40.0);
+    EXPECT_NEAR(t("K"), 233.15, 1e-9);
+    EXPECT_NEAR(t("°F"), -40.0, 1e-9);
+}
+
+TEST_F(TestQuantityBaseUnitConversionSI, test_temperature_from_F){
+    munits::Quantity t (munits::Temperature, -40.0, "°F");
+    EXPECT_NEAR(t("K"), 233.15, 1e-9);
+    EXPECT_NEAR(t("°C"), -40.0, 1e-9);
+}
+
+TEST_F(TestQuantityDerivedUnitConversion, test_convert_velocity_from_mps_to_kmph){
     munits::Quantity v (munits::Velocity, 1.0, "m s-1");
     EXPECT_EQ(v("km h-1"), 3.6);
 }
-TEST_F(TestQuantityDerivedUnitsConversion, test_convert_velocity_from_kmph_to_kmph){
+
+TEST_F(TestQuantityDerivedUnitConversion, test_convert_velocity_from_kmph_to_kmph){
     munits::Quantity v (munits::Velocity, 3.6, "km h-1");
     EXPECT_EQ(v("km h-1"), 3.6);
 }
-TEST_F(TestQuantityDerivedUnitsConversion, test_convert_velocity_from_kmph_to_mps){
+
+TEST_F(TestQuantityDerivedUnitConversion, test_convert_velocity_from_kmph_to_mps){
     munits::Quantity v (munits::Velocity, 3.6, "km h-1");
     EXPECT_EQ(v("m s-1"), 1.);
 }
-TEST_F(TestQuantityDerivedUnitsConversion, test_convert_velocity_from_miph_to_kmph){
+
+TEST_F(TestQuantityDerivedUnitConversion, test_convert_velocity_from_miph_to_kmph){
     munits::Quantity v (munits::Velocity, 1., "mi h-1");
     EXPECT_EQ(v("km h-1"), 1.609344);
 }
-TEST_F(TestQuantityDerivedUnitsConversion, test_convert_area_from_inch2_to_yd2){
+
+TEST_F(TestQuantityDerivedUnitConversion, test_convert_area_from_inch2_to_yd2){
     munits::Quantity a (munits::Area, 2.33, "inc2");
     EXPECT_NEAR(a("yd2"), 0.00179783951, 1e-4);
 }
-//TEST_F(TestQuantityDerivedUnitsConversion, test_convert_area_from_m2_to_are){
+
+//TEST_F(TestQuantityDerivedUnitConversion, test_convert_area_from_m2_to_are){
 //    munits::Quantity a (munits::Area, 200, "m2");
 //    EXPECT_NEAR(a("are"), 2, 1e-3);
 //}
-//TEST_F(TestQuantityDerivedUnitsConversion, test_convert_area_from_acre_to_are){
+
+//TEST_F(TestQuantityDerivedUnitConversion, test_convert_area_from_acre_to_are){
 //    munits::Quantity a (munits::Area, 1, "ac");
 //    EXPECT_NEAR(a("are"), 40.4684, 1e-4);
 //}
-TEST_F(TestQuantityDerivedUnitsConversion, test_converting_volume_from_m3_to_in3){
+
+TEST_F(TestQuantityDerivedUnitConversion, test_converting_volume_from_m3_to_in3){
     munits::Quantity v (munits::Volume, 1., "m3");
     EXPECT_NEAR(v("cm3"), 1000000., 1e-6);
     EXPECT_NEAR(v("gal"), 264.1720526372959086633370175, 1e-6);
     EXPECT_NEAR(v("inc3"), 61023.74409473228395275688189, 1e-6);
 //    EXPECT_NEAR(v("oz"), 33814.0227, 1e-6);
 }
-TEST_F(TestQuantityDerivedUnitsConversion, test_converting_volumetric_flow_from_m3ph_to){
+
+TEST_F(TestQuantityDerivedUnitConversion, test_converting_volumetric_flow_from_m3ph_to){
     munits::Quantity v (munits::VolumetricFlow, 1.0, "m3 h-1");
     EXPECT_NEAR(v("m3 d-1"), 24.0, 1e-6);
     EXPECT_NEAR(v("gal min-1"), 4.402867543954931811055616958, 1e-6);
     EXPECT_NEAR(v("l s-1"), 0.2777777777777777777777777778, 1e-6);
 }
-TEST_F(TestQuantityDerivedUnitsConversion, test_converting_acceleration){
+
+TEST_F(TestQuantityDerivedUnitConversion, test_converting_acceleration){
     munits::Quantity a (munits::Acceleration, 1.0, "m s-2");
     EXPECT_EQ(a("inc s-2"), 39.37007874015748031496062992);
     EXPECT_EQ(a("inc ms-2"), 0.00003937007874015748031496062992);
 }
-TEST_F(TestQuantityDerivedUnitsConversion, test_convert_force){
+
+TEST_F(TestQuantityDerivedUnitConversion, test_convert_force){
     munits::Quantity f (munits::Force, 1.0, "kg m s-2");
     EXPECT_EQ(f("lb yd s-2"), 2.412061728866277343179999663);
 }
-TEST_F(TestQuantityDerivedUnitsConversion, test_convert_concentration){
+
+TEST_F(TestQuantityDerivedUnitConversion, test_convert_concentration){
     munits::Quantity c (munits::Concentration, 1., "mg l-1");
     EXPECT_NEAR(c("mg dm-3"), 1.0, 1e-6);
     EXPECT_NEAR(c("g m-3"), 1.0, 1e-6);

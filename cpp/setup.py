@@ -8,7 +8,9 @@ setup(
         "munitscpp",
         sources=[
                  "pyinterface/munitscpp.pyx",
-                 "quantity.cpp"
+                 "quantity.cpp",
+                 "converter_function.cpp",
+                 "unit.cpp"
                  ],
         language="c++",
         extra_compile_args=["-std=c++11"],

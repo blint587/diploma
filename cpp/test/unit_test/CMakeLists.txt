@@ -3,10 +3,15 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 set(SOURCE_FILES
         ../../quantity.h
         ../../quantity.cpp
+        ../../converter_function.hpp
+        ../../converter_function.cpp
+        ../../unit.hpp
+        ../../unit.cpp
         run_unit_tests.cpp
         quantity_test_conversion.hpp
         quantity_test_comparison.hpp
-        quantity_test_mathop.hpp quantity_test_input_validation.hpp)
+        quantity_test_mathop.hpp
+        quantity_test_input_validation.hpp  )
 
 add_executable(runUnitTest
         ${SOURCE_FILES})

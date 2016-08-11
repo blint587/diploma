@@ -8,42 +8,20 @@
 #include <math.h>
 #include <string>
 #include <memory>
-#ifdef DEBUG
-    #include <iostream>
-#endif
 #include <algorithm>
 #include <sstream>
 #include <iterator>
 #include <regex>
 #include "lib/Accesories/accessories.hpp"
+#include "converter_function.hpp"
+#include "unit.hpp"
+
+#ifdef DEBUG
+    #include <iostream>
+#endif
 
 namespace munits {
 
-    class ConverterFunction {
-
-    private:
-        const  double first_order;
-        const  double zero_order;
-        const char * signature;
-
-    public:
-         double to_base( double,  double) const;
-         double from_base( double,  double) const;
-         explicit ConverterFunction( double,  double, const char *);
-
-    };
-
-    class Unit: public munits::ConverterFunction {
-
-    public:
-//        const std::string unit;
-        const bool applay_prefix;
-        const bool ignor_exponent;
-
-        explicit Unit( double a = 1,  double b = 0, const char * s="Default",  /*std::string unit,*/ bool applay_prefix = true, bool ignor_exponent = false) :
-                ConverterFunction(a, b, s), /* unit(unit),*/ applay_prefix(applay_prefix), ignor_exponent(ignor_exponent) {
-        };
-    };
 
     class UnitNotation  {
         private:

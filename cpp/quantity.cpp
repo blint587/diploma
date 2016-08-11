@@ -5,17 +5,7 @@
 
 using namespace std;
 
-munits::ConverterFunction::ConverterFunction( double a,  double b=0, const char* s ="Default"): first_order(a), zero_order(b),signature(s){}
-
- double munits::ConverterFunction::to_base( double v,  double e=1) const {
-    return (v * std::pow(first_order, e)) + (e==1?zero_order:0);
-}
-
- double munits::ConverterFunction::from_base( double v,  double e = 1) const {
-    return (v * std::pow(first_order, -e)) - (e==1?zero_order:0);
-}
-
- double munits::Converter::Convert( double val, munits::UnitNotation funit, munits::UnitNotation tunit,  double exponent) const {
+double munits::Converter::Convert( double val, munits::UnitNotation funit, munits::UnitNotation tunit,  double exponent) const {
 
 
     if (!units.count(funit.GetUnit()) == 1) {
@@ -77,11 +67,11 @@ munits::Converter::Converter(string base_unit, const set<string> & remove, const
     const map<string, const shared_ptr<munits::ConverterFunction>> refixes = GetPrefixes();
 
     for(auto prx = refixes.begin(); prx != refixes.end(); prx++){
-        if (remove.find(prx->first) == remove.end()){ // removing prefixes which are not usable in the given unit type
+        if (remove.find(prx->first) == remove.end()){ // removing prefixes which are not usable in the given Unit type
             prefixes.insert(pair<string, const shared_ptr<munits::ConverterFunction>>(prx->first, prx->second));
         }
     }
-    units.insert(pair<string, const shared_ptr<munits::Unit>>(base_unit, make_shared<munits::Unit>(munits::Unit(1., 0., base_unit.c_str()))));
+    units.insert(pair<string, const shared_ptr<munits::Unit>>(base_unit, make_shared<munits::Unit>(Unit(1., 0., base_unit.c_str()))));
 }
 
 bool munits::Converter::is_valid_unit(const UnitNotation & unit) const {
@@ -97,34 +87,34 @@ const vector<munits::Metric> & munits::GetMatrix() {
     static const vector<munits::Metric> matrix = {
             {{1, 0, 0, 0, 0, 0, 0}, "m", {}, //Length
                     {
-                            {"inc", make_shared<munits::Unit>(munits::Unit(0.0254, 0., "inc"))},
-                            {"ft", make_shared<munits::Unit>(munits::Unit(0.3048, 0., "ft"))},
-                            {"mi", make_shared<munits::Unit>(munits::Unit(1609.344, 0., "mi"))},
-                            {"yd", make_shared<munits::Unit>(munits::Unit(0.914, 0., "yd"))}
+                            {"inc", make_shared<munits::Unit>(Unit(0.0254, 0., "inc"))},
+                            {"ft", make_shared<munits::Unit>(Unit(0.3048, 0., "ft"))},
+                            {"mi", make_shared<munits::Unit>(Unit(1609.344, 0., "mi"))},
+                            {"yd", make_shared<munits::Unit>(Unit(0.914, 0., "yd"))}
                     }
 
             },
             {{0, 1, 0, 0, 0, 0, 0}, "g", {}, // Mass
                     {
-                        {"oz", make_shared<munits::Unit>(munits::Unit(28.3495, 0., "oz"))},
-                        {"lb", make_shared<munits::Unit>(munits::Unit(453.592, 0., "lb"))},
-                        {"t", make_shared<munits::Unit>(munits::Unit(1e6, 0., "t"))},
+                        {"oz", make_shared<munits::Unit>(Unit(28.3495, 0., "oz"))},
+                        {"lb", make_shared<munits::Unit>(Unit(453.592, 0., "lb"))},
+                        {"t", make_shared<munits::Unit>(Unit(1e6, 0., "t"))},
 
                     }
             },
             {{0, 0, 1, 0, 0, 0, 0}, "s", {}, //Time
                     {
-                             {"min", make_shared<munits::Unit>(munits::Unit(60., 0., "min", false))},
-                             {"h", make_shared<munits::Unit>(munits::Unit(3600., 0., "h", false))},
-                             {"d", make_shared<munits::Unit>(munits::Unit(86400., 0., "d", false))}
+                             {"min", make_shared<munits::Unit>(Unit(60., 0., "min", false))},
+                             {"h", make_shared<munits::Unit>(Unit(3600., 0., "h", false))},
+                             {"d", make_shared<munits::Unit>(Unit(86400., 0., "d", false))}
                     }
             },
             {{0, 0, 0, 1, 0, 0, 0}, "A"},  //Electric Currency
             {{0, 0, 0, 0, 1, 0, 0}, "K",  //Temperature
                     {"E", "P", "T", "G", "M", "k", "h", "da", "d", "c", "m", "μ", "n", "p", "f", "a"},
                     {
-                            {"°C", make_shared<munits::Unit>(munits::Unit(1., 273.15, "C" , false))},
-                            {"°F", make_shared<munits::Unit>(munits::Unit(1., 273.15, "F", false))} // TODO: correct parameters
+                            {"°C", make_shared<munits::Unit>(Unit(1., 273.15, "C" , false))},
+                            {"°F", make_shared<munits::Unit>(Unit(5./9., 459.67, "F", false))} // TODO: correct parameters
                     }
             },
             {{0, 0, 0, 0, 0, 1, 0}, "mol"},  //Amount of Substance
@@ -132,8 +122,8 @@ const vector<munits::Metric> & munits::GetMatrix() {
             {{2, 0, 0, 0, 0, 0, 0}, "m"}, //Area
             {{3, 0, 0, 0, 0, 0, 0}, "m", {}, //Volume
                     {
-                            {"l", make_shared<munits::Unit>(munits::Unit(0.001, 0., "l", true, true))},
-                            {"gal", make_shared<munits::Unit>(munits::Unit(0.00378541178, 0., "gal", true, true))},
+                            {"l", make_shared<munits::Unit>(Unit(0.001, 0., "l", true, true))},
+                            {"gal", make_shared<munits::Unit>(Unit(0.00378541178, 0., "gal", true, true))},
 //                            {"oz", make_shared<munits::Unit>(munits::Unit(2.957e-5, 0., "oz", true, true))},
                     }
 
@@ -150,7 +140,7 @@ const vector<munits::Metric> & munits::GetMatrix() {
     return matrix;
 }
 
-// TODO: search only those units which are related to the unit type (based on dim vector)
+// TODO: search only those units which are related to the Unit type (based on dim vector)
 vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string &unit)  {
 
     istringstream iss(unit);
@@ -165,9 +155,9 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
 
     const vector<munits::Metric> & rmatrix = munits::GetMatrix();
 
-    vector<UnitNotation> uv = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation() }; // creating default 7 element long unit vector
+    vector<UnitNotation> uv = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation() }; // creating default 7 element long Unit vector
 
-    for(int ui = 0; ui < 7; ++ui){ // checking if any of the tokens is a base unit
+    for(int ui = 0; ui < 7; ++ui){ // checking if any of the tokens is a base Unit
         for(auto b = unTokens.begin(); b != unTokens.end();){
             if (rmatrix[ui].converter->is_valid_unit(*b)){
                 uv[ui] = *b;
@@ -179,7 +169,7 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
         }
     }
     if (unTokens.size() != 0){ // if no tokens left no point checking for none base units
-        for(int uii = 7; uii < munits::metrics::_Last; ++uii){  // checking if any of the tokens is a none base unit
+        for(int uii = 7; uii < munits::metrics::_Last; ++uii){  // checking if any of the tokens is a none base Unit
             for(auto b = unTokens.begin(); b != unTokens.end();){
                 if (rmatrix[uii].converter->is_valid_unit(*b)){
                     int position = 0;
@@ -196,7 +186,7 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
         }
     }
     if (unTokens.size() != 0){ // if any tokens left it means that what was left is invalid.
-        throw std::logic_error("Incorrect unit: " + unit);
+        throw std::logic_error("Incorrect Unit: " + unit);
     };
     return uv;
 }
@@ -204,7 +194,7 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
 
 string munits::Quantity::compose_unit(const vector<UnitNotation> & uv){
     stringstream tmp;
-    // TODO: exponents are ignored in cases when unit is composed during math operations
+    // TODO: exponents are ignored in cases when Unit is composed during math operations
     for(auto unit = uv.begin(); unit != uv.end(); ++unit){
         if (unit->GetUnit() != "") {
             tmp << unit->GetPrefix() << unit->GetUnit() << (unit->GetExponent()!=1?to_string(unit->GetExponent()):"");
@@ -255,7 +245,7 @@ string munits::Quantity::compose_unit(const vector<UnitNotation> & uv){
             }
         }
         if(!dim_matrix.empty() && dmv == dim_matrix.front()){
-            throw logic_error("Invalid unit: " + tunit);
+            throw logic_error("Invalid Unit: " + tunit);
         }
     }
 
@@ -276,11 +266,11 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
         if (a.GetDimVector()[i] != 0 && b.GetDimVector()[i] !=0){ // checking if there is a common dimension
             tmp = rmatrix[i].converter->Convert(tmp, b.unit_vector[i], a.unit_vector[i]); // converting if there is a common dimension in both units
         }
-        nunit_vector[i] = a.GetDimVector()[i] != 0?a.unit_vector[i]:b.unit_vector[i]; // composing the new unit vector (units)
+        nunit_vector[i] = a.GetDimVector()[i] != 0?a.unit_vector[i]:b.unit_vector[i]; // composing the new Unit vector (units)
     }
 
     int nmindex = 0;
-    while(nmindex < munits::_Last && ndim_vector != rmatrix[nmindex].dim_vector){ // determining the unit type by searching a the matching dimension vector
+    while(nmindex < munits::_Last && ndim_vector != rmatrix[nmindex].dim_vector){ // determining the Unit type by searching a the matching dimension vector
         ++nmindex;
     }
 
@@ -295,7 +285,7 @@ munits::Quantity::Quantity(int m, double value, vector<munits::UnitNotation> uni
         dim_vector(dim_v) {
 
     if (matrix_index > _Last){
-            throw logic_error("Invalid unit type");
+            throw logic_error("Invalid Unit type");
         }
 
 }
@@ -312,10 +302,10 @@ munits::Quantity::Quantity(int i,  double value, vector<UnitNotation> uv):
 
 bool munits::Quantity::compop(const munits::Quantity &a, const munits::Quantity &b, bool (*f)(const double &, const double &)) {
     if (a.matrix_index == b.matrix_index) { // if the matrix indexes do not match they are not the same types and comparison is not possible
-        return f(a.value, b(Quantity::compose_unit(a.unit_vector))); // converting 'b' to the same unit as 'a' and comparing there value
+        return f(a.value, b(Quantity::compose_unit(a.unit_vector))); // converting 'b' to the same Unit as 'a' and comparing there value
     }
     else{
-        throw logic_error("Comparison cannot be done! Measurement unit types do not match. ( '" + Quantity::compose_unit(a.unit_vector) + "', '" + Quantity::compose_unit(b.unit_vector) +"' )" );
+        throw logic_error("Comparison cannot be done! Measurement Unit types do not match. ( '" + Quantity::compose_unit(a.unit_vector) + "', '" + Quantity::compose_unit(b.unit_vector) +"' )" );
     }
 }
 
@@ -337,7 +327,7 @@ vector<string> munits::UnitNotation::parser(string unit) {
 
     for(int u = 0; u < munits::_Last && no_matc; ++u) {
         stringstream rp;
-        { // composing the regex for each unit type
+        { // composing the regex for each Unit type
             rp << "^(";
             const map<string, const shared_ptr<ConverterFunction>> &prefixes = rmatrix[u].converter->Prefixes();
             int c1 = 0;
