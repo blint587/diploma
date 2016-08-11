@@ -146,7 +146,7 @@ namespace munits {
         explicit Quantity(metrics,  double, const std::string);
         Quantity(Quantity &);
         Quantity(const Quantity &);
-        Quantity & operator=(const Quantity &);
+        Quantity & operator=(const Quantity &) = default;
         // TODO: implement move semantics
         ~Quantity(){};
 

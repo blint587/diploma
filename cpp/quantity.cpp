@@ -335,22 +335,6 @@ munits::Quantity::Quantity(const munits::Quantity & other):
         dim_vector(other.dim_vector){
 }
 
-
-
-munits::Quantity & munits::Quantity::operator=(const Quantity & other) {
-
-    if(this == &other){
-        return *this;
-    }
-    this->dim_vector = other.dim_vector;
-    this->unit_vector = other.unit_vector;
-    this->value = other.value;
-    this->converter = other.converter;
-    this->dim_vector = other.dim_vector;
-
-    return *this;
-}
-
 munits::Quantity munits::pow(munits::Quantity a, int e) {
     Quantity temp(a);
     for (int i = 1; i < e; ++i) {
