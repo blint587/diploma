@@ -7,11 +7,15 @@ set(SOURCE_FILES
         ../../converter_function.cpp
         ../../unit.hpp
         ../../unit.cpp
+        ../../unit_notation.cpp
+        ../../unit_notation.hpp
         run_unit_tests.cpp
         quantity_test_conversion.hpp
         quantity_test_comparison.hpp
         quantity_test_mathop.hpp
-        quantity_test_input_validation.hpp  )
+        quantity_test_input_validation.hpp
+
+        ../../metric.cpp ../../metric.hpp ../../converter.cpp ../../converter.hpp ../../dynamic.hpp ../../dynamic.cpp)
 
 add_executable(runUnitTest
         ${SOURCE_FILES})
