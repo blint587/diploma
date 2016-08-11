@@ -11,7 +11,6 @@
 #ifdef DEBUG
     #include <iostream>
 #endif
-#include <iostream>
 #include <algorithm>
 #include <sstream>
 #include <iterator>
@@ -93,7 +92,7 @@ namespace munits {
         const std::vector<int> dim_vector;
         const std::shared_ptr<Converter> converter;
 
-        Metric(std::vector<int>, // cannot be explicit due to use of initaliser list in GetMatrix
+        Metric(std::vector<int>, // cannot be explicit due to use of initializer list in GetMatrix
                std::string = "",
                std::set<std::string> = std::set<std::string>(),
                const std::map<std::string, const std::shared_ptr<munits::Unit>> =
@@ -127,7 +126,7 @@ namespace munits {
     private:
 
         int matrix_index;
-        std::vector<UnitNotation> unit_vector = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation()};
+        std::vector<UnitNotation> unit_vector {7};
         double value;
         std::shared_ptr<munits::Converter> converter;
         std::vector<int> dim_vector;
@@ -142,22 +141,22 @@ namespace munits {
 
     public:
 
-        const std::vector<int> GetDimVector() const{return dim_vector;};
         explicit Quantity(metrics,  double, const std::string);
-        Quantity(Quantity &);
-        Quantity(const Quantity &);
+//        Quantity(Quantity &);
+        Quantity(const Quantity &) = default;
         Quantity & operator=(const Quantity &) = default;
         // TODO: implement move semantics
         ~Quantity(){};
 
+        const std::vector<int> GetDimVector() const{return dim_vector;};
         const int getMatrixIndex()const {return matrix_index;};
+
         double operator()(const std::string) const;
         operator std::string() const {std::stringstream ss; ss << value << " " << compose_unit(unit_vector); return ss.str();}
 
         // TODO: include only if used for Cython
         std::string toString() const {return std::string(*this); }
 
-        // TODO: convert friend functions to inline
         friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.value << " " <<  munits::Quantity::compose_unit(a.unit_vector);return str;};
 
         friend Quantity operator+ (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value + b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};

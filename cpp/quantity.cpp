@@ -319,21 +319,6 @@ bool munits::Quantity::compop(const munits::Quantity &a, const munits::Quantity 
     }
 }
 
-munits::Quantity::Quantity(munits::Quantity & other):
-        matrix_index(other.matrix_index),
-        unit_vector(other.unit_vector),
-        value(other.value),
-        converter(other.converter),
-        dim_vector(other.dim_vector){
-}
-
-munits::Quantity::Quantity(const munits::Quantity & other):
-        matrix_index(other.matrix_index),
-        unit_vector(other.unit_vector),
-        value(other.value),
-        converter(other.converter),
-        dim_vector(other.dim_vector){
-}
 
 munits::Quantity munits::pow(munits::Quantity a, int e) {
     Quantity temp(a);

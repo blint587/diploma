@@ -75,6 +75,11 @@ cdef class PyQuantity:
 
     __div__ = __truediv__
 
+    def __pow__(PyQuantity self, int exp, modulo):
+        cdef PyQuantity nobj = PyQuantity()
+        nobj._thisptr = new Quantity(pow(deref(self._thisptr), exp))
+        return nobj
+
     def __str__(PyQuantity self):
         return self._thisptr.toString().decode("utf-8")
 

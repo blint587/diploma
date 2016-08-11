@@ -567,73 +567,74 @@ class TestQuantityDerivedUnitComparison(unittest.TestCase):
 
     # FORCE
 
-    # def test_comparing_derived_with_derived_force_equal(self):
-    #     f1 = quantity.Force(1, "kg m s-2")
-    #     f2 = quantity.Force(1, "kg m s-2")
-    #
-    #     self.assertTrue(f1 == f2)
-    #     self.assertTrue(f1 <= f2)
-    #     self.assertTrue(f1 >= f2)
-    #     self.assertFalse(f1 > f2)
-    #     self.assertFalse(f1 < f2)
-    #     self.assertFalse(f1 != f2)
-    #
-    # def test_comparing_derived_with_derived_force_greater(self):
-    #     f1 = quantity.Force(2, "kg m s-2")
-    #     f2 = quantity.Force(1, "kg m s-2")
-    #
-    #     self.assertFalse(f1 == f2)
-    #     self.assertFalse(f1 <= f2)
-    #     self.assertTrue(f1 >= f2)
-    #     self.assertTrue(f1 > f2)
-    #     self.assertFalse(f1 < f2)
-    #     self.assertTrue(f1 != f2)
-    #
-    # def test_comparing_derived_with_derived_force_less(self):
-    #     f1 = quantity.Force(1, "kg m s-2")
-    #     f2 = quantity.Force(2, "kg m s-2")
-    #
-    #     self.assertFalse(f1 == f2)
-    #     self.assertTrue(f1 <= f2)
-    #     self.assertFalse(f1 >= f2)
-    #     self.assertFalse(f1 > f2)
-    #     self.assertTrue(f1 < f2)
-    #     self.assertTrue(f1 != f2)
+    def test_comparing_derived_with_derived_force_equal(self):
+        f1 = quantity.Force(1, "kg m s-2")
+        f2 = quantity.Force(1, "kg m s-2")
+
+        self.assertTrue(f1 == f2)
+        self.assertTrue(f1 <= f2)
+        self.assertTrue(f1 >= f2)
+        self.assertFalse(f1 > f2)
+        self.assertFalse(f1 < f2)
+        self.assertFalse(f1 != f2)
+
+    def test_comparing_derived_with_derived_force_greater(self):
+        f1 = quantity.Force(2, "kg m s-2")
+        f2 = quantity.Force(1, "kg m s-2")
+
+        self.assertFalse(f1 == f2)
+        self.assertFalse(f1 <= f2)
+        self.assertTrue(f1 >= f2)
+        self.assertTrue(f1 > f2)
+        self.assertFalse(f1 < f2)
+        self.assertTrue(f1 != f2)
+
+    def test_comparing_derived_with_derived_force_less(self):
+        f1 = quantity.Force(1, "kg m s-2")
+        f2 = quantity.Force(2, "kg m s-2")
+
+        self.assertFalse(f1 == f2)
+        self.assertTrue(f1 <= f2)
+        self.assertFalse(f1 >= f2)
+        self.assertFalse(f1 > f2)
+        self.assertTrue(f1 < f2)
+        self.assertTrue(f1 != f2)
 
     # MOLARCCONCENTRATION
 
-    # def test_comparing_derived_with_derived_molar_concentration_equal(self):
-    #     c1 = quantity.MolarConcentration(1, "mol m-3")
-    #     c2 = quantity.MolarConcentration(1, "mol m-3")
-    #
-    #     self.assertTrue(c1 == c2)
-    #     self.assertTrue(c1 <= c2)
-    #     self.assertTrue(c1 >= c2)
-    #     self.assertFalse(c1 > c2)
-    #     self.assertFalse(c1 < c2)
-    #     self.assertFalse(c1 != c2)
-    #
-    # def test_comparing_derived_with_derived_molar_concentration_greater(self):
-    #     c1 = quantity.MolarConcentration(2, "mol m-3")
-    #     c2 = quantity.MolarConcentration(1, "mol m-3")
-    #
-    #     self.assertFalse(c1 == c2)
-    #     self.assertFalse(c1 <= c2)
-    #     self.assertTrue(c1 >= c2)
-    #     self.assertTrue(c1 > c2)
-    #     self.assertFalse(c1 < c2)
-    #     self.assertTrue(c1 != c2)
-    #
-    # def test_comparing_derived_with_derived_molar_concentration_less(self):
-    #     c1 = quantity.MolarConcentration(1, "mol m-3")
-    #     c2 = quantity.MolarConcentration(2, "mol m-3")
-    #
-    #     self.assertFalse(c1 == c2)
-    #     self.assertTrue(c1 <= c2)
-    #     self.assertFalse(c1 >= c2)
-    #     self.assertFalse(c1 > c2)
-    #     self.assertTrue(c1 < c2)
-    #     self.assertTrue(c1 != c2)
+    def test_comparing_derived_with_derived_molar_concentration_equal(self):
+        c1 = quantity.MolarConcentration(1, "mol m-3")
+        c2 = quantity.MolarConcentration(1, "mol m-3")
+
+        self.assertTrue(c1 == c2)
+        self.assertTrue(c1 <= c2)
+        self.assertTrue(c1 >= c2)
+        self.assertFalse(c1 > c2)
+        self.assertFalse(c1 < c2)
+        self.assertFalse(c1 != c2)
+
+    def test_comparing_derived_with_derived_molar_concentration_greater(self):
+        c1 = quantity.MolarConcentration(2, "mol m-3")
+        c2 = quantity.MolarConcentration(1, "mol m-3")
+
+        self.assertFalse(c1 == c2)
+        self.assertFalse(c1 <= c2)
+        self.assertTrue(c1 >= c2)
+        self.assertTrue(c1 > c2)
+        self.assertFalse(c1 < c2)
+        self.assertTrue(c1 != c2)
+
+    def test_comparing_derived_with_derived_molar_concentration_less(self):
+        c1 = quantity.MolarConcentration(1, "mol m-3")
+        c2 = quantity.MolarConcentration(2, "mol m-3")
+
+        self.assertFalse(c1 == c2)
+        self.assertTrue(c1 <= c2)
+        self.assertFalse(c1 >= c2)
+        self.assertFalse(c1 > c2)
+        self.assertTrue(c1 < c2)
+        self.assertTrue(c1 != c2)
+
 
 #
 # class TestQuantityValidUnit(unittest.TestCase):
@@ -712,45 +713,45 @@ class TestQuantityDerivedUnitsConversion(unittest.TestCase):
     def test_convert_force(self):
         f = quantity.Force(1.0, 'kg m s-2')
         self.assertEqual(f('lb yd s-2'), float('2.412061728866277343179999663'))
-    #
-    # def test_convert_concentration(self):
-    #     c = quantity.Concentration(1., 'mg l-1')
-    #     self.assertAlmostEqual(c('mg dm-3'), float('1.0'), delta=1e-1)
-    #     self.assertAlmostEqual(c('g m-3'), float('1.0'), delta=1e-6)
+
+    def test_convert_concentration(self):
+        c = quantity.Concentration(1., 'mg l-1')
+        self.assertAlmostEqual(c('mg dm-3'), float('1.0'), delta=1e-1)
+        self.assertAlmostEqual(c('g m-3'), float('1.0'), delta=1e-6)
 
 
 class test_derived_units_from_base_units(unittest.TestCase):
     def test_acceleration_from_l_t_zero(self):
         l = quantity.Length(0, "m")
         t = quantity.Time(1, "s")
-        # a1 = l / (t * t)
-        # a2 = l / (t ** 2)
+        a1 = l / (t * t)
+        a2 = l / (t ** 2)
         a3 = l / t / t
 
-        # self.assertIsInstance(a1, quantity.Acceleration)
-        # self.assertIsInstance(a2, quantity.Acceleration)
+        self.assertIsInstance(a1, quantity.Acceleration)
+        self.assertIsInstance(a2, quantity.Acceleration)
         self.assertIsInstance(a3, quantity.Acceleration)
 
     def test_acceleration_from_l_t(self):
         l = quantity.Length(1, "m")
         t = quantity.Time(1, "s")
-        # a1 = l / (t * t)
-        # a2 = l / (t ** 2)
+        a1 = l / (t * t)
+        a2 = l / (t ** 2)
         a3 = l / t / t
 
-        # self.assertIsInstance(a1, quantity.Acceleration)
-        # self.assertIsInstance(a2, quantity.Acceleration)
+        self.assertIsInstance(a1, quantity.Acceleration)
+        self.assertIsInstance(a2, quantity.Acceleration)
         self.assertIsInstance(a3, quantity.Acceleration)
 
     def test_acceleration_from_l_t_none_zero(self):
         l = quantity.Length(2.33, "m")
         t = quantity.Time(2.33, "s")
-        # a1 = l / (t * t)
-        # a2 = l / (t ** 2)
+        a1 = l / (t * t)
+        a2 = l / (t ** 2)
         a3 = l / t / t
 
-        # self.assertAlmostEqual(a1('m s-2'), float('0.4229'), delta=1e-2)
-        # self.assertAlmostEqual(a2('m s-2'), float('0.4229'), delta=1e-2)
+        self.assertAlmostEqual(a1('m s-2'), float('0.4229'), delta=1e-2)
+        self.assertAlmostEqual(a2('m s-2'), float('0.4229'), delta=1e-2)
         self.assertAlmostEqual(a3('m s-2'), float('0.4229'), delta=1e-2)
 
     def test_force_from_m_a_zero(self):
@@ -781,17 +782,19 @@ class test_derived_units_from_base_units(unittest.TestCase):
 
     def test_volumetricflow_(self):
         l = quantity.Length(1, 'm')
-        v1 = l * l * l
-        # v2 = l ** 3
         t = quantity.Time(1, 'h')
+
+        v1 = l * l * l
+        v2 = l ** 3
         vf1 = v1 / t
-        # vf2 = v2 / t
+        vf2 = v2 / t
         vf3 = l * l * l / t
+
         self.assertIsInstance(vf1, quantity.VolumetricFlow)
         self.assertEqual(vf1('m3 h-1'), float('1.'))
 
-        # self.assertIsInstance(vf2, quantity.VolumetricFlow)
-        # self.assertEqual(vf2('m3 h-1'), float('1.'))
+        self.assertIsInstance(vf2, quantity.VolumetricFlow)
+        self.assertEqual(vf2('m3 h-1'), float('1.'))
 
         self.assertIsInstance(vf3, quantity.VolumetricFlow)
         self.assertEqual(vf3('m3 h-1'), float('1.'))
@@ -809,54 +812,53 @@ class test_derived_units_from_base_units(unittest.TestCase):
         self.assertIsInstance(vf2, quantity.VolumetricFlow)
         self.assertAlmostEqual(vf2('m3 h-1'), float('5.4289'), delta=1e-3)
 
-
     def test_molar_concentration_from_n_l_v_zero(self):
         l = quantity.Length(1, 'm')
         v = quantity.Volume(1, 'm3')
         n = quantity.AmountOfSubstance(0, "mol")
-        # mc1 = n / (l * l * l)
-        # mc2 = n / (l ** 3)
-        # mc3 = n / l / l / l
+        mc1 = n / (l * l * l)
+        mc2 = n / (l ** 3)
+        mc3 = n / l / l / l
         mc4 = n / v
 
-        # self.assertIsInstance(mc1, quantity.MolarConcentration)
-        # self.assertIsInstance(mc2, quantity.MolarConcentration)
-        # self.assertIsInstance(mc3, quantity.MolarConcentration)
+        self.assertIsInstance(mc1, quantity.MolarConcentration)
+        self.assertIsInstance(mc2, quantity.MolarConcentration)
+        self.assertIsInstance(mc3, quantity.MolarConcentration)
         self.assertIsInstance(mc4, quantity.MolarConcentration)
 
-        # self.assertEqual(mc1('mol m-3'), float('0.'))
-        # self.assertEqual(mc2('mol m-3'), float('0.'))
-        # self.assertEqual(mc3('mol m-3'), float('0.'))
+        self.assertEqual(mc1('mol m-3'), float('0.'))
+        self.assertEqual(mc2('mol m-3'), float('0.'))
+        self.assertEqual(mc3('mol m-3'), float('0.'))
         self.assertEqual(mc4('mol m-3'), float('0.'))
-
 
     def test_molar_concentration_from_n_l_v(self):
         l = quantity.Length(1, 'm')
         v = quantity.Volume(1, 'm3')
         n = quantity.AmountOfSubstance(1, "mol")
-        # mc1 = n / (l * l * l)
-        # mc2 = n / (l ** 3)
-        # mc3 = n / l / l / l
+        mc1 = n / (l * l * l)
+        mc2 = n / (l ** 3)
+        mc3 = n / l / l / l
         mc4 = n / v
 
-        # self.assertEqual(mc1('mol m-3'), float('1.'))
-        # self.assertEqual(mc2('mol m-3'), float('1.'))
-        # self.assertEqual(mc3('mol m-3'), float('1.'))
+        self.assertEqual(mc1('mol m-3'), float('1.'))
+        self.assertEqual(mc2('mol m-3'), float('1.'))
+        self.assertEqual(mc3('mol m-3'), float('1.'))
         self.assertEqual(mc4('mol m-3'), float('1.'))
-
 
     def test_molar_concentration_from_n_l_v_233(self):
         l = quantity.Length(2.33, 'm')
         v = quantity.Volume(12.649, 'm3')
         n = quantity.AmountOfSubstance(1, "mol")
-        # mc1 = n / (l * l * l)
-        # mc2 = n / (l ** 3)
-        # mc3 = n / l / l / l
+        mc1 = n / (l * l * l)
+        mc2 = n / (l ** 3)
+        mc3 = n / l / l / l
         mc4 = n / v
 
-        # self.assertAlmostEqual(mc1('mol m-3'), float('0.0790'), delta=1e-3)
-        # self.assertAlmostEqual(mc2('mol m-3'), float('0.0790'), delta=1e-3)
-        # self.assertAlmostEqual(mc3('mol m-3'), float('0.0790'), delta=1e-3)
+        self.assertAlmostEqual(mc1('mol m-3'), float('0.0790'), delta=1e-3)
+        self.assertAlmostEqual(mc2('mol m-3'), float('0.0790'), delta=1e-3)
+        self.assertAlmostEqual(mc3('mol m-3'), float('0.0790'), delta=1e-3)
         self.assertAlmostEqual(mc4('mol m-3'), float('0.0790'), delta=1e-3)
 
 
+if __name__ == "__main__":
+    unittest.main()

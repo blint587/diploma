@@ -3,6 +3,7 @@
     #include <conio.h>
 #endif
 #include "Quantity.h"
+#include <ctime>
 
 
 using namespace std;
@@ -15,11 +16,19 @@ using namespace munits;
 int main() {
 
     try {
-        Quantity l1(Concentration, 1, "kg m-3");
+        for (int j = 0; j < 10; ++j) {
+            clock_t start = clock();
+            for (int i = 0; i < 10000; ++i) {
+                Quantity l1(Length, 1, "m");
+                Quantity l2(Length, 1, "m");
+                Quantity l3 = l1 * l2;
 
-        double x = l1("g l-1");
+                l3("mm2");
+            }
 
-        cout << x << endl;
+            clock_t stop = clock();
+            cout << (double(stop - start) / CLOCKS_PER_SEC) << endl;
+        }
     }
     catch (exception & e){
         cerr << e.what() << endl;
