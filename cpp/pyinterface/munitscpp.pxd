@@ -1,6 +1,6 @@
 from libcpp.string cimport string
 
-cdef extern from "../quantity.h" namespace "munits":
+cdef extern from "../src/quantity.h" namespace "munits":
 
     cdef enum metrics:
             Length = 0,

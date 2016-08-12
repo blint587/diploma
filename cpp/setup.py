@@ -8,9 +8,13 @@ setup(
         "munitscpp",
         sources=[
                  "pyinterface/munitscpp.pyx",
-                 "quantity.cpp",
-                 "converter_function.cpp",
-                 "unit.cpp"
+                 "src/quantity.cpp",
+                 "src/converter.cpp",
+                 "src/converter_function.cpp",
+                 "src/dynamic.cpp",
+                 "src/metric.cpp",
+                 "src/unit.cpp",
+                 "src/unit_notation.cpp"
                  ],
         language="c++",
         extra_compile_args=["-std=c++11"],

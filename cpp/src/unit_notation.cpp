@@ -1,5 +1,6 @@
 
 #include <regex>
+#include <sstream>
 #include "unit_notation.hpp"
 #include "converter_function.hpp"
 #include "unit.hpp"
@@ -15,7 +16,7 @@ vector<string> munits::UnitNotation::parser(string unit) {
     bool no_matc = true;
 
     for(int u = 0; u < munits::_Last && no_matc; ++u) {
-        stringstream rp;
+        std::stringstream rp;
         { // composing the regex for each Unit type
             rp << "^(";
             const map<string, const shared_ptr<ConverterFunction>> &prefixes = rmatrix[u].converter->Prefixes();

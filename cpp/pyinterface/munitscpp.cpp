@@ -4,7 +4,7 @@
 {
     "distutils": {
         "depends": [
-            "quantity.h"
+            "src\\quantity.h"
         ],
         "extra_compile_args": [
             "-std=c++11"
@@ -292,7 +292,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "new"
 #include "stdexcept"
 #include "typeinfo"
-#include "../quantity.h"
+#include "../src/quantity.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */
