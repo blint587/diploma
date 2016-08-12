@@ -2,7 +2,7 @@
 #define MUSYS_QUANTITY_TEST_COMPARISON_HPP
 
 #include "gtest/gtest.h"
-#include "../../quantity.h"
+#include "../../src/quantity.h"
 
 class TestQuantityBaseUnitComparison: public testing::Test{};
 

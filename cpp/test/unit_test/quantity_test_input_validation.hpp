@@ -3,7 +3,7 @@
 #define MUSYS_QUANTITY_TEST_INPUT_VALIDATION_HPP
 
 #include "gtest/gtest.h"
-#include "../../quantity.h"
+#include "../../src/quantity.h"
 
 
 //

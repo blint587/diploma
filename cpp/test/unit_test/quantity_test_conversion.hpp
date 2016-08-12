@@ -3,7 +3,7 @@
 #define MUSYS_QUANTITY_TEST_H
 
 #include "gtest/gtest.h"
-#include "../../quantity.h"
+#include "../../src/quantity.h"
 
 class TestQuantityBaseUnitConversionSI : public testing::Test{};
 
