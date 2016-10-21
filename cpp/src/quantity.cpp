@@ -1,6 +1,8 @@
 #include <regex>
 #include <iostream>
 #include <queue>
+#include <algorithm>
+#include <list>
 #include "quantity.h"
 
 
@@ -13,7 +15,7 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
 
     istringstream iss(unit);
     vector<string> tokens;
-    vector<UnitNotation> unTokens;
+    list<UnitNotation> unTokens;
 
     copy(istream_iterator<string>(iss), istream_iterator<string>(), back_inserter(tokens)); // splitting up string representations (by default at " ")
 
@@ -23,33 +25,24 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
 
     const vector<munits::Metric> & rmatrix = munits::GetMatrix();
 
-    vector<UnitNotation> uv = {UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation(), UnitNotation() }; // creating default 7 element long Unit vector
+    vector<UnitNotation> uv(7); // creating default 7 element long Unit vector
 
     for(int ui = 0; ui < 7; ++ui){ // checking if any of the tokens is a base Unit
-        for(auto b = unTokens.begin(); b != unTokens.end();){
-            if (rmatrix[ui].converter->is_valid_unit(*b)){
-                uv[ui] = *b;
-                b = unTokens.erase(b);
-            }
-            else{
-                ++b;
-            }
+
+        auto b = find_if(unTokens.begin(), unTokens.end(), [&rmatrix, &ui](UnitNotation t){return rmatrix[ui].converter->is_valid_unit(t);});
+        if (b != unTokens.end()){
+            uv[ui] = *b;
+            unTokens.erase(b);
         }
     }
     if (unTokens.size() != 0){ // if no tokens left no point checking for none base units
         for(int uii = 7; uii < munits::metrics::_Last; ++uii){  // checking if any of the tokens is a none base Unit
-            for(auto b = unTokens.begin(); b != unTokens.end();){
-                if (rmatrix[uii].converter->is_valid_unit(*b)){
-                    int position = 0;
-                    while(rmatrix[uii].dim_vector[position] == 0 && position < 7){ // searching the position where the dim_vector is not 0
-                        ++position;
-                    };
-                        uv[position] = UnitNotation(*b);
-                        b = unTokens.erase(b);
-                }
-                else{
-                    ++b;
-                }
+            auto b = find_if(unTokens.begin(), unTokens.end(), [&rmatrix, &uii](UnitNotation t){return rmatrix[uii].converter->is_valid_unit(t);});
+            if (b != unTokens.end()){
+                // searching the position where the dim_vector is not 0
+                int position = find_if(rmatrix[uii].dim_vector.begin(), rmatrix[uii].dim_vector.end(), [](int x){return x != 0;}) - rmatrix[uii].dim_vector.begin();
+                uv[position] = UnitNotation(*b);
+                unTokens.erase(b);
             }
         }
     }
@@ -86,7 +79,7 @@ string munits::Quantity::compose_unit(const vector<UnitNotation> & uv){
 
     for(int i = 0; i < 7; ++i){
         if(dim_vector[i] !=0){
-            vector<int> tmp_dim_vector = {0,0,0,0,0,0,0};
+            vector<int> tmp_dim_vector (7);
             tmp_dim_vector[i] = abs(dim_vector[i]);
             dim_matrix.push(tmp_dim_vector);
         }
@@ -97,14 +90,12 @@ string munits::Quantity::compose_unit(const vector<UnitNotation> & uv){
 
     while(!dim_matrix.empty()){
         vector<int> dmv = dim_matrix.front();
-        int position = 0;
-        while((dmv)[position] == 0 && position < 6){ // searching the position where the dim_vector is not 0
-            ++position;
-        };
+        int position = find_if(dmv.begin(), dmv.end(), [](int x){return x != 0;}) - dmv.begin();
+
+        vector<int> normalized_dim(7);
+        normalized_dim[position] = 1;
 
         for(auto q = rmatrix.begin(); q != rmatrix.end(); ++q){
-            vector<int> normalized_dim = {0,0,0,0,0,0,0};
-            normalized_dim[position] = 1;
 
             if((q->dim_vector == dmv || q->dim_vector == normalized_dim) &&(q->converter->is_valid_unit(unit_vector[position]) && q->converter->is_valid_unit(tunit_vector[position]))){
                 tmp = q->converter->Convert(tmp, unit_vector[position], tunit_vector[position], dim_vector[position]);
@@ -126,9 +117,11 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
 
     const vector<Metric> & rmatrix = munits::GetMatrix();
     vector<UnitNotation> nunit_vector(7);
-    vector<int> ndim_vector = {0, 0, 0, 0, 0, 0, 0};
+    vector<int> ndim_vector (7);
     double tmp = b.value;
 
+
+    // TODO: use std::copy
     for(int i = 0; i < ndim_vector.size(); ++i){
         ndim_vector[i] = a.GetDimVector()[i] + p * b.GetDimVector()[i]; // composing the new dimension vector (exponents)
         if (a.GetDimVector()[i] != 0 && b.GetDimVector()[i] !=0){ // checking if there is a common dimension
@@ -137,10 +130,11 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
         nunit_vector[i] = a.GetDimVector()[i] != 0?a.unit_vector[i]:b.unit_vector[i]; // composing the new Unit vector (units)
     }
 
-    int nmindex = 0;
-    while(nmindex < munits::_Last && ndim_vector != rmatrix[nmindex].dim_vector){ // determining the Unit type by searching a the matching dimension vector
-        ++nmindex;
-    }
+    // determining the Unit type by searching the matching dimension vector
+    int nmindex = find_if(rmatrix.begin(), rmatrix.end(),
+                          [&](Metric q){return ndim_vector == q.dim_vector;}) - rmatrix.begin() ;
+
+    nmindex = std::min(nmindex, static_cast<int>(munits::_Last));
 
     return Quantity(nmindex, a.value * std::pow(tmp, p), nunit_vector, ndim_vector);
 };

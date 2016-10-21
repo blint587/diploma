@@ -29,8 +29,13 @@ int main() {
 //            clock_t stop = clock();
 //            cout << (double(stop - start) / CLOCKS_PER_SEC) << endl;
 //        }
-        munits::Quantity t (munits::Temperature, -40., "°C");
-        cout << t("K") << endl;
+
+        vector<int> iv(7);
+        for(int i: iv){
+            cout << i << endl;
+        }
+//        munits::Quantity t (munits::Temperature, -40., "°C");
+//        cout << t("K") << endl;
     }
     catch (exception & e){
         cerr << e.what() << endl;
