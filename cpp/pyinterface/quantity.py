@@ -29,7 +29,7 @@ class Quantity(PyQuantity):
     def __call__(self, unit):
         return PyQuantity.__call__(self, unit)
 
-    def __pow__(self, power, modulo):
+    def __pow__(self, power, modulo=None):
         return Quantity(other=PyQuantity.__pow__(self, int(power), modulo))
 
 

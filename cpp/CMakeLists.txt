@@ -16,7 +16,13 @@ set(SOURCE_FILES main.cpp
         src/unit.cpp
         src/unit.hpp
         src/unit_notation.cpp
-        src/unit_notation.hpp src/metric.cpp src/metric.hpp src/converter.cpp src/converter.hpp src/dynamic.hpp src/dynamic.cpp)
+        src/unit_notation.hpp
+        src/metric.cpp
+        src/metric.hpp
+        src/converter.cpp
+        src/converter.hpp
+        src/dynamic.hpp
+        src/dynamic.cpp)
 add_executable(musys ${SOURCE_FILES})
 
 add_subdirectory(test)
