@@ -4,6 +4,7 @@
 #endif
 #include "src/quantity.h"
 #include <ctime>
+#include <math.h>
 
 
 using namespace std;
@@ -14,6 +15,10 @@ using namespace munits;
 
 
 int main() {
+
+    double x = 1.001;
+
+    cout << x << endl;
 
     try {
 //        for (int j = 0; j < 10; ++j) {
@@ -30,10 +35,6 @@ int main() {
 //            cout << (double(stop - start) / CLOCKS_PER_SEC) << endl;
 //        }
 
-        vector<int> iv(7);
-        for(int i: iv){
-            cout << i << endl;
-        }
 //        munits::Quantity t (munits::Temperature, -40., "°C");
 //        cout << t("K") << endl;
     }
