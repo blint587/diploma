@@ -166,7 +166,8 @@ munits::Quantity::Quantity(int i,  double value, vector<UnitNotation> uv):
 bool munits::Quantity::compop(const munits::Quantity &a, const munits::Quantity &b, bool (*f)(const double &, const double &)) {
     if (a.matrix_index == b.matrix_index) { // if the matrix indexes do not match they are not the same types and comparison is not possible
         //applying a rounding with a precision of 6
-        return f(a.value, round(b(Quantity::compose_unit(a.unit_vector))*10e6)/10e6); // converting 'b' to the same Unit as 'a' and comparing there value
+        static const double precision = 10e6;
+        return f( round(a.value*precision)/precision, round(b(Quantity::compose_unit(a.unit_vector))*precision)/precision); // converting 'b' to the same Unit as 'a' and comparing there value
     }
     else{
         throw logic_error("Comparison cannot be done! Measurement Unit types do not match. ( '" + Quantity::compose_unit(a.unit_vector) + "', '" + Quantity::compose_unit(b.unit_vector) +"' )" );

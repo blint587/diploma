@@ -16,9 +16,12 @@ using namespace munits;
 
 int main() {
 
-    double x = 1.001;
+    Quantity c1 (Concentration, 100.1, "mg l-1");
+    Quantity c2 (Concentration, 100.0, "mg dm-3");
 
-    cout << x << endl;
+    cout << (c2 == c1) << endl;
+    cout << c2("mg dm-3") << endl;
+    cout << c1("mg l-1") << endl;
 
     try {
 //        for (int j = 0; j < 10; ++j) {
