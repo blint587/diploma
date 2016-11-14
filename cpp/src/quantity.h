@@ -58,16 +58,35 @@ namespace munits {
 
             double operator()(const std::string) const;
             operator std::string() const {std::stringstream ss; ss << value << " " << compose_unit(unit_vector); return ss.str();}
+            explicit operator double() const {
+
+                if (all_of(dim_vector.begin(), dim_vector.end(),[](int i){return 0 == i;})) {
+                    return value;
+                } else {
+                    throw std::logic_error("Unit cannot be converted to double!");
+                }
+
+            }
 
             // TODO: include only if used for Cython
             std::string toString() const {return std::string(*this); }
+            double toDouble() const {return double(*this);}
 
             friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.value << " " <<  munits::Quantity::compose_unit(a.unit_vector);return str;};
 
             friend Quantity operator+ (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value + b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
             friend Quantity operator- (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value - b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
+
             friend Quantity operator* (const Quantity & a, const Quantity & b) {return mathop(a, b, 1);};
+            friend Quantity operator* (const Quantity & a, const int b) {Quantity n (a); n.value *= b; return n;};
+            friend Quantity operator* (const int b, const Quantity & a) {Quantity n (a); n.value *= b; return n;};
+            friend Quantity operator* (const Quantity & a, const double b) {Quantity n (a); n.value *= b; return n;};
+            friend Quantity operator* (const double b, const Quantity & a) {Quantity n (a); n.value *= b; return n;};
+
             friend Quantity operator/ (const Quantity & a, const Quantity & b) {return mathop(a, b, -1);};
+            friend Quantity operator/ (const Quantity & a, const int b) {Quantity n (a); n.value /= b; return n;};
+            friend Quantity operator/ (const Quantity & a, const double b) {Quantity n (a); n.value /= b; return n;};
+
 
             friend bool operator < (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::lt<const double>);};
             friend bool operator <= (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::le<const double>);};

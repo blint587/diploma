@@ -98,15 +98,9 @@ LIST_OF_CLASSES = list(
 
 if __name__ == "__main__":
 
-    from datetime import datetime as dt
-    for j in range(10):
-        start = dt.now()
-        for i in range(10000):
-            q1 = Length(1., "m")
-            q2 = Length(1., "m")
-            q3 = q1 * q2
-            q3("mm2")
+    a = Velocity(2, "m s-1")
+    b = Velocity(4, "m s-1")
+    c = a / b
+    print(type(c))
 
-        stop = dt.now()
-
-        print(stop - start)
+    print(float(c))

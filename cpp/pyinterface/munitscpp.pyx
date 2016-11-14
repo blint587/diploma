@@ -57,21 +57,46 @@ cdef class PyQuantity:
         nobj._thisptr = new Quantity(deref(self._thisptr) +  deref(other._thisptr))
         return nobj
 
-    def __mul__(PyQuantity self, PyQuantity other):
-        cdef PyQuantity nobj = PyQuantity()
-        nobj._thisptr = new Quantity(deref(self._thisptr) *  deref(other._thisptr))
-        return nobj
-
     def __sub__(PyQuantity self, PyQuantity other):
         cdef PyQuantity nobj = PyQuantity()
         nobj._thisptr = new Quantity(deref(self._thisptr) -  deref(other._thisptr))
         return nobj
 
+    def __mul_q(PyQuantity self, PyQuantity other):
+        cdef PyQuantity nobj = PyQuantity()
+        nobj._thisptr = new Quantity(deref(self._thisptr) *  (deref(other._thisptr)))
+        return nobj
 
-    def __truediv__(PyQuantity self, PyQuantity other):
+    def __mul_num(PyQuantity self, float other):
+        cdef PyQuantity nobj = PyQuantity()
+        nobj._thisptr = new Quantity((deref(self._thisptr)) * other)
+        return nobj
+
+    def __mul__(self, other):
+        if isinstance(other, PyQuantity) and isinstance(self, PyQuantity):
+            return self.__mul_q(other)
+        elif isinstance(self, PyQuantity):
+            return self.__mul_num(other)
+        elif isinstance(other, PyQuantity):
+            return other.__mul_num(self)
+
+    def __trudiv_q(PyQuantity self, PyQuantity other):
         cdef PyQuantity nobj = PyQuantity()
         nobj._thisptr = new Quantity(deref(self._thisptr) / deref(other._thisptr) )
         return nobj
+
+    def __trudiv_num(PyQuantity self, float other):
+        cdef PyQuantity nobj = PyQuantity()
+        nobj._thisptr = new Quantity(deref(self._thisptr) / other )
+        return nobj
+
+    def __truediv__(self, other):
+        if isinstance(other, PyQuantity) and isinstance(self, PyQuantity):
+            return self.__trudiv_q(other)
+        elif isinstance(self, PyQuantity):
+            return self.__trudiv_num(other)
+        else:
+            raise TypeError("Cannot divide numeric type with 'Quantity' object!")
 
     __div__ = __truediv__
 
@@ -82,6 +107,10 @@ cdef class PyQuantity:
 
     def __str__(PyQuantity self):
         return self._thisptr.toString().decode("utf-8")
+
+    def __float__(PyQuantity self):
+        return self._thisptr.toDouble()
+
 
     @property
     def matrix_index(PyQuantity self):
