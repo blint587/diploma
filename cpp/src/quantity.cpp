@@ -5,6 +5,7 @@
 #include <list>
 #include <math.h>
 #include "quantity.h"
+#include <iomanip>
 
 
 using namespace std;
@@ -134,8 +135,10 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
         ndim_vector[i] =
                 a.GetDimVector()[i] + p * b.GetDimVector()[i]; // composing the new dimension vector (exponents)
         if (a.GetDimVector()[i] != 0 && b.GetDimVector()[i] != 0) { // checking if there is a common dimension
-            tmp = rmatrix[i].converter->Convert(tmp, b.unit_vector[i],
-                                                a.unit_vector[i]); // converting if there is a common dimension in both units
+            tmp = rmatrix[i].converter->Convert(tmp, // converting if there is a common dimension in both units
+                                                b.unit_vector[i],
+                                                a.unit_vector[i],
+                                                b.dim_vector[i]);
         }
         nunit_vector[i] =
                 a.GetDimVector()[i] != 0 ? a.unit_vector[i] : b.unit_vector[i]; // composing the new Unit vector (units)
@@ -175,12 +178,22 @@ munits::Quantity::Quantity(int i, double value, vector<UnitNotation> uv) :
 
 bool munits::Quantity::compop(const munits::Quantity &a, const munits::Quantity &b,
                               bool (*f)(const double &, const double &)) {
-    if (a.matrix_index ==
-        b.matrix_index) { // if the matrix indexes do not match they are not the same types and comparison is not possible
+
+    // if the matrix indexes do not match they are not the same types and comparison is not possible
+    if (a.matrix_index == b.matrix_index) {
         //applying a rounding with a precision of 6
-        static const double precision = 10e6;
-        return f(round(a.value * precision) / precision, round(b(Quantity::compose_unit(a.unit_vector)) * precision) /
-                                                         precision); // converting 'b' to the same Unit as 'a' and comparing there value
+        static const double precision = 10e4;
+        auto lfhs = round(a.value * precision) / precision;
+        // converting 'b' to the same Unit as 'a' and comparing there value
+        auto rths = round(b(Quantity::compose_unit(a.unit_vector)) * precision) / precision;
+//        cout << setprecision(10) << "lfths: " << lfhs << endl;
+//        cout << setprecision(10) << "rths: " << rths << endl;
+
+        auto r = f(lfhs, rths );
+
+//        cout  << "equals: "<<  (lfhs == rths) << endl << endl;
+
+        return r;
     } else {
         throw logic_error("Comparison cannot be done! Measurement Unit types do not match. ( '" +
                           Quantity::compose_unit(a.unit_vector) + "', '" + Quantity::compose_unit(b.unit_vector) +
@@ -188,8 +201,17 @@ bool munits::Quantity::compop(const munits::Quantity &a, const munits::Quantity 
     }
 }
 
+munits::Quantity::operator double() const {
+    if (unquantified()) {
+        return value;
+    } else {
+        throw std::logic_error("Unit cannot be converted to double!");
+    }
+}
 
-
+bool munits::Quantity::unquantified() const {
+    return all_of(dim_vector.begin(), dim_vector.end(), [](int i) { return 0 == i; });
+}
 
 munits::Quantity munits::pow(munits::Quantity a, int e) {
     Quantity temp(a);

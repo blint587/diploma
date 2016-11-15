@@ -16,11 +16,11 @@ using namespace munits;
 
 int main() {
 
-    Quantity c1 (Velocity, 2, "m s-1");
-    Quantity c2 (Velocity, 4, "m s-1");
+    Quantity c1 (VolumetricFlow, 234.08, "m3 d-1");
+    Quantity c2 (VolumetricFlow, 234.08, "m3 d-1");
 
-    Quantity c3 = c1 / c2;
-    cout << (double)c3 << endl;
+
+    cout << (c1 == c2) << endl;
 
     try {
 //        for (int j = 0; j < 10; ++j) {

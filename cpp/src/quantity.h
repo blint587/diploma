@@ -58,15 +58,9 @@ namespace munits {
 
             double operator()(const std::string) const;
             operator std::string() const {std::stringstream ss; ss << value << " " << compose_unit(unit_vector); return ss.str();}
-            explicit operator double() const {
+            explicit operator double() const;
 
-                if (all_of(dim_vector.begin(), dim_vector.end(),[](int i){return 0 == i;})) {
-                    return value;
-                } else {
-                    throw std::logic_error("Unit cannot be converted to double!");
-                }
-
-            }
+            bool unquantified()const;
 
             // TODO: include only if used for Cython
             std::string toString() const {return std::string(*this); }

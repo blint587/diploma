@@ -15,7 +15,10 @@ class Quantity(PyQuantity):
             return super().__new__(ncls, other=other)
 
     def __mul__(self, other):
-        return Quantity(other=PyQuantity.__mul__(self, other))
+        n = Quantity(other=PyQuantity.__mul__(self, other))
+        if n._unquantified:
+            return float(n)
+        return n
 
     def __add__(self, other):
         return Quantity(other=PyQuantity.__add__(self, other))
@@ -24,7 +27,10 @@ class Quantity(PyQuantity):
         return Quantity(other=PyQuantity.__sub__(self, other))
 
     def __truediv__(self, other):
-        return Quantity(other=PyQuantity.__truediv__(self, other))
+        n = Quantity(other=PyQuantity.__truediv__(self, other))
+        if n._unquantified:
+            return float(n)
+        return n
 
     def __call__(self, unit):
         return PyQuantity.__call__(self, unit)
@@ -98,9 +104,9 @@ LIST_OF_CLASSES = list(
 
 if __name__ == "__main__":
 
-    a = Velocity(2, "m s-1")
-    b = Velocity(4, "m s-1")
-    c = a / b
-    print(type(c))
+    a = VolumetricFlow(234.08, "m3 d-1")
+    b = VolumetricFlow(234.08, "m3 d-1")
+    print(a == b)
 
-    print(float(c))
+
+

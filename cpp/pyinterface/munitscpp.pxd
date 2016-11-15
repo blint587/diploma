@@ -43,5 +43,6 @@ cdef extern from "../src/quantity.h" namespace "munits":
 
         string toString() except + RuntimeError
         double toDouble() except + RuntimeError
+        bint unquantified()
 
     cdef Quantity pow(Quantity, int)

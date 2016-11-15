@@ -35,7 +35,7 @@ cdef class PyQuantity:
             self._thisptr = NULL # inform __dealloc__
         return False # propagate exceptions
 
-    def __richcmp__(PyQuantity self, PyQuantity other, op):
+    def __comp(PyQuantity self, PyQuantity other, op):
         if 0 == op:
             return deref(self._thisptr) < deref(other._thisptr)
         elif 1 == op:
@@ -48,6 +48,12 @@ cdef class PyQuantity:
             return deref(self._thisptr) > deref(other._thisptr)
         elif 5 == op:
             return deref(self._thisptr) >= deref(other._thisptr)
+
+    def __richcmp__(self, other, op):
+        if isinstance(self, PyQuantity) and isinstance(other, PyQuantity):
+            return self.__comp(other, op)
+        else:
+            return NotImplemented
 
     def __call__(PyQuantity self, str unit):
         return self._thisptr[0](bytes(unit, "utf-8"))
@@ -108,8 +114,15 @@ cdef class PyQuantity:
     def __str__(PyQuantity self):
         return self._thisptr.toString().decode("utf-8")
 
+    def __repr__(PyQuantity self):
+        return  self.__str__()
+
     def __float__(PyQuantity self):
         return self._thisptr.toDouble()
+
+    @property
+    def _unquantified(PyQuantity self):
+        return self._thisptr.unquantified()
 
 
     @property
