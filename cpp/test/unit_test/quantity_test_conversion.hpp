@@ -147,7 +147,6 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_mass_233){
 TEST_F(TestQuantityBaseUnitConversionSI, test_time_zero) {
     munits::Quantity t(munits::Time, 0.0, "s");
 
-    // TODO: implement non prefixed conversions (min, d, h)
     EXPECT_EQ(t("ms"), 0);
     EXPECT_EQ(t("μs"), 0);
     EXPECT_EQ(t("ns"), 0);
@@ -155,6 +154,8 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_time_zero) {
     EXPECT_EQ(t("fs"), 0);
     EXPECT_EQ(t("as"), 0);
     EXPECT_EQ(t("min"), 0);
+    EXPECT_EQ(t("d"), 0);
+    EXPECT_EQ(t("h"), 0);
 
 }
 
@@ -168,6 +169,9 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_time_one){
     EXPECT_NEAR(t("ps"), 1e12, 1e-2);
     EXPECT_NEAR(t("fs"), 1e15, 1);
     EXPECT_NEAR(t("as"), 1e18, 128);
+    EXPECT_EQ(t("min"), 1./60);
+    EXPECT_EQ(t("h"), 1./60/60);
+    EXPECT_EQ(t("d"), 1./60/60/24);
 
  }
 
@@ -180,6 +184,10 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_time_233) {
     EXPECT_EQ(t("ps"), 2.33e12);
     EXPECT_EQ(t("fs"), 2.33e15);
     EXPECT_EQ(t("as"), 2.33e18);
+    EXPECT_NEAR(t("min"), 2.33/60, 1e-17);
+    EXPECT_NEAR(t("h"), 2.33/60/60, 1e-17);
+    EXPECT_NEAR(t("d"), 2.33/60/60/24, 1e-17);
+
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_zero) {
@@ -325,14 +333,14 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_non_si_length){
     EXPECT_NEAR(l("hyd"), 2.7789934354485773e-4, 1e-7);
     EXPECT_NEAR(l("dayd"), 2.7789934354485778e-3, 1e-6);
     EXPECT_NEAR(l("yd"), 0.0277777778, 1e-4);
-//    EXPECT_NEAR(l("dyd"), 0.0277899e1, 1e-20);
-//    EXPECT_NEAR(l("cyd"), 0.0277899e2, 1e-20);
-//    EXPECT_NEAR(l("myd"), 0.0277899e3, 1e-20);
-//    EXPECT_NEAR(l("μyd"), 0.0277899e6, 1e-20);
-//    EXPECT_NEAR(l("nyd"), 0.0277899e9, 1e-20);
-//    EXPECT_NEAR(l("pyd"), 0.0277899e12, 1e-20);
-//    EXPECT_NEAR(l("fyd"), 0.0277899e15, 1e-20);
-//    EXPECT_NEAR(l("ayd"), 0.0277899e18, 1e-20);
+    EXPECT_NEAR(l("dyd"), 0.0277899e1, 1e-6);
+    EXPECT_NEAR(l("cyd"), 0.0277899e2, 1e-5);
+    EXPECT_NEAR(l("myd"), 0.0277899e3, 1e-4);
+    EXPECT_NEAR(l("μyd"), 0.0277899e6, 1e-1);
+    EXPECT_NEAR(l("nyd"), 0.0277899e9, 35);
+    EXPECT_NEAR(l("pyd"), 0.0277899e12, 35000);
+    EXPECT_NEAR(l("fyd"), 0.0277899e15, 35000000);
+    EXPECT_NEAR(l("ayd"), 0.0277899e18, 35000000000);
 }
 
 TEST_F(TestQuantityBaseUnitConversionNoneSI, test_mass_g_to_oz_lb_t){
