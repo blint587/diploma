@@ -3,7 +3,7 @@
 
 using namespace std;
 
-double munits::Converter::Convert( double val, munits::UnitNotation funit, munits::UnitNotation tunit,  double exponent) const {
+double munits::Converter::Convert( double val, munits::UnitNotation funit, munits::UnitNotation tunit,  int exponent) const {
 
 
     if (!units.count(funit.GetUnit()) == 1) {

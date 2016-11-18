@@ -6,7 +6,7 @@
 #include <math.h>
 #include <string>
 #include "quantity.h"
-
+#include "dynamic.hpp"
 
 using namespace std;
 
@@ -126,39 +126,63 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
     const vector<Metric> &rmatrix = munits::GetMatrix();
     vector<UnitNotation> nunit_vector(7);
     vector<int> ndim_vector(7);
-    double tmp = rgths.value;
+    double tmp_rgh = rgths.value;
+    double tmp_lft = lfths.value;
 
 
     for (int i = 0; i < ndim_vector.size(); ++i) {
         ndim_vector[i] = lfths.GetDimVector()[i] + p * rgths.GetDimVector()[i]; // composing the new dimension vector (exponents)
         const int lft_exponent = lfths.GetDimVector()[i];
-        const int rgh_exponent = rgths.GetDimVector()[i];
-        if (lft_exponent != 0 && rgh_exponent != 0) { // checking if there is a common dimension
+        const int rgt_exponent = rgths.GetDimVector()[i];
+        if (lft_exponent != 0 && rgt_exponent != 0) { // checking if there is a common dimension
 
             std::vector<int> base_line_dim_vector(7);
 
-            base_line_dim_vector[i] = abs(rgh_exponent);
-            int rgh_converter_index = find_if(rmatrix.begin(), rmatrix.end(), [&](munits::Metric x) { return x.dim_vector == base_line_dim_vector; }) - rmatrix.begin();
+            base_line_dim_vector[i] = abs(rgt_exponent);
+            int rgh_converter_index = munits::GetMatrixIndex(base_line_dim_vector);
 
-            tmp = rmatrix[rgh_converter_index].converter->Convert(tmp,
-                                                                  rgths.unit_vector[i],
-                                                                  lfths.unit_vector[i],
-                                                                  rgths.dim_vector[i]);
-            }
+            auto rgh_converter = rmatrix[rgh_converter_index].converter;
 
-        nunit_vector[i] =
-                lfths.GetDimVector()[i] != 0 ? lfths.unit_vector[i] :
-                UnitNotation(rgths.unit_vector[i].GetPrefix() + rgths.unit_vector[i].GetUnit() +
-                std::to_string(rgths.unit_vector[i].GetExponent() * p)); // composing the new Unit vector (units)
+            tmp_rgh = rmatrix[rgh_converter_index].converter->Convert(tmp_rgh,
+                                                                      rgths.unit_vector[i],
+                                                                      UnitNotation(rgh_converter->GetBaseUnit()),
+                                                                      rgt_exponent);
+
+            base_line_dim_vector[i] = abs(lft_exponent);
+            int lft_converter_index = munits::GetMatrixIndex(base_line_dim_vector);
+
+            auto lft_converter = rmatrix[lft_converter_index].converter;
+
+            tmp_lft = rmatrix[lft_converter_index].converter->Convert(tmp_lft,
+                                                                      lfths.unit_vector[i],
+                                                                      UnitNotation(lft_converter->GetBaseUnit()),
+                                                                      lft_exponent);
+        }
+
+        if (lft_exponent != 0 && rgt_exponent == 0){
+            nunit_vector[i] = UnitNotation(lfths.unit_vector[i].GetPrefix() + lfths.unit_vector[i].GetUnit() + std::to_string(ndim_vector[i]));
+
+        } else if (lft_exponent == 0 && rgt_exponent != 0) {
+            nunit_vector[i] = UnitNotation(rgths.unit_vector[i].GetPrefix() + rgths.unit_vector[i].GetUnit() + std::to_string(ndim_vector[i]));
+
+        }else if (lft_exponent != 0 && (lft_exponent + (p * rgt_exponent)) != 0 /*&& rgt_exponent != 0  - always true */){
+            std::vector<int> base_dim(7);
+            base_dim[i] = 1;
+            int idx = munits::GetMatrixIndex(base_dim);
+
+            nunit_vector[i] = UnitNotation(rmatrix[idx].converter->GetBaseUnit() + std::to_string(ndim_vector[i]));
+        }
+
     }
 
-    // determining the Unit type by searching the matching dimension vector
-    int nmindex = find_if(rmatrix.begin(), rmatrix.end(),
-                          [&](Metric q) { return ndim_vector == q.dim_vector; }) - rmatrix.begin();
+    int nmindex = munits::GetMatrixIndex(ndim_vector);
 
     nmindex = std::min(nmindex, static_cast<int>(munits::_Last));
 
-    return Quantity(nmindex, lfths.value * std::pow(tmp, p), nunit_vector, ndim_vector);
+    TRACEVECTOR(nunit_vector);
+    TRACEVECTOR(ndim_vector);
+
+    return Quantity(nmindex, tmp_lft * std::pow(tmp_rgh, p), nunit_vector, ndim_vector);
 };
 
 munits::Quantity::Quantity(int m, double value, vector<munits::UnitNotation> unit_v, std::vector<int> dim_v) :

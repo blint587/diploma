@@ -29,7 +29,7 @@ namespace munits{
                                const std::map<std::string, const std::shared_ptr<Unit>> = std::map<std::string, const std::shared_ptr<Unit>>());
 
             ~Converter(){}
-            double Convert( double, UnitNotation, UnitNotation,  double=1.) const;
+            double Convert( double, UnitNotation, UnitNotation,  int=1) const;
             bool is_valid_unit(const UnitNotation &) const;
             const std::string GetBaseUnit() const {return base_unit;};
 

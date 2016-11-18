@@ -8,6 +8,7 @@
 #ifdef DEBUG
     #include <iomanip>
     #define TRACE(x)  std::cerr << std::setprecision(18) << x << std::endl
+    #define TRACEVECTOR(x) accessories::print_vector(x)
 #else
     #define TRACE(x)
 #endif
@@ -35,11 +36,14 @@ namespace accessories{
 
     template<typename T>
     void print_vector(const std::vector<T> & a){
+        std::cerr << "[ ";
         for( auto b = a.begin(); b != a.end(); ++b ){
-            std::cout << *b << std::endl;
+            std::cerr << *b << ", ";
         }
+        std::cerr << "]" << std::endl;
 
     }
+
 
 }
 

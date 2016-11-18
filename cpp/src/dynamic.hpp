@@ -38,6 +38,7 @@ namespace munits {
 
 
     const std::vector<munits::Metric> & GetMatrix();
+    const int GetMatrixIndex(std::vector<int> & searched);
 
 
 }
