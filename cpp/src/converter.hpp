@@ -31,6 +31,8 @@ namespace munits{
             ~Converter(){}
             double Convert( double, UnitNotation, UnitNotation,  double=1.) const;
             bool is_valid_unit(const UnitNotation &) const;
+            const std::string GetBaseUnit() const {return base_unit;};
+
         };
 }
 

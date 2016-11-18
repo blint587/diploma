@@ -211,7 +211,29 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division
     EXPECT_EQ(a("m2"), 3);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division_resultin_rato){
+TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division_right_special){
+
+    munits::Quantity v (munits::Volume, 1, "m3");
+    munits::Quantity l (munits::Length, 1, "inc");
+
+    munits::Quantity a = v /l;
+
+    EXPECT_EQ(a.getMatrixIndex(), munits::Area);
+    EXPECT_NEAR(a("m2"), 39.37007874015748, 1e-4);
+}
+TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division_left_special){
+
+    munits::Quantity v (munits::Volume, 1, "l");
+    munits::Quantity l (munits::Length, 1, "dm");
+
+    munits::Quantity a = v /l;
+
+    EXPECT_EQ(a.getMatrixIndex(), munits::Area);
+    double avl = a("dm2");
+    EXPECT_NEAR(avl, 1, 1e-4);
+}
+
+TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division_rato_same_exponents){
 
     munits::Quantity v1 (munits::VolumetricFlow, 50, "m3 h-1");
     munits::Quantity v2 (munits::VolumetricFlow, 400, "m3 d-1");
@@ -223,6 +245,57 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division
     EXPECT_NEAR((double) r, 3.0, 1e-15);
 }
 
+TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division_rato_different_exponents_left){
+
+    munits::Quantity v1 (munits::MolarConcentration, 10, "mol l-1");
+    munits::Quantity v2 (munits::MolarConcentration, 1, "mol dm-3");
+
+    munits::Quantity r = v1 / v2;
+
+    EXPECT_EQ(r.getMatrixIndex(), munits::_Last);
+
+    EXPECT_EQ((double) r, 10.);
+}
+
+TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division_rato_different_exponents_right){
+
+    munits::Quantity v1 (munits::MolarConcentration, 10, "mol dm-3");
+    munits::Quantity v2 (munits::MolarConcentration, 1, "mol l-1");
+
+    munits::Quantity r = v1 / v2;
+
+    EXPECT_EQ(r.getMatrixIndex(), munits::_Last);
+
+    EXPECT_NEAR((double) r, 10. , 10e-10);
+}
+
+
+
+TEST_F(TestQuantityBaseUnitMathOperation, test_multiplication_with_numeric_type_from_right){
+    munits::Quantity m (munits::Mass, 1, "kg");
+    auto r = m * 2;
+
+    EXPECT_EQ(r.getMatrixIndex(), munits::Mass);
+
+    EXPECT_EQ(r("kg"), 2.);
+}
+TEST_F(TestQuantityBaseUnitMathOperation, test_multiplication_with_numeric_type_from_left){
+    munits::Quantity m (munits::Mass, 1, "kg");
+    auto r = 2 * m;
+
+    EXPECT_EQ(r.getMatrixIndex(), munits::Mass);
+
+    EXPECT_EQ(r("kg"), 2.);
+}
+
+TEST_F(TestQuantityBaseUnitMathOperation, test_division_with_numeric_type_from_right){
+    munits::Quantity m (munits::Mass, 1, "kg");
+    auto r = m / 2.;
+
+    EXPECT_EQ(r.getMatrixIndex(), munits::Mass);
+
+    EXPECT_EQ(r("kg"), .5);
+}
 
 
 #endif //MUSYS_QUANTITY_TEST_MATHOP_HPP

@@ -4,8 +4,8 @@
 #include <algorithm>
 #include <list>
 #include <math.h>
+#include <string>
 #include "quantity.h"
-#include <iomanip>
 
 
 using namespace std;
@@ -61,7 +61,6 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
 
 string munits::Quantity::compose_unit(const vector<UnitNotation> &uv) {
     stringstream tmp;
-    // TODO: exponents are ignored in cases when Unit is composed during math operations
     for (auto unit = uv.begin(); unit != uv.end(); ++unit) {
         if (unit->GetUnit() != "") {
             tmp << unit->GetPrefix() << unit->GetUnit()
@@ -122,26 +121,35 @@ double munits::Quantity::operator()(const string tunit) const {
 }
 
 
-munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, int p) {
+munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity &rgths, int p) {
 
     const vector<Metric> &rmatrix = munits::GetMatrix();
     vector<UnitNotation> nunit_vector(7);
     vector<int> ndim_vector(7);
-    double tmp = b.value;
+    double tmp = rgths.value;
 
 
-    // TODO: use std::copy
     for (int i = 0; i < ndim_vector.size(); ++i) {
-        ndim_vector[i] =
-                a.GetDimVector()[i] + p * b.GetDimVector()[i]; // composing the new dimension vector (exponents)
-        if (a.GetDimVector()[i] != 0 && b.GetDimVector()[i] != 0) { // checking if there is a common dimension
-            tmp = rmatrix[i].converter->Convert(tmp, // converting if there is a common dimension in both units
-                                                b.unit_vector[i],
-                                                a.unit_vector[i],
-                                                b.dim_vector[i]);
-        }
+        ndim_vector[i] = lfths.GetDimVector()[i] + p * rgths.GetDimVector()[i]; // composing the new dimension vector (exponents)
+        const int lft_exponent = lfths.GetDimVector()[i];
+        const int rgh_exponent = rgths.GetDimVector()[i];
+        if (lft_exponent != 0 && rgh_exponent != 0) { // checking if there is a common dimension
+
+            std::vector<int> base_line_dim_vector(7);
+
+            base_line_dim_vector[i] = abs(rgh_exponent);
+            int rgh_converter_index = find_if(rmatrix.begin(), rmatrix.end(), [&](munits::Metric x) { return x.dim_vector == base_line_dim_vector; }) - rmatrix.begin();
+
+            tmp = rmatrix[rgh_converter_index].converter->Convert(tmp,
+                                                                  rgths.unit_vector[i],
+                                                                  lfths.unit_vector[i],
+                                                                  rgths.dim_vector[i]);
+            }
+
         nunit_vector[i] =
-                a.GetDimVector()[i] != 0 ? a.unit_vector[i] : b.unit_vector[i]; // composing the new Unit vector (units)
+                lfths.GetDimVector()[i] != 0 ? lfths.unit_vector[i] :
+                UnitNotation(rgths.unit_vector[i].GetPrefix() + rgths.unit_vector[i].GetUnit() +
+                std::to_string(rgths.unit_vector[i].GetExponent() * p)); // composing the new Unit vector (units)
     }
 
     // determining the Unit type by searching the matching dimension vector
@@ -150,7 +158,7 @@ munits::Quantity munits::Quantity::mathop(const Quantity &a, const Quantity &b, 
 
     nmindex = std::min(nmindex, static_cast<int>(munits::_Last));
 
-    return Quantity(nmindex, a.value * std::pow(tmp, p), nunit_vector, ndim_vector);
+    return Quantity(nmindex, lfths.value * std::pow(tmp, p), nunit_vector, ndim_vector);
 };
 
 munits::Quantity::Quantity(int m, double value, vector<munits::UnitNotation> unit_v, std::vector<int> dim_v) :
@@ -163,7 +171,6 @@ munits::Quantity::Quantity(int m, double value, vector<munits::UnitNotation> uni
     if (matrix_index > _Last) {
         throw logic_error("Invalid Unit type");
     }
-
 }
 
 
@@ -176,30 +183,27 @@ munits::Quantity::Quantity(int i, double value, vector<UnitNotation> uv) :
         munits::Quantity::Quantity(i, value, uv, munits::GetMatrix()[i].dim_vector) {
 }
 
-bool munits::Quantity::compop(const munits::Quantity &a, const munits::Quantity &b,
+
+bool munits::Quantity::compop(const munits::Quantity &lfths, const munits::Quantity &rgths,
                               bool (*f)(const double &, const double &)) {
 
     // if the matrix indexes do not match they are not the same types and comparison is not possible
-    if (a.matrix_index == b.matrix_index) {
+    if (lfths.matrix_index == rgths.matrix_index) {
         //applying a rounding with a precision of 6
         static const double precision = 10e4;
-        auto lfhs = round(a.value * precision) / precision;
+        auto lfhs = round(lfths.value * precision) / precision;
         // converting 'b' to the same Unit as 'a' and comparing there value
-        auto rths = round(b(Quantity::compose_unit(a.unit_vector)) * precision) / precision;
-//        cout << setprecision(10) << "lfths: " << lfhs << endl;
-//        cout << setprecision(10) << "rths: " << rths << endl;
+        auto rths = round(rgths(Quantity::compose_unit(lfths.unit_vector)) * precision) / precision;
 
         auto r = f(lfhs, rths );
-
-//        cout  << "equals: "<<  (lfhs == rths) << endl << endl;
 
         return r;
     } else {
         throw logic_error("Comparison cannot be done! Measurement Unit types do not match. ( '" +
-                          Quantity::compose_unit(a.unit_vector) + "', '" + Quantity::compose_unit(b.unit_vector) +
-                          "' )");
+                          Quantity::compose_unit(lfths.unit_vector) + "', '" + Quantity::compose_unit(rgths.unit_vector) + "' )");
     }
 }
+
 
 munits::Quantity::operator double() const {
     if (unquantified()) {

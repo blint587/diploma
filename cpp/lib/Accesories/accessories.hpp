@@ -2,9 +2,16 @@
 #ifndef MUSYS_ACCESORYS_HPP
 #define MUSYS_ACCESORYS_HPP
 
-
 #include <vector>
 #include <iostream>
+
+#ifdef DEBUG
+    #include <iomanip>
+    #define TRACE(x)  std::cerr << std::setprecision(18) << x << std::endl
+#else
+    #define TRACE(x)
+#endif
+
 
 namespace accessories{
 

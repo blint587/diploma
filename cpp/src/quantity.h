@@ -20,9 +20,7 @@
 #include "converter.hpp"
 #include "dynamic.hpp"
 
-#ifdef DEBUG
-    #include <iostream>
-#endif
+
 
 namespace munits {
 
@@ -41,8 +39,8 @@ namespace munits {
 
             static std::vector<UnitNotation> compose_unit_vector(const std::string &unit);
             static std::string compose_unit(const std::vector<UnitNotation> &);
-            static Quantity mathop(const Quantity &a, const Quantity &b, int p=1);
-            static bool compop(const Quantity &a, const Quantity &b, bool (*f)(const double &, const double &));
+            static Quantity mathop(const Quantity & lfths, const Quantity & rgths, int p=1);
+            static bool compop(const Quantity & lfths, const Quantity & rgths, bool (*f)(const double &, const double &));
 
         public:
 
@@ -68,26 +66,26 @@ namespace munits {
 
             friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.value << " " <<  munits::Quantity::compose_unit(a.unit_vector);return str;};
 
-            friend Quantity operator+ (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value + b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
-            friend Quantity operator- (const Quantity & a, const Quantity & b) {return munits::Quantity(a.matrix_index, a.value - b(munits::Quantity::compose_unit(a.unit_vector)), a.unit_vector);};
+            friend Quantity operator+ (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value + rgths(munits::Quantity::compose_unit(lfths.unit_vector)), lfths.unit_vector);};
+            friend Quantity operator- (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value - rgths(munits::Quantity::compose_unit(lfths.unit_vector)), lfths.unit_vector);};
 
-            friend Quantity operator* (const Quantity & a, const Quantity & b) {return mathop(a, b, 1);};
-            friend Quantity operator* (const Quantity & a, const int b) {Quantity n (a); n.value *= b; return n;};
-            friend Quantity operator* (const int b, const Quantity & a) {Quantity n (a); n.value *= b; return n;};
-            friend Quantity operator* (const Quantity & a, const double b) {Quantity n (a); n.value *= b; return n;};
-            friend Quantity operator* (const double b, const Quantity & a) {Quantity n (a); n.value *= b; return n;};
+            friend Quantity operator* (const Quantity & lfths, const Quantity & rgths) {return mathop(lfths, rgths, 1);};
+            friend Quantity operator* (const Quantity & lfths, const int rgths) {Quantity n (lfths); n.value *= rgths; return n;};
+            friend Quantity operator* (const int lfths, const Quantity & rgths) {Quantity n (rgths); n.value *= lfths; return n;};
+            friend Quantity operator* (const Quantity & lfths, const double rgths) {Quantity n (lfths); n.value *= rgths; return n;};
+            friend Quantity operator* (const double lfths, const Quantity & rgths) {Quantity n (rgths); n.value *= lfths; return n;};
 
-            friend Quantity operator/ (const Quantity & a, const Quantity & b) {return mathop(a, b, -1);};
-            friend Quantity operator/ (const Quantity & a, const int b) {Quantity n (a); n.value /= b; return n;};
-            friend Quantity operator/ (const Quantity & a, const double b) {Quantity n (a); n.value /= b; return n;};
+            friend Quantity operator/ (const Quantity & lfths, const Quantity & rgths) {return mathop(lfths, rgths, -1);};
+            friend Quantity operator/ (const Quantity & lfths, const int rgths) {Quantity n (lfths); n.value /= rgths; return n;};
+            friend Quantity operator/ (const Quantity & lfths, const double rgths) {Quantity n (lfths); n.value /= rgths; return n;};
 
 
-            friend bool operator < (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::lt<const double>);};
-            friend bool operator <= (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::le<const double>);};
-            friend bool operator > (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::gt<const double>);};
-            friend bool operator >= (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::ge<const double>);};
-            friend bool operator == (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::eq<const double>);};
-            friend bool operator != (const Quantity & a, const Quantity & b) {return munits::Quantity::compop(a, b, accessories::ne<const double>);};
+            friend bool operator < (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::lt<const double>);};
+            friend bool operator <= (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::le<const double>);};
+            friend bool operator > (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::gt<const double>);};
+            friend bool operator >= (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::ge<const double>);};
+            friend bool operator == (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::eq<const double>);};
+            friend bool operator != (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::ne<const double>);};
 
         };
 
