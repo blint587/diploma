@@ -3,6 +3,7 @@
 #include "quantity_test_comparison.hpp"
 #include "quantity_test_mathop.hpp"
 #include "quantity_test_input_validation.hpp"
+#include "quantity_test_representation.hpp"
 
 int main(int argc, char* argv[])
 {

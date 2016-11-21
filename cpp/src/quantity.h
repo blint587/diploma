@@ -55,7 +55,7 @@ namespace munits {
             const int getMatrixIndex()const {return matrix_index;};
 
             double operator()(const std::string) const;
-            operator std::string() const {std::stringstream ss; ss << value << " " << compose_unit(unit_vector); return ss.str();}
+            operator std::string() const {std::stringstream ss; ss << value  << compose_unit(unit_vector); return ss.str();}
             explicit operator double() const;
 
             bool unquantified()const;

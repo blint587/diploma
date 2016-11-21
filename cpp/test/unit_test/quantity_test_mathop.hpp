@@ -4,16 +4,23 @@
 #include "gtest/gtest.h"
 #include "../../src/quantity.h"
 
-class TestQuantityBaseUnitMathOperation : public testing::Test{};
+class TestQuantityBaseUnitsMathOperation : public testing::Test{};
 
 class TestQuantityDerivedUnitsMathOperation : public testing::Test{};
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_adding_mass_to_mass) {
+TEST_F(TestQuantityBaseUnitsMathOperation, test_adding_mass_to_mass) {
     munits::Quantity m1 (munits::Mass, 1000., "g");
     munits::Quantity m2 (munits::Mass, 1., "kg");
     munits::Quantity m3 = m1 + m2;
 
     EXPECT_EQ(m3("g"), 2000.);
+}
+TEST_F(TestQuantityBaseUnitsMathOperation, test_multiplaying_length_to_length) {
+    munits::Quantity m1 (munits::Length, 1000., "mm");
+    munits::Quantity m2 (munits::Length, 1., "m");
+    munits::Quantity m3 = m1 * m2;
+
+    EXPECT_EQ(m3("m2"), 1.);
 }
 
 TEST_F(TestQuantityDerivedUnitsMathOperation, test_acceleration_from_l_t_zero_1) {
@@ -75,7 +82,7 @@ TEST_F(TestQuantityDerivedUnitsMathOperation, test_acceleration_from_l_t_3) {
     EXPECT_EQ(a3("m s-2"), 1.);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_acceleration_from_l_t_none_zero_1){
+TEST_F(TestQuantityDerivedUnitsMathOperation, test_acceleration_from_l_t_none_zero_1){
     munits::Quantity l (munits::Length, 2.33, "m");
     munits::Quantity t (munits::Time, 2.33, "s");
     munits::Quantity a1 = l / (t * t);
@@ -84,7 +91,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_acceleration_from_l_t_none_zero_1
 
     EXPECT_NEAR(a1("m s-2"), 0.4229, 1e-2);
 }
-TEST_F(TestQuantityBaseUnitMathOperation, test_acceleration_from_l_t_none_zero_2){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_acceleration_from_l_t_none_zero_2){
     munits::Quantity l (munits::Length, 2.33, "m");
     munits::Quantity t (munits::Time, 2.33, "s");
     munits::Quantity a2 = l / pow(t, 2);
@@ -93,7 +100,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_acceleration_from_l_t_none_zero_2
 
     EXPECT_NEAR(a2("m s-2"), 0.4229, 1e-2);
 }
-TEST_F(TestQuantityBaseUnitMathOperation, test_acceleration_from_l_t_none_zero_3){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_acceleration_from_l_t_none_zero_3){
     munits::Quantity l (munits::Length, 2.33, "m");
     munits::Quantity t (munits::Time, 2.33, "s");
     munits::Quantity a3 = l / t / t;
@@ -103,7 +110,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_acceleration_from_l_t_none_zero_3
     EXPECT_NEAR(a3("m s-2"), 0.4229, 1e-2);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_force_from_m_a_zero){
+TEST_F(TestQuantityDerivedUnitsMathOperation, test_force_from_m_a_zero){
     munits::Quantity m (munits::Mass, 0, "g");
     munits::Quantity a (munits::Acceleration, 0, "m s-2");
     munits::Quantity f1 = m * a;
@@ -111,7 +118,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_force_from_m_a_zero){
     EXPECT_EQ(f1("kg m s-2"), 0.);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_force_from_m_a){
+TEST_F(TestQuantityDerivedUnitsMathOperation, test_force_from_m_a){
     munits::Quantity m (munits::Mass, 1, "kg");
     munits::Quantity a (munits::Acceleration, 1, "m s-2");
     munits::Quantity f1 = m * a;
@@ -119,7 +126,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_force_from_m_a){
     EXPECT_EQ(f1("kg m s-2"), 1);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_force_from_m_a_233){
+TEST_F(TestQuantityDerivedUnitsMathOperation, test_force_from_m_a_233){
     munits::Quantity m (munits::Mass, 2.33, "kg");
     munits::Quantity a (munits::Acceleration, 1, "m s-2");
     munits::Quantity f1 = m * a;
@@ -127,7 +134,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_force_from_m_a_233){
     EXPECT_EQ(f1("kg m s-2"), 2.33);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_volumetricflow_zero){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_volumetricflow_zero){
     munits::Quantity v (munits::Volume, 0, "m3");
     munits::Quantity t (munits::Time, 1, "h");
     munits::Quantity vf = v / t;
@@ -135,7 +142,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_volumetricflow_zero){
     EXPECT_EQ(vf("m3 h-1"), 0.);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_volumetricflow_one_1){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_volumetricflow_one_1){
     munits::Quantity l (munits::Length, 1, "m");
     munits::Quantity v1 = l * l * l;
     munits::Quantity t (munits::Time, 1, "h");
@@ -146,7 +153,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_volumetricflow_one_1){
 
     EXPECT_EQ(vf1("m3 h-1"),1.);
 }
-TEST_F(TestQuantityBaseUnitMathOperation, test_volumetricflow_one_2){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_volumetricflow_one_2){
     munits::Quantity l (munits::Length, 1, "m");
     munits::Quantity v2 = munits::pow(l, 3);
     munits::Quantity t (munits::Time, 1, "h");
@@ -158,7 +165,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_volumetricflow_one_2){
     EXPECT_EQ(vf2("m3 h-1"),1.);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_volumetricflow_one_3){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_volumetricflow_one_3){
     munits::Quantity l (munits::Length, 1, "m");
     munits::Quantity t (munits::Time, 1, "h");
 
@@ -169,7 +176,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_volumetricflow_one_3){
     EXPECT_EQ(vf3("m3 h-1"),1.);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_volumetricflow_233_1){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_volumetricflow_233_1){
     munits::Quantity l (munits::Length, 2.33, "m");
     munits::Quantity l1 = l * l * l;
     munits::Quantity t (munits::Time, 2.33, "h");
@@ -180,7 +187,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_volumetricflow_233_1){
     EXPECT_NEAR(vf1("m3 h-1"), 5.4289, 1e-3);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_volumetricflow_233_2){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_volumetricflow_233_2){
     munits::Quantity v (munits::Volume,12.649, "m3");
     munits::Quantity t (munits::Time, 2.33, "h");
     munits::Quantity vf2 = v / t;
@@ -190,7 +197,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_volumetricflow_233_2){
 }
 
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_zero_1){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_molar_concentration_from_n_l_v_zero_1){
     munits::Quantity l (munits::Length, 1, "m");
     munits::Quantity n (munits::AmountOfSubstance, 0, "mol");
     munits::Quantity mc1 = n / (l * l * l);
@@ -199,7 +206,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_ze
 
     EXPECT_EQ(mc1("mol m-3"), 0.);
 }
-TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_zero_2){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_molar_concentration_from_n_l_v_zero_2){
     munits::Quantity l (munits::Length, 1, "m");
     munits::Quantity n (munits::AmountOfSubstance, 0, "mol");
     munits::Quantity mc2 = n / munits::pow(l, 3);
@@ -208,7 +215,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_ze
 
     EXPECT_EQ(mc2("mol m-3"), 0.);
 }
-TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_zero_3){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_molar_concentration_from_n_l_v_zero_3){
     munits::Quantity l (munits::Length, 1, "m");
     munits::Quantity n (munits::AmountOfSubstance, 0, "mol");
     munits::Quantity mc3 = n / l / l / l;
@@ -217,7 +224,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_ze
 
     EXPECT_EQ(mc3("mol m-3"), 0.);
 }
-TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_zero_4){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_molar_concentration_from_n_l_v_zero_4){
     munits::Quantity v (munits::Volume,  1, "m3");
     munits::Quantity n (munits::AmountOfSubstance, 0, "mol");
     munits::Quantity mc4 = n / v;
@@ -228,7 +235,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_ze
 }
 
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_1){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_molar_concentration_from_n_l_v_1){
     munits::Quantity l (munits::Length, 1, "m");
     munits::Quantity n (munits::AmountOfSubstance, 1, "mol");
     munits::Quantity mc1 = n / (l * l * l);
@@ -237,7 +244,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_1)
 
     EXPECT_EQ(mc1("mol m-3"), 1.);
 }
-TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_2){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_molar_concentration_from_n_l_v_2){
     munits::Quantity l (munits::Length, 1, "m");
     munits::Quantity n (munits::AmountOfSubstance, 1, "mol");
     munits::Quantity mc2 = n / munits::pow(l,3);
@@ -246,7 +253,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_2)
 
     EXPECT_EQ(mc2("mol m-3"), 1.);
 }
-TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_3){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_molar_concentration_from_n_l_v_3){
     munits::Quantity l (munits::Length, 1, "m");
     munits::Quantity n (munits::AmountOfSubstance, 1, "mol");
     munits::Quantity mc3 = n / l / l / l;
@@ -256,7 +263,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_3)
     EXPECT_EQ(mc3("mol m-3"), 1.);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_4){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_molar_concentration_from_n_l_v_4){
     munits::Quantity v (munits::Volume, 1, "m3");
     munits::Quantity n (munits::AmountOfSubstance, 1, "mol");
     munits::Quantity mc4 = n / v;
@@ -266,7 +273,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_4)
     EXPECT_EQ(mc4("mol m-3"), 1.);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_233_1){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_molar_concentration_from_n_l_v_233_1){
     munits::Quantity l (munits::Length, 2.33, "m");
     munits::Quantity n (munits::AmountOfSubstance, 1, "mol");
     munits::Quantity mc1 = n / (l * l * l);
@@ -275,7 +282,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_23
 
     EXPECT_NEAR(mc1("mol m-3"), 0.0790, 1e-3);
 }
-TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_233_2){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_molar_concentration_from_n_l_v_233_2){
     munits::Quantity l (munits::Length, 2.33, "m");
     munits::Quantity n (munits::AmountOfSubstance, 1, "mol");
     munits::Quantity mc2 = n / munits::pow(l, 3);
@@ -284,7 +291,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_23
 
     EXPECT_NEAR(mc2("mol m-3"), 0.0790, 1e-3);
 }
-TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_233_3){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_molar_concentration_from_n_l_v_233_3){
     munits::Quantity l (munits::Length, 2.33, "m");
     munits::Quantity n (munits::AmountOfSubstance, 1, "mol");
     munits::Quantity mc3 = n / l / l / l;
@@ -293,7 +300,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_23
 
     EXPECT_NEAR(mc3("mol m-3"), 0.0790, 1e-3);
 }
-TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_233_4){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_molar_concentration_from_n_l_v_233_4){
     munits::Quantity v (munits::Volume, 12.649, "m3");
     munits::Quantity n (munits::AmountOfSubstance, 1, "mol");
     munits::Quantity mc4 = n / v;
@@ -303,7 +310,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_molar_concentration_from_n_l_v_23
     EXPECT_NEAR(mc4("mol m-3"), 0.0790, 1e-3);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_multiplication){
+TEST_F(TestQuantityDerivedUnitsMathOperation, test_conversion_during_mathop_multiplication){
 
     munits::Quantity q (munits::VolumetricFlow, 1, "m3 d-1");
     munits::Quantity t (munits::Time, 24, "h");
@@ -316,7 +323,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_multipli
 
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_conversion_during_mathop_division){
 
     munits::Quantity v (munits::Volume, 9, "m3");
     munits::Quantity l (munits::Length, 3000, "mm");
@@ -328,7 +335,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division
     EXPECT_EQ(a("m2"), 3);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division_right_special){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_conversion_during_mathop_division_right_special){
 
     munits::Quantity v (munits::Volume, 1, "m3");
     munits::Quantity l (munits::Length, 1, "inc");
@@ -339,7 +346,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division
     EXPECT_NEAR(a("m2"), 39.37007874015748, 1e-4);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division_left_special){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_conversion_during_mathop_division_left_special){
 
     munits::Quantity v (munits::Volume, 1, "l");
     munits::Quantity l (munits::Length, 1, "dm");
@@ -351,7 +358,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division
     EXPECT_NEAR(avl, 1, 1e-4);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division_rato_same_exponents){
+TEST_F(TestQuantityDerivedUnitsMathOperation, test_conversion_during_mathop_division_rato_same_exponents){
 
     munits::Quantity v1 (munits::VolumetricFlow, 50, "m3 h-1");
     munits::Quantity v2 (munits::VolumetricFlow, 400, "m3 d-1");
@@ -363,7 +370,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division
     EXPECT_NEAR((double) r, 3.0, 1e-15);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division_rato_different_exponents_left){
+TEST_F(TestQuantityDerivedUnitsMathOperation, test_conversion_during_mathop_division_rato_different_exponents_left){
 
     munits::Quantity v1 (munits::MolarConcentration, 10, "mol l-1");
     munits::Quantity v2 (munits::MolarConcentration, 1, "mol dm-3");
@@ -375,7 +382,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division
     EXPECT_NEAR((double) r, 10., 10e-5);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division_rato_different_exponents_right){
+TEST_F(TestQuantityDerivedUnitsMathOperation, test_conversion_during_mathop_division_rato_different_exponents_right){
 
     munits::Quantity v1 (munits::MolarConcentration, 10, "mol dm-3");
     munits::Quantity v2 (munits::MolarConcentration, 1, "mol l-1");
@@ -389,7 +396,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_conversion_during_mathop_division
 
 
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_multiplication_with_numeric_type_from_right){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_multiplication_with_numeric_type_from_right){
     munits::Quantity m (munits::Mass, 1, "kg");
     auto r = m * 2;
 
@@ -397,7 +404,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_multiplication_with_numeric_type_
 
     EXPECT_EQ(r("kg"), 2.);
 }
-TEST_F(TestQuantityBaseUnitMathOperation, test_multiplication_with_numeric_type_from_left){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_multiplication_with_numeric_type_from_left){
     munits::Quantity m (munits::Mass, 1, "kg");
     auto r = 2 * m;
 
@@ -406,7 +413,7 @@ TEST_F(TestQuantityBaseUnitMathOperation, test_multiplication_with_numeric_type_
     EXPECT_EQ(r("kg"), 2.);
 }
 
-TEST_F(TestQuantityBaseUnitMathOperation, test_division_with_numeric_type_from_right){
+TEST_F(TestQuantityBaseUnitsMathOperation, test_division_with_numeric_type_from_right){
     munits::Quantity m (munits::Mass, 1, "kg");
     auto r = m / 2.;
 
