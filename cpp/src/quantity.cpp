@@ -7,6 +7,7 @@
 #include <string>
 #include "quantity.h"
 #include "dynamic.hpp"
+#include "../lib/Accesories/accessories.hpp"
 
 using namespace std;
 
@@ -16,15 +17,14 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
 
     istringstream iss(unit);
     vector<string> tokens;
-    list <UnitNotation> unTokens;
 
     copy(istream_iterator<string>(iss), istream_iterator<string>(),
          back_inserter(tokens)); // splitting up string representations (by default at " ")
 
-    for (auto unt = tokens.begin();
-         unt != tokens.end(); ++unt) { // composing UnitNotation objects from string representations
-        unTokens.push_back(UnitNotation(*unt));
-    }
+    list <UnitNotation> unTokens (tokens.size()); // resizing to match
+
+    // composing UnitNotation objects from string representations
+    transform(tokens.begin(), tokens.end(), unTokens.begin(), [](string unt){return UnitNotation(unt);});
 
     const vector<munits::Metric> &rmatrix = munits::GetMatrix();
 
@@ -32,8 +32,7 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
 
     for (int ui = 0; ui < 7; ++ui) { // checking if any of the tokens is a base Unit
 
-        auto b = find_if(unTokens.begin(), unTokens.end(),
-                         [&rmatrix, &ui](UnitNotation t) { return rmatrix[ui].converter->is_valid_unit(t); });
+        auto b = find_if(unTokens.begin(), unTokens.end(), [&rmatrix, &ui](UnitNotation t) { return rmatrix[ui].converter->is_valid_unit(t);});
         if (b != unTokens.end()) {
             uv[ui] = *b;
             unTokens.erase(b);
@@ -61,16 +60,20 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
 
 string munits::Quantity::compose_unit(const vector<UnitNotation> &uv) {
     stringstream tmp;
+
     for (auto unit = uv.begin(); unit != uv.end(); ++unit) {
         if (unit->GetUnit() != "") {
             tmp << unit->GetPrefix() << unit->GetUnit()
                 << (unit->GetExponent() != 1 ? to_string(unit->GetExponent()) : "");
+            if (unit != uv.end() - 1) {
+                tmp << " ";
+            }
         }
-        if (unit != uv.end() - 1 && (unit + 1)->GetUnit() != "") {
-            tmp << " ";
-        }
+
     };
-    return tmp.str();
+    string s = tmp.str();
+    s.erase(s.find_last_not_of(" ")+1); // right triming the string
+    return s;
 };
 
 

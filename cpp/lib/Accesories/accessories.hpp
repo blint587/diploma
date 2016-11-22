@@ -11,6 +11,8 @@
     #define TRACEVECTOR(x) accessories::print_vector(x)
 #else
     #define TRACE(x)
+    #define TRACEVECTOR(x)
+
 #endif
 
 
