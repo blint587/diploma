@@ -1,17 +1,27 @@
 # encoding: utf-8
+from collections import defaultdict
 from munitscpp import PyQuantity, NPOS
-import sys
-import inspect
 
 
-class Quantity(PyQuantity):
+CLASS_REGISTRY = defaultdict(list)
+
+
+class Register(type):
+    def __new__(meta, name, bases, class_dict):
+        cls = type.__new__(meta, name, bases, class_dict)
+        CLASS_REGISTRY[cls.UNIT_INDEX].append(cls)
+        return cls
+
+
+class Quantity(PyQuantity, metaclass=Register):
     UNIT_INDEX = NPOS
 
     def __new__(cls, value=0., unit="", other=None):
         if other is None:
             return super().__new__(cls, cls.UNIT_INDEX, value, unit)
         else:
-            ncls = list(filter(lambda c: c[1].UNIT_INDEX == other.matrix_index, LIST_OF_CLASSES))[0][1]
+            # ncls = list(filter(lambda c: c[1].UNIT_INDEX == other.matrix_index, LIST_OF_CLASSES))[0][1]
+            ncls = CLASS_REGISTRY[other.matrix_index][0]
             return super().__new__(ncls, other=other)
 
     def __mul__(self, other):
@@ -183,11 +193,8 @@ class CatalyticActivity(Quantity):
     UNIT_INDEX = 32
 
 
-LIST_OF_CLASSES = list(
-    filter(lambda cls: issubclass(cls[1], Quantity) or cls is Quantity,
-           inspect.getmembers(sys.modules[__name__], inspect.isclass)))
 
 if __name__ == "__main__":
-    a = VolumetricFlow(234.08, "m3 d-1")
-    b = VolumetricFlow(234.08, "m3 d-1")
-    print(a == b)
+    a = VolumetricFlow(24., "m3 d-1")
+    b = Time(1, "h")
+    print(a * b)
