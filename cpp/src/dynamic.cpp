@@ -53,13 +53,31 @@ const std::vector<munits::Metric> & munits::GetMatrix(){
                     }
 
             },
-            {{3,  0, -1, 0, 0, 0, 0}, "m3 s-1"},  //VolumetricFlow
-            {{-3, 0, 0,  0, 0, 1, 0}, "mol m-3"},  //MolarConcentration
-            {{1,  0, -2, 0, 0, 0, 0}, "m s-2"},  //Acceleration
-            {{1,  1, -2, 0, 0, 0, 0}, "kg m s-2"},  //Force
-            {{1,  0, -1, 0, 0, 0, 0}, "kg m s-2"},  //Velocity
-            {{-3, 1, 0,  0, 0, 0, 0}, "kg m-3"},  //Concentration
-            {{0,  0, 0,  0, 0, 0, 0}, ""}, //_Last
+            {{ 3,  0, -1,  0,  0,  0,  0}, "m3 s-1"},  //VolumetricFlow
+            {{-3,  0,  0,  0,  0,  1,  0}, "mol m-3"},  //MolarConcentration
+            {{ 1,  0, -2,  0,  0,  0,  0}, "m s-2"},  //Acceleration
+            {{ 1,  1, -2,  0,  0,  0,  0}, "kg m s-2"},  //Force
+            {{ 1,  0, -1,  0,  0,  0,  0}, "kg m s-2"},  //Velocity
+            {{-3,  1,  0,  0,  0,  0,  0}, "kg m-3"},  //Concentration or Density
+            {{ 0,  1, -1,  0,  0,  0,  0}, "g s-1"},  //MassFlow
+            {{-1,  1, -2,  0,  0,  0,  0}, "kg m-1 s-2" /*Pa*/},  //Pressure
+            {{-1,  1, -1,  0,  0,  0,  0}, "kg m-1 s-1"},  //DynamicViscosity
+            {{ 2,  0, -1,  0,  0,  0,  0}, "m2 s-1"},  //KinematicViscosity
+            {{ 2,  1, -3,  0,  0,  0,  0}, "kg m2 s-3" /*W*/}, //Power
+            {{ 2,  1, -2,  0,  0,  0,  0}, "kg m2 s-2" /*J*/}, //Energy
+            {{ 2,  1, -2, -1,  0,  0,  0}, "kg m2 s-3 A-1" /*V*/}, //Voltage
+            {{ 0,  0, -1,  0,  0,  0,  0}, "s-1" /*Hz or Bq*/}, //Frequency or Radioactivity
+            {{ 0,  0,  1,  1,  0,  0,  0}, "A s" /*C*/}, //ElectricCharge
+            {{-2, -1,  4,  2,  0,  0,  0}, "kg−1 m−2 s4 A2" /*F*/}, //ElectricCapacitance
+            {{ 2,  1, -3, -2,  0,  0,  0}, "kg m2 s−3 A−2" /*Ω*/}, //ElectricResistance
+            {{-2, -1,  3,  2,  0,  0,  0}, "kg−1 m−2 s3 A2" /*S*/}, //ElectricalConductance
+            {{ 2,  1, -2, -1,  0,  0,  0}, "kg m2 s−2 A−1" /*Wb*/}, //MagneticFlux
+            {{ 0,  1, -2, -1,  0,  0,  0}, "kg s−2 A−1" /*T*/}, //MagneticFlux
+            {{ 2,  1, -2, -2,  0,  0,  0}, "kg m2 s−2 A−2"}, //Inductance
+            {{-2,  0,  0,  0,  0,  0,  1}, "m−2 cd"}, //Illuminance
+            {{ 2,  0, -2,  0,  0,  0,  0}, "m2 s−2" /*Gy or Sv*/}, //AbsorbedDose or EquivalentDose
+            {{ 0,  0, -1,  0,  0,  1,  0}, "mol s-1" /*kat*/}, //CatalyticActivity
+            {{ 0,  0,  0,  0,  0,  0,  0}, ""}, //_Last
 
     };
     return matrix;

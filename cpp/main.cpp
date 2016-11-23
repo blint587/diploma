@@ -14,13 +14,10 @@ using namespace munits;
 
 int main() {
 
-    Quantity q (VolumetricFlow, 1, "m3 d-1");
-    Quantity hrt (Time, 24, "h");
-    auto v = q * hrt;
+    Quantity d (Density, 1, "g cm-3");
 
-    string s = (string) v;
 
-    cout << s << endl;
+    cout << _Last << endl;
 
 
     try {
