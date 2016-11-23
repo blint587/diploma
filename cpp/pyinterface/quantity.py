@@ -98,15 +98,96 @@ class Velocity(Quantity):
 class Concentration(Quantity):
     UNIT_INDEX = 14
 
+
+class Density(Quantity):
+    UNIT_INDEX = 14
+
+
+class MassFlow(Quantity):
+    UNIT_INDEX = 15
+
+
+class Pressure(Quantity):
+    UNIT_INDEX = 16
+
+
+class DynamicViscosity(Quantity):
+    UNIT_INDEX = 17
+
+
+class KinematicViscosity(Quantity):
+    UNIT_INDEX = 18
+
+
+class Power(Quantity):
+    UNIT_INDEX = 19
+
+
+class Energy(Quantity):
+    UNIT_INDEX = 20
+
+
+class Voltage(Quantity):
+    UNIT_INDEX = 21
+
+
+class Frequency(Quantity):
+    UNIT_INDEX = 22
+
+
+class ElectricCharge(Quantity):
+    UNIT_INDEX = 23
+
+
+class ElectricCapacitance(Quantity):
+    UNIT_INDEX = 24
+
+
+class ElectricResistance(Quantity):
+    UNIT_INDEX = 25
+
+
+class ElectricalConductance(Quantity):
+    UNIT_INDEX = 26
+
+
+class MagneticFlux(Quantity):
+    UNIT_INDEX = 27
+
+
+class MagneticFluxDensity(Quantity):
+    UNIT_INDEX = 28
+
+
+class Inductance(Quantity):
+    UNIT_INDEX = 29
+
+
+class Illuminance(Quantity):
+    UNIT_INDEX = 30
+
+
+class Radioactivity(Quantity):
+    UNIT_INDEX = 22
+
+
+class AbsorbedDose(Quantity):
+    UNIT_INDEX = 31
+
+
+class EquivalentDose(Quantity):
+    UNIT_INDEX = 31
+
+
+class CatalyticActivity(Quantity):
+    UNIT_INDEX = 32
+
+
 LIST_OF_CLASSES = list(
     filter(lambda cls: issubclass(cls[1], Quantity) or cls is Quantity,
            inspect.getmembers(sys.modules[__name__], inspect.isclass)))
 
 if __name__ == "__main__":
-
     a = VolumetricFlow(234.08, "m3 d-1")
     b = VolumetricFlow(234.08, "m3 d-1")
     print(a == b)
-
-
-
