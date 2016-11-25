@@ -7,7 +7,7 @@
 #include <string>
 #include "quantity.h"
 #include "dynamic.hpp"
-//#include "resolver.hpp"
+#include "resolver.hpp"
 #include "../lib/Accesories/accessories.hpp"
 
 using namespace std;
@@ -24,10 +24,9 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
 
     const vector<munits::Metric> &rmatrix = munits::GetMatrix();
 
-//    munits::Resolver r (rmatrix);
+    munits::Resolver r (rmatrix);
 
-//    r.resolve(tokens.begin(), tokens.end(), tokens);
-
+    r.resolve(tokens.begin(), tokens.end(), tokens);
 
     list <UnitNotation> unTokens (tokens.size()); // resizing to match
 

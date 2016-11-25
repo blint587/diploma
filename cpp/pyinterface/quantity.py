@@ -17,6 +17,7 @@ class Quantity(PyQuantity, metaclass=Register):
     UNIT_INDEX = NPOS
 
     def __new__(cls, value=0., unit="", *, other=None, transform=False):
+        print(cls.UNIT_INDEX)
         if other is None:
             return super().__new__(cls, cls.UNIT_INDEX, value, unit)
         elif transform and (cls.UNIT_INDEX == other.__class__.UNIT_INDEX):
@@ -204,6 +205,12 @@ class Torque(Quantity):
 
 
 if __name__ == "__main__":
-    a = VolumetricFlow(24., "m3 d-1")
-    b = Time(1, "h")
-    print(type(a * b))
+
+    i = ElectricCurrency(1, "A")
+    # print(i)
+
+    u = Voltage(1, "V")
+    print(u)
+
+    # r = u * i
+    # print(type(r))

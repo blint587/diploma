@@ -15,7 +15,32 @@ cdef extern from "../src/quantity.h" namespace "munits":
             VolumetricFlow = 9,
             MolarConcentration = 10,
             Acceleration = 11,
-            _Last = 12
+            Force = 12,
+            Velocity = 13,
+            Concentration = 14,
+            Density = 14,
+            MassFlow = 15,
+            Pressure = 16,
+            DynamicViscosity = 17,
+            KinematicViscosity = 18,
+            Power = 19,
+            Energy = 20,
+            Torque = 20,
+            Voltage = 21,
+            Frequency = 22,
+            ElectricCharge = 23,
+            ElectricCapacitance = 24,
+            ElectricResistance = 25,
+            ElectricalConductance = 26,
+            MagneticFlux = 27,
+            MagneticFluxDensity = 28,
+            Inductance = 29,
+            Illuminance = 30,
+            Radioactivity = 22,
+            AbsorbedDose = 31,
+            EquivalentDose = 31,
+            CatalyticActivity = 32,
+            _Last = 33
 
     cdef cppclass Quantity:
         Quantity(metrics, double, const string) except + ValueError

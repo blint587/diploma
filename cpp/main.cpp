@@ -14,8 +14,14 @@ using namespace munits;
 
 int main() {
 
-    Quantity d (Power, 1, "W");
+    Quantity U (Voltage, 1, "V");
+    cout << U << endl;
+    Quantity I (ElectricCurrency, 1, "A");
+    cout << I << endl;
 
+
+    auto r = U * I;
+    cout << r << endl;
 
     try {
 //        for (int j = 0; j < 10; ++j) {

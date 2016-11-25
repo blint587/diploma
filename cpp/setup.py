@@ -14,7 +14,8 @@ setup(
                  "src/dynamic.cpp",
                  "src/metric.cpp",
                  "src/unit.cpp",
-                 "src/unit_notation.cpp"
+                 "src/unit_notation.cpp",
+                 "src/resolver.cpp"
                  ],
         language="c++",
         extra_compile_args=["-std=c++14"],

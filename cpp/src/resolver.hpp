@@ -5,6 +5,8 @@
 #include <list>
 #include <algorithm>
 #include <iterator>
+#include <string>
+#include <iostream>
 #include "dynamic.hpp"
 #include "metric.hpp"
 
@@ -15,9 +17,9 @@ namespace munits {
             const std::vector <munits::Metric> & rmatrix;
         public:
             Resolver(const std::vector <munits::Metric> & matrix = munits::GetMatrix()): rmatrix(matrix){};
-            bool resolve(std::list<std::string, std::allocator<std::string>>::iterator begin,
-                         std::list<std::string, std::allocator<std::string>>::iterator end,
-                        std::list<std::string> & l);
+            bool resolve(std::list<std::string>::iterator begin,
+                         std::list<std::string>::iterator end,
+                         std::list<std::string> & l);
 
 
 
