@@ -14,10 +14,7 @@ using namespace munits;
 
 int main() {
 
-    Quantity d (Density, 1, "g cm-3");
-
-
-    cout << _Last << endl;
+    Quantity d (Power, 1, "W");
 
 
     try {

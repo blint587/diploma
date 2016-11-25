@@ -16,11 +16,12 @@ class Register(type):
 class Quantity(PyQuantity, metaclass=Register):
     UNIT_INDEX = NPOS
 
-    def __new__(cls, value=0., unit="", other=None):
+    def __new__(cls, value=0., unit="", *, other=None, transform=False):
         if other is None:
             return super().__new__(cls, cls.UNIT_INDEX, value, unit)
+        elif transform and (cls.UNIT_INDEX == other.__class__.UNIT_INDEX):
+            return super().__new__(cls, other=other)
         else:
-            # ncls = list(filter(lambda c: c[1].UNIT_INDEX == other.matrix_index, LIST_OF_CLASSES))[0][1]
             ncls = CLASS_REGISTRY[other.matrix_index][0]
             return super().__new__(ncls, other=other)
 
@@ -47,6 +48,10 @@ class Quantity(PyQuantity, metaclass=Register):
 
     def __pow__(self, power, modulo=None):
         return Quantity(other=PyQuantity.__pow__(self, int(power), modulo))
+
+    def __rshift__(self, other):
+        if issubclass(other, Quantity) and self.UNIT_INDEX == other.UNIT_INDEX:
+            self.__class__ = other
 
 
 class Length(Quantity):
@@ -193,8 +198,12 @@ class CatalyticActivity(Quantity):
     UNIT_INDEX = 32
 
 
+class Torque(Quantity):
+    UNIT_INDEX = 20
+
+
 
 if __name__ == "__main__":
     a = VolumetricFlow(24., "m3 d-1")
     b = Time(1, "h")
-    print(a * b)
+    print(type(a * b))

@@ -7,6 +7,7 @@
 #include <string>
 #include "quantity.h"
 #include "dynamic.hpp"
+//#include "resolver.hpp"
 #include "../lib/Accesories/accessories.hpp"
 
 using namespace std;
@@ -16,17 +17,23 @@ using namespace std;
 vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string &unit) {
 
     istringstream iss(unit);
-    vector<string> tokens;
+    list<string> tokens;
 
     copy(istream_iterator<string>(iss), istream_iterator<string>(),
          back_inserter(tokens)); // splitting up string representations (by default at " ")
+
+    const vector<munits::Metric> &rmatrix = munits::GetMatrix();
+
+//    munits::Resolver r (rmatrix);
+
+//    r.resolve(tokens.begin(), tokens.end(), tokens);
+
 
     list <UnitNotation> unTokens (tokens.size()); // resizing to match
 
     // composing UnitNotation objects from string representations
     transform(tokens.begin(), tokens.end(), unTokens.begin(), [](string unt){return UnitNotation(unt);});
 
-    const vector<munits::Metric> &rmatrix = munits::GetMatrix();
 
     vector<UnitNotation> uv(7); // creating default 7 element long Unit vector
 
@@ -61,16 +68,14 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
 string munits::Quantity::compose_unit(const vector<UnitNotation> &uv) {
     stringstream tmp;
 
-    for (auto unit = uv.begin(); unit != uv.end(); ++unit) {
-        if (unit->GetUnit() != "") {
-            tmp << unit->GetPrefix() << unit->GetUnit()
-                << (unit->GetExponent() != 1 ? to_string(unit->GetExponent()) : "");
-            if (unit != uv.end() - 1) {
-                tmp << " ";
+    for_each(uv.begin(), uv.end(), [&](const UnitNotation & unit){
+            if (unit.GetUnit() != "") {
+                tmp << unit.GetPrefix() << unit.GetUnit()
+                    << (unit.GetExponent() != 1 ? to_string(unit.GetExponent()) : "") << " ";
             }
         }
+    );
 
-    };
     string s = tmp.str();
     s.erase(s.find_last_not_of(" ")+1); // right triming the string
     return s;
@@ -81,7 +86,7 @@ double munits::Quantity::operator()(const string tunit) const {
 
 
     const vector<Metric> &rmatrix = munits::GetMatrix();
-    const vector<int> &dim_vector = GetDimVector(); // dime vector of current munits
+    const vector<int> & dim_vector = GetDimVector(); // dime vector of current munits
     queue<vector<int>> dim_matrix; // the search matrix composed by tearing down the dim_vector
 
     vector<UnitNotation> tunit_vector = compose_unit_vector(tunit);
