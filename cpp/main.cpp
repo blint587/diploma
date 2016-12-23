@@ -14,14 +14,14 @@ using namespace munits;
 
 int main() {
 
-    Quantity q (VolumetricFlow, 1, "m3 d-1");
-    Quantity hrt (Time, 24, "h");
-    auto v = q * hrt;
+    Quantity U (Voltage, 1, "V");
+    cout << U << endl;
+    Quantity I (ElectricCurrency, 1, "A");
+    cout << I << endl;
 
-    string s = (string) v;
 
-    cout << s << endl;
-
+    auto r = U * I;
+    cout << r << endl;
 
     try {
 //        for (int j = 0; j < 10; ++j) {

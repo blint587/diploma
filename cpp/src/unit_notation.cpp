@@ -13,9 +13,9 @@ vector<string> munits::UnitNotation::parser(string unit) {
     const vector<munits::Metric> & rmatrix = munits::GetMatrix();
     vector<string> parsed = {"", "", ""};
 
-    bool no_matc = true;
+    bool no_match = true;
 
-    for(int u = 0; u < munits::_Last && no_matc; ++u) {
+    for(int u = 0; u < munits::_Last && no_match; ++u) {
         std::stringstream rp;
         { // composing the regex for each Unit type
             rp << "^(";
@@ -44,7 +44,7 @@ vector<string> munits::UnitNotation::parser(string unit) {
                 smatch match = *next;
 
                 if(string(match[1])+string(match[2])+string(match[3]) == unit){
-                    no_matc = false;
+                    no_match = false;
                     parsed[0] = match[1];
                     parsed[1] = match[2];
                     parsed[2] = match[3];

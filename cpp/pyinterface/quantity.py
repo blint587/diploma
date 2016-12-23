@@ -1,17 +1,29 @@
 # encoding: utf-8
+from collections import defaultdict
 from munitscpp import PyQuantity, NPOS
-import sys
-import inspect
 
 
-class Quantity(PyQuantity):
+CLASS_REGISTRY = defaultdict(list)
+
+
+class Register(type):
+    def __new__(meta, name, bases, class_dict):
+        cls = type.__new__(meta, name, bases, class_dict)
+        CLASS_REGISTRY[cls.UNIT_INDEX].append(cls)
+        return cls
+
+
+class Quantity(PyQuantity, metaclass=Register):
     UNIT_INDEX = NPOS
 
-    def __new__(cls, value=0., unit="", other=None):
+    def __new__(cls, value=0., unit="", *, other=None, transform=False):
+        print(cls.UNIT_INDEX)
         if other is None:
             return super().__new__(cls, cls.UNIT_INDEX, value, unit)
+        elif transform and (cls.UNIT_INDEX == other.__class__.UNIT_INDEX):
+            return super().__new__(cls, other=other)
         else:
-            ncls = list(filter(lambda c: c[1].UNIT_INDEX == other.matrix_index, LIST_OF_CLASSES))[0][1]
+            ncls = CLASS_REGISTRY[other.matrix_index][0]
             return super().__new__(ncls, other=other)
 
     def __mul__(self, other):
@@ -37,6 +49,10 @@ class Quantity(PyQuantity):
 
     def __pow__(self, power, modulo=None):
         return Quantity(other=PyQuantity.__pow__(self, int(power), modulo))
+
+    def __rshift__(self, other):
+        if issubclass(other, Quantity) and self.UNIT_INDEX == other.UNIT_INDEX:
+            self.__class__ = other
 
 
 class Length(Quantity):
@@ -98,15 +114,103 @@ class Velocity(Quantity):
 class Concentration(Quantity):
     UNIT_INDEX = 14
 
-LIST_OF_CLASSES = list(
-    filter(lambda cls: issubclass(cls[1], Quantity) or cls is Quantity,
-           inspect.getmembers(sys.modules[__name__], inspect.isclass)))
+
+class Density(Quantity):
+    UNIT_INDEX = 14
+
+
+class MassFlow(Quantity):
+    UNIT_INDEX = 15
+
+
+class Pressure(Quantity):
+    UNIT_INDEX = 16
+
+
+class DynamicViscosity(Quantity):
+    UNIT_INDEX = 17
+
+
+class KinematicViscosity(Quantity):
+    UNIT_INDEX = 18
+
+
+class Power(Quantity):
+    UNIT_INDEX = 19
+
+
+class Energy(Quantity):
+    UNIT_INDEX = 20
+
+
+class Voltage(Quantity):
+    UNIT_INDEX = 21
+
+
+class Frequency(Quantity):
+    UNIT_INDEX = 22
+
+
+class ElectricCharge(Quantity):
+    UNIT_INDEX = 23
+
+
+class ElectricCapacitance(Quantity):
+    UNIT_INDEX = 24
+
+
+class ElectricResistance(Quantity):
+    UNIT_INDEX = 25
+
+
+class ElectricalConductance(Quantity):
+    UNIT_INDEX = 26
+
+
+class MagneticFlux(Quantity):
+    UNIT_INDEX = 27
+
+
+class MagneticFluxDensity(Quantity):
+    UNIT_INDEX = 28
+
+
+class Inductance(Quantity):
+    UNIT_INDEX = 29
+
+
+class Illuminance(Quantity):
+    UNIT_INDEX = 30
+
+
+class Radioactivity(Quantity):
+    UNIT_INDEX = 22
+
+
+class AbsorbedDose(Quantity):
+    UNIT_INDEX = 31
+
+
+class EquivalentDose(Quantity):
+    UNIT_INDEX = 31
+
+
+class CatalyticActivity(Quantity):
+    UNIT_INDEX = 32
+
+
+class Torque(Quantity):
+    UNIT_INDEX = 20
+
+
 
 if __name__ == "__main__":
 
-    a = VolumetricFlow(234.08, "m3 d-1")
-    b = VolumetricFlow(234.08, "m3 d-1")
-    print(a == b)
+    i = ElectricCurrency(1, "A")
+    # print(i)
 
+    u = Voltage(1, "V")
+    print(u)
 
-
+    # r = u * i
+    # print(type(r))
