@@ -31,6 +31,9 @@ class UnitNotation:
 
     def __gt__(self, other):
         if isinstance(other, UnitNotation):
+
+            if self.exponent == other.exponent and self.notation[0] < other.notation[0]:
+                return True
             if self.exponent == other.exponent and self.notation[0] < other.notation[0]:
                 return True
             elif self.exponent == other.exponent and self.notation[0] > other.notation[0]:
