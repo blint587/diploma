@@ -7,10 +7,13 @@
             "src\\quantity.h"
         ],
         "extra_compile_args": [
-            "-std=c++14"
+            "-std=c++14",
+            "-Zi",
+            "/Od"
         ],
         "extra_link_args": [
-            "-std=c++14"
+            "-std=c++14",
+            "-debug"
         ],
         "language": "c++"
     },
