@@ -42,9 +42,9 @@ if USE_CYTHON:
 
 
 setup(
-    name="quantity",
+    name="munits",
     version="0.1.0",
-    packages=["quantity"],
+    packages=["munits"],
     ext_modules=extensions,
 
 )
