@@ -1,5 +1,6 @@
 # encoding: utf-8
 import unittest
+
 import pyinterface.quantity as quantity
 
 

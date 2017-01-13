@@ -7,7 +7,7 @@ setup(
     ext_modules=cythonize(Extension(
         "munitscpp",
         sources=[
-                 "pyinterface/munitscpp.pyx",
+                 "munitscpp.pyx",
                  "src/quantity.cpp",
                  "src/converter.cpp",
                  "src/converter_function.cpp",
