@@ -1,7 +1,7 @@
 # encoding: utf-8
 import unittest
 
-import pyinterface.quantity as quantity
+import quantity
 
 
 class TestQuantityBaseUnitConversion(unittest.TestCase):

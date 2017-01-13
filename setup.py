@@ -1,25 +1,52 @@
 # encoding: utf-8
 
-from distutils.core import setup, Extension
-from Cython.Build import cythonize
+from setuptools import setup
+from setuptools.extension import Extension
+import sys
+
+try:
+    from Cython.Build import cythonize
+    USE_CYTHON = "build_ext" in sys.argv
+except ImportError as ie:
+    USE_CYTHON = False
+
+
+
+
+sources = ["munitscpp.pyx",
+           "src/quantity.cpp",
+           "src/converter.cpp",
+           "src/converter_function.cpp",
+           "src/dynamic.cpp",
+           "src/metric.cpp",
+           "src/unit.cpp",
+           "src/unit_notation.cpp",
+           "src/resolver.cpp",
+           ]
+
+if not USE_CYTHON:
+    sources += ["munitscpp.cpp"]
+
+extensions = [Extension(
+    "munitscpp",
+    sources=sources,
+    language="c++",
+    extra_compile_args=["-std=c++11"],
+    # extra_compile_args=["-std=c++11", "-Zi", "/Od"],    # Debug flag version
+    extra_link_args=["-std=c++11"],
+    # extra_link_args=["-std=c++11", "-debug"],   # Debug flag version
+)]
+
+if USE_CYTHON:
+    from Cython.Build import cythonize
+    extensions = cythonize(extensions)
+
+
 
 setup(
-    ext_modules=cythonize(Extension(
-        "munitscpp",
-        sources=[
-                 "munitscpp.pyx",
-                 "src/quantity.cpp",
-                 "src/converter.cpp",
-                 "src/converter_function.cpp",
-                 "src/dynamic.cpp",
-                 "src/metric.cpp",
-                 "src/unit.cpp",
-                 "src/unit_notation.cpp",
-                 "src/resolver.cpp"
-                 ],
-        language="c++",
-        # extra_compile_args=["-std=c++11", "-Zi", "/Od"],    # Debug flag version
-        extra_compile_args=["-std=c++11"],
-        extra_link_args=["-std=c++11"],
-        # extra_link_args=["-std=c++11", "-debug"],   # Debug flag version
-    )))
+    name="quantity",
+    version="0.1.0",
+    packages=["quantity"],
+    ext_modules=extensions,
+
+)
