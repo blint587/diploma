@@ -11,8 +11,6 @@ except ImportError as ie:
     USE_CYTHON = False
 
 
-
-
 sources = ["munitscpp.pyx",
            "src/quantity.cpp",
            "src/converter.cpp",
