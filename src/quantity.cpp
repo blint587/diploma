@@ -102,7 +102,7 @@ double munits::Quantity::operator()(const string tunit) const {
     double tmp = value;
 
     while (!dim_matrix.empty()) {
-        vector<int> dmv = dim_matrix.front();
+        vector<int> dmv = (vector<int> &&) dim_matrix.front();
         int position = find_if(dmv.begin(), dmv.end(), [](int x) { return x != 0; }) - dmv.begin();
 
         vector<int> normalized_dim(7);
@@ -185,9 +185,6 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
     int nmindex = munits::GetMatrixIndex(ndim_vector);
 
     nmindex = std::min(nmindex, static_cast<int>(munits::_Last));
-
-    TRACEVECTOR(nunit_vector);
-    TRACEVECTOR(ndim_vector);
 
     return Quantity(nmindex, tmp_lft * std::pow(tmp_rgh, p), nunit_vector, ndim_vector);
 };

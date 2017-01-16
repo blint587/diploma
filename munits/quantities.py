@@ -17,7 +17,6 @@ class Quantity(PyQuantity, metaclass=Register):
     UNIT_INDEX = NPOS
 
     def __new__(cls, value=0., unit="", *, other=None, transform=False):
-        print(cls.UNIT_INDEX)
         if other is None:
             return super().__new__(cls, cls.UNIT_INDEX, value, unit)
         elif transform and (cls.UNIT_INDEX == other.__class__.UNIT_INDEX):
