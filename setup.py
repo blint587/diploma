@@ -29,10 +29,10 @@ extensions = [Extension(
     "munitscpp",
     sources=sources,
     language="c++",
-    extra_compile_args=["-std=c++11"],
-    # extra_compile_args=["-std=c++11", "-Zi", "/Od"],    # Debug flag version
-    extra_link_args=["-std=c++11"],
-    # extra_link_args=["-std=c++11", "-debug"],   # Debug flag version
+    # extra_compile_args=["-std=c++11"],
+    extra_compile_args=["-std=c++11", "-Zi", "/Od"],    # Debug flag version
+    # extra_link_args=["-std=c++11"],
+    extra_link_args=["-std=c++11", "-debug"],   # Debug flag version
 )]
 
 if USE_CYTHON:
