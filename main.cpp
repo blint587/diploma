@@ -14,13 +14,10 @@ using namespace munits;
 
 int main() {
 
-    Quantity U (Voltage, 1, "V");
-    cout << U << endl;
-    Quantity I (ElectricCurrency, 1, "A");
-    cout << I << endl;
+
+    Quantity r (_Last, 1, "kg m-1 d-1");
 
 
-    auto r = U * I;
     cout << r << endl;
 
     try {

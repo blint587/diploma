@@ -1042,7 +1042,7 @@ static PyObject *__pyx_tuple__4;
  *     cdef Quantity *_thisptr
  * 
  *     def __cinit__(self, metrics metric=_Last, double value=0., str unit="", PyQuantity other=None ):             # <<<<<<<<<<<<<<
- *         if other is None and metric!=_Last:
+ *         if other is None: #and metric!=_Last:
  *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  */
 
@@ -1147,64 +1147,55 @@ static int __pyx_pf_15measurmentunits_9munitscpp_10PyQuantity___cinit__(struct _
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   int __pyx_t_2;
-  int __pyx_t_3;
+  PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  std::string __pyx_t_6;
-  munits::Quantity *__pyx_t_7;
+  std::string __pyx_t_5;
+  munits::Quantity *__pyx_t_6;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
   /* "measurmentunits/munitscpp.pyx":10
  * 
  *     def __cinit__(self, metrics metric=_Last, double value=0., str unit="", PyQuantity other=None ):
- *         if other is None and metric!=_Last:             # <<<<<<<<<<<<<<
+ *         if other is None: #and metric!=_Last:             # <<<<<<<<<<<<<<
  *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  *         elif other is not None:
  */
-  __pyx_t_2 = (((PyObject *)__pyx_v_other) == Py_None);
-  __pyx_t_3 = (__pyx_t_2 != 0);
-  if (__pyx_t_3) {
-  } else {
-    __pyx_t_1 = __pyx_t_3;
-    goto __pyx_L4_bool_binop_done;
-  }
-  __pyx_t_3 = ((__pyx_v_metric != munits::_Last) != 0);
-  __pyx_t_1 = __pyx_t_3;
-  __pyx_L4_bool_binop_done:;
-  if (__pyx_t_1) {
+  __pyx_t_1 = (((PyObject *)__pyx_v_other) == Py_None);
+  __pyx_t_2 = (__pyx_t_1 != 0);
+  if (__pyx_t_2) {
 
     /* "measurmentunits/munitscpp.pyx":11
  *     def __cinit__(self, metrics metric=_Last, double value=0., str unit="", PyQuantity other=None ):
- *         if other is None and metric!=_Last:
+ *         if other is None: #and metric!=_Last:
  *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))             # <<<<<<<<<<<<<<
  *         elif other is not None:
  *             self._thisptr = new Quantity(other._thisptr[0])
  */
-    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 11, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 11, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_v_unit);
     __Pyx_GIVEREF(__pyx_v_unit);
-    PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_unit);
+    PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_v_unit);
     __Pyx_INCREF(__pyx_kp_s_utf_8);
     __Pyx_GIVEREF(__pyx_kp_s_utf_8);
-    PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_kp_s_utf_8);
-    __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)(&PyBytes_Type)), __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 11, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_kp_s_utf_8);
+    __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)(&PyBytes_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 11, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_4); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 11, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_6 = __pyx_convert_string_from_py_std__in_string(__pyx_t_5); if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 11, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     try {
-      __pyx_t_7 = new munits::Quantity(__pyx_v_metric, __pyx_v_value, __pyx_t_6);
+      __pyx_t_6 = new munits::Quantity(__pyx_v_metric, __pyx_v_value, __pyx_t_5);
     } catch(...) {
       try { throw; } catch(const std::exception& exn) { PyErr_SetString(__pyx_builtin_ValueError, exn.what()); } catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
       __PYX_ERR(1, 11, __pyx_L1_error)
     }
-    __pyx_v_self->_thisptr = __pyx_t_7;
+    __pyx_v_self->_thisptr = __pyx_t_6;
 
     /* "measurmentunits/munitscpp.pyx":10
  * 
  *     def __cinit__(self, metrics metric=_Last, double value=0., str unit="", PyQuantity other=None ):
- *         if other is None and metric!=_Last:             # <<<<<<<<<<<<<<
+ *         if other is None: #and metric!=_Last:             # <<<<<<<<<<<<<<
  *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  *         elif other is not None:
  */
@@ -1212,15 +1203,15 @@ static int __pyx_pf_15measurmentunits_9munitscpp_10PyQuantity___cinit__(struct _
   }
 
   /* "measurmentunits/munitscpp.pyx":12
- *         if other is None and metric!=_Last:
+ *         if other is None: #and metric!=_Last:
  *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  *         elif other is not None:             # <<<<<<<<<<<<<<
  *             self._thisptr = new Quantity(other._thisptr[0])
  *         else:
  */
-  __pyx_t_1 = (((PyObject *)__pyx_v_other) != Py_None);
-  __pyx_t_3 = (__pyx_t_1 != 0);
-  if (__pyx_t_3) {
+  __pyx_t_2 = (((PyObject *)__pyx_v_other) != Py_None);
+  __pyx_t_1 = (__pyx_t_2 != 0);
+  if (__pyx_t_1) {
 
     /* "measurmentunits/munitscpp.pyx":13
  *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
@@ -1232,7 +1223,7 @@ static int __pyx_pf_15measurmentunits_9munitscpp_10PyQuantity___cinit__(struct _
     __pyx_v_self->_thisptr = new munits::Quantity((__pyx_v_other->_thisptr[0]));
 
     /* "measurmentunits/munitscpp.pyx":12
- *         if other is None and metric!=_Last:
+ *         if other is None: #and metric!=_Last:
  *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  *         elif other is not None:             # <<<<<<<<<<<<<<
  *             self._thisptr = new Quantity(other._thisptr[0])
@@ -1257,7 +1248,7 @@ static int __pyx_pf_15measurmentunits_9munitscpp_10PyQuantity___cinit__(struct _
  *     cdef Quantity *_thisptr
  * 
  *     def __cinit__(self, metrics metric=_Last, double value=0., str unit="", PyQuantity other=None ):             # <<<<<<<<<<<<<<
- *         if other is None and metric!=_Last:
+ *         if other is None: #and metric!=_Last:
  *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  */
 
@@ -1265,8 +1256,8 @@ static int __pyx_pf_15measurmentunits_9munitscpp_10PyQuantity___cinit__(struct _
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
   __Pyx_AddTraceback("measurmentunits.munitscpp.PyQuantity.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
@@ -4416,8 +4407,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 46, __pyx_L1_error)
-  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 43, __pyx_L1_error)
+  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(0, 68, __pyx_L1_error)
   __pyx_builtin_NotImplemented = __Pyx_GetBuiltinName(__pyx_n_s_NotImplemented); if (!__pyx_builtin_NotImplemented) __PYX_ERR(1, 55, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 104, __pyx_L1_error)
   return 0;
@@ -4573,7 +4564,7 @@ PyMODINIT_FUNC PyInit_munitscpp(void)
  *     cdef Quantity *_thisptr
  * 
  *     def __cinit__(self, metrics metric=_Last, double value=0., str unit="", PyQuantity other=None ):             # <<<<<<<<<<<<<<
- *         if other is None and metric!=_Last:
+ *         if other is None: #and metric!=_Last:
  *             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
  */
   __pyx_k__2 = munits::_Last;
