@@ -60,6 +60,9 @@ class Quantity(PyQuantity, metaclass=Register):
     def __reduce__(self):
         return self.__class__, (self.val, self.unit)
 
+    # def __round__(self, n=None):
+    #     return Quantity(round(self.val, n), self.unit)
+
 
 class Length(Quantity):
     UNIT_INDEX = 0
