@@ -17,13 +17,17 @@ class Quantity(PyQuantity, metaclass=Register):
     UNIT_INDEX = NPOS
 
     def __new__(cls, value=0., unit="", *, other=None, transform=False):
+
         if other is None:
-            return super().__new__(cls, cls.UNIT_INDEX, value, unit)
+            ob = super().__new__(cls, cls.UNIT_INDEX, value, unit)
+            return ob
         elif transform and (cls.UNIT_INDEX == other.__class__.UNIT_INDEX):
-            return super().__new__(cls, other=other)
+            ob = super().__new__(cls, other=other)
+            return ob
         else:
             ncls = CLASS_REGISTRY[other.matrix_index][0]
-            return super().__new__(ncls, other=other)
+            ob = super().__new__(ncls, other=other)
+            return ob
 
     def __mul__(self, other):
         n = Quantity(other=PyQuantity.__mul__(self, other))
@@ -52,6 +56,12 @@ class Quantity(PyQuantity, metaclass=Register):
     def __rshift__(self, other):
         if issubclass(other, Quantity) and self.UNIT_INDEX == other.UNIT_INDEX:
             self.__class__ = other
+
+    def __reduce__(self):
+        return self.__class__, (self.val, self.unit)
+
+    # def __round__(self, n=None):
+    #     return Quantity(round(self.val, n), self.unit)
 
 
 class Length(Quantity):

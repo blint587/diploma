@@ -2,13 +2,12 @@ from libcpp.string cimport string
 from munitscpp cimport Quantity, metrics
 from cython.operator cimport dereference as deref
 
-cdef class PyQuantity:
+cdef class PyQuantity(object):
 
-    cdef :
-        Quantity *_thisptr
+    cdef Quantity *_thisptr
 
     def __cinit__(self, metrics metric=_Last, double value=0., str unit="", PyQuantity other=None ):
-        if other is None and metric!=_Last:
+        if other is None: #and metric!=_Last:
             self._thisptr = new Quantity(metric, value, bytes(unit, "utf-8"))
         elif other is not None:
             self._thisptr = new Quantity(other._thisptr[0])
@@ -128,5 +127,13 @@ cdef class PyQuantity:
     @property
     def matrix_index(PyQuantity self):
         return self._thisptr.getMatrixIndex()
+
+    @property
+    def val(PyQuantity self):
+        return self._thisptr.getValue()
+
+    @property
+    def unit(PyQuantity self):
+        return self._thisptr.getUnit().decode("utf-8")
 
 NPOS = _Last

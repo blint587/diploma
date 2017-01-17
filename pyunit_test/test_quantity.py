@@ -864,5 +864,15 @@ class TestDerivedUnitsFromBaseUnits(unittest.TestCase):
         self.assertAlmostEqual(mc4('mol m-3'), float('0.0790'), delta=1e-3)
 
 
+class TestQuantitySideFunctionality(unittest.TestCase):
+
+    def test_deepcopy(self):
+        from copy import deepcopy
+        l = munits.Length(1, "m")
+        l_copy = deepcopy(l)
+
+        self.assertEquals(l, l_copy)
+        self.assertNotEquals(id(l), id(l_copy))
+
 if __name__ == "__main__":
     unittest.main()

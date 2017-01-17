@@ -25,7 +25,6 @@ cdef extern from "src/quantity.h" namespace "munits":
             KinematicViscosity = 18,
             Power = 19,
             Energy = 20,
-            Torque = 20,
             Voltage = 21,
             Frequency = 22,
             ElectricCharge = 23,
@@ -36,9 +35,7 @@ cdef extern from "src/quantity.h" namespace "munits":
             MagneticFluxDensity = 28,
             Inductance = 29,
             Illuminance = 30,
-            Radioactivity = 22,
             AbsorbedDose = 31,
-            EquivalentDose = 31,
             CatalyticActivity = 32,
             _Last = 33
 
@@ -47,6 +44,8 @@ cdef extern from "src/quantity.h" namespace "munits":
         Quantity(const Quantity)
 
         int getMatrixIndex()
+        double getValue()
+        string getUnit()
 
         bint operator< (const Quantity) except + ValueError
         bint operator<= (const Quantity) except + ValueError

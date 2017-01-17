@@ -64,6 +64,8 @@ namespace munits {
             std::string toString() const {return std::string(
                         (std::basic_string<char, std::char_traits<char>, std::allocator<char>> &&) *this); }
             double toDouble() const {return double(*this);}
+            double getValue() const {return value;}
+            std::string getUnit() const {return compose_unit(unit_vector);}
 
             friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.value << " " <<  munits::Quantity::compose_unit(a.unit_vector);return str;};
 
