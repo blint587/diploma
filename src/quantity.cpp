@@ -196,8 +196,14 @@ munits::Quantity::Quantity(int m, double value, vector<munits::UnitNotation> uni
         unit_vector(unit_v),
         dim_vector(dim_v) {
 
+
     if (matrix_index > _Last) {
         throw logic_error("Invalid Unit type");
+    }
+    else if(matrix_index == _Last){
+        for(unsigned int idx = 0; idx < dim_vector.size(); ++idx ){
+            dim_vector[idx] = unit_vector[idx].GetExponent();
+        }
     }
 }
 
