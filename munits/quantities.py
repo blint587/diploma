@@ -1,6 +1,7 @@
 # encoding: utf-8
 from collections import defaultdict
 from munitscpp import PyQuantity, NPOS
+from base2.base import BaseClass
 
 
 CLASS_REGISTRY = defaultdict(list)
@@ -13,7 +14,7 @@ class Register(type):
         return cls
 
 
-class Quantity(PyQuantity, metaclass=Register):
+class Quantity(PyQuantity, BaseClass, metaclass=Register):
     UNIT_INDEX = NPOS
 
     def __new__(cls, value=0., unit="", *, other=None, transform=False):
@@ -60,8 +61,12 @@ class Quantity(PyQuantity, metaclass=Register):
     def __reduce__(self):
         return self.__class__, (self.val, self.unit)
 
-    # def __round__(self, n=None):
-    #     return Quantity(round(self.val, n), self.unit)
+    def __str__(self):
+        return PyQuantity.__str__(self)
+
+    def serializable(self):
+        return {"val": self.val, "unit": self.unit}
+
 
 
 class Length(Quantity):
