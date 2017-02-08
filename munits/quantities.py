@@ -8,8 +8,8 @@ CLASS_REGISTRY = defaultdict(list)
 
 
 class Register(type):
-    def __new__(meta, name, bases, class_dict):
-        cls = type.__new__(meta, name, bases, class_dict)
+    def __new__(mcs, name, bases, class_dict):
+        cls = type.__new__(mcs, name, bases, class_dict)
         CLASS_REGISTRY[cls.UNIT_INDEX].append(cls)
         return cls
 
@@ -65,8 +65,7 @@ class Quantity(PyQuantity, BaseClass, metaclass=Register):
         return PyQuantity.__str__(self)
 
     def serializable(self):
-        return {"val": self.val, "unit": self.unit}
-
+        return {"value": self.val, "unit": self.unit}
 
 
 class Length(Quantity):
