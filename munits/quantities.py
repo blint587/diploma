@@ -67,6 +67,12 @@ class Quantity(PyQuantity, BaseClass, metaclass=Register):
     def serializable(self):
         return {"value": self.val, "unit": self.unit}
 
+    def __hash__(self):
+        return (7 + hash(self.val)) * 31 + hash(str(self.unit))
+
+    def __abs__(self):
+        return self.__class__(abs(self.val), self.unit)
+
 
 class Length(Quantity):
     UNIT_INDEX = 0
