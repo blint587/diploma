@@ -1,19 +1,20 @@
 # encoding: utf-8
 from collections import defaultdict
 from munitscpp import PyQuantity, NPOS
+from base2.base import BaseClass
 
 
 CLASS_REGISTRY = defaultdict(list)
 
 
 class Register(type):
-    def __new__(meta, name, bases, class_dict):
-        cls = type.__new__(meta, name, bases, class_dict)
+    def __new__(mcs, name, bases, class_dict):
+        cls = type.__new__(mcs, name, bases, class_dict)
         CLASS_REGISTRY[cls.UNIT_INDEX].append(cls)
         return cls
 
 
-class Quantity(PyQuantity, metaclass=Register):
+class Quantity(PyQuantity, BaseClass, metaclass=Register):
     UNIT_INDEX = NPOS
 
     def __new__(cls, value=0., unit="", *, other=None, transform=False):
@@ -30,16 +31,37 @@ class Quantity(PyQuantity, metaclass=Register):
             return ob
 
     def __mul__(self, other):
-        n = Quantity(other=PyQuantity.__mul__(self, other))
-        if n._unquantified:
-            return float(n)
-        return n
+        if isinstance(other, Quantity) or isinstance(other, int) or isinstance(other, float):
+            n = Quantity(other=PyQuantity.__mul__(self, other))
+            if n._unquantified:
+                return float(n)
+            return n
+        else:
+            return NotImplemented
+
+    def __rmatmul__(self, other):
+        return self.__mul__(other)
 
     def __add__(self, other):
-        return Quantity(other=PyQuantity.__add__(self, other))
+        if isinstance(other, Quantity):
+            return Quantity(other=PyQuantity.__add__(self, other))
+        else:
+            return NotImplemented
+
+    def __radd__(self, other):
+        return self.__add__(other)
 
     def __sub__(self, other):
-        return Quantity(other=PyQuantity.__sub__(self, other))
+        if isinstance(other, Quantity):
+            return Quantity(other=PyQuantity.__sub__(self, other))
+        else:
+            return NotImplemented
+
+    def __rsub__(self, other):
+        if isinstance(other, Quantity):
+            return other - self
+        else:
+            return NotImplemented
 
     def __truediv__(self, other):
         n = Quantity(other=PyQuantity.__truediv__(self, other))
@@ -60,8 +82,17 @@ class Quantity(PyQuantity, metaclass=Register):
     def __reduce__(self):
         return self.__class__, (self.val, self.unit)
 
-    # def __round__(self, n=None):
-    #     return Quantity(round(self.val, n), self.unit)
+    def __str__(self):
+        return PyQuantity.__str__(self)
+
+    def serializable(self):
+        return {"value": self.val, "unit": self.unit}
+
+    def __hash__(self):
+        return (7 + hash(self.val)) * 31 + hash(str(self.unit))
+
+    def __abs__(self):
+        return self.__class__(abs(self.val), self.unit)
 
 
 class Length(Quantity):

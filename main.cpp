@@ -15,10 +15,12 @@ using namespace munits;
 int main() {
 
 
-    Quantity r (_Last, 1, "kg m-1 d-1");
+    Quantity mq (MassFlow, 1, "kg d-1");
+    Quantity r (_Last, 1, "kg m-2 d-1");
 
+    auto res = mq /r;
 
-    cout << r << endl;
+    cout << res << endl;
 
     try {
 //        for (int j = 0; j < 10; ++j) {

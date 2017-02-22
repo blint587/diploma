@@ -46,5 +46,6 @@ setup(
     version="0.1.1",
     packages=["munits"],
     ext_modules=extensions,
-
+    install_requires=["base2==0.1.16"],
+    dependency_links=[]
 )
