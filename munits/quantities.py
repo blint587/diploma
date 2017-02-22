@@ -31,16 +31,37 @@ class Quantity(PyQuantity, BaseClass, metaclass=Register):
             return ob
 
     def __mul__(self, other):
-        n = Quantity(other=PyQuantity.__mul__(self, other))
-        if n._unquantified:
-            return float(n)
-        return n
+        if isinstance(other, Quantity) or isinstance(other, int) or isinstance(other, float):
+            n = Quantity(other=PyQuantity.__mul__(self, other))
+            if n._unquantified:
+                return float(n)
+            return n
+        else:
+            return NotImplemented
+
+    def __rmatmul__(self, other):
+        return self.__mul__(other)
 
     def __add__(self, other):
-        return Quantity(other=PyQuantity.__add__(self, other))
+        if isinstance(other, Quantity):
+            return Quantity(other=PyQuantity.__add__(self, other))
+        else:
+            return NotImplemented
+
+    def __radd__(self, other):
+        return self.__add__(other)
 
     def __sub__(self, other):
-        return Quantity(other=PyQuantity.__sub__(self, other))
+        if isinstance(other, Quantity):
+            return Quantity(other=PyQuantity.__sub__(self, other))
+        else:
+            return NotImplemented
+
+    def __rsub__(self, other):
+        if isinstance(other, Quantity):
+            return other - self
+        else:
+            return NotImplemented
 
     def __truediv__(self, other):
         n = Quantity(other=PyQuantity.__truediv__(self, other))
