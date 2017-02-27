@@ -23,8 +23,8 @@ set(SOURCE_FILES main.cpp
         src/converter.hpp
         src/dynamic.hpp
         src/dynamic.cpp
-        src/resolver.cpp
-        src/resolver.hpp
+        src/uresolver.cpp
+        src/uresolver.hpp
         )
 add_executable(musys ${SOURCE_FILES})
 
