@@ -19,7 +19,7 @@ sources = ["munitscpp.pyx",
            "src/metric.cpp",
            "src/unit.cpp",
            "src/unit_notation.cpp",
-           "src/uresolver.cpp",
+           "src/uresolver.cpp"
            ]
 
 if not USE_CYTHON:
