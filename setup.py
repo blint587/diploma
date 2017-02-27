@@ -23,17 +23,7 @@ sources = ["munitscpp.pyx",
            ]
 
 if not USE_CYTHON:
-    sources += ["munitscpp.cpp",
-                "lib/Accesories/accessories.hpp",
-                "src/quantity.h",
-                "src/converter.hpp",
-                "src/converter_function.hpp",
-                "src/dynamic.hpp",
-                "src/metric.hpp",
-                "src/unit.hpp",
-                "src/unit_notation.hpp",
-                "src/resolver.hcpp",
-    ]
+    sources += ["munitscpp.cpp"]
 
 
 extensions = [Extension(
@@ -57,5 +47,6 @@ setup(
     packages=["munits"],
     ext_modules=extensions,
     install_requires=["base2>=0.1.16"],
+    package_data={"munits": ["src/*.hpp", "src/.h", "lib/Accesories/*.hpp"]},
     dependency_links=[]
 )
