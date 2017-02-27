@@ -23,16 +23,27 @@ sources = ["munitscpp.pyx",
            ]
 
 if not USE_CYTHON:
-    sources += ["munitscpp.cpp"]
+    sources += ["munitscpp.cpp",
+                "lib\Accesories\\accessories.hpp",
+                "src/quantity.h",
+                "src/converter.hpp",
+                "src/converter_function.hpp",
+                "src/dynamic.hpp",
+                "src/metric.hpp",
+                "src/unit.hpp",
+                "src/unit_notation.hpp",
+                "src/resolver.hcpp",
+    ]
+
 
 extensions = [Extension(
     "munitscpp",
     sources=sources,
     language="c++",
-    # extra_compile_args=["-std=c++11"],
-    extra_compile_args=["-std=c++11", "-Zi", "/Od"],    # Debug flag version
-    # extra_link_args=["-std=c++11"],
-    extra_link_args=["-std=c++11", "-debug"],   # Debug flag version
+    extra_compile_args=["-std=c++11"],
+    # extra_compile_args=["-std=c++11", "-Zi", "/Od"],    # Debug flag version
+    extra_link_args=["-std=c++11"],
+    # extra_link_args=["-std=c++11", "-debug"],   # Debug flag version
 )]
 
 if USE_CYTHON:
@@ -40,12 +51,11 @@ if USE_CYTHON:
     extensions = cythonize(extensions)
 
 
-
 setup(
     name="munits",
-    version="0.1.1",
+    version="0.1.2",
     packages=["munits"],
     ext_modules=extensions,
-    install_requires=["base2==0.1.16"],
+    install_requires=["base2>=0.1.16"],
     dependency_links=[]
 )
