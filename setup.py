@@ -47,6 +47,6 @@ setup(
     packages=["munits"],
     ext_modules=extensions,
     install_requires=["base2>=0.1.16"],
-    package_data={"munits": ["src/*.hpp", "src/.h", "lib/Accesories/*.hpp"]},
+    package_data={"munits": ["src/*.hpp", "src/*.h", "lib/Accesories/*.hpp"]},
     dependency_links=[]
 )
