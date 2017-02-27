@@ -24,7 +24,7 @@ sources = ["munitscpp.pyx",
 
 if not USE_CYTHON:
     sources += ["munitscpp.cpp",
-                "lib\Accesories\\accessories.hpp",
+                "lib/Accesories/accessories.hpp",
                 "src/quantity.h",
                 "src/converter.hpp",
                 "src/converter_function.hpp",
