@@ -43,7 +43,7 @@ if USE_CYTHON:
 
 setup(
     name="munits",
-    version="0.1.2",
+    version="0.1.3",
     packages=["munits"],
     ext_modules=extensions,
     install_requires=["base2>=0.1.16"],
