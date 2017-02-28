@@ -15,7 +15,7 @@ set(SOURCE_FILES
         quantity_test_mathop.hpp
         quantity_test_input_validation.hpp
 
-        ../../src/metric.cpp ../../src/metric.hpp ../../src/converter.cpp ../../src/converter.hpp ../../src/dynamic.hpp ../../src/dynamic.cpp quantity_test_representation.hpp ../../src/resolver.cpp ../../src/resolver.hpp)
+        ../../src/metric.cpp ../../src/metric.hpp ../../src/converter.cpp ../../src/converter.hpp ../../src/dynamic.hpp ../../src/dynamic.cpp quantity_test_representation.hpp ../../src/uresolver.cpp ../../src/uresolver.hpp)
 
 add_executable(runUnitTest
         ${SOURCE_FILES})
