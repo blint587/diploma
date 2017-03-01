@@ -47,6 +47,6 @@ setup(
     packages=["munits"],
     ext_modules=extensions,
     install_requires=["base2>=0.1.16"],
-    data_files={"munits": ["src/*.hpp", "src/*.h", "lib/Accesories/*.hpp", "src/uresolver.hpp"]},
+    # data_files={"munits": ["src/*.hpp", "src/*.h", "lib/Accesories/*.hpp", "src/uresolver.hpp"]},
     dependency_links=[]
 )
