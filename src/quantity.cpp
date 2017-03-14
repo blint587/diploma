@@ -257,7 +257,9 @@ munits::Quantity munits::pow(munits::Quantity a, int e) {
         temp = temp * a;
     }
     return temp;
-};
+}
+
+munits::Quantity munits::sqrt(munits::Quantity, int e)
 
 
 

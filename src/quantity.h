@@ -93,6 +93,7 @@ namespace munits {
         };
 
     Quantity pow(Quantity  a, int e);
+    Quantity sqrt(Quantity a, int e);
 
 }
 
