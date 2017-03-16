@@ -26,7 +26,7 @@ int main() {
 
     try {
         Quantity a (Volume, 8.0, "gal");
-        cout <<  ntrt(a, 3) << '\n';
+        cout <<  a.ntrt(4) << '\n';
 
     }
     catch (exception & e){

@@ -9,6 +9,7 @@
 #include <string>
 #include <memory>
 #include <algorithm>
+#include <numeric>
 #include <sstream>
 #include <iterator>
 #include <stdexcept>
@@ -59,16 +60,16 @@ namespace munits {
             operator std::string() const {std::stringstream ss; ss << value  << " " << compose_unit(unit_vector); return ss.str();}
             explicit operator double() const;
 
-            bool unquantified()const;
+            bool unquantified() const;
 
-            // TODO: include only if used for Cython
-#ifdef NOCYTHON
-            std::string toString() const {return std::string(
-                        (std::basic_string<char, std::char_traits<char>, std::allocator<char>> &&) *this); }
+
+            #ifndef NOCYTHON
+            std::string toString() const {return std::string((std::basic_string<char, std::char_traits<char>, std::allocator<char>> &&) *this); }
             double toDouble() const {return double(*this);}
             double getValue() const {return value;}
             std::string getUnit() const {return compose_unit(unit_vector);}
-#endif
+            Quantity(){};
+            #endif
             friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.value << " " <<  munits::Quantity::compose_unit(a.unit_vector);return str;};
 
             friend Quantity operator+ (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value + rgths(munits::Quantity::compose_unit(lfths.unit_vector)), lfths.unit_vector);};
@@ -92,31 +93,7 @@ namespace munits {
             friend bool operator == (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::eq<const double>);};
             friend bool operator != (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::ne<const double>);};
 
-            friend Quantity ntrt(Quantity unit, int exponent){ if (1 != exponent) {
-                    auto dimv = unit.GetDimVector();
-                    TRACEVECTOR(dimv);
-                    bool rootable = std::accumulate(dimv.begin(), dimv.end(), true, [&](bool first, int second) { return first && 0 == second % exponent; });
-                    TRACE("rootabel: " + std::to_string(rootable));
-
-                    if (rootable) {
-                        double n_value =  std::pow(unit.value, 1.0 / exponent);
-                        std::vector<int> n_dim_vector (7);
-                        TRACEVECTOR(n_dim_vector);
-                        std::transform(unit.dim_vector.begin(), unit.dim_vector.end(), n_dim_vector.begin(), [&](int exp){return exp / exponent;});
-
-                        std::vector<UnitNotation> n_unit_vector (7);
-                        std::transform(unit.unit_vector.begin(), unit.unit_vector.end(), n_unit_vector.begin(), [&](UnitNotation un){return UnitNotation(un.GetPrefix() +
-                                                                                                                                                un.GetUnit() +
-                                                                                                                                                std::to_string(un.GetExponent()/ exponent ));});
-
-                        return Quantity(GetMatrixIndex(n_dim_vector), n_value, n_unit_vector);
-                    }
-                    else {
-                        throw std::logic_error("Cannot perform " + std::to_string(exponent) + "th root on " + (std::string) unit + "!");
-                    }
-                }else{
-                    return Quantity(unit);
-                }};
+            Quantity ntrt (const int exponent) const; // Todo: implement as free function
 
     };
 
