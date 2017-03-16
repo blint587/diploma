@@ -259,8 +259,6 @@ munits::Quantity munits::pow(munits::Quantity a, int e) {
     return temp;
 }
 
-munits::Quantity munits::sqrt(munits::Quantity, int e)
-
 
 
 
