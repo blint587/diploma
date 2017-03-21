@@ -94,6 +94,9 @@ class Quantity(PyQuantity, BaseClass, metaclass=Register):
     def __abs__(self):
         return self.__class__(abs(self.val), self.unit)
 
+    def ntrt(self, exp):
+        return Quantity(other=PyQuantity.ntrt(self, int(exp)))
+
 
 class Length(Quantity):
     UNIT_INDEX = 0

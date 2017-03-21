@@ -9,8 +9,10 @@
 #include <string>
 #include <memory>
 #include <algorithm>
+#include <numeric>
 #include <sstream>
 #include <iterator>
+#include <stdexcept>
 
 #include "../lib/Accesories/accessories.hpp"
 #include "converter_function.hpp"
@@ -29,7 +31,7 @@ namespace munits {
         private:
 
             int matrix_index;
-            std::vector<UnitNotation> unit_vector {7};
+            std::vector<UnitNotation> unit_vector;
             double value;
             std::shared_ptr<munits::Converter> converter;
             std::vector<int> dim_vector;
@@ -58,15 +60,17 @@ namespace munits {
             operator std::string() const {std::stringstream ss; ss << value  << " " << compose_unit(unit_vector); return ss.str();}
             explicit operator double() const;
 
-            bool unquantified()const;
+            bool unquantified() const;
 
-            // TODO: include only if used for Cython
-            std::string toString() const {return std::string(
-                        (std::basic_string<char, std::char_traits<char>, std::allocator<char>> &&) *this); }
+
+            #ifndef NOCYTHON
+            // helper functions for interfaceing
+            std::string toString() const {return std::string((std::basic_string<char, std::char_traits<char>, std::allocator<char>> &&) *this); }
             double toDouble() const {return double(*this);}
             double getValue() const {return value;}
             std::string getUnit() const {return compose_unit(unit_vector);}
-
+            Quantity(){};
+            #endif
             friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.value << " " <<  munits::Quantity::compose_unit(a.unit_vector);return str;};
 
             friend Quantity operator+ (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value + rgths(munits::Quantity::compose_unit(lfths.unit_vector)), lfths.unit_vector);};
@@ -90,9 +94,11 @@ namespace munits {
             friend bool operator == (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::eq<const double>);};
             friend bool operator != (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::ne<const double>);};
 
-        };
+            Quantity ntrt (const int exponent) const; // Todo: implement as free function
 
-    Quantity pow(Quantity  a, int e);
+    };
+
+    Quantity pow(const Quantity &a, int e);
 
 }
 

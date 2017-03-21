@@ -110,6 +110,11 @@ cdef class PyQuantity(object):
         nobj._thisptr = new Quantity(pow(deref(self._thisptr), exp))
         return nobj
 
+    def ntrt(PyQuantity self, int exp):
+        cdef PyQuantity nobj = PyQuantity()
+        nobj._thisptr = new Quantity(self._thisptr.ntrt(exp))
+        return nobj
+
     def __str__(PyQuantity self):
         return self._thisptr.toString().decode("utf-8")
 
@@ -135,5 +140,6 @@ cdef class PyQuantity(object):
     @property
     def unit(PyQuantity self):
         return self._thisptr.getUnit().decode("utf-8")
+
 
 NPOS = _Last

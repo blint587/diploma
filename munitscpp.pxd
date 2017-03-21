@@ -64,6 +64,8 @@ cdef extern from "src/quantity.h" namespace "munits":
         Quantity operator/(const Quantity)
         Quantity operator/(const float)
         Quantity operator/(const int)
+        Quantity ntrt(const int) except + ValueError
+
 
         string toString() except + RuntimeError
         double toDouble() except + RuntimeError

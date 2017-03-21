@@ -5,40 +5,29 @@
 #include "src/quantity.h"
 #include <ctime>
 #include <math.h>
-#include "lib/Accesories/math.hpp"
+//#include "lib/Accesories/math.hpp"
+#include "lib/Accesories/accessories.hpp"
 
 using namespace std;
 using namespace munits;
-using namespace math;
+//using namespace math;
 
 
 int main() {
 
 
-//    Quantity mq (MassFlow, 1, "kg d-1");
+    Quantity mq (MassFlow, 1, "kg d-1");
 //    Quantity r (_Last, 1, "kg m-2 d-1");
 //
 //    auto res = mq /r;
 
 
 
-    try {
-//        for (int j = 0; j < 10; ++j) {
-//            clock_t start = clock();
-//            for (int i = 0; i < 10000; ++i) {
-//                Quantity l1(Length, 1, "m");
-//                Quantity l2(Length, 1, "m");
-//                Quantity l3 = l1 * l2;
-//
-//                l3("mm2");
-//            }
-//
-//            clock_t stop = clock();
-//            cout << (double(stop - start) / CLOCKS_PER_SEC) << endl;
-//        }
 
-//        munits::Quantity t (munits::Temperature, -40., "°C");
-//        cout << t("K") << endl;
+    try {
+        Quantity a (Volume, 8.0, "gal");
+        cout <<  a.ntrt(4) << '\n';
+
     }
     catch (exception & e){
         cerr << e.what() << endl;
