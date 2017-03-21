@@ -422,5 +422,37 @@ TEST_F(TestQuantityBaseUnitsMathOperation, test_division_with_numeric_type_from_
     EXPECT_EQ(r("kg"), .5);
 }
 
+TEST_F(TestQuantityBaseUnitsMathOperation, test_2rt_rootable){
+    munits::Quantity a (munits::Area, 4.0, "m2");
+
+    auto l = a.ntrt(2);
+
+    EXPECT_EQ(l.getMatrixIndex(), munits::Length);
+
+    EXPECT_EQ(l("m"), 2.0);
+}
+
+TEST_F(TestQuantityBaseUnitsMathOperation, test_3rt_rootable){
+    munits::Quantity a (munits::Volume, 8.0, "m3");
+
+    auto l = a.ntrt(3);
+
+    EXPECT_EQ(l.getMatrixIndex(), munits::Length);
+
+    EXPECT_EQ(l("m"), 2.0);
+}
+
+TEST_F(TestQuantityBaseUnitsMathOperation, test_3rt_not_rootable){
+    munits::Quantity a (munits::Velocity, 8.0, "m s-1");
+
+    try {
+        auto l = a.ntrt(3);
+        FAIL() << "Exception was not raised";
+    }catch (std::logic_error & le){
+        EXPECT_EQ(le.what(), std::string("Cannot perform 3th root on 8 m s-1!"));
+    }catch(...){
+        FAIL() << "Expected logic_error";
+    }
+}
 
 #endif //MUSYS_QUANTITY_TEST_MATHOP_HPP

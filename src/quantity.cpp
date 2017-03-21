@@ -251,7 +251,7 @@ bool munits::Quantity::unquantified() const {
     return all_of(dim_vector.begin(), dim_vector.end(), [](int i) { return 0 == i; });
 }
 
-munits::Quantity munits::pow(munits::Quantity a, int e) {
+munits::Quantity munits::pow(const Quantity &a, int e) {
     Quantity temp(a);
     for (int i = 1; i < e; ++i) {
         temp = temp * a;
@@ -270,7 +270,6 @@ munits::Quantity munits::Quantity::ntrt (const int exponent) const {
         if (rootable) {
             double n_value =  std::pow(value, 1.0 / exponent);
             std::vector<int> n_dim_vector (7);
-            TRACEVECTOR(n_dim_vector);
             std::transform(dim_vector.begin(), dim_vector.end(), n_dim_vector.begin(), [&](int exp){return exp / exponent;});
 
             std::vector<UnitNotation> n_unit_vector (7);
