@@ -43,7 +43,9 @@ vector<string> munits::UnitNotation::parser(string unit) {
             while (next != end) {
                 smatch match = *next;
 
-                if(string(match[1])+string(match[2])+string(match[3]) == unit){
+                if(string((basic_string<char, char_traits<char>, allocator<char>> &&) match[1]) + string(
+                        (basic_string<char, char_traits<char>, allocator<char>> &&) match[2]) + string(
+                        (basic_string<char, char_traits<char>, allocator<char>> &&) match[3]) == unit){
                     no_match = false;
                     parsed[0] = match[1];
                     parsed[1] = match[2];

@@ -49,11 +49,11 @@ namespace munits {
         MagneticFluxDensity = 28,
         Inductance = 29,
         Illuminance = 30,
-        Radioactivity = 22,
+//        Radioactivity = 22,
         AbsorbedDose = 31,
-        EquivalentDose = 31,
+//        EquivalentDose = 31,
         CatalyticActivity = 32,
-        Torque = 20,
+//        Torque = 20,
         _Last
 
     };
