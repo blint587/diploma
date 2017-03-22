@@ -61,6 +61,7 @@ namespace munits {
 
     const std::vector<munits::Metric> & GetMatrix();
     const int GetMatrixIndex(std::vector<int> & searched);
+    const std::map<std::string, const std::shared_ptr<ConverterFunction>> & GetPrefixes();
 
 
 }

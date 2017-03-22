@@ -14,7 +14,7 @@ namespace munits{
     class Converter {
 
         private:
-            const std::map<std::string, const std::shared_ptr<ConverterFunction>> & GetPrefixes() const;
+
             std::string base_unit;
 
             std::map<std::string, const std::shared_ptr<ConverterFunction>> prefixes;

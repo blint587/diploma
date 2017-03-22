@@ -8,7 +8,7 @@
 #ifdef DEBUG
     #include <iomanip>
     #define TRACE(x)  std::cerr << std::setprecision(18) << x << std::endl
-    #define TRACEVECTOR(x) accessories::print_vector(x)
+    #define TRACEVITERABLE(x) accessories::print_iterable(x)
 #else
     #define TRACE(x)
     #define TRACEVECTOR(x)
@@ -36,8 +36,8 @@ namespace accessories{
     template<class T>
     bool ne(const T & a, const T & b){return a != b;}
 
-    template<typename T>
-    void print_vector(const std::vector<T> & a){
+    template<class C>
+    void print_iterable(const C &a){
         std::cerr << "[ ";
         for( auto b = a.begin(); b != a.end(); ++b ){
             std::cerr << *b << ", ";

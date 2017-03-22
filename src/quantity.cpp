@@ -27,6 +27,8 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
     munits::Resolver r (rmatrix);
 
     r.resolve(tokens.begin(), tokens.end(), tokens);
+    TRACEVITERABLE(tokens);
+
 
     list <UnitNotation> unTokens (tokens.size()); // resizing to match
 
@@ -263,7 +265,7 @@ munits::Quantity munits::pow(const Quantity &a, int e) {
 munits::Quantity munits::Quantity::ntrt (const int exponent) const {
     if (1 != exponent) {
         auto dimv = GetDimVector();
-        TRACEVECTOR(dimv);
+        TRACEVITERABLE(dimv);
         bool rootable = std::accumulate(dimv.begin(), dimv.end(), true, [&](bool first, int second) { return first && 0 == second % exponent; });
         TRACE("rootabel: " + std::to_string(rootable));
 

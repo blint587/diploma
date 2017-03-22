@@ -16,23 +16,11 @@ using namespace munits;
 int main() {
 
 
-    Quantity mq (MassFlow, 1, "kg d-1");
-//    Quantity r (_Last, 1, "kg m-2 d-1");
-//
-//    auto res = mq /r;
+    Quantity mq (Power, 1, "kW");
+
+    cout << mq << endl;
 
 
-
-
-    try {
-        Quantity a (Volume, 8.0, "gal");
-        cout <<  a.ntrt(4) << '\n';
-
-    }
-    catch (exception & e){
-        cerr << e.what() << endl;
-
-    }
 
 
 #ifdef DEBUG
