@@ -52,7 +52,7 @@ vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string 
                              [&rmatrix, &uii](UnitNotation t) { return rmatrix[uii].converter->is_valid_unit(t); });
             if (b != unTokens.end()) {
                 // searching the position where the dim_vector is not 0
-                int position = find_if(rmatrix[uii].dim_vector.begin(), rmatrix[uii].dim_vector.end(),
+                long long position = find_if(rmatrix[uii].dim_vector.begin(), rmatrix[uii].dim_vector.end(),
                                        [](int x) { return x != 0; }) - rmatrix[uii].dim_vector.begin();
                 uv[position] = UnitNotation(*b);
                 unTokens.erase(b);
@@ -105,7 +105,7 @@ double munits::Quantity::operator()(const string tunit) const {
 
     while (!dim_matrix.empty()) {
         vector<int> dmv = (vector<int> &&) dim_matrix.front();
-        int position = find_if(dmv.begin(), dmv.end(), [](int x) { return x != 0; }) - dmv.begin();
+        long long position = find_if(dmv.begin(), dmv.end(), [](int x) { return x != 0; }) - dmv.begin();
 
         vector<int> normalized_dim(7);
         normalized_dim[position] = 1;
@@ -148,7 +148,7 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
             std::vector<int> base_line_dim_vector(7);
 
             base_line_dim_vector[i] = abs(rgt_exponent);
-            int rgh_converter_index = munits::GetMatrixIndex(base_line_dim_vector);
+            long long rgh_converter_index = munits::GetMatrixIndex(base_line_dim_vector);
 
             auto rgh_converter = rmatrix[rgh_converter_index].converter;
 
@@ -158,7 +158,7 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
                                                                       rgt_exponent);
 
             base_line_dim_vector[i] = abs(lft_exponent);
-            int lft_converter_index = munits::GetMatrixIndex(base_line_dim_vector);
+            long long lft_converter_index = munits::GetMatrixIndex(base_line_dim_vector);
 
             auto lft_converter = rmatrix[lft_converter_index].converter;
 
@@ -177,18 +177,18 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
         }else if (lft_exponent != 0 && (lft_exponent + (p * rgt_exponent)) != 0 /*&& rgt_exponent != 0  - always true */){
             std::vector<int> base_dim(7);
             base_dim[i] = 1;
-            int idx = munits::GetMatrixIndex(base_dim);
+            long long idx = munits::GetMatrixIndex(base_dim);
 
             nunit_vector[i] = UnitNotation(rmatrix[idx].converter->GetBaseUnit() + std::to_string(ndim_vector[i]));
         }
 
     }
 
-    int nmindex = munits::GetMatrixIndex(ndim_vector);
+    long long nmindex = munits::GetMatrixIndex(ndim_vector);
 
-    nmindex = std::min(nmindex, static_cast<int>(munits::_Last));
+    nmindex = std::min((int)nmindex, static_cast<int>(munits::_Last));
 
-    return Quantity(nmindex, tmp_lft * std::pow(tmp_rgh, p), nunit_vector, ndim_vector);
+    return Quantity((int)nmindex, tmp_lft * std::pow(tmp_rgh, p), nunit_vector, ndim_vector);
 };
 
 munits::Quantity::Quantity(int m, double value, vector<munits::UnitNotation> unit_v, std::vector<int> dim_v) :
@@ -279,7 +279,7 @@ munits::Quantity munits::Quantity::ntrt (const int exponent) const {
             un.GetUnit() +
             std::to_string(un.GetExponent()/ exponent ));});
 
-            return Quantity(GetMatrixIndex(n_dim_vector), n_value, n_unit_vector);
+            return Quantity((int)GetMatrixIndex(n_dim_vector), n_value, n_unit_vector);
         }
         else {
             throw std::logic_error("Cannot perform " + std::to_string(exponent) + "th root on " + (std::string) *this + "!");

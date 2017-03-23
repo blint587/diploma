@@ -8,11 +8,13 @@ namespace munits {
 
     class ConverterFunction {
 
+        const double first_order_exponent;
         const double first_order;
         const double zero_order;
         const char *signature;
     public:
         explicit ConverterFunction(double, double, const char *);
+        explicit ConverterFunction(int, double, const char *);
 
         double to_base(double, double) const;
 

@@ -1,18 +1,21 @@
 #include <string>
 #include "converter.hpp"
 #include "dynamic.hpp"
+#include "../lib/Accesories/accessories.hpp"
 
 using namespace std;
 
 double munits::Converter::Convert( double val, munits::UnitNotation funit, munits::UnitNotation tunit,  int exponent) const {
 
+    TRACE("from unit: " + (std::string)funit);
+    TRACE("to unit: " + (std::string)tunit);
 
     if (!units.count(funit.GetUnit()) == 1) {
         throw logic_error("Invalid funit: " + string((basic_string<char, char_traits<char>, allocator<char>> &&) funit));
     }
     else {
         shared_ptr<Unit> to_base_func_unit = units.find(funit.GetUnit())->second;
-        shared_ptr<ConverterFunction> to_base_func_prefix = (1 == prefixes.count(funit.GetPrefix()) ? prefixes.find(funit.GetPrefix())->second: make_shared<ConverterFunction>(ConverterFunction(1., 0, "")));
+        shared_ptr<ConverterFunction> to_base_func_prefix = (1 == prefixes.count(funit.GetPrefix()) ? prefixes.find(funit.GetPrefix())->second: make_shared<ConverterFunction>(ConverterFunction(0, 0, "")));
 
         val = to_base_func_prefix->to_base(val, to_base_func_unit->ignor_exponent?(exponent > 0?1:-1):exponent);
         val = to_base_func_unit->to_base(val, to_base_func_unit->ignor_exponent?(exponent > 0?1:-1):exponent);
@@ -23,7 +26,7 @@ double munits::Converter::Convert( double val, munits::UnitNotation funit, munit
     }
     else {
         shared_ptr<Unit> from_base_func_unit = units.find(tunit.GetUnit())->second;
-        shared_ptr<ConverterFunction> from_base_func_prefix =(1 == prefixes.count(tunit.GetPrefix()) ? prefixes.find(tunit.GetPrefix())->second: make_shared<ConverterFunction>(ConverterFunction(1., 0, "")));
+        shared_ptr<ConverterFunction> from_base_func_prefix =(1 == prefixes.count(tunit.GetPrefix()) ? prefixes.find(tunit.GetPrefix())->second: make_shared<ConverterFunction>(ConverterFunction(0, 0, "")));
 
         val = from_base_func_prefix->from_base(val, from_base_func_unit->ignor_exponent?(exponent > 0?1:-1):exponent);
         val = from_base_func_unit->from_base(val, from_base_func_unit->ignor_exponent?(exponent > 0?1:-1):exponent);

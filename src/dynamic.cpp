@@ -87,7 +87,7 @@ const std::vector<munits::Metric> & munits::GetMatrix(){
     return matrix;
 }
 
-const int munits::GetMatrixIndex(std::vector<int> & searched){
+const long long int munits::GetMatrixIndex(std::vector<int> &searched){
 
     auto rmatrix = munits::GetMatrix();
     return find_if(rmatrix.begin(), rmatrix.end(), [&](munits::Metric x) { return x.dim_vector == searched; }) - rmatrix.begin();
@@ -97,23 +97,24 @@ const int munits::GetMatrixIndex(std::vector<int> & searched){
 const std::map<std::string, const std::shared_ptr<munits::ConverterFunction>> & munits::GetPrefixes() {
 
     static const std::map<std::__cxx11::string, const std::shared_ptr<ConverterFunction>> prefixes  = {
-            {"E", std::make_shared<ConverterFunction>(ConverterFunction(1e18, 0, "E"))}, //exa
-            {"P", std::make_shared<ConverterFunction>(ConverterFunction(1e15, 0, "P"))},  // peta
-            {"T", std::make_shared<ConverterFunction>(ConverterFunction(1e12, 0, "I"))},  // tera
-            {"G", std::make_shared<ConverterFunction>(ConverterFunction(1e9, 0, "G"))}, // giga
-            {"M", std::make_shared<ConverterFunction>(ConverterFunction(1e6, 0, "M"))},  // mega
-            {"k", std::make_shared<ConverterFunction>(ConverterFunction(1e3, 0, "k"))},  // kilo
-            {"h", std::make_shared<ConverterFunction>(ConverterFunction(1e2, 0, "h"))},  // hecto
-            {"da", std::make_shared<ConverterFunction>(ConverterFunction(1e1, 0, "da"))},  // deca
+            // todo: store only the exponents
+            {"E", std::make_shared<ConverterFunction>(ConverterFunction(18, 0, "E"))}, //exa
+            {"P", std::make_shared<ConverterFunction>(ConverterFunction(15, 0, "P"))},  // peta
+            {"T", std::make_shared<ConverterFunction>(ConverterFunction(12, 0, "I"))},  // tera
+            {"G", std::make_shared<ConverterFunction>(ConverterFunction(9, 0, "G"))}, // giga
+            {"M", std::make_shared<ConverterFunction>(ConverterFunction(6, 0, "M"))},  // mega
+            {"k", std::make_shared<ConverterFunction>(ConverterFunction(3, 0, "k"))},  // kilo
+            {"h", std::make_shared<ConverterFunction>(ConverterFunction(2, 0, "h"))},  // hecto
+            {"da", std::make_shared<ConverterFunction>(ConverterFunction(1, 0, "da"))},  // deca
 //            {"", make_shared<ConverterFunction>(ConverterFunction(1., 0, ""))},
-            {"d", std::make_shared<ConverterFunction>(ConverterFunction(0.1, 0, "d"))},   // deci
-            {"c", std::make_shared<ConverterFunction>(ConverterFunction(0.01, 0, "c"))},  // centi
-            {"m", std::make_shared<ConverterFunction>(ConverterFunction(0.001, 0, "m"))},  // milli
-            {"μ", std::make_shared<ConverterFunction>(ConverterFunction(0.000001, 0, "mikro"))},  // micro
-            {"n", std::make_shared<ConverterFunction>(ConverterFunction(0.000000001, 0, "n"))},  // nano
-            {"p", std::make_shared<ConverterFunction>(ConverterFunction(0.000000000001, 0, "p"))},  // pico
-            {"f", std::make_shared<ConverterFunction>(ConverterFunction(0.000000000000001, 0, "f"))},  // femto
-            {"a", std::make_shared<ConverterFunction>(ConverterFunction(0.000000000000000001, 0, "a"))}  // atto
+            {"d", std::make_shared<ConverterFunction>(ConverterFunction(-1, 0, "d"))},   // deci
+            {"c", std::make_shared<ConverterFunction>(ConverterFunction(-2, 0, "c"))},  // centi
+            {"m", std::make_shared<ConverterFunction>(ConverterFunction(-3, 0, "m"))},  // milli
+            {"μ", std::make_shared<ConverterFunction>(ConverterFunction(-6, 0, "mikro"))},  // micro
+            {"n", std::make_shared<ConverterFunction>(ConverterFunction(-9, 0, "n"))},  // nano
+            {"p", std::make_shared<ConverterFunction>(ConverterFunction(-12, 0, "p"))},  // pico
+            {"f", std::make_shared<ConverterFunction>(ConverterFunction(-15, 0, "f"))},  // femto
+            {"a", std::make_shared<ConverterFunction>(ConverterFunction(-18, 0, "a"))}  // atto
     };
 
     return prefixes;
