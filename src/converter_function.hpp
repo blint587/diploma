@@ -8,7 +8,7 @@ namespace munits {
 
     class ConverterFunction {
 
-        const double first_order_exponent;
+        const int first_order_exponent;
         const double first_order;
         const double zero_order;
         const char *signature;
@@ -19,6 +19,10 @@ namespace munits {
         double to_base(double, double) const;
 
         double from_base(double, double) const;
+
+        int getFirstOrderExponent(){
+            return this->first_order_exponent;
+        }
     };
 }
 

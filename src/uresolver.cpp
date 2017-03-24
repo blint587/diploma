@@ -14,7 +14,11 @@ bool munits::Resolver::resolve(
 
         for(auto b = begin; b != end; b++) {
             auto parsed = this->parser(*b);
-            TRACEVITERABLE(parsed);
+
+//            auto pprefix = find(this->rprefixes.begin(), this->rprefixes.end(),[&](pair<string, const shared_ptr<ConverterFunction>> & pf) {return pf.first == parsed[0];});
+//            int prefix_exponent =
+
+
             auto m = find_if(rmatrix.begin(), rmatrix.end(), [&](munits::Metric metric){return metric.unit_resolve_mapping.find(parsed[1]) != metric.unit_resolve_mapping.end();});
             if (m != rmatrix.end()) {
                 string o = m->unit_resolve_mapping.find(parsed[1])->second;
