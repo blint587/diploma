@@ -4,22 +4,18 @@
 
 
 #include <set>
-#include <regex>
 #include <iostream>
 #include <vector>
 #include <string>
 
-
 namespace munits{
 
     class UnitNotation  {
-    private:
 
+    private:
         std::string unit = "";
         std::string prefix = "";
         int exponent = 0;
-    protected:
-        std::vector<std::string> parser(std::string);
     public:
         explicit UnitNotation(){};
         explicit UnitNotation(std::string unit);
@@ -31,6 +27,7 @@ namespace munits{
         const std::string & GetUnit() const { return unit;};
         const std::string & GetPrefix() const { return prefix;};
         const int & GetExponent() const { return exponent;};
+
     };
 }
 

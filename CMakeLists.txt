@@ -25,7 +25,7 @@ set(SOURCE_FILES main.cpp
         src/dynamic.cpp
         src/uresolver.cpp
         src/uresolver.hpp
-        lib/Accesories/math.hpp)
+        lib/Accesories/math.hpp src/prefix.cpp src/prefix.hpp src/parsers.hpp src/parsers.cpp)
 add_executable(musys ${SOURCE_FILES})
 
 add_subdirectory(test)

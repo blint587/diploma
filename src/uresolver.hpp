@@ -23,7 +23,6 @@ namespace munits {
                          std::list<std::string>::iterator end,
                          std::list<std::string> & l);
 
-            std::vector<std::string> parser(const std::string &token);
 
 
 

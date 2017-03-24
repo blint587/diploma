@@ -16,11 +16,7 @@ using namespace munits;
 int main() {
 
 
-    Quantity mq (Power, 1, "kW");
-
-    cout << mq << endl;
-
-
+    Quantity p {munits::Power, 1.0, "kW"};
 
 
 #ifdef DEBUG

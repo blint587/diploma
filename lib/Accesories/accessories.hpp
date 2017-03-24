@@ -8,7 +8,7 @@
 #ifdef DEBUG
     #include <iomanip>
     #define TRACE(x)  std::cerr << std::setprecision(18) << x << std::endl
-    #define TRACEVITERABLE(x) accessories::print_iterable(x)
+    #define TRACEITERABLE(x) accessories::print_iterable(x)
 #else
     #define TRACE(x)
     #define TRACEVECTOR(x)
