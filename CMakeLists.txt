@@ -4,7 +4,7 @@ project(sandbox)
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/bin/")
 set(LIBRARY_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/bin/")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D DEBUG -D NOCYTHON")
 
 set(SOURCE_FILES main.cpp
@@ -25,7 +25,7 @@ set(SOURCE_FILES main.cpp
         src/dynamic.cpp
         src/uresolver.cpp
         src/uresolver.hpp
-        lib/Accesories/math.hpp src/prefix.cpp src/prefix.hpp src/parsers.hpp src/parsers.cpp)
+        lib/Accesories/math.hpp src/prefix.cpp src/prefix.hpp src/parsers.hpp src/parsers.cpp src/searchers.cpp src/searchers.hpp)
 add_executable(musys ${SOURCE_FILES})
 
 add_subdirectory(test)

@@ -17,6 +17,8 @@ int main() {
 
 
     Quantity p {munits::Power, 1.0, "kW"};
+    
+    cout << p << '\n';
 
 
 #ifdef DEBUG

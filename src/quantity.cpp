@@ -9,6 +9,7 @@
 #include "dynamic.hpp"
 #include "uresolver.hpp"
 #include "../lib/Accesories/accessories.hpp"
+#include "searchers.hpp"
 
 using namespace std;
 
@@ -147,7 +148,7 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
             std::vector<int> base_line_dim_vector(7);
 
             base_line_dim_vector[i] = abs(rgt_exponent);
-            long long rgh_converter_index = munits::GetMatrixIndex(base_line_dim_vector);
+            long long rgh_converter_index = munits::getMatrixIndex(base_line_dim_vector);
 
             auto rgh_converter = rmatrix[rgh_converter_index].converter;
 
@@ -157,7 +158,7 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
                                                                       rgt_exponent);
 
             base_line_dim_vector[i] = abs(lft_exponent);
-            long long lft_converter_index = munits::GetMatrixIndex(base_line_dim_vector);
+            long long lft_converter_index = munits::getMatrixIndex(base_line_dim_vector);
 
             auto lft_converter = rmatrix[lft_converter_index].converter;
 
@@ -176,14 +177,14 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
         }else if (lft_exponent != 0 && (lft_exponent + (p * rgt_exponent)) != 0 /*&& rgt_exponent != 0  - always true */){
             std::vector<int> base_dim(7);
             base_dim[i] = 1;
-            long long idx = munits::GetMatrixIndex(base_dim);
+            long long idx = munits::getMatrixIndex(base_dim);
 
             nunit_vector[i] = UnitNotation(rmatrix[idx].converter->GetBaseUnit() + std::to_string(ndim_vector[i]));
         }
 
     }
 
-    long long nmindex = munits::GetMatrixIndex(ndim_vector);
+    long long nmindex = munits::getMatrixIndex(ndim_vector);
 
     nmindex = std::min((int)nmindex, static_cast<int>(munits::_Last));
 
@@ -278,7 +279,7 @@ munits::Quantity munits::Quantity::ntrt (const int exponent) const {
             un.GetUnit() +
             std::to_string(un.GetExponent()/ exponent ));});
 
-            return Quantity((int)GetMatrixIndex(n_dim_vector), n_value, n_unit_vector);
+            return Quantity((int) munits::getMatrixIndex(n_dim_vector), n_value, n_unit_vector);
         }
         else {
             throw std::logic_error("Cannot perform " + std::to_string(exponent) + "th root on " + (std::string) *this + "!");
