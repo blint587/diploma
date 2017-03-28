@@ -13,7 +13,7 @@ bool munits::Resolver::resolve(
         list<string> & l) {
 
         bool replacement_occured = false;
-        stack<Prefix> prefixes; // todo: probably a stack would be better
+        stack<Prefix> prefixes;
 
 
         for(auto b = begin; b != end; b++) {

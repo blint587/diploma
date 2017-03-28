@@ -63,11 +63,11 @@ const std::vector<munits::Metric> & munits::GetMatrix(){
             {{ 3,  0, -1,  0,  0,  0,  0}, "m3 s-1"},  //VolumetricFlow
             {{-3,  0,  0,  0,  0,  1,  0}, "mol m-3"},  //MolarConcentration
             {{ 1,  0, -2,  0,  0,  0,  0}, "m s-2"},  //Acceleration
-            {{ 1,  1, -2,  0,  0,  0,  0}, "kg m s-2" /*N*/},  //Force
+            {{ 1,  1, -2,  0,  0,  0,  0}, "kg m s-2", /*N*/{}, {}, {{"N", "kg m s-2"}}},  //Force
             {{ 1,  0, -1,  0,  0,  0,  0}, "kg m s-2"},  //Velocity
             {{-3,  1,  0,  0,  0,  0,  0}, "kg m-3"},  //Concentration or Density
             {{ 0,  1, -1,  0,  0,  0,  0}, "g s-1"},  //MassFlow
-            {{-1,  1, -2,  0,  0,  0,  0}, "kg m-1 s-2" /*Pa*/},  //Pressure
+            {{-1,  1, -2,  0,  0,  0,  0}, "kg m-1 s-2", /*Pa*/{}, {}, {{"Pa", "N m-2"}, {"bar", "kN dm-2"}}},  //Pressure
             {{-1,  1, -1,  0,  0,  0,  0}, "kg m-1 s-1"},  //DynamicViscosity
             {{ 2,  0, -1,  0,  0,  0,  0}, "m2 s-1"},  //KinematicViscosity
             {{ 2,  1, -3,  0,  0,  0,  0}, "kg m2 s-3" /*W*/, {}, {}, {{"W", "kg m2 s-3"}}}, //Power
@@ -96,7 +96,7 @@ const std::map<std::string, const std::shared_ptr<munits::ConverterFunction>> & 
             // todo: store only the exponents
             {"E", std::make_shared<ConverterFunction>(ConverterFunction(1e18, 0, "E"))}, //exa
             {"P", std::make_shared<ConverterFunction>(ConverterFunction(1e15, 0, "P"))},  // peta
-            {"T", std::make_shared<ConverterFunction>(ConverterFunction(1e12, 0, "I"))},  // tera
+            {"T", std::make_shared<ConverterFunction>(ConverterFunction(1e12, 0, "T"))},  // tera
             {"G", std::make_shared<ConverterFunction>(ConverterFunction(1e9, 0, "G"))}, // giga
             {"M", std::make_shared<ConverterFunction>(ConverterFunction(1e6, 0, "M"))},  // mega
             {"k", std::make_shared<ConverterFunction>(ConverterFunction(1e3, 0, "k"))},  // kilo

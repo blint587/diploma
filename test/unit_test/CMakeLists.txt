@@ -11,13 +11,15 @@ set(SOURCE_FILES
         ../../src/unit_notation.hpp
         ../../src/parsers.cpp
         ../../src/parsers.hpp
+        ../../src/uresolver.hpp
+        ../../src/uresolver.cpp
         run_unit_tests.cpp
         quantity_test_conversion.hpp
         quantity_test_comparison.hpp
         quantity_test_mathop.hpp
         quantity_test_input_validation.hpp
 
-        ../../src/metric.cpp ../../src/metric.hpp ../../src/converter.cpp ../../src/converter.hpp ../../src/dynamic.hpp ../../src/dynamic.cpp quantity_test_representation.hpp ../../src/uresolver.cpp ../../src/uresolver.hpp ../../lib/Accesories/math.hpp ../../src/prefix.cpp ../../src/prefix.hpp ../../src/parsers.hpp ../../src/searchers.cpp ../../src/searchers.hpp)
+        ../../src/metric.cpp ../../src/metric.hpp ../../src/converter.cpp ../../src/converter.hpp ../../src/dynamic.hpp ../../src/dynamic.cpp quantity_test_representation.hpp ../../src/uresolver.cpp ../../src/uresolver.hpp ../../lib/Accesories/math.hpp ../../src/prefix.cpp ../../src/prefix.hpp ../../src/parsers.hpp ../../src/searchers.cpp ../../src/searchers.hpp resolver_test.hpp)
 
 add_executable(runUnitTest
         ${SOURCE_FILES})

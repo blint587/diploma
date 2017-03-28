@@ -19,7 +19,7 @@ namespace munits{
     public:
         explicit UnitNotation(){};
         explicit UnitNotation(std::string unit);
-        operator std::string() const { return prefix + unit + std::to_string(exponent);};
+        operator std::string() const { return prefix + unit + (1 == exponent ? "" : std::to_string(exponent));};
         friend std::ostream& operator<< (std::ostream & str, const UnitNotation & un){
             str << un.prefix << " " << un.unit << " " << un.exponent;
             return str;

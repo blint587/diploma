@@ -28,7 +28,7 @@ namespace munits {
             std::string new_prx = munits::getPrefixByExponent(prefix_exponent + un_exponent);
             TRACE(new_prx);
 
-            return UnitNotation(new_prx + un.GetUnit() + std::to_string(un.GetExponent()));
+            return UnitNotation(new_prx + un.GetUnit() + (un.GetExponent()==1 ? "": std::to_string(un.GetExponent())));
 
 
 
