@@ -16,10 +16,10 @@ using namespace munits;
 int main() {
 
 
-    Quantity p1 {munits::Power, 1000.0, "PW"};
+    Quantity p1 {munits::Power, 1.0, "EW"};
     Quantity p2 {munits::Power, 1.0, "Eg m2 ds-3"};
-    
-    
+
+
     cout << (p1 == p2) << '\n';
 
 
