@@ -32,5 +32,32 @@ const std::string munits::getPrefixByExponent(const int exponent) {
         }
     }
     return prx;
-    
+
+}
+
+const int ::munits::getMaxPrefixExponent() {
+
+    static int maxExponent = 0;
+    if(0 == maxExponent) {
+        for (auto prx :  GetPrefixes()) {
+            if (prx.second->getFirstOrderExponent() > maxExponent) {
+                maxExponent = (int) prx.second->getFirstOrderExponent();
+            }
+        }
+    }
+    return maxExponent;
+
+}
+const int ::munits::getMinPrefixExponent() {
+
+    static int minExponent = 0;
+    if (0 == minExponent) {
+        for (auto prx : GetPrefixes()) {
+            if (prx.second->getFirstOrderExponent() < minExponent) {
+                minExponent = (int) prx.second->getFirstOrderExponent();
+            }
+        }
+    }
+    return minExponent;
+
 }

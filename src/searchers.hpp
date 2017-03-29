@@ -15,6 +15,10 @@ namespace munits{
 
     const std::string getPrefixByExponent(int exponent);
 
+    const int getMaxPrefixExponent();
+
+    const int getMinPrefixExponent();
+
 }
 
 

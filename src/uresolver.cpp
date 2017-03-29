@@ -14,6 +14,7 @@ bool munits::Resolver::resolve(
 
         bool replacement_occured = false;
         stack<Prefix> prefixes;
+        int overflow = 0;
 
 
         for(auto b = begin; b != end; b++) {
@@ -35,12 +36,15 @@ bool munits::Resolver::resolve(
                     UnitNotation notation (*token);
                     if(! prefixes.empty()){
                         Prefix prx = prefixes.top();
-                        UnitNotation nnotation = prx + notation;
-                        if (nnotation != notation) {
 
+                        UnitNotation nnotation = mergePrefixWithNotation(prx, notation, overflow);
+                        if (nnotation != notation) {
                             token = tokens.erase(token);
                             token = tokens.insert(token, (std::string &&)nnotation);
                             prefixes.pop();
+                        }if(0 != overflow){
+                            std::string prefix_notation = getPrefixByExponent(overflow);
+                            prefixes.push(Prefix(prefix_notation, *GetPrefixes().find(prefix_notation)->second));
                         }
                     }
 
