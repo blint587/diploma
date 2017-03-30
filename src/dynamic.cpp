@@ -92,7 +92,7 @@ const std::vector<munits::Metric> & munits::GetMatrix(){
 
 const std::map<std::string, const std::shared_ptr<munits::ConverterFunction>> & munits::GetPrefixes() {
 
-    static const std::map<std::__cxx11::string, const std::shared_ptr<ConverterFunction>> prefixes  = {
+    static const std::map<std::string, const std::shared_ptr<ConverterFunction>> prefixes  = {
             // todo: store only the exponents
             {"E", std::make_shared<ConverterFunction>(ConverterFunction(1e18, 0, "E"))}, //exa
             {"P", std::make_shared<ConverterFunction>(ConverterFunction(1e15, 0, "P"))},  // peta

@@ -19,7 +19,10 @@ sources = ["munitscpp.pyx",
            "src/metric.cpp",
            "src/unit.cpp",
            "src/unit_notation.cpp",
-           "src/uresolver.cpp"
+           "src/uresolver.cpp",
+           "src/searchers.cpp",
+           "src/prefix.cpp",
+           "src/parsers.cpp"
            ]
 
 if not USE_CYTHON:
@@ -43,7 +46,7 @@ if USE_CYTHON:
 
 setup(
     name="munits",
-    version="0.1.3",
+    version="0.1.4",
     packages=["munits"],
     ext_modules=extensions,
     install_requires=["base2>=0.1.16"],

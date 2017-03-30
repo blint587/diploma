@@ -8,8 +8,8 @@
 #include "quantity.h"
 #include "dynamic.hpp"
 #include "uresolver.hpp"
-#include "../lib/Accesories/accessories.hpp"
 #include "searchers.hpp"
+#include "../lib/Accesories/accessories.hpp"
 
 using namespace std;
 
@@ -265,9 +265,7 @@ munits::Quantity munits::pow(const Quantity &a, int e) {
 munits::Quantity munits::Quantity::ntrt (const int exponent) const {
     if (1 != exponent) {
         auto dimv = GetDimVector();
-        TRACEITERABLE(dimv);
         bool rootable = std::accumulate(dimv.begin(), dimv.end(), true, [&](bool first, int second) { return first && 0 == second % exponent; });
-        TRACE("rootabel: " + std::to_string(rootable));
 
         if (rootable) {
             double n_value =  std::pow(value, 1.0 / exponent);

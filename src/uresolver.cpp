@@ -1,9 +1,13 @@
 
+#include <string>
+#include <stack>
 #include "uresolver.hpp"
-#include "../lib/Accesories/accessories.hpp"
 #include "prefix.hpp"
 #include "parsers.hpp"
-#include <string>
+#include <iostream>
+#include <sstream>
+#include <algorithm>
+#include "../lib/Accesories/accessories.hpp"
 
 using namespace std;
 
@@ -31,7 +35,7 @@ bool munits::Resolver::resolve(
                 vector<string> tokens;
 
                 // splitting up string representations (by default at " ")
-                copy(istream_iterator<std::string>(iss), istream_iterator<std::string>(), back_inserter(tokens));
+                copy(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(iss), std::back_inserter(tokens));
                 for(auto token = tokens.begin(); token != tokens.end(); token++){
                     UnitNotation notation (*token);
                     if(! prefixes.empty()){
@@ -49,7 +53,7 @@ bool munits::Resolver::resolve(
                     }
 
                 }
-                TRACEITERABLE(tokens);
+//                TRACEITERABLE(tokens);
 
                 l.insert(b, tokens.begin(), tokens.end());
                 b = l.erase(b);

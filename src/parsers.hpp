@@ -4,6 +4,7 @@
 #define SANDBOX_PARSERS_HPP
 
 #include <regex>
+#include <vector>
 #include <string>
 #include "dynamic.hpp"
 #include "unit.hpp"
@@ -14,7 +15,7 @@ namespace munits {
 
     std::vector<std::string> unparser(std::string unit);
 
-    std::vector<std::string> rparser(const std::string &token);
+    std::vector<std::string> rparser(std::string token);
 }
 
 #endif //SANDBOX_PARSERS_HPP

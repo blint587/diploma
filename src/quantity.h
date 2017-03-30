@@ -65,7 +65,7 @@ namespace munits {
 
             #ifndef NOCYTHON
             // helper functions for interfaceing
-            std::string toString() const {return std::string((std::basic_string<char, std::char_traits<char>, std::allocator<char>> &&) *this); }
+            std::string toString() const {return std::string((std::string &&) *this); }
             double toDouble() const {return double(*this);}
             double getValue() const {return value;}
             std::string getUnit() const {return compose_unit(unit_vector);}

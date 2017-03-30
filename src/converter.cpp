@@ -11,7 +11,7 @@ double munits::Converter::Convert( double val, munits::UnitNotation funit, munit
     TRACE("to unit: " + (std::string)tunit);
 
     if (!units.count(funit.GetUnit()) == 1) {
-        throw logic_error("Invalid funit: " + string((basic_string<char, char_traits<char>, allocator<char>> &&) funit));
+        throw logic_error("Invalid funit: " + string((std::string  &&) funit));
     }
     else {
         shared_ptr<Unit> to_base_func_unit = units.find(funit.GetUnit())->second;
@@ -22,7 +22,7 @@ double munits::Converter::Convert( double val, munits::UnitNotation funit, munit
 
     }
     if (!units.count(tunit.GetUnit()) == 1) {
-        throw logic_error("Invalid tunit: " + string((basic_string<char, char_traits<char>, allocator<char>> &&) tunit));
+        throw logic_error("Invalid tunit: " + string((std::string &&) tunit));
     }
     else {
         shared_ptr<Unit> from_base_func_unit = units.find(tunit.GetUnit())->second;
