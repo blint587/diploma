@@ -124,6 +124,12 @@ cdef class PyQuantity(object):
     def __float__(PyQuantity self):
         return self._thisptr.toDouble()
 
+    def sconvert(PyQuantity self, str unit):
+        mindex = self.matrix_index
+        value = self(unit)
+        del self._thisptr
+        self._thisptr = new Quantity(mindex, value, bytes(unit, "utf-8"))
+
     @property
     def _unquantified(PyQuantity self):
         return self._thisptr.unquantified()
