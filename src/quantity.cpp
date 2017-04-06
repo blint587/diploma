@@ -251,17 +251,40 @@ bool munits::Quantity::unquantified() const {
     return all_of(dim_vector.begin(), dim_vector.end(), [](int i) { return 0 == i; });
 }
 
-munits::Quantity munits::pow(munits::Quantity a, int e) {
+munits::Quantity munits::pow(const Quantity &a, int e) {
     Quantity temp(a);
     for (int i = 1; i < e; ++i) {
         temp = temp * a;
     }
     return temp;
+}
+
+
+munits::Quantity munits::Quantity::ntrt (const int exponent) const {
+    if (1 != exponent) {
+        auto dimv = GetDimVector();
+        TRACEVECTOR(dimv);
+        bool rootable = std::accumulate(dimv.begin(), dimv.end(), true, [&](bool first, int second) { return first && 0 == second % exponent; });
+        TRACE("rootabel: " + std::to_string(rootable));
+
+        if (rootable) {
+            double n_value =  std::pow(value, 1.0 / exponent);
+            std::vector<int> n_dim_vector (7);
+            std::transform(dim_vector.begin(), dim_vector.end(), n_dim_vector.begin(), [&](int exp){return exp / exponent;});
+
+            std::vector<UnitNotation> n_unit_vector (7);
+            std::transform(unit_vector.begin(), unit_vector.end(), n_unit_vector.begin(), [&](UnitNotation un){return UnitNotation(un.GetPrefix() +
+            un.GetUnit() +
+            std::to_string(un.GetExponent()/ exponent ));});
+
+            return Quantity(GetMatrixIndex(n_dim_vector), n_value, n_unit_vector);
+        }
+        else {
+            throw std::logic_error("Cannot perform " + std::to_string(exponent) + "th root on " + (std::string) *this + "!");
+        }
+    }
+    else{
+        return Quantity(*this);
+    }
 };
-
-
-
-
-
-
 

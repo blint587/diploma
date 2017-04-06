@@ -6,4 +6,3 @@ include src\*.cpp
 include src\*.hpp
 include src\*.h
 include munits\*.py
-include src\uresolver.hpp
