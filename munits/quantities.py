@@ -39,7 +39,7 @@ class Quantity(PyQuantity, BaseClass, metaclass=Register):
         else:
             return NotImplemented
 
-    def __rmatmul__(self, other):
+    def __rmul__(self, other):
         return self.__mul__(other)
 
     def __add__(self, other):
