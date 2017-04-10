@@ -11,31 +11,28 @@
 
 using namespace std;
 
-bool munits::Resolver::resolve(
-        list<std::string>::iterator begin,
-        list<std::string>::iterator end,
-        list<string> & l) {
+bool munits::Resolver::resolve(std::list<std::string> &l) {
 
         bool replacement_occured = false;
         stack<Prefix> prefixes;
         int overflow = 0;
 
 
-        for(auto b = begin; b != end; b++) {
+        for(auto b = l.begin(); b != l.end(); b++) {
             auto parsed = munits::rparser(*b);
             if("" != parsed[0]){
                 prefixes.push({parsed[0], *GetPrefixes().find(parsed[0])->second});
             }
 
-            auto m = find_if(rmatrix.begin(), rmatrix.end(), [&](munits::Metric metric){return metric.unit_resolve_mapping.find(parsed[1]) != metric.unit_resolve_mapping.end();});
+            auto m = find_if(rmatrix.begin(), rmatrix.end(), [&](munits::Metric metric)->bool {return metric.unit_resolve_mapping.end() != metric.unit_resolve_mapping.find(parsed[1]);});
+
             if (m != rmatrix.end()) {
                 string o = m->unit_resolve_mapping.find(parsed[1])->second;
-
                 istringstream iss(o);
-                vector<string> tokens;
+                list<string> tokens;
 
                 // splitting up string representations (by default at " ")
-                copy(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(iss), std::back_inserter(tokens));
+                copy(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(), std::back_inserter(tokens));
                 for(auto token = tokens.begin(); token != tokens.end(); token++){
                     UnitNotation notation (*token);
                     if(! prefixes.empty()){

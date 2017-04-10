@@ -74,12 +74,12 @@ const std::vector<munits::Metric> & munits::GetMatrix(){
             {{ 2,  1, -2,  0,  0,  0,  0}, "kg m2 s-2" /*J or Nm*/, {}, {}, {{"J", "kg m2 s-2"}}}, //Energy
             {{ 2,  1, -2, -1,  0,  0,  0}, "kg m2 s-3 A-1" /*V*/, {}, {}, {{"V", "kg m2 s-3 A-1"}}}, //Voltage
             {{ 0,  0, -1,  0,  0,  0,  0}, "s-1" /*Hz or Bq*/, {}, {}, {{"Hz", "s-1"}, {"Bq", "s-1"}}}, //Frequency or Radioactivity
-            {{ 0,  0,  1,  1,  0,  0,  0}, "A s" /*C*/}, //ElectricCharge
-            {{-2, -1,  4,  2,  0,  0,  0}, "kg−1 m−2 s4 A2" /*F*/}, //ElectricCapacitance
-            {{ 2,  1, -3, -2,  0,  0,  0}, "kg m2 s−3 A−2" /*Ω*/}, //ElectricResistance
-            {{-2, -1,  3,  2,  0,  0,  0}, "kg−1 m−2 s3 A2" /*S*/}, //ElectricalConductance
-            {{ 2,  1, -2, -1,  0,  0,  0}, "kg m2 s−2 A−1" /*Wb*/}, //MagneticFlux
-            {{ 0,  1, -2, -1,  0,  0,  0}, "kg s−2 A−1" /*T*/}, //MagneticFlux
+            {{ 0,  0,  1,  1,  0,  0,  0}, "A s" /*C*/, {}, {}, {{"C", "A s"}}}, //ElectricCharge
+            {{-2, -1,  4,  2,  0,  0,  0}, "kg−1 m−2 s4 A2" /*F*/, {}, {}, {{"F", "kg−1 m−2 s4 A2"}}}, //ElectricCapacitance
+            {{ 2,  1, -3, -2,  0,  0,  0}, "kg m2 s−3 A−2" /*Ω*/, {}, {}, {{"Ω", "kg m2 s−3 A−2"}}}, //ElectricResistance
+            {{-2, -1,  3,  2,  0,  0,  0}, "kg−1 m−2 s3 A2" /*S*/, {}, {}, {{"S", "kg−1 m−2 s3 A2"}}}, //ElectricalConductance
+            {{ 2,  1, -2, -1,  0,  0,  0}, "kg m2 s−2 A−1" /*Wb*/, {}, {}, {{"Wb", "kg m2 s−2 A−1"}}}, //MagneticFlux
+            {{ 0,  1, -2, -1,  0,  0,  0}, "kg s−2 A−1" /*T*/, {}, {}, {{"T", "kg s−2 A−1"}}}, //MagneticFlux
             {{ 2,  1, -2, -2,  0,  0,  0}, "kg m2 s−2 A−2"}, //Inductance
             {{-2,  0,  0,  0,  0,  0,  1}, "m−2 cd"}, //Illuminance
             {{ 2,  0, -2,  0,  0,  0,  0}, "m2 s−2" /*Gy or Sv*/}, //AbsorbedDose or EquivalentDose

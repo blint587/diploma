@@ -39,8 +39,7 @@ namespace munits {
             explicit Quantity(int,  double, std::vector<UnitNotation>);
             explicit Quantity(int, double, std::vector<UnitNotation>, std::vector<int>);
 
-            static std::vector<UnitNotation> compose_unit_vector(const std::string &unit);
-            static std::string compose_unit(const std::vector<UnitNotation> &);
+        static std::string compose_unit(const std::vector<UnitNotation> &);
             static Quantity mathop(const Quantity & lfths, const Quantity & rgths, int p=1);
             static bool compop(const Quantity & lfths, const Quantity & rgths, bool (*f)(const double &, const double &));
 

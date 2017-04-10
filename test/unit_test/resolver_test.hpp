@@ -20,7 +20,8 @@ TEST_F(TestResolver, resolve_W){
     munits::Resolver r;
     std::list<std::string> units {"W"};
 
-    r.resolve(units.begin(), units.end(), units);
+    r.resolve(units);
+    TRACEITERABLE(units);
 
     auto expexc = std::list<std::string>{"kg", "m2", "s-3"};
 
@@ -37,7 +38,7 @@ TEST_F(TestResolver, resolve_kW){
     munits::Resolver r;
     std::list<std::string> units {"kW"};
 
-    r.resolve(units.begin(), units.end(), units);
+    r.resolve(units);
 
     auto expexc = std::list<std::string>{"Mg", "m2", "s-3"};
 
@@ -54,7 +55,7 @@ TEST_F(TestResolver, resolve_MW){
     munits::Resolver r;
     std::list<std::string> units {"MW"};
 
-    r.resolve(units.begin(), units.end(), units);
+    r.resolve(units);
 
     auto expexc = std::list<std::string>{"Gg", "m2", "s-3"};
 
@@ -71,7 +72,7 @@ TEST_F(TestResolver, resolve_GW){
     munits::Resolver r;
     std::list<std::string> units {"GW"};
 
-    r.resolve(units.begin(), units.end(), units);
+    r.resolve(units);
 
     auto expexc = std::list<std::string>{"Tg", "m2", "s-3"};
 
@@ -88,7 +89,7 @@ TEST_F(TestResolver, resolve_EW){
     munits::Resolver r;
     std::list<std::string> units {"EW"};
 
-    r.resolve(units.begin(), units.end(), units);
+    r.resolve(units);
 
     auto expexc = std::list<std::string>{"Eg", "m2", "ds-3"};
 
@@ -105,7 +106,7 @@ TEST_F(TestResolver, resolve_mW){
     munits::Resolver r;
     std::list<std::string> units {"mW"};
 
-    r.resolve(units.begin(), units.end(), units);
+    r.resolve(units);
 
     auto expexc = std::list<std::string>{"g", "m2", "s-3"};
 
@@ -122,7 +123,7 @@ TEST_F(TestResolver, resolve_aW){
     munits::Resolver r;
     std::list<std::string> units {"aW"};
 
-    r.resolve(units.begin(), units.end(), units);
+    r.resolve(units);
 
     auto expexc = std::list<std::string>{"fg", "m2", "s-3"};
 
@@ -139,7 +140,7 @@ TEST_F(TestResolver, resolve_N){
     munits::Resolver r;
     std::list<std::string> units {"N"};
 
-    r.resolve(units.begin(), units.end(), units);
+    r.resolve(units);
 
     auto expexc = std::list<std::string>{"kg", "m", "s-2"};
 
@@ -156,7 +157,7 @@ TEST_F(TestResolver, resolve_kN){
     munits::Resolver r;
     std::list<std::string> units {"kN"};
 
-    r.resolve(units.begin(), units.end(), units);
+    r.resolve(units);
 
     auto expexc = std::list<std::string>{"Mg", "m", "s-2"};
 
@@ -173,7 +174,7 @@ TEST_F(TestResolver, resolve_Pa){
     munits::Resolver r;
     std::list<std::string> units {"Pa"};
 
-    r.resolve(units.begin(), units.end(), units);
+    r.resolve(units);
 
     auto expexc = std::list<std::string>{"kg", "m", "s-2", "m-2"};
 
@@ -190,9 +191,58 @@ TEST_F(TestResolver, resolve_bar){
     munits::Resolver r;
     std::list<std::string> units {"bar"};
 
-    r.resolve(units.begin(), units.end(), units);
+    r.resolve(units);
 
     auto expexc = std::list<std::string>{"Mg", "m", "s-2", "dm-2"};
+
+    EXPECT_EQ(units, expexc);
+
+}
+
+TEST_F(TestResolver, resolve_Tesla){
+    /*
+     * Resolves T to "kg s−2 A−1"
+     * no recursive resolution
+     * no prefix under/overflow
+     */
+    munits::Resolver r;
+    std::list<std::string> units {"T"};
+
+    r.resolve(units);
+
+    auto expexc = std::list<std::string>{"kg",  "s−2",  "A−1"};
+
+    EXPECT_EQ(units, expexc);
+
+}
+TEST_F(TestResolver, resolve_TerraTesla){
+    /*
+     * Resolves TT to "Pg s−2 A−1"
+     * no recursive resolution
+     * no prefix under/overflow
+     */
+    munits::Resolver r;
+    std::list<std::string> units {"TT"};
+
+    r.resolve(units);
+    TRACEITERABLE(units);
+    auto expexc = std::list<std::string>{"Pg",  "s−2",  "A−1"};
+
+    EXPECT_EQ(units, expexc);
+
+}
+TEST_F(TestResolver, resolve_ohm){
+    /*
+     * Resolves Ω to "Pg s−2 A−1"
+     * no recursive resolution
+     * no prefix under/overflow
+     */
+    munits::Resolver r;
+    std::list<std::string> units {"Ω"};
+
+    r.resolve(units);
+    TRACEITERABLE(units);
+    auto expexc = std::list<std::string>{"kg",  "m2",  "s−3",  "A−2"};
 
     EXPECT_EQ(units, expexc);
 

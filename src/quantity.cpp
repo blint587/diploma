@@ -14,58 +14,6 @@
 using namespace std;
 
 
-// TODO: search only those units which are related to the Unit type (based on dim vector)
-vector<munits::UnitNotation> munits::Quantity::compose_unit_vector(const string &unit) {
-
-    istringstream iss(unit);
-    list<string> tokens;
-
-    copy(istream_iterator<string>(iss), istream_iterator<string>(),
-         back_inserter(tokens)); // splitting up string representations (by default at " ")
-
-    const vector<munits::Metric> &rmatrix = munits::GetMatrix();
-
-    munits::Resolver r (rmatrix);
-
-    r.resolve(tokens.begin(), tokens.end(), tokens);
-
-
-    list <UnitNotation> unTokens (tokens.size()); // resizing to match
-
-    // composing UnitNotation objects from string representations
-    transform(tokens.begin(), tokens.end(), unTokens.begin(), [](string unt){return UnitNotation(unt);});
-
-
-    vector<UnitNotation> uv(7); // creating default 7 element long Unit vector
-
-    for (int ui = 0; ui < 7; ++ui) { // checking if any of the tokens is a base Unit
-
-        auto b = find_if(unTokens.begin(), unTokens.end(), [&rmatrix, &ui](UnitNotation t) { return rmatrix[ui].converter->is_valid_unit(t);});
-        if (b != unTokens.end()) {
-            uv[ui] = *b;
-            unTokens.erase(b);
-        }
-    }
-    if (unTokens.size() != 0) { // if no tokens left no point checking for none base units
-        for (int uii = 7; uii < munits::metrics::_Last; ++uii) {  // checking if any of the tokens is a none base Unit
-            auto b = find_if(unTokens.begin(), unTokens.end(),
-                             [&rmatrix, &uii](UnitNotation t) { return rmatrix[uii].converter->is_valid_unit(t); });
-            if (b != unTokens.end()) {
-                // searching the position where the dim_vector is not 0
-                long long position = find_if(rmatrix[uii].dim_vector.begin(), rmatrix[uii].dim_vector.end(),
-                                       [](int x) { return x != 0; }) - rmatrix[uii].dim_vector.begin();
-                uv[position] = UnitNotation(*b);
-                unTokens.erase(b);
-            }
-        }
-    }
-    if (unTokens.size() != 0) { // if any tokens left it means that what was left is invalid.
-        throw std::logic_error("Incorrect Unit: " + unit);
-    };
-    return uv;
-}
-
-
 string munits::Quantity::compose_unit(const vector<UnitNotation> &uv) {
     stringstream tmp;
 
@@ -90,7 +38,7 @@ double munits::Quantity::operator()(const string tunit) const {
     const vector<int> & dim_vector = GetDimVector(); // dime vector of current munits
     queue<vector<int>> dim_matrix; // the search matrix composed by tearing down the dim_vector
 
-    vector<UnitNotation> tunit_vector = compose_unit_vector(tunit);
+    vector<UnitNotation> tunit_vector = UnitNotation::compose_unit_vector(tunit);
 
     for (int i = 0; i < 7; ++i) {
         if (dim_vector[i] != 0) {
@@ -211,7 +159,7 @@ munits::Quantity::Quantity(int m, double value, vector<munits::UnitNotation> uni
 
 
 munits::Quantity::Quantity(munits::metrics m, double value, const string unit) :
-        munits::Quantity::Quantity(m, value, this->compose_unit_vector(unit), munits::GetMatrix()[m].dim_vector) {
+        munits::Quantity::Quantity(m, value, UnitNotation::compose_unit_vector(unit), munits::GetMatrix()[m].dim_vector) {
 }
 
 
