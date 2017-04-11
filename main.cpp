@@ -13,10 +13,10 @@ using namespace munits;
 int main() {
 
 
-    UnitNotation a ("mm2");
-    UnitNotation b ("m2");
 
-    cout << (double) (a / b) << endl;
+
+
+
 
 
 
@@ -24,6 +24,7 @@ int main() {
     cerr << "Press a key to close..." << endl;
     getch();
 #endif
+
 
     return 0;
 }

@@ -1,10 +1,12 @@
 
+#include <queue>
+#include <iostream>
 #include "quantity.h"
 #include <regex>
 #include <list>
 #include <cmath>
-#include "parsers.hpp"
 #include "unit_notation.hpp"
+#include "parsers.hpp"
 #include "uresolver.hpp"
 #include "searchers.hpp"
 
@@ -78,14 +80,47 @@ bool munits::UnitNotation::divable(const munits::UnitNotation & lfths, const mun
     return lfths.unit == rgths.unit && lfths.exponent == rgths.exponent;
 }
 
-double operator/ (const munits::UnitNotation & lfths, const munits::UnitNotation & rgths)
+int munits::UnitNotation::div (const munits::UnitNotation & lfths, const munits::UnitNotation & rgths)
 {
     if(munits::UnitNotation::divable(lfths, rgths)){
         double prx_lfths = munits::getExponentOfPrefix(lfths.GetPrefix());
         double prx_rgths = munits::getExponentOfPrefix(rgths.GetPrefix());
-        return (prx_lfths - prx_rgths) * lfths.GetExponent();
+        return (int) ((prx_lfths - prx_rgths) * lfths.GetExponent());
 
     }else{
         throw std::logic_error("Unit notations cannot be dividedd!");
     }
+}
+
+string munits::UnitNotation::compose_unit(const vector<UnitNotation> & uns, const int midx) {
+    
+    auto metric = munits::GetMatrix()[midx];
+    
+    for(auto b = metric.unit_resolve_mapping.begin(); b != metric.unit_resolve_mapping.end(); b++){
+        std::string master_unit = b->first;
+        const auto master_vector = munits::UnitNotation::compose_unit_vector(master_unit);
+        bool div = true;
+    
+        int prefix_exponent = 0;
+    
+        for (int idx = 0; idx < uns.size() && (div = munits::UnitNotation::divable(uns[idx], master_vector[idx])); idx++) {
+            prefix_exponent +=  munits::UnitNotation::div(uns[idx], master_vector[idx]);
+        }
+        if (div) {
+            auto prx =  getPrefixByExponent(prefix_exponent);
+            return prx + master_unit;
+        }
+    }     
+    stringstream tmp;
+    for_each(uns.begin(), uns.end(), [&](const UnitNotation &unit) {
+                 if (unit.GetUnit() != "") {
+                     tmp << unit.GetPrefix() << unit.GetUnit()
+                         << (unit.GetExponent() != 1 ? to_string(unit.GetExponent()) : "") << " ";
+                 }
+             }
+    );
+
+    string s = tmp.str();
+    s.erase(s.find_last_not_of(" ") + 1); // right triming the string
+    return s;
 }

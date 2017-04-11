@@ -9,26 +9,10 @@
 #include "dynamic.hpp"
 #include "uresolver.hpp"
 #include "searchers.hpp"
+#include "unit_notation.hpp"
 #include "../lib/Accesories/accessories.hpp"
 
 using namespace std;
-
-
-string munits::Quantity::compose_unit(const vector<UnitNotation> &uv) {
-    stringstream tmp;
-
-    for_each(uv.begin(), uv.end(), [&](const UnitNotation & unit){
-            if (unit.GetUnit() != "") {
-                tmp << unit.GetPrefix() << unit.GetUnit()
-                    << (unit.GetExponent() != 1 ? to_string(unit.GetExponent()) : "") << " ";
-            }
-        }
-    );
-
-    string s = tmp.str();
-    s.erase(s.find_last_not_of(" ")+1); // right triming the string
-    return s;
-};
 
 
 double munits::Quantity::operator()(const string tunit) const {
@@ -177,14 +161,15 @@ bool munits::Quantity::compop(const munits::Quantity &lfths, const munits::Quant
         static const double precision = 10e4;
         auto lfhs = round(lfths.value * precision) / precision;
         // converting 'b' to the same Unit as 'a' and comparing there value
-        auto rths = round(rgths(Quantity::compose_unit(lfths.unit_vector)) * precision) / precision;
+        auto rths = round(rgths(UnitNotation::compose_unit(lfths.unit_vector, lfths.matrix_index)) * precision) / precision;
 
         auto r = f(lfhs, rths );
 
         return r;
     } else {
         throw logic_error("Comparison cannot be done! Measurement Unit types do not match. ( '" +
-                          Quantity::compose_unit(lfths.unit_vector) + "', '" + Quantity::compose_unit(rgths.unit_vector) + "' )");
+                                  UnitNotation::compose_unit(lfths.unit_vector, lfths.matrix_index) + "', '" +
+                                  UnitNotation::compose_unit(rgths.unit_vector, rgths.matrix_index) + "' )");
     }
 }
 

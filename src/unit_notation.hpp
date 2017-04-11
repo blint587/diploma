@@ -19,6 +19,8 @@ namespace munits{
         std::string prefix = "";
         int exponent = 0;
 
+        static int div(const munits::UnitNotation & lfths,  const munits::UnitNotation & rgths);
+
 
     public:
         explicit UnitNotation(){};
@@ -40,11 +42,13 @@ namespace munits{
 
         static std::vector<UnitNotation> compose_unit_vector(const std::string &unit);
         static bool divable(const munits::UnitNotation & lfths, const munits::UnitNotation & rgths);
+        static std::string compose_unit(const std::vector<UnitNotation> &, const int);
+
     };
 
 
 }
-double operator/ (munits::UnitNotation const & lfths,  munits::UnitNotation const & rgths);
+
 
 
 #endif //MUSYS_UNIT_NOTATION_HPP

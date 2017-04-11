@@ -82,7 +82,7 @@ TEST_F(TestQuantityDerivedUnitsRepresentation, test_force_direct_creation){
 
     std::string s = (std::string &&) f;
 
-    EXPECT_EQ(s, "1 m kg s-2"); // should be represented as N
+    EXPECT_EQ(s, "1 N"); // should be represented as N
 
 }
 TEST_F(TestQuantityDerivedUnitsRepresentation, test_force_indirect_creation){
@@ -93,7 +93,7 @@ TEST_F(TestQuantityDerivedUnitsRepresentation, test_force_indirect_creation){
 
     std::string s = (std::string &&) f;
 
-    EXPECT_EQ(s, "1 m kg s-2"); // should be represented as N
+    EXPECT_EQ(s, "1 N"); // should be represented as N
 
 }
 TEST_F(TestQuantityDerivedUnitsRepresentation, test_mass_flow_indirect_creation){
