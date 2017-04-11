@@ -88,29 +88,31 @@ int munits::UnitNotation::div (const munits::UnitNotation & lfths, const munits:
         return (int) ((prx_lfths - prx_rgths) * lfths.GetExponent());
 
     }else{
-        throw std::logic_error("Unit notations cannot be dividedd!");
+        throw std::logic_error("Unit notations cannot be divided!");
     }
 }
 
 string munits::UnitNotation::compose_unit(const vector<UnitNotation> & uns, const int midx) {
-    
+
     auto metric = munits::GetMatrix()[midx];
-    
+
     for(auto b = metric.unit_resolve_mapping.begin(); b != metric.unit_resolve_mapping.end(); b++){
         std::string master_unit = b->first;
         const auto master_vector = munits::UnitNotation::compose_unit_vector(master_unit);
         bool div = true;
-    
+
         int prefix_exponent = 0;
-    
+
         for (int idx = 0; idx < uns.size() && (div = munits::UnitNotation::divable(uns[idx], master_vector[idx])); idx++) {
             prefix_exponent +=  munits::UnitNotation::div(uns[idx], master_vector[idx]);
         }
         if (div) {
             auto prx =  getPrefixByExponent(prefix_exponent);
-            return prx + master_unit;
+            if("None" != prx) {
+                return prx + master_unit;
+            }
         }
-    }     
+    }
     stringstream tmp;
     for_each(uns.begin(), uns.end(), [&](const UnitNotation &unit) {
                  if (unit.GetUnit() != "") {

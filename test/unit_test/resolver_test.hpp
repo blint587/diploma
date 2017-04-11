@@ -13,7 +13,7 @@ class TestResolver : public testing::Test{};
 
 TEST_F(TestResolver, resolve_W){
     /*
-     * Resolves kw to 'Tg m2 s-3'
+     * Resolves W to 'kg m2 s-3'
      * none recursive resolution
      * no prefix overflow
      */
@@ -31,7 +31,7 @@ TEST_F(TestResolver, resolve_W){
 
 TEST_F(TestResolver, resolve_kW){
     /*
-     * Resolves kw to 'Mg m2 s-3'
+     * Resolves kW to 'Mg m2 s-3'
      * none recursive resolution
      * no prefix overflow
      */
@@ -48,7 +48,7 @@ TEST_F(TestResolver, resolve_kW){
 
 TEST_F(TestResolver, resolve_MW){
     /*
-     * Resolves kw to 'Gg m2 s-3'
+     * Resolves MW to 'Gg m2 s-3'
      * none recursive resolution
      * no prefix overflow
      */
@@ -65,7 +65,7 @@ TEST_F(TestResolver, resolve_MW){
 
 TEST_F(TestResolver, resolve_GW){
     /*
-     * Resolves kw to 'Tg m2 s-3'
+     * Resolves GW to 'Tg m2 s-3'
      * none recursive resolution
      * no prefix overflow
      */
@@ -82,7 +82,7 @@ TEST_F(TestResolver, resolve_GW){
 
 TEST_F(TestResolver, resolve_EW){
     /*
-     * Resolves kw to 'Tg m2 s-3'
+     * Resolves EW to 'Eg m2 s-3'
      * none recursive resolution
      * prefix overflow
      */
@@ -164,6 +164,22 @@ TEST_F(TestResolver, resolve_kN){
     EXPECT_EQ(units, expexc);
 
 }
+TEST_F(TestResolver, resolve_lbf){
+    /*
+     * Resolves lbf to 'slug ft s-2'
+     * none recursive resolution
+     * no prefix under/overflow
+     */
+    munits::Resolver r;
+    std::list<std::string> units {"lbf"};
+
+    r.resolve(units);
+
+    auto expexc = std::list<std::string>{"slug", "ft", "s-2"};
+
+    EXPECT_EQ(units, expexc);
+
+}
 
 TEST_F(TestResolver, resolve_Pa){
     /*
@@ -176,7 +192,7 @@ TEST_F(TestResolver, resolve_Pa){
 
     r.resolve(units);
 
-    auto expexc = std::list<std::string>{"kg", "m", "s-2", "m-2"};
+    auto expexc = std::list<std::string>{"kg", "s-2", "m-1"};
 
     EXPECT_EQ(units, expexc);
 
@@ -184,7 +200,7 @@ TEST_F(TestResolver, resolve_Pa){
 
 TEST_F(TestResolver, resolve_bar){
     /*
-     * Resolves Pa to 'kg m s-2 m-2'
+     * Resolves bar to 'Mg m s-2 m-2'
      * recursive resolution
      * no prefix under/overflow
      */
@@ -193,7 +209,7 @@ TEST_F(TestResolver, resolve_bar){
 
     r.resolve(units);
 
-    auto expexc = std::list<std::string>{"Mg", "m", "s-2", "dm-2"};
+    auto expexc = std::list<std::string>{"Mg", "ds-2", "m-1"};
 
     EXPECT_EQ(units, expexc);
 
@@ -201,7 +217,7 @@ TEST_F(TestResolver, resolve_bar){
 
 TEST_F(TestResolver, resolve_Tesla){
     /*
-     * Resolves T to "kg s−2 A−1"
+     * Resolves T to "kg s-2 A-1"
      * no recursive resolution
      * no prefix under/overflow
      */
@@ -210,14 +226,14 @@ TEST_F(TestResolver, resolve_Tesla){
 
     r.resolve(units);
 
-    auto expexc = std::list<std::string>{"kg",  "s−2",  "A−1"};
+    auto expexc = std::list<std::string>{"kg",  "s-2",  "A-1"};
 
     EXPECT_EQ(units, expexc);
 
 }
 TEST_F(TestResolver, resolve_TerraTesla){
     /*
-     * Resolves TT to "Pg s−2 A−1"
+     * Resolves TT to "Pg s-2 A-1"
      * no recursive resolution
      * no prefix under/overflow
      */
@@ -226,14 +242,14 @@ TEST_F(TestResolver, resolve_TerraTesla){
 
     r.resolve(units);
     TRACEITERABLE(units);
-    auto expexc = std::list<std::string>{"Pg",  "s−2",  "A−1"};
+    auto expexc = std::list<std::string>{"Pg",  "s-2",  "A-1"};
 
     EXPECT_EQ(units, expexc);
 
 }
 TEST_F(TestResolver, resolve_ohm){
     /*
-     * Resolves Ω to "Pg s−2 A−1"
+     * Resolves Ω to "Pg s-2 A-1"
      * no recursive resolution
      * no prefix under/overflow
      */
@@ -242,7 +258,39 @@ TEST_F(TestResolver, resolve_ohm){
 
     r.resolve(units);
     TRACEITERABLE(units);
-    auto expexc = std::list<std::string>{"kg",  "m2",  "s−3",  "A−2"};
+    auto expexc = std::list<std::string>{"kg",  "m2",  "s-3",  "A-2"};
+
+    EXPECT_EQ(units, expexc);
+
+}
+TEST_F(TestResolver, resolve_psi){
+    /*
+     * Resolves psi to "Pg s-2 A-1"
+     * no recursive resolution
+     * no prefix under/overflow
+     */
+    munits::Resolver r;
+    std::list<std::string> units {"psi"};
+
+    r.resolve(units);
+    TRACEITERABLE(units);
+    auto expexc = std::list<std::string>{"slug",  "ft",  "s-2",  "inc-2"};
+
+    EXPECT_EQ(units, expexc);
+
+}
+TEST_F(TestResolver, resolve_W_h){
+    /*
+     * Resolves W h to "kg m2 s-3 h"
+     * no recursive resolution
+     * no prefix under/overflow
+     */
+    munits::Resolver r;
+    std::list<std::string> units {"W", "h"};
+
+    r.resolve(units);
+    TRACEITERABLE(units);
+    auto expexc = std::list<std::string>{"kg", "m2", "s-3", "h"};
 
     EXPECT_EQ(units, expexc);
 

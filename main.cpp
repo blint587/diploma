@@ -12,11 +12,10 @@ using namespace munits;
 
 int main() {
 
+    munits::Quantity p1 (Pressure,  1, "bar");
+    munits::Quantity p2 (Pressure,  1e5, "Pa");
 
-
-
-
-
+    cout << p2 + p1  << endl;
 
 
 
