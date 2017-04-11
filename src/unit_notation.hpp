@@ -6,6 +6,7 @@
 #include <set>
 #include <iostream>
 #include <vector>
+#include <list>
 #include <string>
 #include <exception>
 #include "../lib/Accesories/accessories.hpp"
@@ -20,7 +21,8 @@ namespace munits{
         int exponent = 0;
 
         static int div(const munits::UnitNotation & lfths,  const munits::UnitNotation & rgths);
-
+        static std::list<munits::UnitNotation> tokenise(const std::string &unit);
+        static bool divable(const munits::UnitNotation & lfths, const munits::UnitNotation & rgths);
 
     public:
         explicit UnitNotation(){};
@@ -41,8 +43,20 @@ namespace munits{
         const int & GetExponent() const { return exponent;};
 
         static std::vector<UnitNotation> compose_unit_vector(const std::string &unit);
-        static bool divable(const munits::UnitNotation & lfths, const munits::UnitNotation & rgths);
+
         static std::string compose_unit(const std::vector<UnitNotation> &, const int);
+
+
+    };
+
+    class UnitNotationVector {
+
+        private:
+            std::vector<munits::UnitNotation> unitnotations {7};
+            int mult_factor;
+
+        public:
+            UnitNotationVector(){};
 
     };
 
