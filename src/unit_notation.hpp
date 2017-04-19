@@ -65,7 +65,8 @@ namespace munits{
             std::vector<UnitNotation>::iterator begin() {return unitnotations.begin();};
             std::vector<UnitNotation>::iterator end() {return unitnotations.end();};
 
-            void set(int, const UnitNotation &);
+            void set(long long int, const UnitNotation &);
+
             UnitNotation & operator[](int idx);
             const UnitNotation operator[] (int idx) const;
 

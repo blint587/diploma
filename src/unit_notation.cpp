@@ -45,7 +45,6 @@ list <munits::UnitNotation> munits::UnitNotation::tokenise(const string &unit) {
     return unTokens;
 }
 
-
 bool munits::UnitNotation::divable(const munits::UnitNotation & lfths, const munits::UnitNotation & rgths) {
     return lfths.unit == rgths.unit && lfths.exponent == rgths.exponent;
 }
@@ -62,7 +61,7 @@ int munits::UnitNotation::div (const munits::UnitNotation & lfths, const munits:
     }
 }
 
-void munits::UnitNotationVector::set(int idx, const munits::UnitNotation & un) {
+void munits::UnitNotationVector::set(long long int idx, const munits::UnitNotation & un) {
     if(unitnotations[idx] != munits::UnitNotationVector::npos()){
                // do something
     }else{
@@ -78,8 +77,6 @@ munits::UnitNotation & munits::UnitNotationVector::operator[](int idx) {
 const munits::UnitNotation munits::UnitNotationVector::operator[](int idx)  const{
     return unitnotations[idx];
 }
-
-
 
 const  munits::UnitNotation & munits::UnitNotationVector::npos() {
     static munits::UnitNotation npos {};
@@ -102,7 +99,7 @@ munits::UnitNotationVector munits::UnitNotationVector::compose_unit_vector(const
             b = find_if(b, unTokens.end(), [&rmatrix, &uidx](
                     UnitNotation t) -> bool { return rmatrix[uidx].converter->is_valid_unit(t); });
             if (b != unTokens.end()) {
-                uv[uidx] = *b;
+                uv.set(uidx, *b);
                 b = unTokens.erase(b);
             }
         }while(b != unTokens.end());
@@ -115,7 +112,7 @@ munits::UnitNotationVector munits::UnitNotationVector::compose_unit_vector(const
                 // searching the position where the dim_vector is not 0
                 long long position = find_if(rmatrix[uidx].dim_vector.begin(), rmatrix[uidx].dim_vector.end(),
                                        [](int x) { return x != 0; }) - rmatrix[uidx].dim_vector.begin();
-                uv[position] = UnitNotation(*b);
+                uv.set(position, UnitNotation(*b));
                 unTokens.erase(b);
             }
         }
