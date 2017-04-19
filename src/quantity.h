@@ -70,7 +70,7 @@ namespace munits {
             std::string toString() const {return std::string((std::string &&) *this); }
             double toDouble() const {return double(*this);}
             double getValue() const {return value;}
-            std::string getUnit() const {return compose_unit(unit_vector);}
+            std::string getUnit() const {return UnitNotationVector::compose_unit(unit_vector, matrix_index);}
             Quantity(){};
             #endif
             friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.value << " " << UnitNotationVector::compose_unit(
