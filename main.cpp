@@ -12,7 +12,7 @@ using namespace munits;
 
 int main() {
 
-   auto uv = UnitNotation::compose_unit_vector("psi");
+   auto uv = UnitNotationVector::compose_unit_vector("psi");
 
     TRACEITERABLE(uv);
 

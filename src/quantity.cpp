@@ -22,7 +22,7 @@ double munits::Quantity::operator()(const string tunit) const {
     const vector<int> & dim_vector = GetDimVector(); // dime vector of current munits
     queue<vector<int>> dim_matrix; // the search matrix composed by tearing down the dim_vector
 
-    vector<UnitNotation> tunit_vector = UnitNotation::compose_unit_vector(tunit);
+    UnitNotationVector tunit_vector = UnitNotationVector::compose_unit_vector(tunit);
 
     for (int i = 0; i < 7; ++i) {
         if (dim_vector[i] != 0) {
@@ -45,7 +45,7 @@ double munits::Quantity::operator()(const string tunit) const {
         for (auto q = rmatrix.begin(); q != rmatrix.end(); ++q) {
 
             if ((q->dim_vector == dmv || q->dim_vector == normalized_dim) &&
-                (q->converter->is_valid_unit(unit_vector[position]) &&
+                (q->converter->is_valid_unit(this->unit_vector[position]) &&
                  q->converter->is_valid_unit(tunit_vector[position]))) {
                 tmp = q->converter->Convert(tmp, unit_vector[position], tunit_vector[position], dim_vector[position]);
                 dim_matrix.pop();
@@ -65,7 +65,7 @@ double munits::Quantity::operator()(const string tunit) const {
 munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity &rgths, int p) {
 
     const vector<Metric> &rmatrix = munits::GetMatrix();
-    vector<UnitNotation> nunit_vector(7);
+    UnitNotationVector nunit_vector;
     vector<int> ndim_vector(7);
     double tmp_rgh = rgths.value;
     double tmp_lft = lfths.value;
@@ -123,7 +123,7 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
     return Quantity((int)nmindex, tmp_lft * std::pow(tmp_rgh, p), nunit_vector, ndim_vector);
 };
 
-munits::Quantity::Quantity(int m, double value, vector<munits::UnitNotation> unit_v, std::vector<int> dim_v) :
+munits::Quantity::Quantity(int m, double value, munits::UnitNotationVector unit_v, std::vector<int> dim_v) :
         matrix_index(m),
         value(value),
         converter(munits::GetMatrix()[m].converter),
@@ -143,11 +143,11 @@ munits::Quantity::Quantity(int m, double value, vector<munits::UnitNotation> uni
 
 
 munits::Quantity::Quantity(munits::metrics m, double value, const string unit) :
-        munits::Quantity::Quantity(m, value, UnitNotation::compose_unit_vector(unit), munits::GetMatrix()[m].dim_vector) {
+        munits::Quantity::Quantity(m, value, UnitNotationVector::compose_unit_vector(unit), munits::GetMatrix()[m].dim_vector) {
 }
 
 
-munits::Quantity::Quantity(int i, double value, vector<UnitNotation> uv) :
+munits::Quantity::Quantity(int i, double value, UnitNotationVector uv) :
         munits::Quantity::Quantity(i, value, uv, munits::GetMatrix()[i].dim_vector) {
 }
 
@@ -161,15 +161,15 @@ bool munits::Quantity::compop(const munits::Quantity &lfths, const munits::Quant
         static const double precision = 10e4;
         auto lfhs = round(lfths.value * precision) / precision;
         // converting 'b' to the same Unit as 'a' and comparing there value
-        auto rths = round(rgths(UnitNotation::compose_unit(lfths.unit_vector, lfths.matrix_index)) * precision) / precision;
+        auto rths = round(rgths(UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)) * precision) / precision;
 
         auto r = f(lfhs, rths );
 
         return r;
     } else {
         throw logic_error("Comparison cannot be done! Measurement Unit types do not match. ( '" +
-                                  UnitNotation::compose_unit(lfths.unit_vector, lfths.matrix_index) + "', '" +
-                                  UnitNotation::compose_unit(rgths.unit_vector, rgths.matrix_index) + "' )");
+                          UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index) + "', '" +
+                          UnitNotationVector::compose_unit(rgths.unit_vector, rgths.matrix_index) + "' )");
     }
 }
 
@@ -205,10 +205,9 @@ munits::Quantity munits::Quantity::ntrt (const int exponent) const {
             std::vector<int> n_dim_vector (7);
             std::transform(dim_vector.begin(), dim_vector.end(), n_dim_vector.begin(), [&](int exp){return exp / exponent;});
 
-            std::vector<UnitNotation> n_unit_vector (7);
-            std::transform(unit_vector.begin(), unit_vector.end(), n_unit_vector.begin(), [&](UnitNotation un){return UnitNotation(un.GetPrefix() +
-            un.GetUnit() +
-            std::to_string(un.GetExponent()/ exponent ));});
+            UnitNotationVector n_unit_vector;
+            std::transform(unit_vector.begin(), unit_vector.end(), n_unit_vector.begin(), [&](UnitNotation un){
+                                                                                            return UnitNotation(un.GetPrefix() + un.GetUnit() + std::to_string(un.GetExponent()/ exponent ));});
 
             return Quantity((int) munits::getMatrixIndex(n_dim_vector), n_value, n_unit_vector);
         }

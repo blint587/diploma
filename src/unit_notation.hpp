@@ -9,11 +9,13 @@
 #include <list>
 #include <string>
 #include <exception>
+#include <iterator>
 #include "../lib/Accesories/accessories.hpp"
 
 namespace munits{
 
     class UnitNotation  {
+        friend class UnitNotationVector;
 
     private:
         std::string unit = "";
@@ -29,6 +31,8 @@ namespace munits{
         explicit UnitNotation(std::string unit);
         UnitNotation(const UnitNotation &) = default;
 
+        UnitNotation & operator= (const UnitNotation &)= default;
+
         operator std::string() const { return prefix + unit + (1 == exponent ? "" : std::to_string(exponent));};
 
         friend std::ostream& operator<< (std::ostream & str, const UnitNotation & un){
@@ -42,23 +46,41 @@ namespace munits{
         const std::string & GetPrefix() const { return prefix;};
         const int & GetExponent() const { return exponent;};
 
-        static std::vector<UnitNotation> compose_unit_vector(const std::string &unit);
-
-        static std::string compose_unit(const std::vector<UnitNotation> &, const int);
-
-
     };
 
-    class UnitNotationVector {
+    class UnitNotationVector  {
 
         private:
             std::vector<munits::UnitNotation> unitnotations {7};
-            int mult_factor;
-
+            int mult_factor = 0;
+            static const UnitNotation & npos ();
         public:
             UnitNotationVector(){};
+            UnitNotationVector & operator= (const UnitNotationVector &) = default;
+            UnitNotationVector (const UnitNotationVector &) = default;
 
+            std::vector<UnitNotation>::const_iterator begin() const {return unitnotations.begin();};
+            std::vector<UnitNotation>::const_iterator end() const {return unitnotations.end();};
+
+            std::vector<UnitNotation>::iterator begin() {return unitnotations.begin();};
+            std::vector<UnitNotation>::iterator end() {return unitnotations.end();};
+
+            void set(int, const UnitNotation &);
+            UnitNotation & operator[](int idx);
+            const UnitNotation operator[] (int idx) const;
+
+            unsigned long long int size() const {return unitnotations.size();}
+
+            friend bool operator==(const UnitNotationVector & lfths, const UnitNotationVector & rghts){return lfths.unitnotations == rghts.unitnotations &&  lfths.mult_factor == rghts.mult_factor;}
+            friend bool operator!=(const UnitNotationVector & lfths, const UnitNotationVector & rghts){return !(lfths == rghts);}
+
+        static UnitNotationVector compose_unit_vector(const std::string &unit);
+
+        static std::string compose_unit(const UnitNotationVector &, const int);
     };
+
+
+
 
 
 }

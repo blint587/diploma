@@ -31,13 +31,17 @@ namespace munits {
         private:
 
             int matrix_index;
-            std::vector<UnitNotation> unit_vector;
+//            std::vector<UnitNotation> unit_vector;
+            UnitNotationVector unit_vector;
             double value;
             std::shared_ptr<munits::Converter> converter;
             std::vector<int> dim_vector;
 
-            explicit Quantity(int,  double, std::vector<UnitNotation>);
-            explicit Quantity(int, double, std::vector<UnitNotation>, std::vector<int>);
+//            explicit Quantity(int,  double, std::vector<UnitNotation>);
+//            explicit Quantity(int, double, std::vector<UnitNotation>, std::vector<int>);
+
+            explicit Quantity(int,  double, UnitNotationVector);
+            explicit Quantity(int, double, UnitNotationVector, std::vector<int>);
 
             static Quantity mathop(const Quantity & lfths, const Quantity & rgths, int p=1);
             static bool compop(const Quantity & lfths, const Quantity & rgths, bool (*f)(const double &, const double &));
@@ -55,7 +59,7 @@ namespace munits {
             const int getMatrixIndex()const {return matrix_index;};
 
             double operator()(const std::string) const;
-            operator std::string() const {std::stringstream ss; ss << value  << " " << UnitNotation::compose_unit(unit_vector, matrix_index); return ss.str();}
+            operator std::string() const {std::stringstream ss; ss << value  << " " << UnitNotationVector::compose_unit(unit_vector, matrix_index); return ss.str();}
             explicit operator double() const;
 
             bool unquantified() const;
@@ -69,11 +73,11 @@ namespace munits {
             std::string getUnit() const {return compose_unit(unit_vector);}
             Quantity(){};
             #endif
-            friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.value << " " << munits::UnitNotation::compose_unit(
+            friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.value << " " << UnitNotationVector::compose_unit(
                         a.unit_vector, a.matrix_index);return str;};
 
-            friend Quantity operator+ (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value + rgths( munits::UnitNotation::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};
-            friend Quantity operator- (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value - rgths( munits::UnitNotation::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};
+            friend Quantity operator+ (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value + rgths( UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};
+            friend Quantity operator- (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value - rgths( UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};
 
             friend Quantity operator* (const Quantity & lfths, const Quantity & rgths) {return mathop(lfths, rgths, 1);};
             friend Quantity operator* (const Quantity & lfths, const int rgths) {Quantity n (lfths); n.value *= rgths; return n;};

@@ -45,46 +45,6 @@ list <munits::UnitNotation> munits::UnitNotation::tokenise(const string &unit) {
     return unTokens;
 }
 
-// TODO: search only those units which are related to the Unit type (based on dim vector)
-vector<munits::UnitNotation> munits::UnitNotation::compose_unit_vector(const string &unit) {
-
-    auto  rmatrix = GetMatrix();
-
-    list <munits::UnitNotation> unTokens = munits::UnitNotation::tokenise(unit);
-
-    vector<munits::UnitNotation> uv(7); // creating default 7 element long Unit vector
-
-    for (int uidx = 0; uidx < 7; ++uidx) { // checking if any of the tokens is a base Unit
-
-        auto b = unTokens.begin();
-        do { // pushing all the same dimension type units into uv, even if such type already exists
-            b = find_if(b, unTokens.end(), [&rmatrix, &uidx](
-                    munits::UnitNotation t) -> bool { return rmatrix[uidx].converter->is_valid_unit(t); });
-            if (b != unTokens.end()) {
-                uv[uidx] = *b;
-                b = unTokens.erase(b);
-            }
-        }while(b != unTokens.end());
-    }
-    if (unTokens.size() != 0) { // if no tokens left no point checking for none base units
-        for (int uidx = 7; uidx < _Last; ++uidx) {  // checking if any of the tokens is a none base Unit
-            auto b = find_if(unTokens.begin(), unTokens.end(),
-                             [&rmatrix, &uidx](munits::UnitNotation t)->bool { return rmatrix[uidx].converter->is_valid_unit(t); });
-            if (b != unTokens.end()) {
-                // searching the position where the dim_vector is not 0
-                long long position = find_if(rmatrix[uidx].dim_vector.begin(), rmatrix[uidx].dim_vector.end(),
-                                       [](int x) { return x != 0; }) - rmatrix[uidx].dim_vector.begin();
-                uv[position] = munits::UnitNotation(*b);
-                unTokens.erase(b);
-            }
-        }
-    }
-    if (unTokens.size() != 0) { // if any tokens left it means that what was left is invalid.
-        throw logic_error("Incorrect Unit: " + unit);
-    };
-    return uv;
-}
-
 
 bool munits::UnitNotation::divable(const munits::UnitNotation & lfths, const munits::UnitNotation & rgths) {
     return lfths.unit == rgths.unit && lfths.exponent == rgths.exponent;
@@ -102,19 +62,83 @@ int munits::UnitNotation::div (const munits::UnitNotation & lfths, const munits:
     }
 }
 
-string munits::UnitNotation::compose_unit(const vector<UnitNotation> & uns, const int midx) {
+void munits::UnitNotationVector::set(int idx, const munits::UnitNotation & un) {
+    if(unitnotations[idx] != munits::UnitNotationVector::npos()){
+               // do something
+    }else{
+        unitnotations[idx] = un;
+    }
 
-    auto metric = munits::GetMatrix()[midx];
+}
+
+munits::UnitNotation & munits::UnitNotationVector::operator[](int idx) {
+    return unitnotations[idx];
+}
+
+const munits::UnitNotation munits::UnitNotationVector::operator[](int idx)  const{
+    return unitnotations[idx];
+}
+
+
+
+const  munits::UnitNotation & munits::UnitNotationVector::npos() {
+    static munits::UnitNotation npos {};
+    return npos;
+}
+
+// TODO: search only those units which are related to the Unit type (based on dim vector)
+munits::UnitNotationVector munits::UnitNotationVector::compose_unit_vector(const string &unit) {
+
+    auto  rmatrix = GetMatrix();
+
+    list <UnitNotation> unTokens = UnitNotation::tokenise(unit);
+
+    UnitNotationVector uv;
+
+    for (int uidx = 0; uidx < 7; ++uidx) { // checking if any of the tokens is a base Unit
+
+        auto b = unTokens.begin();
+        do { // pushing all the same dimension type units into uv, even if such type already exists
+            b = find_if(b, unTokens.end(), [&rmatrix, &uidx](
+                    UnitNotation t) -> bool { return rmatrix[uidx].converter->is_valid_unit(t); });
+            if (b != unTokens.end()) {
+                uv[uidx] = *b;
+                b = unTokens.erase(b);
+            }
+        }while(b != unTokens.end());
+    }
+    if (unTokens.size() != 0) { // if no tokens left no point checking for none base units
+        for (int uidx = 7; uidx < _Last; ++uidx) {  // checking if any of the tokens is a none base Unit
+            auto b = find_if(unTokens.begin(), unTokens.end(),
+                             [&rmatrix, &uidx](UnitNotation t)->bool { return rmatrix[uidx].converter->is_valid_unit(t); });
+            if (b != unTokens.end()) {
+                // searching the position where the dim_vector is not 0
+                long long position = find_if(rmatrix[uidx].dim_vector.begin(), rmatrix[uidx].dim_vector.end(),
+                                       [](int x) { return x != 0; }) - rmatrix[uidx].dim_vector.begin();
+                uv[position] = UnitNotation(*b);
+                unTokens.erase(b);
+            }
+        }
+    }
+    if (unTokens.size() != 0) { // if any tokens left it means that what was left is invalid.
+        throw logic_error("Incorrect Unit: " + unit);
+    };
+    return uv;
+}
+
+string munits::UnitNotationVector::compose_unit(const munits::UnitNotationVector & uns, const int midx) {
+
+    auto metric = GetMatrix()[midx];
 
     for(auto b = metric.unit_resolve_mapping.begin(); b != metric.unit_resolve_mapping.end(); b++){
-        std::string master_unit = b->first;
-        const auto master_vector = munits::UnitNotation::compose_unit_vector(master_unit);
+        string master_unit = b->first;
+        UnitNotationVector master_vector = UnitNotationVector::compose_unit_vector(master_unit);
         bool div = true;
 
         int prefix_exponent = 0;
 
-        for (int idx = 0; idx < uns.size() && (div = munits::UnitNotation::divable(uns[idx], master_vector[idx])); idx++) {
-            prefix_exponent +=  munits::UnitNotation::div(uns[idx], master_vector[idx]);
+        for (int idx = 0; idx < uns.size() && (div = UnitNotation::divable(uns[idx], master_vector[idx])); idx++) {
+            prefix_exponent +=  UnitNotation::div(uns[idx], master_vector[idx]);
         }
         if (div) {
             auto prx =  getPrefixByExponent(prefix_exponent);
