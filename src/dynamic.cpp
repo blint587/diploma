@@ -31,7 +31,7 @@ const std::vector<munits::Metric> & munits::GetMatrix(){
                             {"oz",  std::make_shared<munits::Unit>(munits::Unit(28.3495, 0., "oz"))},
                             {"lb",  std::make_shared<munits::Unit>(munits::Unit(453.592, 0., "lb"))},
                             {"t",  std::make_shared<munits::Unit>(munits::Unit(1e6, 0., "t"))},
-                            {"slug", std::make_shared<munits::Unit>(munits::Unit(14.593903, 0., "slug"))}
+                            {"slug", std::make_shared<munits::Unit>(munits::Unit(14593.903, 0., "slug"))}
 
                     }
             },

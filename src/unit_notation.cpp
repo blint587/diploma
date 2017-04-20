@@ -63,7 +63,28 @@ int munits::UnitNotation::div (const munits::UnitNotation & lfths, const munits:
 
 void munits::UnitNotationVector::set(long long int idx, const munits::UnitNotation & un) {
     if(unitnotations[idx] != munits::UnitNotationVector::npos()){
-               // do something
+        vector<int> lft_vector (7);
+        lft_vector[idx] = unitnotations[idx].GetExponent();
+//        TRACEITERABLE(lft_vector);
+        munits::Quantity lft(munits::getMetric(lft_vector) , 1., (std::string) unitnotations[idx]);
+
+//        TRACE("Left side: " + (std::string) lft);
+
+        vector<int> rgt_vector (7);
+        rgt_vector[idx] = un.GetExponent();
+
+        munits::Quantity rgt(munits::getMetric(rgt_vector) , 1., (std::string) un);
+
+//        TRACE("Right side: " + (std::string) rgt);
+
+        Quantity res = rgt * lft;
+
+//        TRACE("Result: " + (std::string) res);
+
+        mult_factor *= res.value;
+        unitnotations[idx] = res.unit_vector[idx];
+
+
     }else{
         unitnotations[idx] = un;
     }
@@ -130,6 +151,9 @@ string munits::UnitNotationVector::compose_unit(const munits::UnitNotationVector
     for(auto b = metric.unit_resolve_mapping.begin(); b != metric.unit_resolve_mapping.end(); b++){
         string master_unit = b->first;
         UnitNotationVector master_vector = UnitNotationVector::compose_unit_vector(master_unit);
+        if(master_vector.getMultiplicationFactor() != 1.0){
+            continue;
+        }
         bool div = true;
 
         int prefix_exponent = 0;

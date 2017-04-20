@@ -7,10 +7,11 @@ using namespace std;
 
 double munits::Converter::Convert( double val, munits::UnitNotation funit, munits::UnitNotation tunit,  int exponent) const {
 
-    TRACE("from unit: " + (std::string)funit);
-    TRACE("to unit: " + (std::string)tunit);
+//    TRACE("from unit: " + (std::string)funit);
+//    TRACE("to unit: " + (std::string)tunit);
 
     if (!units.count(funit.GetUnit()) == 1) {
+        TRACEMAP(units);
         throw logic_error("Invalid funit: " + string((std::string  &&) funit));
     }
     else {

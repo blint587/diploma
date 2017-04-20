@@ -57,7 +57,11 @@ double munits::Quantity::operator()(const string tunit) const {
         }
     }
 
-    return tmp;
+    if(tunit_vector.getMultiplicationFactor() != 1.) {
+        return tmp / tunit_vector.getMultiplicationFactor();
+    }else{
+        return tmp;
+    }
 
 }
 
@@ -82,6 +86,11 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
             base_line_dim_vector[i] = abs(rgt_exponent);
             long long rgh_converter_index = munits::getMatrixIndex(base_line_dim_vector);
 
+            if(rgh_converter_index > _Last || (1 != rmatrix[rgh_converter_index].converter->Units().count(rgths.unit_vector[i].GetUnit()))){
+                base_line_dim_vector[i] = 1;
+                rgh_converter_index = munits::getMatrixIndex(base_line_dim_vector);
+            }
+
             auto rgh_converter = rmatrix[rgh_converter_index].converter;
 
             tmp_rgh = rmatrix[rgh_converter_index].converter->Convert(tmp_rgh,
@@ -91,6 +100,11 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
 
             base_line_dim_vector[i] = abs(lft_exponent);
             long long lft_converter_index = munits::getMatrixIndex(base_line_dim_vector);
+
+            if(lft_converter_index > _Last || (1 != rmatrix[lft_converter_index].converter->Units().count(lfths.unit_vector[i].GetUnit()))){
+                base_line_dim_vector[i] = 1;
+                lft_converter_index = munits::getMatrixIndex(base_line_dim_vector);
+            }
 
             auto lft_converter = rmatrix[lft_converter_index].converter;
 
@@ -125,9 +139,9 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
 
 munits::Quantity::Quantity(int m, double value, munits::UnitNotationVector unit_v, std::vector<int> dim_v) :
         matrix_index(m),
-        value(value),
-        converter(munits::GetMatrix()[m].converter),
         unit_vector(unit_v),
+        value(value * unit_vector.getMultiplicationFactor()),
+        converter(munits::GetMatrix()[m].converter),
         dim_vector(dim_v) {
 
 
@@ -218,5 +232,5 @@ munits::Quantity munits::Quantity::ntrt (const int exponent) const {
     else{
         return Quantity(*this);
     }
-};
+}
 

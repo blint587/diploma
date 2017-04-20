@@ -27,6 +27,7 @@
 namespace munits {
 
     class Quantity {
+        friend  UnitNotationVector;
 
         private:
 
@@ -47,9 +48,12 @@ namespace munits {
             static bool compop(const Quantity & lfths, const Quantity & rgths, bool (*f)(const double &, const double &));
 
         public:
+            const munits::UnitNotationVector getUnitVector() const {return unit_vector;};
+
 
             explicit Quantity(metrics,  double, const std::string);
-    //        Quantity(Quantity &);
+
+        //        Quantity(Quantity &);
             Quantity(const Quantity &) = default;
             Quantity & operator=(const Quantity &) = default;
             // TODO: implement move semantics
@@ -59,11 +63,14 @@ namespace munits {
             const int getMatrixIndex()const {return matrix_index;};
 
             double operator()(const std::string) const;
-            operator std::string() const {std::stringstream ss; ss << value  << " " << UnitNotationVector::compose_unit(unit_vector, matrix_index); return ss.str();}
+            operator std::string() const {
+                TRACE(unit_vector.getMultiplicationFactor());
+                std::stringstream ss;
+                ss << value << " " << UnitNotationVector::compose_unit(unit_vector, matrix_index);
+                return ss.str();}
             explicit operator double() const;
 
             bool unquantified() const;
-
 
             #ifndef NOCYTHON
             // helper functions for interfaceing
@@ -73,8 +80,7 @@ namespace munits {
             std::string getUnit() const {return UnitNotationVector::compose_unit(unit_vector, matrix_index);}
             Quantity(){};
             #endif
-            friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.value << " " << UnitNotationVector::compose_unit(
-                        a.unit_vector, a.matrix_index);return str;};
+            friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << (std::string) a ;return str;};
 
             friend Quantity operator+ (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value + rgths( UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};
             friend Quantity operator- (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value - rgths( UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};

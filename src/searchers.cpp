@@ -12,6 +12,16 @@ const long long int  munits::getMatrixIndex(const std::vector<int> &searched){
 
 }
 
+const munits::metrics munits::getMetric(const std::vector<int> &searched){
+
+    long long int idx = munits::getMatrixIndex(searched);
+    if(idx <= _Last){
+        return static_cast<munits::metrics >(idx);
+    }else{
+        return _Last;
+    }
+}
+
 const double munits::getExponentOfPrefix(const std::string prefix) {
     auto prefixes = munits::GetPrefixes();
     auto prx = prefixes.find(prefix);

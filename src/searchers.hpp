@@ -19,6 +19,8 @@ namespace munits{
 
     const int getMinPrefixExponent();
 
+    const metrics getMetric(const std::vector<int> &searched);
+
 }
 
 

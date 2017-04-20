@@ -12,10 +12,11 @@ using namespace munits;
 
 int main() {
 
-   auto uv = UnitNotationVector::compose_unit_vector("psi");
+   Quantity p (Power, 1, "kW h d-1");
+    TRACE(p);
 
-    TRACEITERABLE(uv);
-
+   Quantity pr (Pressure, 1, "psi");
+    TRACE(pr);
 
 
 #ifdef DEBUG

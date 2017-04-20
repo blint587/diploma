@@ -52,9 +52,10 @@ namespace munits{
 
         private:
             std::vector<munits::UnitNotation> unitnotations {7};
-            int mult_factor = 0;
+            double mult_factor = 1.0;
             static const UnitNotation & npos ();
         public:
+            double getMultiplicationFactor() const {return mult_factor;};
             UnitNotationVector(){};
             UnitNotationVector & operator= (const UnitNotationVector &) = default;
             UnitNotationVector (const UnitNotationVector &) = default;
