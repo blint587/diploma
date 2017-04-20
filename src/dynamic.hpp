@@ -39,8 +39,10 @@ namespace munits {
         KinematicViscosity = 18,
         Power = 19,
         Energy = 20,
+//        Torque = 20,
         Voltage = 21,
         Frequency = 22,
+//        Radioactivity = 22,
         ElectricCharge = 23,
         ElectricCapacitance = 24,
         ElectricResistance = 25,
@@ -49,11 +51,9 @@ namespace munits {
         MagneticFluxDensity = 28,
         Inductance = 29,
         Illuminance = 30,
-//        Radioactivity = 22,
         AbsorbedDose = 31,
 //        EquivalentDose = 31,
         CatalyticActivity = 32,
-//        Torque = 20,
         _Last
 
     };
