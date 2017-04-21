@@ -34,13 +34,12 @@ set(SOURCE_FILES
         ../../src/parsers.hpp
         ../../src/searchers.cpp
         ../../src/searchers.hpp
-        resolver_test.hpp)
+        resolver_test.hpp converterfunction_test.hpp)
 
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fprofile-arcs -ftest-coverage")
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 
-add_executable(runUnitTest
-        ${SOURCE_FILES})
+add_executable(runUnitTest ${SOURCE_FILES})
 
 target_link_libraries(runUnitTest gtest gtest_main)

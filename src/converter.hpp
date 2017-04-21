@@ -11,6 +11,7 @@
 #include "unit_notation.hpp"
 
 namespace munits{
+
     class Converter {
 
         private:
@@ -29,8 +30,20 @@ namespace munits{
                                const std::map<std::string, const std::shared_ptr<Unit>> = std::map<std::string, const std::shared_ptr<Unit>>());
 
             ~Converter(){}
+            /*!
+             *
+             * @return
+             */
             double Convert( double, munits::UnitNotation, munits::UnitNotation,  int=1) const;
+            /**
+             *
+             * @return
+             */
             bool is_valid_unit(const munits::UnitNotation &) const;
+            /**
+             *
+             * @return
+             */
             const std::string GetBaseUnit() const {return base_unit;};
 
         };

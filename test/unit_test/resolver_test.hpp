@@ -1,4 +1,7 @@
-
+/**
+ * @author: Balint Molnar
+ * @date: 2017.04.21
+ */
 
 #ifndef SANDBOX_RESOLVER_TEST_HPP
 #define SANDBOX_RESOLVER_TEST_HPP
