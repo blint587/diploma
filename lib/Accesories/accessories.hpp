@@ -4,15 +4,17 @@
 
 #include <vector>
 #include <iostream>
+#include <map>
 
 #ifdef DEBUG
     #include <iomanip>
     #define TRACE(x)  std::cerr << std::setprecision(18) << x << std::endl
-    #define TRACEVECTOR(x) accessories::print_vector(x)
+    #define TRACEITERABLE(x) accessories::print_iterable(x)
+    #define TRACEMAP(x) accessories::print_map(x)
 #else
     #define TRACE(x)
     #define TRACEVECTOR(x)
-
+    #define TRACEMAP(x)
 #endif
 
 
@@ -36,8 +38,8 @@ namespace accessories{
     template<class T>
     bool ne(const T & a, const T & b){return a != b;}
 
-    template<typename T>
-    void print_vector(const std::vector<T> & a){
+    template<class C>
+    void print_iterable(const C &a){
         std::cerr << "[ ";
         for( auto b = a.begin(); b != a.end(); ++b ){
             std::cerr << *b << ", ";
@@ -46,6 +48,17 @@ namespace accessories{
 
     }
 
+    template<class K, class V>
+    void print_map(const std::map<K, V> &m){
+        std::cerr << "{ ";
+        for( auto p = m.begin(); p != m.end(); ++p ){
+            std::cerr << "Key: " << p->first << " Value: " << p->second << ", ";
+        }
+        std::cerr << "}" << std::endl;
+
+
+
+    };
 
 }
 

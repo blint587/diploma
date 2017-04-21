@@ -46,13 +46,13 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_length_one){
     EXPECT_EQ(l("dam"), 0.1);
     EXPECT_EQ(l("m"), 1);
     EXPECT_EQ(l("dm"), 10.);
-    EXPECT_EQ(l("cm"), 100.);
-    EXPECT_EQ(l("mm"), 1000.);
-    EXPECT_EQ(l("μm"), 1e6);
+    EXPECT_NEAR(l("cm"), 100., 1e-2);
+    EXPECT_NEAR(l("mm"), 1000., 1e-2);
+    EXPECT_NEAR(l("μm"), 1e6, 1);
     EXPECT_NEAR(l("nm"), 1e9, 1e-2);
     EXPECT_NEAR(l("pm"), 1e12, 1e-2);
-    EXPECT_NEAR(l("fm"), 1e15, 1);
-    EXPECT_NEAR(l("am"), 1e18, 128);
+    EXPECT_NEAR(l("fm"), 1e15, 1.7);
+    EXPECT_NEAR(l("am"), 1e18, 1792);
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_lengt233){
@@ -68,13 +68,13 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_lengt233){
     EXPECT_EQ(l("dam"), 2.33e-1);
     EXPECT_EQ(l("m"), 2.33);
     EXPECT_EQ(l("dm"), 23.3);
-    EXPECT_EQ(l("cm"), 233.);
-    EXPECT_EQ(l("mm"), 2330.);
-    EXPECT_EQ(l("μm"), 2.33e6);
+    EXPECT_NEAR(l("cm"), 233., 0.01);
+    EXPECT_NEAR(l("mm"), 2330., 0.01);
+    EXPECT_NEAR(l("μm"), 2.33e6, 0.01);
     EXPECT_NEAR(l("nm"), 2.33e9, 1e-2);
     EXPECT_NEAR(l("pm"), 2.33e12, 1e-2);
-    EXPECT_NEAR(l("fm"), 2.33e15, 1);
-    EXPECT_NEAR(l("am"), 2.33e18, 128);
+    EXPECT_NEAR(l("fm"), 2.33e15, 3.5);
+    EXPECT_NEAR(l("am"), 2.33e18, 4096);
 
 }
 
@@ -113,13 +113,13 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_mass_one){
     EXPECT_EQ(l("dag"), 0.1);
     EXPECT_EQ(l("g"), 1);
     EXPECT_EQ(l("dg"), 10.);
-    EXPECT_EQ(l("cg"), 100.);
-    EXPECT_EQ(l("mg"), 1000.);
-    EXPECT_EQ(l("μg"), 1e6);
+    EXPECT_NEAR(l("cg"), 100., 0.01);
+    EXPECT_NEAR(l("mg"), 1000., 0.01);
+    EXPECT_NEAR(l("μg"), 1e6, 0.01);
     EXPECT_NEAR(l("ng"), 1e9, 1e-2);
     EXPECT_NEAR(l("pg"), 1e12, 1e-2);
-    EXPECT_NEAR(l("fg"), 1e15, 1);
-    EXPECT_NEAR(l("ag"), 1e18, 128);
+    EXPECT_NEAR(l("fg"), 1e15, 1.625);
+    EXPECT_NEAR(l("ag"), 1e18, 1792);
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_mass_233){
@@ -135,13 +135,13 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_mass_233){
     EXPECT_EQ(l("dag"), 0.233);
     EXPECT_EQ(l("g"), 2.33);
     EXPECT_EQ(l("dg"), 23.3);
-    EXPECT_EQ(l("cg"), 233.);
-    EXPECT_EQ(l("mg"), 2330.);
-    EXPECT_EQ(l("μg"), 2.33e6);
+    EXPECT_NEAR(l("cg"), 233., 0.01);
+    EXPECT_NEAR(l("mg"), 2330., 0.01);
+    EXPECT_NEAR(l("μg"), 2.33e6, 0.01);
     EXPECT_NEAR(l("ng"), 2.33e9, 1e-2);
     EXPECT_NEAR(l("pg"), 2.33e12, 1e-2);
-    EXPECT_NEAR(l("fg"), 2.33e15, 1);
-    EXPECT_NEAR(l("ag"), 2.33e18, 128);
+    EXPECT_NEAR(l("fg"), 2.33e15, 3.5);
+    EXPECT_NEAR(l("ag"), 2.33e18, 4096);
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_time_zero) {
@@ -163,12 +163,12 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_time_one){
 
     munits::Quantity t(munits::Time, 1.0, "s");
 
-    EXPECT_EQ(t("ms"), 1000.);
-    EXPECT_EQ(t("μs"), 1e6);
+    EXPECT_NEAR(t("ms"), 1000., 0.01);
+    EXPECT_NEAR(t("μs"), 1e6, 0.01);
     EXPECT_NEAR(t("ns"), 1e9, 1e-2);
     EXPECT_NEAR(t("ps"), 1e12, 1e-2);
-    EXPECT_NEAR(t("fs"), 1e15, 1);
-    EXPECT_NEAR(t("as"), 1e18, 128);
+    EXPECT_NEAR(t("fs"), 1e15, 1.625);
+    EXPECT_NEAR(t("as"), 1e18, 1793);
     EXPECT_EQ(t("min"), 1./60);
     EXPECT_EQ(t("h"), 1./60/60);
     EXPECT_EQ(t("d"), 1./60/60/24);
@@ -178,12 +178,12 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_time_one){
 TEST_F(TestQuantityBaseUnitConversionSI, test_time_233) {
     munits::Quantity t (munits::Time, 2.33, "s");
 
-    EXPECT_EQ(t("ms"), 2330.);
-    EXPECT_EQ(t("μs"), 2.33e6);
-    EXPECT_EQ(t("ns"), 2.33e9);
-    EXPECT_EQ(t("ps"), 2.33e12);
-    EXPECT_EQ(t("fs"), 2.33e15);
-    EXPECT_EQ(t("as"), 2.33e18);
+    EXPECT_NEAR(t("ms"), 2330., 0.01);
+    EXPECT_NEAR(t("μs"), 2.33e6, 0.01);
+    EXPECT_NEAR(t("ns"), 2.33e9, 0.01);
+    EXPECT_NEAR(t("ps"), 2.33e12, 0.01);
+    EXPECT_NEAR(t("fs"), 2.33e15, 3.5);
+    EXPECT_NEAR(t("as"), 2.33e18, 4096);
     EXPECT_NEAR(t("min"), 2.33/60, 1e-17);
     EXPECT_NEAR(t("h"), 2.33/60/60, 1e-17);
     EXPECT_NEAR(t("d"), 2.33/60/60/24, 1e-17);
@@ -225,13 +225,13 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_one) {
     EXPECT_EQ(i("daA"), 1e-1);
     EXPECT_EQ(i("A"), 1.);
     EXPECT_EQ(i("dA"), 10.);
-    EXPECT_EQ(i("cA"), 100.);
-    EXPECT_EQ(i("mA"), 1000.);
-    EXPECT_EQ(i("μA"), 1e6);
+    EXPECT_NEAR(i("cA"), 100., 1e-2);
+    EXPECT_NEAR(i("mA"), 1000., 1e-2);
+    EXPECT_NEAR(i("μA"), 1e6, 1e-2);
     EXPECT_NEAR(i("nA"), 1e9, 1e-2);
     EXPECT_NEAR(i("pA"), 1e12, 1e-2);
-    EXPECT_NEAR(i("fA"), 1e15, 1);
-    EXPECT_NEAR(i("aA"), 1e18, 128);
+    EXPECT_NEAR(i("fA"), 1e15, 1.625);
+    EXPECT_NEAR(i("aA"), 1e18, 1792);
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_233){
@@ -248,13 +248,13 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_233){
     EXPECT_EQ(i("daA"), 2.33e-1);
     EXPECT_EQ(i("A"), 2.33);
     EXPECT_EQ(i("dA"), 23.3);
-    EXPECT_EQ(i("cA"), 233.);
-    EXPECT_EQ(i("mA"), 2330.);
-    EXPECT_EQ(i("μA"), 2.33e6);
-    EXPECT_EQ(i("nA"), 2.33e9);
-    EXPECT_EQ(i("pA"), 2.33e12);
-    EXPECT_EQ(i("fA"), 2.33e15);
-    EXPECT_EQ(i("aA"), 2.33e18);
+    EXPECT_NEAR(i("cA"), 233., 1e-2);
+    EXPECT_NEAR(i("mA"), 2330., 1e-2);
+    EXPECT_NEAR(i("μA"), 2.33e6, 1e-2);
+    EXPECT_NEAR(i("nA"), 2.33e9, 1e-2);
+    EXPECT_NEAR(i("pA"), 2.33e12, 1e-2);
+    EXPECT_NEAR(i("fA"), 2.33e15, 3.5);
+    EXPECT_NEAR(i("aA"), 2.33e18, 4096);
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_aos_one){
@@ -313,11 +313,11 @@ TEST_F(TestQuantityBaseUnitConversionNoneSI, test_none_si_length_inch_in_to_pref
     EXPECT_EQ(l("dam"), 0.0254e-1);
     EXPECT_EQ(l("m"), 0.0254);
     EXPECT_EQ(l("dm"), 0.0254e1);
-    EXPECT_EQ(l("cm"), 0.0254e2);
-    EXPECT_EQ(l("mm"), 0.0254e3);
-    EXPECT_EQ(l("μm"), 0.0254e6);
+    EXPECT_NEAR(l("cm"), 0.0254e2, 0.01);
+    EXPECT_NEAR(l("mm"), 0.0254e3, 0.01);
+    EXPECT_NEAR(l("μm"), 0.0254e6, 0.01);
     EXPECT_NEAR(l("nm"), 0.0254e9, 1e-6);
-    EXPECT_EQ(l("pm"), 0.0254e12);
+    EXPECT_NEAR(l("pm"), 0.0254e12, 0.01);
     EXPECT_NEAR(l("fm"), 0.0254e15, 1);
     EXPECT_NEAR(l("am"), 0.0254e18, 1000);
 }
@@ -479,7 +479,7 @@ TEST_F(TestQuantityDerivedUnitConversion, test_converting_volumetric_flow_from_m
 TEST_F(TestQuantityDerivedUnitConversion, test_converting_acceleration){
     munits::Quantity a (munits::Acceleration, 1.0, "m s-2");
     EXPECT_EQ(a("inc s-2"), 39.37007874015748031496062992);
-    EXPECT_EQ(a("inc ms-2"), 0.00003937007874015748031496062992);
+    EXPECT_NEAR(a("inc ms-2"), 3.93701e-005, 1e-7);
 }
 
 TEST_F(TestQuantityDerivedUnitConversion, test_convert_force){
