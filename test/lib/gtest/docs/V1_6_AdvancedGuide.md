@@ -1212,7 +1212,7 @@ INSTANTIATE_TEST_CASE_P(InstantiationName,
 To distinguish different instances of the pattern (yes, you can
 instantiate it more than once), the first argument to
 `INSTANTIATE_TEST_CASE_P` is a prefix that will be added to the actual
-test case name. Remember to pick unique prefixes for different
+test case name. Remember to pick unique rprefixes for different
 instantiations. The tests from the instantiation above will have these
 names:
 
@@ -1413,7 +1413,7 @@ INSTANTIATE_TYPED_TEST_CASE_P(My, FooTest, MyTypes);
 
 To distinguish different instances of the pattern, the first argument
 to the `INSTANTIATE_TYPED_TEST_CASE_P` macro is a prefix that will be
-added to the actual test case name.  Remember to pick unique prefixes
+added to the actual test case name.  Remember to pick unique rprefixes
 for different instances.
 
 In the special case where the type list contains only one type, you

@@ -14,7 +14,7 @@ namespace munits {
 
     struct Metric {
         const std::vector<int> dim_vector;
-        const std::shared_ptr <Converter> converter;
+        const std::shared_ptr <munits::Converter> converter;
         const std::map<const std::string, const std::string> unit_resolve_mapping;
 
         Metric(std::vector<int>, // cannot be explicit due to use of initializer list in GetMatrix

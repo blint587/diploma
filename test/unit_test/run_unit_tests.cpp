@@ -4,6 +4,8 @@
 #include "quantity_test_mathop.hpp"
 #include "quantity_test_input_validation.hpp"
 #include "quantity_test_representation.hpp"
+#include "resolver_test.hpp"
+#include "converterfunction_test.hpp"
 
 int main(int argc, char* argv[])
 {

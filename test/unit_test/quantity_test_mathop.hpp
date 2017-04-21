@@ -20,7 +20,7 @@ TEST_F(TestQuantityBaseUnitsMathOperation, test_multiplaying_length_to_length) {
     munits::Quantity m2 (munits::Length, 1., "m");
     munits::Quantity m3 = m1 * m2;
 
-    EXPECT_EQ(m3("m2"), 1.);
+    EXPECT_NEAR(m3("m2"), 1, 0.0001);
 }
 
 TEST_F(TestQuantityDerivedUnitsMathOperation, test_acceleration_from_l_t_zero_1) {
@@ -332,7 +332,7 @@ TEST_F(TestQuantityBaseUnitsMathOperation, test_conversion_during_mathop_divisio
 
     EXPECT_EQ(a.getMatrixIndex(), munits::Area);
 
-    EXPECT_EQ(a("m2"), 3);
+    EXPECT_NEAR(a("m2"), 3, 0.00001);
 }
 
 TEST_F(TestQuantityBaseUnitsMathOperation, test_conversion_during_mathop_division_right_special){

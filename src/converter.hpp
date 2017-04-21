@@ -11,10 +11,11 @@
 #include "unit_notation.hpp"
 
 namespace munits{
+
     class Converter {
 
         private:
-            const std::map<std::string, const std::shared_ptr<ConverterFunction>> & GetPrefixes() const;
+
             std::string base_unit;
 
             std::map<std::string, const std::shared_ptr<ConverterFunction>> prefixes;
@@ -29,8 +30,20 @@ namespace munits{
                                const std::map<std::string, const std::shared_ptr<Unit>> = std::map<std::string, const std::shared_ptr<Unit>>());
 
             ~Converter(){}
-            double Convert( double, UnitNotation, UnitNotation,  int=1) const;
-            bool is_valid_unit(const UnitNotation &) const;
+            /*!
+             *
+             * @return
+             */
+            double Convert( double, munits::UnitNotation, munits::UnitNotation,  int=1) const;
+            /**
+             *
+             * @return
+             */
+            bool is_valid_unit(const munits::UnitNotation &) const;
+            /**
+             *
+             * @return
+             */
             const std::string GetBaseUnit() const {return base_unit;};
 
         };

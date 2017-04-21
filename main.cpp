@@ -3,10 +3,7 @@
     #include <conio.h>
 #endif
 #include "src/quantity.h"
-#include <ctime>
-#include <math.h>
-//#include "lib/Accesories/math.hpp"
-#include "lib/Accesories/accessories.hpp"
+#include "src/unit_notation.hpp"
 
 using namespace std;
 using namespace munits;
@@ -15,30 +12,18 @@ using namespace munits;
 
 int main() {
 
+   Quantity p (Power, 1, "kW h d-1");
+    TRACE(p);
 
-    Quantity mq (MassFlow, 1, "kg d-1");
-//    Quantity r (_Last, 1, "kg m-2 d-1");
-//
-//    auto res = mq /r;
-
-
-
-
-    try {
-        Quantity a (Volume, 8.0, "gal");
-        cout <<  a.ntrt(4) << '\n';
-
-    }
-    catch (exception & e){
-        cerr << e.what() << endl;
-
-    }
+   Quantity pr (Pressure, 1, "psi");
+    TRACE(pr);
 
 
 #ifdef DEBUG
     cerr << "Press a key to close..." << endl;
     getch();
 #endif
+
 
     return 0;
 }
