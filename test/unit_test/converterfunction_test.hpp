@@ -42,5 +42,4 @@ TEST_F(TestConverterFunction, to_base_first_order_parameter_10_exponent_neg1){
 }
 
 
-
 #endif //SANDBOX_CONVERTERFUNCTION_TEST_HPP

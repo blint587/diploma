@@ -1,3 +1,8 @@
+/**
+ * @author: Balint Molnar
+ */
+
+
 
 #ifndef MUSYS_CONVERTER_FUNCTION_HPP
 #define MUSYS_CONVERTER_FUNCTION_HPP
@@ -16,10 +21,8 @@ namespace munits {
         /**
          * Constructor for converter function
          * @param a: first order parameter
-         * @param b: zero order parameter
-         * @param signature of the converter function (e.g. k)
-         *
-         * y = ax + b
+
+         * y = ax
          */
         explicit ConverterFunction(double);
 
@@ -27,9 +30,9 @@ namespace munits {
          * @param v: value to be converted to base
          * @param e: exponent
          *
-         *  (v * first_order^e) + (e==1?(zero_order * first_order):0)
+         *  v * first_order^e
          *
-         * @return value converted to base function
+         * @return value converted to base
          */
         virtual double to_base(double, double) const;
 
@@ -37,9 +40,9 @@ namespace munits {
          * @param v: value in base to target
          * @param e: exponent
          *
-         *  (v * std::pow(first_order, -e)) - (e==1?(zero_order):0)
+         *  v * first_order^-e)
          *
-         * @return value converted to base function
+         * @return value converted from base
          */
         virtual double from_base(double, double) const;
 

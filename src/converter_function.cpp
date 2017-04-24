@@ -15,7 +15,3 @@ double munits::ConverterFunction::from_base(double v, double e = 1) const {
     return (v * std::pow(first_order, -e));
 }
 
-//munits::ConverterFunction::ConverterFunction(int exponent, double b=0, const char * s="Default"):first_order(std::pow(10.0, exponent)),
-//                                                                                                 zero_order(b),
-//                                                                                                 signature(s),
-//                                                                                                 first_order_exponent(exponent){}

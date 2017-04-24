@@ -19,35 +19,35 @@ const std::vector<munits::Metric> & munits::GetMatrix(){
     static const std::vector<munits::Metric> matrix = {
             {{1,  0, 0,  0, 0, 0, 0}, "m", {}, //Length
                     {
-                            {"inc", std::make_shared<munits::Unit>(munits::Unit(0.0254, 0., "inc"))},
-                            {"ft",  std::make_shared<munits::Unit>(munits::Unit(0.3048, 0., "ft"))},
-                            {"mi", std::make_shared<munits::Unit>(munits::Unit(1609.344, 0., "mi"))},
-                            {"yd", std::make_shared<munits::Unit>(munits::Unit(0.914, 0., "yd"))}
+                            {"inc", std::make_shared<munits::Unit>(munits::Unit(0.0254, 0.))},
+                            {"ft",  std::make_shared<munits::Unit>(munits::Unit(0.3048, 0.))},
+                            {"mi", std::make_shared<munits::Unit>(munits::Unit(1609.344, 0.))},
+                            {"yd", std::make_shared<munits::Unit>(munits::Unit(0.914, 0.))}
                     }
 
             },
             {{0,  1, 0,  0, 0, 0, 0}, "g", {}, // Mass
                     {
-                            {"oz",  std::make_shared<munits::Unit>(munits::Unit(28.3495, 0., "oz"))},
-                            {"lb",  std::make_shared<munits::Unit>(munits::Unit(453.592, 0., "lb"))},
-                            {"t",  std::make_shared<munits::Unit>(munits::Unit(1e6, 0., "t"))},
-                            {"slug", std::make_shared<munits::Unit>(munits::Unit(14593.903, 0., "slug"))}
+                            {"oz",  std::make_shared<munits::Unit>(munits::Unit(28.3495, 0.))},
+                            {"lb",  std::make_shared<munits::Unit>(munits::Unit(453.592, 0.))},
+                            {"t",  std::make_shared<munits::Unit>(munits::Unit(1e6, 0.))},
+                            {"slug", std::make_shared<munits::Unit>(munits::Unit(14593.903, 0.))}
 
                     }
             },
             {{0,  0, 1,  0, 0, 0, 0}, "s", {}, //Time
                     {
-                            {"min", std::make_shared<munits::Unit>(munits::Unit(60., 0., "min", false))},
-                            {"h",   std::make_shared<munits::Unit>(munits::Unit(3600., 0., "h", false))},
-                            {"d",  std::make_shared<munits::Unit>(munits::Unit(86400., 0., "d", false))}
+                            {"min", std::make_shared<munits::Unit>(munits::Unit(60., 0., false))},
+                            {"h",   std::make_shared<munits::Unit>(munits::Unit(3600., 0.,false))},
+                            {"d",  std::make_shared<munits::Unit>(munits::Unit(86400., 0.,false))}
                     }
             },
             {{0,  0, 0,  1, 0, 0, 0}, "A"},  //Electric Currency
             {{0,  0, 0,  0, 1, 0, 0}, "K",  //Temperature
                                            {"E", "P", "T", "G", "M", "k", "h", "da", "d", "c", "m", "μ", "n", "p", "f", "a"},
                     {
-                            {"°C",  std::make_shared<munits::Unit>(munits::Unit(1., 273.15, "°C", false))},
-                            {"°F",  std::make_shared<munits::Unit>(munits::Unit(5. / 9., 459.67, "°F", false))}
+                            {"°C",  std::make_shared<munits::Unit>(munits::Unit(1., 273.15, false))},
+                            {"°F",  std::make_shared<munits::Unit>(munits::Unit(5. / 9., 459.67, false))}
                     }
             },
             {{0,  0, 0,  0, 0, 1, 0}, "mol"},  //Amount of Substance
@@ -55,8 +55,8 @@ const std::vector<munits::Metric> & munits::GetMatrix(){
             {{2,  0, 0,  0, 0, 0, 0}, "m"}, //Area
             {{3,  0, 0,  0, 0, 0, 0}, "m", {}, //Volume
                     {
-                            {"l",   std::make_shared<munits::Unit>(munits::Unit(0.001, 0., "l", true, true))},
-                            {"gal", std::make_shared<munits::Unit>(munits::Unit(0.00378541178, 0., "gal", true, true))},
+                            {"l",   std::make_shared<munits::Unit>(munits::Unit(0.001, 0., true, true))},
+                            {"gal", std::make_shared<munits::Unit>(munits::Unit(0.00378541178, 0., true, true))},
     //                            {"oz", make_shared<munits::Unit>(munits::Unit(2.957e-5, 0., "oz", true, true))},
                     }
 

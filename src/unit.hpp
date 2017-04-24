@@ -10,15 +10,13 @@ namespace munits {
     class Unit : public munits::ConverterFunction {
 
     public:
-        const std::string unit;
         const bool applay_prefix;
         const bool ignor_exponent;
         const double zero_order;
 
-        explicit Unit(double a = 1, double b = 0, const char *s = "Default",  /*std::string Unit,*/
-                      bool applay_prefix = true, bool ignor_exponent = false) :
-                ConverterFunction(a), /* Unit(Unit),*/ applay_prefix(applay_prefix),
-                ignor_exponent(ignor_exponent), unit(s), zero_order(b) {
+        explicit Unit(double a = 1, double b = 0, bool applay_prefix = true, bool ignor_exponent = false) :
+                ConverterFunction(a), applay_prefix(applay_prefix),
+                ignor_exponent(ignor_exponent), zero_order(b) {
         }
          double to_base(double, double) const;
          double from_base(double, double) const;
