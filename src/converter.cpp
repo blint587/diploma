@@ -33,9 +33,6 @@ double munits::Converter::Convert( double val, munits::UnitNotation funit, munit
         val = from_base_func_unit->from_base(val, from_base_func_unit->ignor_exponent?(exponent > 0?1:-1):exponent);
 
     }
-
-
-
     return val;
 }
 
@@ -55,6 +52,6 @@ munits::Converter::Converter(string base_unit, const set<string> & remove, const
             this->prefixes.insert(pair<string, const shared_ptr<munits::ConverterFunction>>(prx->first, prx->second));
         }
     }
-    units.insert(pair<string, const shared_ptr<munits::Unit>>(base_unit, make_shared<munits::Unit>(Unit(1., 0., base_unit.c_str()))));
+    units.insert(pair<string, const shared_ptr<munits::Unit>>(base_unit, make_shared<munits::Unit>(Unit(1., 0.))));
 }
 
