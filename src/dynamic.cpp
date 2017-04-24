@@ -95,23 +95,23 @@ const std::map<std::string, const std::shared_ptr<munits::ConverterFunction>> & 
 
     static const std::map<std::string, const std::shared_ptr<ConverterFunction>> prefixes  = {
             // todo: store only the exponents
-            {"E", std::make_shared<ConverterFunction>(ConverterFunction(1e18, 0, "E"))}, //exa
-            {"P", std::make_shared<ConverterFunction>(ConverterFunction(1e15, 0, "P"))},  // peta
-            {"T", std::make_shared<ConverterFunction>(ConverterFunction(1e12, 0, "T"))},  // tera
-            {"G", std::make_shared<ConverterFunction>(ConverterFunction(1e9, 0, "G"))}, // giga
-            {"M", std::make_shared<ConverterFunction>(ConverterFunction(1e6, 0, "M"))},  // mega
-            {"k", std::make_shared<ConverterFunction>(ConverterFunction(1e3, 0, "k"))},  // kilo
-            {"h", std::make_shared<ConverterFunction>(ConverterFunction(1e2, 0, "h"))},  // hecto
-            {"da", std::make_shared<ConverterFunction>(ConverterFunction(1e1, 0, "da"))},  // deca
-            {"", std::make_shared<ConverterFunction>(ConverterFunction(1., 0, ""))},
-            {"d", std::make_shared<ConverterFunction>(ConverterFunction(1e-1, 0, "d"))},   // deci
-            {"c", std::make_shared<ConverterFunction>(ConverterFunction(1e-2, 0, "c"))},  // centi
-            {"m", std::make_shared<ConverterFunction>(ConverterFunction(1e-3, 0, "m"))},  // milli
-            {"μ", std::make_shared<ConverterFunction>(ConverterFunction(1e-6, 0, "μ"))},  // micro
-            {"n", std::make_shared<ConverterFunction>(ConverterFunction(1e-9, 0, "n"))},  // nano
-            {"p", std::make_shared<ConverterFunction>(ConverterFunction(1e-12, 0, "p"))},  // pico
-            {"f", std::make_shared<ConverterFunction>(ConverterFunction(1e-15, 0, "f"))},  // femto
-            {"a", std::make_shared<ConverterFunction>(ConverterFunction(1e-18, 0, "a"))}  // atto
+            {"E", std::make_shared<ConverterFunction>(ConverterFunction(1e18/*, 0, "E"*/))}, //exa
+            {"P", std::make_shared<ConverterFunction>(ConverterFunction(1e15/*, 0, "P"*/))},  // peta
+            {"T", std::make_shared<ConverterFunction>(ConverterFunction(1e12/*, 0, "T"*/))},  // tera
+            {"G", std::make_shared<ConverterFunction>(ConverterFunction(1e9/*, 0, "G"*/))}, // giga
+            {"M", std::make_shared<ConverterFunction>(ConverterFunction(1e6/*, 0, "M"*/))},  // mega
+            {"k", std::make_shared<ConverterFunction>(ConverterFunction(1e3/*, 0, "k"*/))},  // kilo
+            {"h", std::make_shared<ConverterFunction>(ConverterFunction(1e2/*, 0, "h"*/))},  // hecto
+            {"da", std::make_shared<ConverterFunction>(ConverterFunction(1e1/*, 0, "da"*/))},  // deca
+            {"", std::make_shared<ConverterFunction>(ConverterFunction(1./*, 0, ""*/))},
+            {"d", std::make_shared<ConverterFunction>(ConverterFunction(1e-1/*, 0, "d"*/))},   // deci
+            {"c", std::make_shared<ConverterFunction>(ConverterFunction(1e-2/*, 0, "c"*/))},  // centi
+            {"m", std::make_shared<ConverterFunction>(ConverterFunction(1e-3/*, 0, "m"*/))},  // milli
+            {"μ", std::make_shared<ConverterFunction>(ConverterFunction(1e-6/*, 0, "μ"*/))},  // micro
+            {"n", std::make_shared<ConverterFunction>(ConverterFunction(1e-9/*, 0/*, "n"*/))},  // nano
+            {"p", std::make_shared<ConverterFunction>(ConverterFunction(1e-12/*, 0, "p"*/))},  // pico
+            {"f", std::make_shared<ConverterFunction>(ConverterFunction(1e-15/*, 0, "f"*/))},  // femto
+            {"a", std::make_shared<ConverterFunction>(ConverterFunction(1e-18/*, 0, "a"*/))}  // atto
     };
 
     return prefixes;

@@ -9,9 +9,9 @@ namespace munits {
 
     class ConverterFunction {
 
+    protected:
         const double first_order;
-        const double zero_order;
-        const char *signature; // TODO: check if necessary
+
     public:
         /**
          * Constructor for converter function
@@ -21,7 +21,7 @@ namespace munits {
          *
          * y = ax + b
          */
-        explicit ConverterFunction(double, double, const char *);
+        explicit ConverterFunction(double);
 
         /**
          * @param v: value to be converted to base
@@ -31,7 +31,7 @@ namespace munits {
          *
          * @return value converted to base function
          */
-        double to_base(double, double) const;
+        virtual double to_base(double, double) const;
 
         /**
          * @param v: value in base to target
@@ -41,11 +41,12 @@ namespace munits {
          *
          * @return value converted to base function
          */
-        double from_base(double, double) const;
+        virtual double from_base(double, double) const;
 
-        double getFirstOrderExponent(){ // TODO: make it virtual
+        virtual double getFirstOrderExponent() const{
             return log10(first_order);
         }
+        ~ConverterFunction(){};
     };
 }
 
