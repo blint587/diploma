@@ -16,7 +16,7 @@ set(SOURCE_FILES
         run_unit_tests.cpp
         quantity_test_conversion.hpp
         quantity_test_comparison.hpp
-        quantity_test_mathop.hpp
+        quantity_test_base_mathop.hpp
         quantity_test_input_validation.hpp
 
         ../../src/metric.cpp
@@ -34,7 +34,7 @@ set(SOURCE_FILES
         ../../src/parsers.hpp
         ../../src/searchers.cpp
         ../../src/searchers.hpp
-        resolver_test.hpp converterfunction_test.hpp)
+        resolver_test.hpp converterfunction_test.hpp quantity_test_derived_mathop.hpp)
 
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fprofile-arcs -ftest-coverage")
