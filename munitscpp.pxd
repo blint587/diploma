@@ -37,7 +37,8 @@ cdef extern from "src/quantity.h" namespace "munits":
             Illuminance = 30,
             AbsorbedDose = 31,
             CatalyticActivity = 32,
-            _Last = 33
+            MolarWeight = 33,
+            _Last = 34
 
     cdef cppclass Quantity:
         Quantity(metrics, double, const string) except + ValueError
