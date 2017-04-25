@@ -246,6 +246,9 @@ class Torque(Quantity):
     UNIT_INDEX = 20
 
 
+class MolarWeight(Quantity):
+    UNIT_INDEX = 33
+
 
 if __name__ == "__main__":
 

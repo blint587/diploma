@@ -54,6 +54,7 @@ namespace munits {
         AbsorbedDose = 31,
 //        EquivalentDose = 31,
         CatalyticActivity = 32,
+        MolarWeight = 33,
         _Last
 
     };
