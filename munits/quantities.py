@@ -94,9 +94,26 @@ class Quantity(PyQuantity, BaseClass, metaclass=Register):
     def __abs__(self):
         return self.__class__(abs(self.val), self.unit)
 
-    def ntrt(self, exp):
+    def ntrt(self, exp: int):
         return Quantity(other=PyQuantity.ntrt(self, int(exp)))
 
+    def add_in_same_unit(self, other: float):
+        """
+        :param other: The amount you want to add.
+        :type other: float
+        :return: Quantity
+        """
+        n = self.__class__(value=other, unit=self.unit)
+        return self + n
+
+    def subtract_in_same_unit(self, other: float):
+        """
+        :param other: The amount you want to subtract.
+        :type other: float
+        :return: Quantity
+        """
+        n = self.__class__(value=other, unit=self.unit)
+        return self - n
 
 class Length(Quantity):
     UNIT_INDEX = 0
