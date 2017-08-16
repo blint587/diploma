@@ -1,31 +1,60 @@
 # encoding: utf-8
 from collections import defaultdict
+from weakref import WeakKeyDictionary
 from munitscpp import PyQuantity, NPOS
 from base2.base import BaseClass
 
 
-class Register(type):
+class TypeIndex:
+    """
+    TypeIndex descriptor
+    """
+
+    def __init__(self):
+        self.__class_data = WeakKeyDictionary()
+
+    def __get__(self, instance, owner):
+        if instance is None:
+            return self
+        return self.__class_data[instance]
+
+    def __set__(self, instance, value):
+        if 0 <= value <= NPOS and instance not in self.__class_data.keys():
+            self.__class_data[instance] = value
+        elif 0 > value or value > NPOS:
+            raise ValueError("Type index is out of range when defining <{}>.".format(instance))
+        elif instance in self.__class_data.keys():
+            raise AttributeError("Cannot overwrite 'type_index' attribute!")
+
+
+class MetaQuantity(type):
     CLASS_REGISTRY = defaultdict(list)
 
-    def __new__(mcs, name, bases, class_dict):
+    type_index = TypeIndex()
+
+    def __new__(mcs, name, bases, class_dict, *, unit_index: int, **kwargs):
         cls = type.__new__(mcs, name, bases, class_dict)
-        Register.CLASS_REGISTRY[cls.UNIT_INDEX].append(cls)
+        cls.type_index = unit_index
+        MetaQuantity.CLASS_REGISTRY[unit_index].append(cls)
         return cls
 
+    def __init__(cls, name, bases, class_dict, **kwargs):
+        super().__init__(name, bases, class_dict)
 
-class Quantity(PyQuantity, BaseClass, metaclass=Register):
-    UNIT_INDEX = NPOS
+
+class Quantity(PyQuantity, BaseClass, metaclass=MetaQuantity, unit_index=NPOS):
+    # UNIT_INDEX = NPOS
 
     def __new__(cls, value=0., unit="", *, other=None, transform=False):
 
         if other is None:
-            ob = super().__new__(cls, cls.UNIT_INDEX, value, unit)
+            ob = super().__new__(cls, cls.type_index, value, unit)
             return ob
-        elif transform and (cls.UNIT_INDEX == other.__class__.UNIT_INDEX):
+        elif transform and (cls.type_index == other.__class__.type_index):
             ob = super().__new__(cls, other=other)
             return ob
         else:
-            ncls = Register.CLASS_REGISTRY[other.matrix_index][0]
+            ncls = MetaQuantity.CLASS_REGISTRY[other.matrix_index][0]
             ob = super().__new__(ncls, other=other)
             return ob
 
@@ -74,8 +103,8 @@ class Quantity(PyQuantity, BaseClass, metaclass=Register):
     def __pow__(self, power, modulo=None):
         return Quantity(other=PyQuantity.__pow__(self, int(power), modulo))
 
-    def __rshift__(self, other):
-        if issubclass(other, Quantity) and self.UNIT_INDEX == other.UNIT_INDEX:
+    def __rshift__(self, other: MetaQuantity):
+        if issubclass(other, Quantity) and self.__class__.type_index == other.type_index:
             self.__class__ = other
 
     def __reduce__(self):
@@ -114,156 +143,157 @@ class Quantity(PyQuantity, BaseClass, metaclass=Register):
         n = self.__class__(value=other, unit=self.unit)
         return self - n
 
-class Length(Quantity):
-    UNIT_INDEX = 0
 
+class Length(Quantity, unit_index=0):
+    pass
 
-class Mass(Quantity):
-    UNIT_INDEX = 1
 
+class Mass(Quantity, unit_index=1):
+    pass
 
-class Time(Quantity):
-    UNIT_INDEX = 2
 
+class Time(Quantity, unit_index=2):
+    pass
 
-class ElectricCurrency(Quantity):
-    UNIT_INDEX = 3
 
+class ElectricCurrency(Quantity, unit_index=3):
+    pass
 
-class Temperature(Quantity):
-    UNIT_INDEX = 4
 
+class Temperature(Quantity, unit_index=4):
+    pass
 
-class AmountOfSubstance(Quantity):
-    UNIT_INDEX = 5
 
+class AmountOfSubstance(Quantity, unit_index=5):
+    pass
 
-class LuminousIntensity(Quantity):
-    UNIT_INDEX = 6
 
+class LuminousIntensity(Quantity, unit_index=6):
+    pass
 
-class Area(Quantity):
-    UNIT_INDEX = 7
 
+class Area(Quantity, unit_index=7):
+    pass
 
-class Volume(Quantity):
-    UNIT_INDEX = 8
 
+class Volume(Quantity, unit_index=8):
+    pass
 
-class VolumetricFlow(Quantity):
-    UNIT_INDEX = 9
 
+class VolumetricFlow(Quantity, unit_index=9):
+    pass
 
-class MolarConcentration(Quantity):
-    UNIT_INDEX = 10
 
+class MolarConcentration(Quantity, unit_index=10):
+    pass
 
-class Acceleration(Quantity):
-    UNIT_INDEX = 11
 
+class Acceleration(Quantity, unit_index=11):
+    pass
 
-class Force(Quantity):
-    UNIT_INDEX = 12
 
+class Force(Quantity, unit_index=12):
+    pass
 
-class Velocity(Quantity):
-    UNIT_INDEX = 13
 
+class Velocity(Quantity, unit_index=13):
+    pass
 
-class Concentration(Quantity):
-    UNIT_INDEX = 14
 
+class Concentration(Quantity, unit_index=14):
+    pass
 
-class Density(Quantity):
-    UNIT_INDEX = 14
 
+class Density(Quantity, unit_index=14):
+    pass
 
-class MassFlow(Quantity):
-    UNIT_INDEX = 15
 
+class MassFlow(Quantity, unit_index=15):
+    pass
 
-class Pressure(Quantity):
-    UNIT_INDEX = 16
 
+class Pressure(Quantity, unit_index=16):
+    pass
 
-class DynamicViscosity(Quantity):
-    UNIT_INDEX = 17
 
+class DynamicViscosity(Quantity, unit_index=17):
+    pass
 
-class KinematicViscosity(Quantity):
-    UNIT_INDEX = 18
 
+class KinematicViscosity(Quantity, unit_index=18):
+    pass
 
-class Power(Quantity):
-    UNIT_INDEX = 19
 
+class Power(Quantity, unit_index=19):
+    pass
 
-class Energy(Quantity):
-    UNIT_INDEX = 20
 
+class Energy(Quantity, unit_index=20):
+    pass
 
-class Voltage(Quantity):
-    UNIT_INDEX = 21
 
+class Voltage(Quantity, unit_index=21):
+    pass
 
-class Frequency(Quantity):
-    UNIT_INDEX = 22
 
+class Frequency(Quantity, unit_index=22):
+    pass
 
-class ElectricCharge(Quantity):
-    UNIT_INDEX = 23
 
+class ElectricCharge(Quantity, unit_index=23):
+    pass
 
-class ElectricCapacitance(Quantity):
-    UNIT_INDEX = 24
 
+class ElectricCapacitance(Quantity, unit_index=24):
+    pass
 
-class ElectricResistance(Quantity):
-    UNIT_INDEX = 25
 
+class ElectricResistance(Quantity, unit_index=25):
+    pass
 
-class ElectricalConductance(Quantity):
-    UNIT_INDEX = 26
 
+class ElectricalConductance(Quantity, unit_index=26):
+    pass
 
-class MagneticFlux(Quantity):
-    UNIT_INDEX = 27
 
+class MagneticFlux(Quantity, unit_index=27):
+    pass
 
-class MagneticFluxDensity(Quantity):
-    UNIT_INDEX = 28
 
+class MagneticFluxDensity(Quantity, unit_index=28):
+    pass
 
-class Inductance(Quantity):
-    UNIT_INDEX = 29
 
+class Inductance(Quantity, unit_index=29):
+    pass
 
-class Illuminance(Quantity):
-    UNIT_INDEX = 30
 
+class Illuminance(Quantity, unit_index=30):
+    pass
 
-class Radioactivity(Quantity):
-    UNIT_INDEX = 22
 
+class Radioactivity(Quantity, unit_index=22):
+    pass
 
-class AbsorbedDose(Quantity):
-    UNIT_INDEX = 31
 
+class AbsorbedDose(Quantity, unit_index=31):
+    pass
 
-class EquivalentDose(Quantity):
-    UNIT_INDEX = 31
 
+class EquivalentDose(Quantity, unit_index=31):
+    pass
 
-class CatalyticActivity(Quantity):
-    UNIT_INDEX = 32
 
+class CatalyticActivity(Quantity, unit_index=32):
+    pass
 
-class Torque(Quantity):
-    UNIT_INDEX = 20
 
+class Torque(Quantity, unit_index=20):
+    pass
 
-class MolarWeight(Quantity):
-    UNIT_INDEX = 33
+
+class MolarWeight(Quantity, unit_index=33):
+    pass
 
 
 if __name__ == "__main__":
@@ -272,7 +302,8 @@ if __name__ == "__main__":
     # print(i)
 
     u = Voltage(1, "V")
-    print(u)
+    print(dir(u))
 
+    Voltage.type_index = 25
     # r = u * i
     # print(type(r))

@@ -871,8 +871,8 @@ class TestQuantitySideFunctionality(unittest.TestCase):
         l = Length(1, "m")
         l_copy = deepcopy(l)
 
-        self.assertEquals(l, l_copy)
-        self.assertNotEquals(id(l), id(l_copy))
+        self.assertEqual(l, l_copy)
+        self.assertNotEqual(id(l), id(l_copy))
 
 if __name__ == "__main__":
     unittest.main()
