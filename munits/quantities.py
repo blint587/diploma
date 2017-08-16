@@ -4,13 +4,12 @@ from munitscpp import PyQuantity, NPOS
 from base2.base import BaseClass
 
 
-CLASS_REGISTRY = defaultdict(list)
-
-
 class Register(type):
+    CLASS_REGISTRY = defaultdict(list)
+
     def __new__(mcs, name, bases, class_dict):
         cls = type.__new__(mcs, name, bases, class_dict)
-        CLASS_REGISTRY[cls.UNIT_INDEX].append(cls)
+        Register.CLASS_REGISTRY[cls.UNIT_INDEX].append(cls)
         return cls
 
 
@@ -26,7 +25,7 @@ class Quantity(PyQuantity, BaseClass, metaclass=Register):
             ob = super().__new__(cls, other=other)
             return ob
         else:
-            ncls = CLASS_REGISTRY[other.matrix_index][0]
+            ncls = Register.CLASS_REGISTRY[other.matrix_index][0]
             ob = super().__new__(ncls, other=other)
             return ob
 
