@@ -45,18 +45,20 @@ class MetaQuantity(type):
 class Quantity(PyQuantity, BaseClass, metaclass=MetaQuantity, unit_index=NPOS):
     # UNIT_INDEX = NPOS
 
-    def __new__(cls, value=0., unit="", *, other=None, transform=False):
+    def __new__(cls, value=None, unit=None, *, other=None, transform=False):
 
-        if other is None:
+        if (other is None) and (unit is not None) and (value is not None):
             ob = super().__new__(cls, cls.type_index, value, unit)
             return ob
         elif transform and (cls.type_index == other.__class__.type_index):
             ob = super().__new__(cls, other=other)
             return ob
-        else:
+        elif other is not None:
             ncls = MetaQuantity.CLASS_REGISTRY[other.matrix_index][0]
             ob = super().__new__(ncls, other=other)
             return ob
+        else:
+            raise TypeError("Inadequate parameter list.")
 
     def __mul__(self, other):
         if isinstance(other, Quantity) or isinstance(other, int) or isinstance(other, float):
