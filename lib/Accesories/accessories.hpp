@@ -58,6 +58,16 @@ namespace accessories{
 
 
 
+    };    template<class K, class V>
+    void print_map(const std::map<const K, V> &m){
+        std::cerr << "{ ";
+        for( auto p = m.begin(); p != m.end(); ++p ){
+            std::cerr << "Key: " << p->first << " Value: " << p->second << ", ";
+        }
+        std::cerr << "}" << std::endl;
+
+
+
     };
 
 }
