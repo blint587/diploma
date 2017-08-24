@@ -115,6 +115,10 @@ class Quantity(PyQuantity, BaseClass, metaclass=MetaQuantity, unit_index=NPOS):
     def __str__(self):
         return PyQuantity.__str__(self)
 
+    @classmethod
+    def _tostring(cls, obj, tabs=0):
+        return tabs * "    " + str(obj)
+
     def serializable(self):
         return {"value": self.val, "unit": self.unit}
 
