@@ -115,7 +115,7 @@ class Quantity(PyQuantity, BaseClass, metaclass=MetaQuantity, unit_index=NPOS):
     def __str__(self):
         return PyQuantity.__str__(self)
 
-    def serializable(self):
+    def serializable(self, *args, **kwargs):
         return {"value": self.val, "unit": self.unit}
 
     def __hash__(self):
