@@ -298,6 +298,13 @@ class MolarWeight(Quantity, unit_index=33):
     pass
 
 
+class EnergyFlux(Quantity, unit_index=34):
+    pass
+
+class EnergyPerArea(Quantity, unit_index=35):
+    pass
+
+
 if __name__ == "__main__":
 
     i = ElectricCurrency(1, "A")

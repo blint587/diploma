@@ -86,7 +86,8 @@ const std::vector<munits::Metric> & munits::GetMatrix(){
             {{ 2,  0, -2,  0,  0,  0,  0}, "m2 s-2" /*Gy or Sv*/}, //AbsorbedDose or EquivalentDose
             {{ 0,  0, -1,  0,  0,  1,  0}, "mol s-1" /*kat*/}, //CatalyticActivity
             {{ 0,  1,  0,  0,  0, -1,  0}, "mol-1 g" }, //MolarWeight
-
+            {{ 0,  1, -3,  0,  0,  0,  0}, "kg s-3"}, //EnergyFlux
+            {{ 0,  1, -2,  0,  0,  0,  0}, "kg s-2"}, //EnergyPerArea (Ly Langley, 1 cal cm-2)
             {{ 0,  0,  0,  0,  0,  0,  0}, ""}, //_Last
 
     };

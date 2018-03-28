@@ -55,6 +55,8 @@ namespace munits {
 //        EquivalentDose = 31,
         CatalyticActivity = 32,
         MolarWeight = 33,
+        EnergyFlux = 34,
+        EnergyPerArea = 35,
         _Last
 
     };
