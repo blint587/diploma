@@ -46,10 +46,10 @@ if USE_CYTHON:
 
 setup(
     name="munits",
-    version="0.2.2",
+    version="0.2.5",
     packages=["munits"],
     ext_modules=extensions,
-    install_requires=["base2>=0.1.16"],
+    install_requires=["base2>=0.2.3"],
     # data_files={"munits": ["src/*.hpp", "src/*.h", "lib/Accesories/*.hpp", "src/uresolver.hpp"]},
     dependency_links=[]
 )

@@ -119,7 +119,7 @@ class Quantity(PyQuantity, BaseClass, metaclass=MetaQuantity, unit_index=NPOS):
     def _tostring(cls, obj, tabs=0):
         return tabs * "    " + str(obj)
 
-    def serializable(self):
+    def serializable(self, *args, **kwargs):
         return {"value": self.val, "unit": self.unit}
 
     def __hash__(self):
@@ -299,6 +299,13 @@ class Torque(Quantity, unit_index=20):
 
 
 class MolarWeight(Quantity, unit_index=33):
+    pass
+
+
+class EnergyFlux(Quantity, unit_index=34):
+    pass
+
+class EnergyPerArea(Quantity, unit_index=35):
     pass
 
 
