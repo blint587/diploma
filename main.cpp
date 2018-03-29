@@ -15,6 +15,9 @@ int main() {
    Quantity p (Power, 1, "hp");
     TRACE(p);
 
+   Quantity ef (EnergyFlux, 1, "mW cm-2");
+    TRACE(ef);
+
 
 
 

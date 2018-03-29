@@ -37,6 +37,7 @@ namespace munits {
             double value;
             std::shared_ptr<munits::Converter> converter;
             std::vector<int> dim_vector;
+            std::string init_unit;
 
 //            explicit Quantity(int,  double, std::vector<UnitNotation>);
 //            explicit Quantity(int, double, std::vector<UnitNotation>, std::vector<int>);
@@ -51,7 +52,7 @@ namespace munits {
             const munits::UnitNotationVector getUnitVector() const {return unit_vector;};
 
 
-            explicit Quantity(metrics,  double, const std::string);
+            explicit Quantity(metrics,  double, std::string);
 
         //        Quantity(Quantity &);
             Quantity(const Quantity &) = default;
@@ -62,11 +63,18 @@ namespace munits {
             const std::vector<int> GetDimVector() const{return dim_vector;};
             const int getMatrixIndex()const {return matrix_index;};
 
-            double operator()(const std::string) const;
-            operator std::string() const {
+            double operator()(std::string) const;
+
+            explicit operator std::string() const {
                 TRACE(unit_vector.getMultiplicationFactor());
                 std::stringstream ss;
-                ss << value << " " << UnitNotationVector::compose_unit(unit_vector, matrix_index);
+                std::string composed = UnitNotationVector::compose_unit(unit_vector, matrix_index);
+                if (init_unit.empty() || composed.length() < init_unit.length()) {
+                    ss << value << " " << composed;
+                }
+                else{
+                    ss << this->operator()(init_unit) << " " << init_unit;
+                }
                 return ss.str();}
             explicit operator double() const;
 
@@ -78,6 +86,7 @@ namespace munits {
             double toDouble() const {return double(*this);}
             double getValue() const {return value;}
             std::string getUnit() const {return UnitNotationVector::compose_unit(unit_vector, matrix_index);}
+            std::string getInitUnit() const {return init_unit;}
             Quantity(){};
             #endif
             friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << (std::string) a ;return str;};

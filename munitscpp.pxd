@@ -47,6 +47,7 @@ cdef extern from "src/quantity.h" namespace "munits":
         int getMatrixIndex()
         double getValue()
         string getUnit()
+        string getInitUnit()
 
         bint operator< (const Quantity) except + ValueError
         bint operator<= (const Quantity) except + ValueError
