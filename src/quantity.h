@@ -65,7 +65,7 @@ namespace munits {
 
             double operator()(std::string) const;
 
-            explicit operator std::string() const {
+            operator std::string() const { // explicit will brake Cython
                 TRACE(unit_vector.getMultiplicationFactor());
                 std::stringstream ss;
                 std::string composed = UnitNotationVector::compose_unit(unit_vector, matrix_index);

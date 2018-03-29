@@ -5,7 +5,6 @@
 #include <list>
 #include <math.h>
 #include <string>
-#include <utility>
 #include "quantity.h"
 #include "dynamic.hpp"
 #include "uresolver.hpp"
@@ -144,7 +143,7 @@ munits::Quantity::Quantity(int m, double value, munits::UnitNotationVector unit_
         unit_vector(unit_v),
         value(value * unit_vector.getMultiplicationFactor()),
         converter(munits::GetMatrix()[m].converter),
-        dim_vector(std::move(dim_v)) {
+        dim_vector(dim_v) {
 
 
     if (matrix_index > _Last) {
