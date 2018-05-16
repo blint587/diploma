@@ -119,7 +119,11 @@ cdef class PyQuantity(object):
         return self._thisptr.toString().decode("utf-8")
 
     def __repr__(PyQuantity self):
-        return  self.__str__()
+        if self.init_unit != "":
+            return  "{value} {unit}".format(value=self(self.init_unit), unit=self.init_unit)
+        else:
+            return self.__str__()
+
 
     def __float__(PyQuantity self):
         return self._thisptr.toDouble()
@@ -146,6 +150,10 @@ cdef class PyQuantity(object):
     @property
     def unit(PyQuantity self):
         return self._thisptr.getUnit().decode("utf-8")
+
+    @property
+    def init_unit(PyQuantity self):
+        return self._thisptr.getInitUnit().decode("utf-8")
 
 
 NPOS = _Last

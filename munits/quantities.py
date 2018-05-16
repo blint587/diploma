@@ -115,8 +115,16 @@ class Quantity(PyQuantity, BaseClass, metaclass=MetaQuantity, unit_index=NPOS):
     def __str__(self):
         return PyQuantity.__str__(self)
 
-    def serializable(self):
-        return {"value": self.val, "unit": self.unit}
+    def __repr__(self):
+        return PyQuantity.__repr__(self)
+
+
+    def serializable(self, *args, **kwargs):
+        if self.init_unit != "":
+            s = {"value": self(self.init_unit), "unit": self.init_unit}
+        else:
+            s = {"value": self.val, "unit": self.unit}
+        return s
 
     def __hash__(self):
         return (7 + hash(self.val)) * 31 + hash(str(self.unit))
@@ -295,6 +303,13 @@ class Torque(Quantity, unit_index=20):
 
 
 class MolarWeight(Quantity, unit_index=33):
+    pass
+
+
+class EnergyFlux(Quantity, unit_index=34):
+    pass
+
+class EnergyPerArea(Quantity, unit_index=35):
     pass
 
 

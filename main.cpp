@@ -12,11 +12,13 @@ using namespace munits;
 
 int main() {
 
-   Quantity p (Power, 1, "kW h d-1");
+   Quantity p (Power, 1, "hp");
     TRACE(p);
 
-   Quantity pr (Pressure, 1, "psi");
-    TRACE(pr);
+   Quantity ef (EnergyFlux, 1, "mW cm-2");
+    TRACE(ef);
+
+
 
 
 #ifdef DEBUG

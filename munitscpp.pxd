@@ -38,7 +38,9 @@ cdef extern from "src/quantity.h" namespace "munits":
             AbsorbedDose = 31,
             CatalyticActivity = 32,
             MolarWeight = 33,
-            _Last = 34
+            EnergyFlux = 34,
+            EnergyPerArea = 35,
+            _Last = 36
 
     cdef cppclass Quantity:
         Quantity(metrics, double, const string) except + ValueError
@@ -47,6 +49,7 @@ cdef extern from "src/quantity.h" namespace "munits":
         int getMatrixIndex()
         double getValue()
         string getUnit()
+        string getInitUnit()
 
         bint operator< (const Quantity) except + ValueError
         bint operator<= (const Quantity) except + ValueError

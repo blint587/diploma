@@ -23,7 +23,7 @@ double munits::Quantity::operator()(const string tunit) const {
     queue<vector<int>> dim_matrix; // the search matrix composed by tearing down the dim_vector
 
     UnitNotationVector tunit_vector = UnitNotationVector::compose_unit_vector(tunit);
-
+//    TRACEITERABLE(tunit_vector);
     for (int i = 0; i < 7; ++i) {
         if (dim_vector[i] != 0) {
             vector<int> tmp_dim_vector(7);
@@ -43,7 +43,8 @@ double munits::Quantity::operator()(const string tunit) const {
         normalized_dim[position] = 1;
 
         for (auto q = rmatrix.begin(); q != rmatrix.end(); ++q) {
-
+//            TRACEMAP(q->converter->Units());
+//            TRACEITERABLE(q->dim_vector); TRACEITERABLE(dmv);
             if ((q->dim_vector == dmv || q->dim_vector == normalized_dim) &&
                 (q->converter->is_valid_unit(this->unit_vector[position]) &&
                  q->converter->is_valid_unit(tunit_vector[position]))) {
@@ -158,6 +159,7 @@ munits::Quantity::Quantity(int m, double value, munits::UnitNotationVector unit_
 
 munits::Quantity::Quantity(munits::metrics m, double value, const string unit) :
         munits::Quantity::Quantity(m, value, UnitNotationVector::compose_unit_vector(unit), munits::GetMatrix()[m].dim_vector) {
+    init_unit = unit;
 }
 
 

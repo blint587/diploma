@@ -34,7 +34,7 @@ extensions = [Extension(
     sources=sources,
     language="c++",
     extra_compile_args=["-std=c++11"],
-    # extra_compile_args=["-std=c++11", "-Zi", "/Od" "-D CYTHON"],    # Debug flag version
+    # extra_compile_args=["-std=c++11", "-Z"],    # Debug flag version
     extra_link_args=["-std=c++11"],
     # extra_link_args=["-std=c++11", "-debug" "-D CYTHON"],   # Debug flag version
 )]
@@ -46,10 +46,10 @@ if USE_CYTHON:
 
 setup(
     name="munits",
-    version="0.2.2",
+    version="0.2.8",
     packages=["munits"],
     ext_modules=extensions,
-    install_requires=["base2>=0.1.16"],
+    install_requires=["base2>=0.2.3"],
     # data_files={"munits": ["src/*.hpp", "src/*.h", "lib/Accesories/*.hpp", "src/uresolver.hpp"]},
     dependency_links=[]
 )
