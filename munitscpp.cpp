@@ -7,12 +7,10 @@
             "src/quantity.h"
         ],
         "extra_compile_args": [
-            "-std=c++11",
-            "-Z"
+            "-std=c++11"
         ],
         "extra_link_args": [
-            "-std=c++11",
-            "-debug-D CYTHON"
+            "-std=c++11"
         ],
         "include_dirs": [
             "."
