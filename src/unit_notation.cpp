@@ -28,9 +28,9 @@ munits::UnitNotation::UnitNotation(string u) {
 list <munits::UnitNotation> munits::UnitNotation::tokenise(const string &unit) {
     istringstream iss(unit);
     list<string> tokens;
-
     copy(istream_iterator<string>(iss), istream_iterator<string>(),
          back_inserter(tokens)); // splitting up string representations (by default at " ")
+    TRACEITERABLE(tokens);
 
     const vector<munits::Metric> &rmatrix = munits::GetMatrix();
 
@@ -39,9 +39,9 @@ list <munits::UnitNotation> munits::UnitNotation::tokenise(const string &unit) {
     r.resolve(tokens);
 
     list <munits::UnitNotation> unTokens (tokens.size()); // resizing to match
-
     // composing UnitNotation objects from string representations
     transform(tokens.begin(), tokens.end(), unTokens.begin(), [](string unt){return munits::UnitNotation(unt);});
+    TRACEITERABLE(unTokens);
     return unTokens;
 }
 
@@ -108,8 +108,9 @@ const  munits::UnitNotation & munits::UnitNotationVector::npos() {
 munits::UnitNotationVector munits::UnitNotationVector::compose_unit_vector(const string &unit) {
 
     auto  rmatrix = GetMatrix();
-
+    TRACE(unit);
     list <UnitNotation> unTokens = UnitNotation::tokenise(unit);
+    TRACEITERABLE(unTokens);
 
     UnitNotationVector uv;
 

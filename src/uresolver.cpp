@@ -33,6 +33,7 @@ bool munits::Resolver::resolve(std::list<std::string> &l) {
 
                 // splitting up string representations (by default at " ")
                 copy(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(), std::back_inserter(tokens));
+                TRACEITERABLE(tokens);
                 for(auto token = tokens.begin(); token != tokens.end(); token++){
                     UnitNotation notation (*token);
                     if(! prefixes.empty()){
