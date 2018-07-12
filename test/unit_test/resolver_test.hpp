@@ -195,7 +195,7 @@ TEST_F(TestResolver, resolve_Pa){
 
     r.resolve(units);
 
-    auto expexc = std::list<std::string>{"kg", "s-2", "m-1"};
+    auto expexc = std::list<std::string>{"kg", "m-1", "s-2"};
 
     EXPECT_EQ(units, expexc);
 
@@ -212,7 +212,7 @@ TEST_F(TestResolver, resolve_bar){
 
     r.resolve(units);
 
-    auto expexc = std::list<std::string>{"Mg", "ds-2", "m-1"};
+    auto expexc = std::list<std::string>{"Mg", "m-1", "ds-2"};
 
     EXPECT_EQ(units, expexc);
 

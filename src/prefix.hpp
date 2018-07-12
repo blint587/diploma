@@ -45,7 +45,12 @@ namespace munits {
                 }
 
                 std::string new_prx = munits::getPrefixByExponent(nexponent);
-                TRACE(new_prx);
+                // When prefix by exponent cannot be resolved (k + h -> 5) it is handled as an
+                // overflow and needs to be handled by 'later' units
+                if (munits::npos_prefix == new_prx){
+                    overflow = prefix_exponent;
+                    return UnitNotation(un);
+                }
 
                 return UnitNotation(
                         new_prx + un.GetUnit() + (un.GetExponent() == 1 ? "" : std::to_string(un.GetExponent())));

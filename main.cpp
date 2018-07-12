@@ -12,11 +12,8 @@ using namespace munits;
 
 int main() {
 
-   Quantity p (Power, 1, "hp");
+   Quantity p (Pressure, 1, "hPa");
     TRACE(p);
-
-   Quantity ef (EnergyFlux, 1, "mW cm-2");
-    TRACE(ef);
 
 
 
