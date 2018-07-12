@@ -9,12 +9,14 @@
 #ifdef DEBUG
     #include <iomanip>
     #define TRACE(x)  std::cerr << std::setprecision(18) << (x) << std::endl
+    #define TRACEWHAT(x, what)  std::cerr << std::setprecision(18) << (what) << " " << (x) << std::endl
     #define TRACEITERABLE(x) accessories::print_iterable(x)
     #define TRACEMAP(x) accessories::print_map(x)
 #else
     #define TRACE(x)
-    #define TRACEVECTOR(x)
     #define TRACEMAP(x)
+    #define TRACEWHAT(x, what)
+    #define TRACEITERABLE(x)
 #endif
 
 

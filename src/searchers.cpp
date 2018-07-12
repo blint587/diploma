@@ -35,7 +35,7 @@ const double munits::getExponentOfPrefix(const std::string prefix) {
 
 const std::string munits::getPrefixByExponent(const int exponent) {
     auto prefixes = munits::GetPrefixes();
-    std::string prx = "None";
+    std::string prx = munits::npos_prefix;
     for(auto conf :  prefixes){
         if(exponent == conf.second->getFirstOrderExponent()){
             prx = conf.first;

@@ -12,6 +12,7 @@
 using namespace std;
 
 vector<string> munits::unparser(string unit) {
+//    TRACEWHAT(unit, "Unit passed to unpatser:");
     const vector<munits::Metric> &rmatrix = munits::GetMatrix();
     vector<string> parsed = {"", "", ""};
 
@@ -39,16 +40,16 @@ vector<string> munits::unparser(string unit) {
             rp << ")(\\-?[0-9])?$";
         }
         try {
+//            TRACE(rp.str());
             regex re(rp.str());
             sregex_iterator next(unit.begin(), unit.end(), re);
             sregex_iterator end;
             while (next != end) {
                 smatch match = *next;
 
-                if (string((string  &&) match[1]) +
-                    string((string  &&) match[2]) +
-                    string((string  &&) match[3]) ==
-                    unit) {
+                std::string _recomposed = string((std::string  &&) match[1]) + string((std::string  &&) match[2]) +string((std::string  &&) match[3]);
+//                TRACE(_recomposed);
+                if (_recomposed  == unit) {
                     no_match = false;
                     parsed[0] = match[1];
                     parsed[1] = match[2];
@@ -61,7 +62,7 @@ vector<string> munits::unparser(string unit) {
 
         }
     }
-
+//    TRACEITERABLE(parsed);
     return parsed;
 }
 
@@ -95,16 +96,16 @@ vector<string> munits::rparser(string token) {
                 rp << ")(\\-?[0-9])?$";
             }
             try {
+//                TRACE(rp.str());
                 regex re(rp.str());
                 sregex_iterator next(token.begin(), token.end(), re);
                 sregex_iterator end;
                 while (next != end) {
                     smatch match = *next;
 
-                    if (string((string  &&) match[1]) +
-                        string((string  &&) match[2]) +
-                        string((string  &&) match[3]) ==
-                        token) {
+                    std::string _recomposed = string((std::string  &&) match[1]) + string((std::string  &&) match[2]) + string((std::string  &&) match[3]);
+
+                    if ( _recomposed == token) {
                         no_match = false;
                         parsed[0] = match[1];
                         parsed[1] = match[2];

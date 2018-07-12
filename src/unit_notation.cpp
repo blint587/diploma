@@ -30,7 +30,6 @@ list <munits::UnitNotation> munits::UnitNotation::tokenise(const string &unit) {
     list<string> tokens;
     copy(istream_iterator<string>(iss), istream_iterator<string>(),
          back_inserter(tokens)); // splitting up string representations (by default at " ")
-    TRACEITERABLE(tokens);
 
     const vector<munits::Metric> &rmatrix = munits::GetMatrix();
 
@@ -41,7 +40,6 @@ list <munits::UnitNotation> munits::UnitNotation::tokenise(const string &unit) {
     list <munits::UnitNotation> unTokens (tokens.size()); // resizing to match
     // composing UnitNotation objects from string representations
     transform(tokens.begin(), tokens.end(), unTokens.begin(), [](string unt){return munits::UnitNotation(unt);});
-    TRACEITERABLE(unTokens);
     return unTokens;
 }
 

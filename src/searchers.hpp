@@ -21,6 +21,8 @@ namespace munits{
 
     const metrics getMetric(const std::vector<int> &searched);
 
+    static const std::string npos_prefix = "None";
+
 }
 
 

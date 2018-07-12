@@ -7,6 +7,7 @@
 #include "quantity_test_representation.hpp"
 #include "resolver_test.hpp"
 #include "converterfunction_test.hpp"
+#include "qunatity_test_basic_initialization.hpp"
 
 int main(int argc, char* argv[])
 {

@@ -69,7 +69,7 @@ const std::vector<munits::Metric> & munits::GetMatrix(){
             {{ 1,  0, -1,  0,  0,  0,  0}, "m s-1"},  //Velocity
             {{-3,  1,  0,  0,  0,  0,  0}, "kg m-3"},  //Concentration or Density
             {{ 0,  1, -1,  0,  0,  0,  0}, "g s-1"},  //MassFlow
-            {{-1,  1, -2,  0,  0,  0,  0}, "kg m-1 s-2", /*Pa*/{}, {}, {{"Pa", "kg s-2 m-1"}, {"bar", "Mg ds-2 m-1"}, {"psi", "slug ft s-2 inc-2"}}},  //Pressure
+            {{-1,  1, -2,  0,  0,  0,  0}, "kg m-1 s-2", /*Pa*/{}, {}, {{"Pa", "kg m-1 s-2"}, {"bar", "Mg m-1 ds-2"}, {"psi", "slug ft s-2 inc-2"}}},  //Pressure
             {{-1,  1, -1,  0,  0,  0,  0}, "kg m-1 s-1"},  //DynamicViscosity
             {{ 2,  0, -1,  0,  0,  0,  0}, "m2 s-1"},  //KinematicViscosity
             {{ 2,  1, -3,  0,  0,  0,  0}, "kg m2 s-3" /*W*/, {}, {}, {{"W", "kg m2 s-3"}, //Power
