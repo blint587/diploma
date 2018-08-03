@@ -318,9 +318,12 @@ class MassFlux(Quantity, unit_index=36):
     pass
 
 
+class AreaDensity(Quantity, unit_index=37):
+    pass
+
 if __name__ == "__main__":
 
-    i = MassFlux(1, "kg m-2 s-1")
+    i = AreaDensity(1, "gsm")
     print(i)
 
     # r = u * i
