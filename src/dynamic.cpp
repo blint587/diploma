@@ -116,7 +116,7 @@ const std::map<std::string, const std::shared_ptr<munits::ConverterFunction>> & 
             {"c", std::make_shared<munits::ConverterFunction>(munits::ConverterFunction(1e-2/*, 0, "c"*/))},  // centi
             {"m", std::make_shared<munits::ConverterFunction>(munits::ConverterFunction(1e-3/*, 0, "m"*/))},  // milli
             {"μ", std::make_shared<munits::ConverterFunction>(munits::ConverterFunction(1e-6/*, 0, "μ"*/))},  // micro
-            {"n", std::make_shared<munits::ConverterFunction>(munits::ConverterFunction(1e-9/*, 0/*, "n"*/))},  // nano
+            {"n", std::make_shared<munits::ConverterFunction>(munits::ConverterFunction(1e-9/*, 0, "n"*/))},  // nano
             {"p", std::make_shared<munits::ConverterFunction>(munits::ConverterFunction(1e-12/*, 0, "p"*/))},  // pico
             {"f", std::make_shared<munits::ConverterFunction>(munits::ConverterFunction(1e-15/*, 0, "f"*/))},  // femto
             {"a", std::make_shared<munits::ConverterFunction>(munits::ConverterFunction(1e-18/*, 0, "a"*/))}  // atto
