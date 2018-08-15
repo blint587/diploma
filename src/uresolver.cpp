@@ -52,7 +52,10 @@ bool munits::Resolver::resolve(std::list<std::string> &l) {
                 }
 
                 l.insert(b, tokens.begin(), tokens.end());
-                b = l.erase(b);
+				long long int nb = std::distance(l.begin(), b);
+                l.erase(b);
+				b = l.begin();
+				advance(b, nb);
                 replacement_occured = true;
             }
         }

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "munitscs", "munitscs\munitscs.csproj", "{62BE3233-BBB8-41AF-8956-DE685495952F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "munitscs_test", "munitscs_test\munitscs_test.csproj", "{6E97273E-3DFB-4C43-8F37-D3F7031F513B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62BE3233-BBB8-41AF-8956-DE685495952F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62BE3233-BBB8-41AF-8956-DE685495952F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62BE3233-BBB8-41AF-8956-DE685495952F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62BE3233-BBB8-41AF-8956-DE685495952F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E97273E-3DFB-4C43-8F37-D3F7031F513B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E97273E-3DFB-4C43-8F37-D3F7031F513B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E97273E-3DFB-4C43-8F37-D3F7031F513B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E97273E-3DFB-4C43-8F37-D3F7031F513B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A9C29AA3-6E5C-4B65-B749-C3209F7E6AA2}
+	EndGlobalSection
+EndGlobal

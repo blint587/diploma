@@ -80,7 +80,7 @@ namespace munits {
 
             bool unquantified() const;
 
-            #ifndef NOCYTHON
+//            #ifndef NOCYTHON
             // helper functions for interfaceing
             std::string toString() const {return std::string((std::string &&) *this); }
             double toDouble() const {return double(*this);}
@@ -88,7 +88,7 @@ namespace munits {
             std::string getUnit() const {return UnitNotationVector::compose_unit(unit_vector, matrix_index);}
             std::string getInitUnit() const {return init_unit;}
             Quantity(){};
-            #endif
+//            #endif
             friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << (std::string) a ;return str;};
 
             friend Quantity operator+ (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value + rgths( UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};
@@ -119,6 +119,7 @@ namespace munits {
     Quantity pow(const Quantity &a, int e);
 
 }
+
 
 
 #endif //MUSYS_QUANTITY_H
