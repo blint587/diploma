@@ -76,9 +76,9 @@ namespace munitscs
         private static extern IntPtr __ntrt(IntPtr lft, int rgh);
 
        
-        public Quantity(int metric, double value, string unit)
+        public Quantity(Metrics metric, double value, string unit)
         {
-            this.quantity = CreateQuantity(metric, value, unit);
+            this.quantity = CreateQuantity((int) metric, value, unit);
         }
 
         private Quantity(IntPtr q)
