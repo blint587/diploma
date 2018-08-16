@@ -65,7 +65,7 @@ namespace munits {
 
             double operator()(std::string) const;
 
-            operator std::string() const { // explicit will brake Cython
+            explicit operator std::string() const { // explicit will brake Cython
                 TRACE(unit_vector.getMultiplicationFactor());
                 std::stringstream ss;
                 std::string composed = UnitNotationVector::compose_unit(unit_vector, matrix_index);
@@ -89,7 +89,7 @@ namespace munits {
             std::string getInitUnit() const {return init_unit;}
             Quantity(){};
 //            #endif
-            friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << (std::string) a ;return str;};
+            friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.toString() ;return str;};
 
             friend Quantity operator+ (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value + rgths( UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};
             friend Quantity operator- (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value - rgths( UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};

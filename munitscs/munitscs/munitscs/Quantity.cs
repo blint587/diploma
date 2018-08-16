@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using munitscs.Exceptions;
 
 namespace munitscs
 {
@@ -15,8 +16,8 @@ namespace munitscs
         [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern void DeleteQuantity(IntPtr q);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern string __toString(IntPtr q, StringBuilder sb);
+//        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+//        private static extern string __toString(IntPtr q, string sb);
 
         [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern double __getValue(IntPtr q);
@@ -78,6 +79,9 @@ namespace munitscs
         [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern double __get(IntPtr lft, string u);
     
+        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private static extern double __double(IntPtr q);
+    
         
        
         public Quantity(Metrics metric, double value, string unit)
@@ -96,12 +100,12 @@ namespace munitscs
             DeleteQuantity(this.quantity);
         }
 
-        public override string ToString()
-         {
-             StringBuilder buffer = new StringBuilder(512);
-             __toString(this.quantity, buffer);
-             return buffer.ToString();
-         }
+//        public override string ToString()
+//         {
+//             string buffer = "";
+//             __toString(this.quantity, buffer);
+//             return buffer;
+//         }
 
         public double GetValue()
         {
@@ -170,27 +174,101 @@ namespace munitscs
         //comparison
         public static bool operator <(Quantity lft, Quantity rgh)
         {
-            return __lt(lft.quantity, rgh.quantity);
+            try
+            {
+                return __lt(lft.quantity, rgh.quantity);
+            }catch (SEHException ex)
+            {
+                if (ex.ErrorCode == -2147467259) // logic_error
+                {
+                    throw new CannotPerformComparison("Comparison cannot be done! Measurement Unit types do not match.", ex);
+                }
+                throw;
+            }
         }
         public static bool operator >(Quantity lft, Quantity rgh)
         {
-            return __gt(lft.quantity, rgh.quantity);
+            try
+            {
+                return __gt(lft.quantity, rgh.quantity);
+            }catch (SEHException ex)
+            {
+                if (ex.ErrorCode == -2147467259) // logic_error
+                {
+                    throw new CannotPerformComparison("Comparison cannot be done! Measurement Unit types do not match.", ex);
+                }
+                throw;
+            }
         }
         public static bool operator <=(Quantity lft, Quantity rgh)
         {
-            return __le(lft.quantity, rgh.quantity);
+            try
+            {
+                return __le(lft.quantity, rgh.quantity);
+            }catch (SEHException ex)
+            {
+                if (ex.ErrorCode == -2147467259) // logic_error
+                {
+                    throw new CannotPerformComparison("Comparison cannot be done! Measurement Unit types do not match.", ex);
+                }
+                throw;
+            }
         }
         public static bool operator >=(Quantity lft, Quantity rgh)
         {
-            return __ge(lft.quantity, rgh.quantity);
+            try
+            {
+                return __ge(lft.quantity, rgh.quantity);
+            }catch (SEHException ex)
+            {
+                if (ex.ErrorCode == -2147467259) // logic_error
+                {
+                    throw new CannotPerformComparison("Comparison cannot be done! Measurement Unit types do not match.", ex);
+                }
+                throw;
+            }
         }
         public static bool operator ==(Quantity lft, Quantity rgh)
-        {
-            return __eq(lft.quantity, rgh.quantity);
+        {    
+            if (!(ReferenceEquals(null, lft) || ReferenceEquals(null, rgh))){
+                try
+                {
+                    return __eq(lft.quantity, rgh.quantity);
+                }
+                catch (SEHException ex)
+                {
+                    if (ex.ErrorCode == -2147467259) // logic_error
+                    {
+                        throw new CannotPerformComparison("Comparison cannot be done! Measurement Unit types do not match.",
+                            ex);
+                    }
+
+                    throw;
+                }
+            }
+            //TODO: implement proper logic
+            return false;
         }
         public static bool operator !=(Quantity lft, Quantity rgh)
         {
-            return __ne(lft.quantity, rgh.quantity);
+            if (!(ReferenceEquals(null, lft) || ReferenceEquals(null, rgh)))
+            {
+                try
+                {
+                    return __ne(lft.quantity, rgh.quantity);
+                }
+                catch (SEHException ex)
+                {
+                    if (ex.ErrorCode == -2147467259) // logic_error
+                    {
+                        throw new CannotPerformComparison("Comparison cannot be done! Measurement Unit types do not match.", ex);
+                    }
+
+                    throw;
+                }
+            }
+            //TODO: implement proper logic
+            return false;
         }
         
         //power
@@ -202,15 +280,41 @@ namespace munitscs
         // nt roth
         public Quantity Root(int rgh)
         {
-            IntPtr temp = __ntrt(this.quantity, rgh);
-            return new Quantity(temp);
+            try
+            {
+                IntPtr temp = __ntrt(this.quantity, rgh);
+                return new Quantity(temp);
+            }
+            catch (SEHException ex)
+            {
+                if (ex.ErrorCode == -2147467259) // logic_error
+                {
+                    throw new CannotPerformRootOperation($"Cannot perform {rgh}th root on {quantity}!", ex);
+                }
+                throw;
+            }
         }
 
         public double Get(string u)
         {
             return __get(this.quantity, u);
         }
-    }
 
+        public static implicit operator double(Quantity q)
+        {
+            try
+            {
+                return __double(q.quantity);
+            }
+            catch (SEHException ex)
+            {
+                if (ex.ErrorCode == -2147467259) // logic_error
+                {
+                    throw new CannotPerformRootOperation("Unit cannot be converted to double!!", ex);
+                }
+                throw;
+            }
+        }
+    }
 }
 

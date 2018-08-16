@@ -15,10 +15,12 @@ extern "C" {
     }
 
     // toString method
-    __declspec(dllexport) void __toString(munits::Quantity * q,  char * buffer, int buffersize){
-        auto temp =  q->toString();
-
-         std::copy(temp.begin(), temp.end(), buffer);
+    __declspec(dllexport) void __toString(munits::Quantity * q,  char * buffer){
+        auto temp =  ((std::string) *q).c_str();
+        int lenstr = strlen(temp);
+        for (int i= 0; i < lenstr  ;i++){
+            buffer[i] = temp[i];
+        }
     }
     __declspec(dllexport) double __getValue(munits::Quantity * q){
         return q->getValue();
@@ -103,7 +105,9 @@ extern "C" {
         return lft->operator()(u);
     }
 
-
+    __declspec(dllexport) double __double(munits::Quantity * q){
+        return q->toDouble();
+    }
 
 }
 

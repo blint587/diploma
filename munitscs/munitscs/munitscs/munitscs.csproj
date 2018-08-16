@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\CannotPerformComparison.cs" />
+    <Compile Include="Exceptions\CannotPerformRoot.cs" />
+    <Compile Include="Exceptions\QuantityException.cs" />
+    <Compile Include="Exceptions\UnableToCastToDouble.cs" />
     <Compile Include="Metrics.cs" />
     <Compile Include="Quantity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

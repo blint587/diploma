@@ -55,15 +55,22 @@ set(SOURCE_FILES main.cpp
         src/uresolver.cpp
         src/uresolver.hpp
         lib/Accesories/math.hpp src/prefix.cpp src/prefix.hpp src/parsers.hpp src/parsers.cpp src/searchers.cpp src/searchers.hpp)
-if(WIN32)
+if(MSVC)
     set(SOURCE_FILES ${SOURCE_FILES} src/cs/munitscsexport.cpp )
     set(BUILD_SHARED_LIBS TRUE)
-else()
 
-    add_subdirectory(test)
 endif()
+
+#add_subdirectory(test)
+
 
 add_library(munits SHARED ${SOURCE_FILES})
 add_executable(musys main.cpp)
 
 add_subdirectory(lib/Accesories)
+
+#if(WIN32)
+#    add_custom_command(TARGET munits
+#            POST_BUILD
+#            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:munits> /munitscs/munitscs/munitscs)
+#endif()

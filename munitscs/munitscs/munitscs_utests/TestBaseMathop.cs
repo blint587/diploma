@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using munitscs;
+using munitscs.Exceptions;
 
 namespace munitscs_utests
 {
@@ -76,7 +77,7 @@ namespace munitscs_utests
     [Test]
      public void _3rt_not_rootable(){
         Quantity a = new Quantity(Metrics.Velocity, 8.0, "m s-1");
-        Assert.Throws<System.Runtime.InteropServices.SEHException>(() => a.Root(3));
+        Assert.Throws<CannotPerformRootOperation>(() => a.Root(3));
     }
     //
     ////Create derived via math operation
