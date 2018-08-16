@@ -75,6 +75,10 @@ namespace munitscs
         [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __ntrt(IntPtr lft, int rgh);
 
+        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private static extern double __get(IntPtr lft, string u);
+    
+        
        
         public Quantity(Metrics metric, double value, string unit)
         {
@@ -190,19 +194,22 @@ namespace munitscs
         }
         
         //power
-        public static Quantity Pow(Quantity lft, int rgh)
+        public Quantity Pow(int rgh)
         {
-            IntPtr temp = __pow(lft.quantity, rgh);
+            IntPtr temp = __pow(this.quantity, rgh);
             return new Quantity(temp);
         }
         // nt roth
-        public static Quantity Roth(Quantity lft, int rgh)
+        public Quantity Roth(int rgh)
         {
-            IntPtr temp = __ntrt(lft.quantity, rgh);
+            IntPtr temp = __ntrt(this.quantity, rgh);
             return new Quantity(temp);
         }
-        
 
+        public double Get(string u)
+        {
+            return __get(this.quantity, u);
+        }
     }
 
 }
