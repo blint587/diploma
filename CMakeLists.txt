@@ -59,11 +59,11 @@ if(WIN32)
     set(SOURCE_FILES ${SOURCE_FILES} src/cs/munitscsexport.cpp )
     set(BUILD_SHARED_LIBS TRUE)
 else()
-#    add_executable(musys ${SOURCE_FILES})
+
     add_subdirectory(test)
 endif()
 
-
 add_library(munits SHARED ${SOURCE_FILES})
+add_executable(musys main.cpp)
 
 add_subdirectory(lib/Accesories)

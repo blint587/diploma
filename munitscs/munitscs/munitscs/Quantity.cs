@@ -200,7 +200,7 @@ namespace munitscs
             return new Quantity(temp);
         }
         // nt roth
-        public Quantity Roth(int rgh)
+        public Quantity Root(int rgh)
         {
             IntPtr temp = __ntrt(this.quantity, rgh);
             return new Quantity(temp);

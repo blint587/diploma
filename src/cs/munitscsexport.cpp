@@ -16,7 +16,7 @@ extern "C" {
 
     // toString method
     __declspec(dllexport) void __toString(munits::Quantity * q,  char * buffer, int buffersize){
-        auto temp = (std::string) *q;
+        auto temp =  q->toString();
 
          std::copy(temp.begin(), temp.end(), buffer);
     }
@@ -98,7 +98,10 @@ extern "C" {
     __declspec(dllexport) munits::Quantity * __ntrt(munits::Quantity * lft, int rgh){
         munits::Quantity temp = lft->ntrt(rgh);
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
-}
+    }
+    __declspec(dllexport) double __get(munits::Quantity * lft, const char* u){
+        return lft->operator()(u);
+    }
 
 
 
