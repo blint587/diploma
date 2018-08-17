@@ -32,18 +32,16 @@ extern "C" {
         }
         // The string length including the zero terminator
         * buffer_size = size;
-
-//        char * ret;
-//        auto temp = ((std::string) *q).c_str();
-//        int len = strlen(temp);
-//        for (int i = 0; i< len; i++){
-//            ret[i] = temp[i];
-//        }
-//        return ret;
     }
+    // get value
     __declspec(dllexport) double __getValue(munits::Quantity * q){
         return q->getValue();
     }
+    // get type (matrix index)
+    __declspec(dllexport) const int __getType(munits::Quantity * q){
+        return q->getMatrixIndex();
+    }
+
     //add
     __declspec(dllexport) munits::Quantity* __add(munits::Quantity * lft, munits::Quantity * rgh){
         munits::Quantity temp = *lft + *rgh;
@@ -110,12 +108,12 @@ extern "C" {
         return *lft != *rgh;
     }
 
-    //power
+    //power function
     __declspec(dllexport) munits::Quantity * __pow(munits::Quantity * lft, int rgh){
         munits::Quantity temp = munits::pow(*lft,  rgh);
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
-    //nt roth
+    //nt root
     __declspec(dllexport) munits::Quantity * __ntrt(munits::Quantity * lft, int rgh){
         munits::Quantity temp = lft->ntrt(rgh);
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());

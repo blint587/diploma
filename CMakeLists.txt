@@ -58,10 +58,11 @@ set(SOURCE_FILES main.cpp
 if(MSVC)
     set(SOURCE_FILES ${SOURCE_FILES} src/cs/munitscsexport.cpp )
     set(BUILD_SHARED_LIBS TRUE)
-
+elseif(NOT MSVC)
+    # gtest is not working with MSVC
+    add_subdirectory(test)
 endif()
 
-#add_subdirectory(test)
 
 
 add_library(munits SHARED ${SOURCE_FILES})
