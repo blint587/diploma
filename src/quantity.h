@@ -65,7 +65,7 @@ namespace munits {
 
             double operator()(std::string) const;
 
-            explicit operator std::string() const { // explicit will brake Cython
+            operator std::string() const { // explicit will brake Cython
 //                TRACE(unit_vector.getMultiplicationFactor());
                 std::stringstream ss;
                 std::string composed = UnitNotationVector::compose_unit(unit_vector, matrix_index);
@@ -82,7 +82,7 @@ namespace munits {
 
 //            #ifndef NOCYTHON
             // helper functions for interfaceing
-            std::string toString() const {return std::string((std::string &&) *this); }
+            std::string toString() const {return (std::string) *this; }
             double toDouble() const {return double(*this);}
             double getValue() const {return value;}
             std::string getUnit() const {return UnitNotationVector::compose_unit(unit_vector, matrix_index);}

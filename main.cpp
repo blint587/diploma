@@ -12,7 +12,7 @@ using namespace munits;
 
 int main() {
 
-   Quantity p (Pressure, 1, "hPa");
+   Quantity p (Force, 1, "kg m s-2");
     TRACE(p);
 
 

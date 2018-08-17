@@ -66,7 +66,8 @@ endif()
 
 
 add_library(munits SHARED ${SOURCE_FILES})
-add_executable(musys main.cpp)
+
+#add_executable(musys ${SOURCE_FILES} main.cpp)
 
 add_subdirectory(lib/Accesories)
 

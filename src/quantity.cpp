@@ -229,7 +229,7 @@ munits::Quantity munits::Quantity::ntrt (const int exponent) const {
             return Quantity((int) munits::getMatrixIndex(n_dim_vector), n_value, n_unit_vector);
         }
         else {
-            throw std::logic_error("Cannot perform " + std::to_string(exponent) + "th root on " + this->toString() + "!");
+            throw std::logic_error(std::string("Cannot perform ") + std::to_string(exponent) + std::string("th root on ") + this->toString() + std::string("!"));
         }
     }
     else{

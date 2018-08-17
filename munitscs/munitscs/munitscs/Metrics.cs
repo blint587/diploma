@@ -24,9 +24,11 @@
         KinematicViscosity = 18,
         Power = 19,
         Energy = 20,
+
 //        Torque = 20,
         Voltage = 21,
         Frequency = 22,
+
 //        Radioactivity = 22,
         ElectricCharge = 23,
         ElectricCapacitance = 24,
@@ -37,6 +39,7 @@
         Inductance = 29,
         Illuminance = 30,
         AbsorbedDose = 31,
+
 //        EquivalentDose = 31,
         CatalyticActivity = 32,
         MolarWeight = 33,
@@ -45,6 +48,5 @@
         MassFlux = 36,
         AreaDensity = 37,
         _Last
-
     }
 }
