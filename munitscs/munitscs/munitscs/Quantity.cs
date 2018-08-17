@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using munitscs.Exceptions;
@@ -7,9 +7,9 @@ namespace munitscs
 {
     public class Quantity
     {
-        #if WIN64
-            private const string DllName = "munits.x64.dll";
-        #elif WIN32
+#if WIN64
+        private const string DllName = "munits.x64.dll";
+#elif WIN32
             private const string DllName = "munits.x86.dll";
         #else
             private const string DllName = "munits.dll";
@@ -66,28 +66,22 @@ namespace munitscs
         private static extern IntPtr __divide_double(IntPtr lft, double rgh);
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = Char)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool __lt(IntPtr lft, IntPtr rgh);
+        private static extern int __lt(IntPtr lft, IntPtr rgh);
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = Char)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool __gt(IntPtr lft, IntPtr rgh);
+        private static extern int __gt(IntPtr lft, IntPtr rgh);
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = Char)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool __le(IntPtr lft, IntPtr rgh);
+        private static extern int __le(IntPtr lft, IntPtr rgh);
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = Char)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool __ge(IntPtr lft, IntPtr rgh);
+        private static extern int __ge(IntPtr lft, IntPtr rgh);
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = Char)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool __eq(IntPtr lft, IntPtr rgh);
+        private static extern int __eq(IntPtr lft, IntPtr rgh);
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = Char)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool __ne(IntPtr lft, IntPtr rgh);
+        private static extern int __ne(IntPtr lft, IntPtr rgh);
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = Char)]
         private static extern IntPtr __pow(IntPtr lft, int rgh);
@@ -221,7 +215,7 @@ namespace munitscs
         {
             try
             {
-                return __lt(lft._quantity, rgh._quantity);
+                return __lt(lft._quantity, rgh._quantity) == 1;
             }
             catch (SEHException ex)
             {
@@ -236,7 +230,7 @@ namespace munitscs
         {
             try
             {
-                return __gt(lft._quantity, rgh._quantity);
+                return __gt(lft._quantity, rgh._quantity) == 1;
             }
             catch (SEHException ex)
             {
@@ -251,7 +245,7 @@ namespace munitscs
         {
             try
             {
-                return __le(lft._quantity, rgh._quantity);
+                return __le(lft._quantity, rgh._quantity) == 1;
             }
             catch (SEHException ex)
             {
@@ -266,7 +260,7 @@ namespace munitscs
         {
             try
             {
-                return __ge(lft._quantity, rgh._quantity);
+                return __ge(lft._quantity, rgh._quantity) == 1;
             }
             catch (SEHException ex)
             {
@@ -282,7 +276,7 @@ namespace munitscs
             if (!(ReferenceEquals(null, lft) || ReferenceEquals(null, rgh)))
                 try
                 {
-                    return __eq(lft._quantity, rgh._quantity);
+                    return __eq(lft._quantity, rgh._quantity) == 1;
                 }
                 catch (SEHException ex)
                 {
@@ -303,7 +297,7 @@ namespace munitscs
             if (!(ReferenceEquals(null, lft) || ReferenceEquals(null, rgh)))
                 try
                 {
-                    return __ne(lft._quantity, rgh._quantity);
+                    return __ne(lft._quantity, rgh._quantity) == 1;
                 }
                 catch (SEHException ex)
                 {

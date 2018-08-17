@@ -104,22 +104,22 @@ extern "C" {
     }
 
     //comparison
-    __declspec(dllexport) bool __lt(munits::Quantity * lft, munits::Quantity * rgh){
+    __declspec(dllexport) int __lt(munits::Quantity * lft, munits::Quantity * rgh){
         return *lft < *rgh;
     }
-    __declspec(dllexport) bool __gt(munits::Quantity * lft, munits::Quantity * rgh){
+    __declspec(dllexport) int __gt(munits::Quantity * lft, munits::Quantity * rgh){
         return *lft > *rgh;
     }
-    __declspec(dllexport) bool __le(munits::Quantity * lft, munits::Quantity * rgh){
+    __declspec(dllexport) int __le(munits::Quantity * lft, munits::Quantity * rgh){
         return *lft <= *rgh;
     }
-    __declspec(dllexport) bool __ge(munits::Quantity * lft, munits::Quantity * rgh){
+    __declspec(dllexport) int __ge(munits::Quantity * lft, munits::Quantity * rgh){
         return *lft >= *rgh;
     }
-    __declspec(dllexport) bool __eq(munits::Quantity * lft, munits::Quantity * rgh){
+    __declspec(dllexport) int __eq(munits::Quantity * lft, munits::Quantity * rgh){
         return *lft == *rgh;
     }
-    __declspec(dllexport) bool __ne(munits::Quantity * lft, munits::Quantity * rgh){
+    __declspec(dllexport) int __ne(munits::Quantity * lft, munits::Quantity * rgh){
         return *lft != *rgh;
     }
 

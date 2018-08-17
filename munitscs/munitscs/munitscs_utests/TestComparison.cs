@@ -77,7 +77,7 @@ namespace munitscs_utests
         public void test_comparing_base_with_base_temperature_less()
         {
             var t1 = new Quantity(Metrics.Temperature, 0d, "K");
-            var t2 = new Quantity(Metrics.Temperature, 273.15, "K");
+            var t2 = new Quantity(Metrics.Temperature, 273.15d, "K");
             Assert.False(t1 == t2);
             Assert.True(t1 <= t2);
             Assert.False(t1 >= t2);
