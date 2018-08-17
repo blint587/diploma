@@ -15,12 +15,31 @@ extern "C" {
     }
 
     // toString method
-    __declspec(dllexport) void __toString(munits::Quantity * q,  char * buffer){
-        auto temp =  ((std::string) *q).c_str();
-        int lenstr = strlen(temp);
-        for (int i= 0; i < lenstr  ;i++){
-            buffer[i] = temp[i];
+    __declspec(dllexport) void __toString(munits::Quantity * q, char * buffer, unsigned long  * buffer_size){
+
+        if (buffer_size == nullptr)
+        {
+            return;
         }
+
+        std::string st = q->toString();
+//        TRACEWHAT(st, "C string: ");
+        unsigned long size = st.length()  + 1;
+//        TRACEWHAT(size, "size: ");
+        if ((buffer != nullptr) && (*buffer_size >= size))
+        {
+            strcpy_s(buffer, size, st.c_str());
+        }
+        // The string length including the zero terminator
+        * buffer_size = size;
+
+//        char * ret;
+//        auto temp = ((std::string) *q).c_str();
+//        int len = strlen(temp);
+//        for (int i = 0; i< len; i++){
+//            ret[i] = temp[i];
+//        }
+//        return ret;
     }
     __declspec(dllexport) double __getValue(munits::Quantity * q){
         return q->getValue();

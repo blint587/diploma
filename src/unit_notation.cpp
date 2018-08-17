@@ -106,9 +106,9 @@ const  munits::UnitNotation & munits::UnitNotationVector::npos() {
 munits::UnitNotationVector munits::UnitNotationVector::compose_unit_vector(const string &unit) {
 
     auto  rmatrix = GetMatrix();
-    TRACE(unit);
+//    TRACE(unit);
     list <UnitNotation> unTokens = UnitNotation::tokenise(unit);
-    TRACEITERABLE(unTokens);
+//    TRACEITERABLE(unTokens);
 
     UnitNotationVector uv;
 

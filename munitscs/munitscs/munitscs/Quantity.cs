@@ -3,83 +3,85 @@ using System.Runtime.InteropServices;
 using System.Text;
 using munitscs.Exceptions;
 
+
 namespace munitscs
 {
     public class Quantity
     {
+        private const string DllName = "munits.dll";
         private IntPtr quantity;
         
         //C++ function imports
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr CreateQuantity(int metric, double value, string unit);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern void DeleteQuantity(IntPtr q);
 
-//        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-//        private static extern string __toString(IntPtr q, string sb);
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private static extern IntPtr __toString(IntPtr q, [MarshalAs(UnmanagedType.LPStr)] StringBuilder sb, ref UInt32 bufferSize);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern double __getValue(IntPtr q);
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private static extern double __getValue(IntPtr qm);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __add(IntPtr lft, IntPtr rgh);
     
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __substract(IntPtr lft, IntPtr rgh);
         
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __multiply(IntPtr lft, IntPtr rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __multiply_rgh_int(IntPtr lft, int rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __multiply_lft_int(int lft, IntPtr rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __multiply_lft_double(double lft, IntPtr rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __multiply_rgh_double(IntPtr lft, double rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __divide(IntPtr lft, IntPtr rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __divide_int(IntPtr lft, int rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __divide_double(IntPtr lft, double rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern bool __lt(IntPtr lft, IntPtr rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern bool __gt(IntPtr lft, IntPtr rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern bool __le(IntPtr lft, IntPtr rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern bool __ge(IntPtr lft, IntPtr rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern bool __eq(IntPtr lft, IntPtr rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern bool __ne(IntPtr lft, IntPtr rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __pow(IntPtr lft, int rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern IntPtr __ntrt(IntPtr lft, int rgh);
 
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern double __get(IntPtr lft, string u);
     
-        [DllImport("munits.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern double __double(IntPtr q);
     
         
@@ -100,12 +102,17 @@ namespace munitscs
             DeleteQuantity(this.quantity);
         }
 
-//        public override string ToString()
-//         {
-//             string buffer = "";
-//             __toString(this.quantity, buffer);
-//             return buffer;
-//         }
+        public override string ToString()
+        {
+
+            UInt32 bufferSize = 0;
+            
+            __toString(this.quantity, null, ref bufferSize); // first call to determine buffer size 
+            var sb = new StringBuilder((int) bufferSize); // creating buffer with the neceseary size
+            __toString(this.quantity, sb, ref bufferSize); // doing the actual copy 
+            return  sb.ToString();
+//            return "something";
+        }
 
         public double GetValue()
         {
