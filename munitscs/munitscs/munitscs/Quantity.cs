@@ -8,7 +8,13 @@ namespace munitscs
 {
     public class Quantity
     {
-        private const string DllName = "munits.dll";
+        #if WIN64
+            private const string DllName = "munits.x64.dll";
+        #elif WIN32
+            private const string DllName = "munits.x86.dll";
+        #else
+            private const string DllName = "munits.dll";
+        #endif
         private const CharSet Char = CharSet.Ansi;
         private IntPtr _quantity;
         
@@ -24,6 +30,9 @@ namespace munitscs
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = Char)]
         private static extern double __getValue(IntPtr qm);
+
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = Char)]
+        private static extern string __getUnit(IntPtr q, [MarshalAs(UnmanagedType.LPStr)] StringBuilder sb, ref UInt32 bufferSize);
 
         [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = Char)]
         private static extern IntPtr __add(IntPtr lft, IntPtr rgh);
@@ -100,6 +109,8 @@ namespace munitscs
             _quantity = q;
         }
 
+        public Quantity(Quantity q): this(q.GetUnitType(), q.GetValue(), q.GetUnit()){}
+
         // Freeing up quantity pointer
         ~Quantity()
         {
@@ -115,14 +126,25 @@ namespace munitscs
             var sb = new StringBuilder((int) bufferSize); // creating buffer with the neceseary size
             __toString(_quantity, sb, ref bufferSize); // doing the actual copy 
             return  sb.ToString();
-//            return "something";
         }
 
         public double GetValue()
         {
             return __getValue(_quantity);
         }
-         
+
+        public string GetUnit()
+        {
+            UInt32 bufferSize = 0;
+            
+            __getUnit(_quantity, null, ref bufferSize); // first call to determine buffer size 
+            var sb = new StringBuilder((int) bufferSize); // creating buffer with the neceseary size
+            __getUnit(_quantity, sb, ref bufferSize); // doing the actual copy 
+            return  sb.ToString();           
+        }
+
+
+
         //add
         public static Quantity operator +(Quantity lft, Quantity rgh)
         {
@@ -340,6 +362,10 @@ namespace munitscs
             _quantity = CreateQuantity((int) unitType, newValue, newUnit);
         }
 
+        public Quantity DeepCopy()
+        {
+            return new Quantity(this);
+        }
 
     }
 }

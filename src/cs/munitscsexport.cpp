@@ -37,6 +37,21 @@ extern "C" {
     __declspec(dllexport) double __getValue(munits::Quantity * q){
         return q->getValue();
     }
+    __declspec(dllexport) void __getUnit(munits::Quantity * q, char * buffer, unsigned long  * buffer_size){
+        if (buffer_size == nullptr)
+        {
+            return;
+        }
+        std::string st = q->getUnit();
+        unsigned long size = st.length()  + 1;
+        if ((buffer != nullptr) && (*buffer_size >= size))
+        {
+            strcpy_s(buffer, size, st.c_str());
+        }
+        // The string length including the zero terminator
+        * buffer_size = size;
+    }
+
     // get type (matrix index)
     __declspec(dllexport) const int __getType(munits::Quantity * q){
         return q->getMatrixIndex();
