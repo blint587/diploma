@@ -120,7 +120,14 @@ munits::UnitNotationVector munits::UnitNotationVector::compose_unit_vector(const
                     UnitNotation t) -> bool { return rmatrix[uidx].converter->is_valid_unit(t); });
             if (b != unTokens.end()) {
                 uv.set(uidx, *b);
-                b = unTokens.erase(b);
+                // if not MSVC
+                // b = unTokens.erase(b);
+                //else
+                long long int posb = std::distance(unTokens.begin(), b);
+                unTokens.erase(b);
+                b = unTokens.begin();
+                advance(b, posb);
+                //end
             }
         }while(b != unTokens.end());
     }

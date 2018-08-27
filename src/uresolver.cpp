@@ -40,7 +40,14 @@ bool munits::Resolver::resolve(std::list<std::string> &l) {
 
                         UnitNotation nnotation = mergePrefixWithNotation(prx, notation, overflow);
                         if (nnotation != notation) {
-                            token = tokens.erase(token);
+                            //if not MSVC
+                              //token = tokens.erase(token);
+                            //else
+                            long long int pos_token = std::distance(tokens.begin(), token);
+                            tokens.erase(token);
+                            token = tokens.begin();
+                            advance(token, pos_token);
+                            //end
                             token = tokens.insert(token, (std::string) nnotation);
                             prefixes.pop();
                         }if(0 != overflow){
@@ -52,10 +59,14 @@ bool munits::Resolver::resolve(std::list<std::string> &l) {
                 }
 
                 l.insert(b, tokens.begin(), tokens.end());
+                // if not MSVC
+                //b = l.erase(b);
+                //else
 				long long int nb = std::distance(l.begin(), b);
                 l.erase(b);
 				b = l.begin();
 				advance(b, nb);
+				//end
                 replacement_occured = true;
             }
         }
