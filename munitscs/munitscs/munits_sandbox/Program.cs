@@ -22,12 +22,12 @@ namespace munits_sandbox
 
             //power function
             //For power function us 'Pow' method! 
-            var q5 = q1.Pow(3);
+            var q5 = Quantity.Pow(q1, 3);
             Console.WriteLine($"q1 on 3rd power is {q5}");
 
             //root
             //For root function us 'Root' method!
-            var q6 = q5.Root(3);
+            var q6 = Quantity.Root(q5, 3);
             Console.WriteLine($"{q5} on 3rd root is {q6}");
 
             //compare

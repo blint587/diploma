@@ -313,24 +313,24 @@ namespace munitscs
         }
 
         //power
-        public Quantity Pow(int rgh)
+        public static Quantity Pow(Quantity q, int rgh)
         {
-            IntPtr temp = __pow(_quantity, rgh);
+            IntPtr temp = __pow(q._quantity, rgh);
             return new Quantity(temp);
         }
 
         // nt roth
-        public Quantity Root(int rgh)
+        public static Quantity Root(Quantity q, int rgh)
         {
             try
             {
-                IntPtr temp = __ntrt(_quantity, rgh);
+                IntPtr temp = __ntrt(q._quantity, rgh);
                 return new Quantity(temp);
             }
             catch (SEHException ex)
             {
                 if (ex.ErrorCode == -2147467259) // logic_error
-                    throw new CannotPerformRootOperation($"Cannot perform {rgh}th root on {_quantity}!", ex);
+                    throw new CannotPerformRootOperation($"Cannot perform {rgh}th root on {q._quantity}!", ex);
                 throw;
             }
         }

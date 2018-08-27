@@ -11,7 +11,7 @@ namespace munitscs_utests
         public void _2rt_rootable()
         {
             var a = new Quantity(Metrics.Area, 4.0, "m2");
-            var l = a.Root(2);
+            var l = Quantity.Root(a, 2);
 
             Assert.AreEqual(l.GetUnitType(), Metrics.Length);
 
@@ -22,7 +22,7 @@ namespace munitscs_utests
         public void _3rt_not_rootable()
         {
             var a = new Quantity(Metrics.Velocity, 8.0, "m s-1");
-            Assert.Throws<CannotPerformRootOperation>(() => a.Root(3));
+            Assert.Throws<CannotPerformRootOperation>(() => Quantity.Root(a, 3));
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace munitscs_utests
         {
             var a = new Quantity(Metrics.Volume, 8.0, "m3");
 
-            var l = a.Root(3);
+            var l = Quantity.Root(a,3);
 
             Assert.AreEqual(l.GetUnitType(), Metrics.Length);
 
@@ -66,7 +66,7 @@ namespace munitscs_utests
         {
             var l = new Quantity(Metrics.Length, 1, "m");
             var n = new Quantity(Metrics.AmountOfSubstance, 1, "mol");
-            var mc2 = n / l.Pow(3);
+            var mc2 = n / Quantity.Pow(l, 3);
 
             Assert.AreEqual(mc2.GetUnitType(), Metrics.MolarConcentration);
 
@@ -92,7 +92,7 @@ namespace munitscs_utests
             var l = new Quantity(Metrics.Length, 1, "m");
             var t = new Quantity(Metrics.Time, 1, "s");
 
-            var a2 = l / t.Pow(2);
+            var a2 = l / Quantity.Pow(t, 2);
 
             Assert.AreEqual(a2.GetUnitType(), Metrics.Acceleration);
 
@@ -129,7 +129,7 @@ namespace munitscs_utests
         {
             var l = new Quantity(Metrics.Length, 2.33, "m");
             var t = new Quantity(Metrics.Time, 2.33, "s");
-            var a2 = l / t.Pow(2);
+            var a2 = l / Quantity.Pow(t, 2);
 
             Assert.AreEqual(a2.GetUnitType(), Metrics.Acceleration);
 
@@ -154,7 +154,7 @@ namespace munitscs_utests
         {
             var l = new Quantity(Metrics.Length, 0, "m");
             var t = new Quantity(Metrics.Time, 1, "s");
-            var a2 = l / t.Pow(2);
+            var a2 = l / Quantity.Pow(t, 2);
 
             Assert.AreEqual(a2.GetUnitType(), Metrics.Acceleration);
 
@@ -238,7 +238,7 @@ namespace munitscs_utests
         {
             var l = new Quantity(Metrics.Length, 1, "m");
             var n = new Quantity(Metrics.AmountOfSubstance, 0, "mol");
-            var mc2 = n / l.Pow(3);
+            var mc2 = n / Quantity.Pow(l, 3);
 
             Assert.AreEqual(mc2.GetUnitType(), Metrics.MolarConcentration);
 
@@ -301,7 +301,7 @@ namespace munitscs_utests
         public void create_volumetricflow_one_2()
         {
             var l = new Quantity(Metrics.Length, 1, "m");
-            var v2 = l.Pow(3);
+            var v2 = Quantity.Pow(l, 3);
             var t = new Quantity(Metrics.Time, 1, "h");
 
             var vf2 = v2 / t;
@@ -329,7 +329,7 @@ namespace munitscs_utests
         {
             var l = new Quantity(Metrics.Length, 2.33, "m");
             var n = new Quantity(Metrics.AmountOfSubstance, 1, "mol");
-            var mc2 = n / l.Pow(3);
+            var mc2 = n / Quantity.Pow(l, 3);
 
             Assert.AreEqual(mc2.GetUnitType(), Metrics.MolarConcentration);
 
