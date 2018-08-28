@@ -24,11 +24,12 @@ TEST_F(TestResolver, resolve_W){
     std::list<std::string> units {"W"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
     TRACEITERABLE(units);
 
-    auto expexc = std::list<std::string>{"kg", "m2", "s-3"};
+    auto expexc = std::set<std::string>{"kg", "m2", "s-3"};
 
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 
@@ -42,10 +43,10 @@ TEST_F(TestResolver, resolve_kW){
     std::list<std::string> units {"kW"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
+    auto expexc = std::set<std::string>{"Mg", "m2", "s-3"};
 
-    auto expexc = std::list<std::string>{"Mg", "m2", "s-3"};
-
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 
@@ -59,10 +60,10 @@ TEST_F(TestResolver, resolve_MW){
     std::list<std::string> units {"MW"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
+    auto expexc = std::set<std::string>{"Gg", "m2", "s-3"};
 
-    auto expexc = std::list<std::string>{"Gg", "m2", "s-3"};
-
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 
@@ -76,10 +77,10 @@ TEST_F(TestResolver, resolve_GW){
     std::list<std::string> units {"GW"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
+    auto expexc = std::set<std::string>{"Tg", "m2", "s-3"};
 
-    auto expexc = std::list<std::string>{"Tg", "m2", "s-3"};
-
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 
@@ -93,10 +94,10 @@ TEST_F(TestResolver, resolve_EW){
     std::list<std::string> units {"EW"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
+    auto expexc = std::set<std::string>{"Eg", "m2", "ds-3"};
 
-    auto expexc = std::list<std::string>{"Eg", "m2", "ds-3"};
-
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 
@@ -110,10 +111,10 @@ TEST_F(TestResolver, resolve_mW){
     std::list<std::string> units {"mW"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
+    auto expexc = std::set<std::string>{"g", "m2", "s-3"};
 
-    auto expexc = std::list<std::string>{"g", "m2", "s-3"};
-
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 
@@ -127,10 +128,10 @@ TEST_F(TestResolver, resolve_aW){
     std::list<std::string> units {"aW"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
+    auto expexc = std::set<std::string>{"fg", "m2", "s-3"};
 
-    auto expexc = std::list<std::string>{"fg", "m2", "s-3"};
-
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 
@@ -144,10 +145,10 @@ TEST_F(TestResolver, resolve_N){
     std::list<std::string> units {"N"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
+    auto expexc = std::set<std::string>{"kg", "m", "s-2"};
 
-    auto expexc = std::list<std::string>{"kg", "m", "s-2"};
-
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 
@@ -161,10 +162,10 @@ TEST_F(TestResolver, resolve_kN){
     std::list<std::string> units {"kN"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
+    auto expexc = std::set<std::string>{"Mg", "m", "s-2"};
 
-    auto expexc = std::list<std::string>{"Mg", "m", "s-2"};
-
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 TEST_F(TestResolver, resolve_lbf){
@@ -177,10 +178,10 @@ TEST_F(TestResolver, resolve_lbf){
     std::list<std::string> units {"lbf"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
+    auto expexc = std::set<std::string>{"slug", "ft", "s-2"};
 
-    auto expexc = std::list<std::string>{"slug", "ft", "s-2"};
-
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 
@@ -194,10 +195,10 @@ TEST_F(TestResolver, resolve_Pa){
     std::list<std::string> units {"Pa"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
+    auto expexc = std::set<std::string>{"kg", "m-1", "s-2"};
 
-    auto expexc = std::list<std::string>{"kg", "m-1", "s-2"};
-
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 
@@ -211,10 +212,10 @@ TEST_F(TestResolver, resolve_bar){
     std::list<std::string> units {"bar"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
+    auto expexc = std::set<std::string>{"Mg", "m-1", "ds-2"};
 
-    auto expexc = std::list<std::string>{"Mg", "m-1", "ds-2"};
-
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 
@@ -228,10 +229,10 @@ TEST_F(TestResolver, resolve_Tesla){
     std::list<std::string> units {"T"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
+    auto expexc = std::set<std::string>{"kg",  "s-2",  "A-1"};
 
-    auto expexc = std::list<std::string>{"kg",  "s-2",  "A-1"};
-
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 TEST_F(TestResolver, resolve_TerraTesla){
@@ -244,10 +245,11 @@ TEST_F(TestResolver, resolve_TerraTesla){
     std::list<std::string> units {"TT"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
     TRACEITERABLE(units);
-    auto expexc = std::list<std::string>{"Pg",  "s-2",  "A-1"};
+    auto expexc = std::set<std::string>{"Pg",  "s-2",  "A-1"};
 
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 TEST_F(TestResolver, resolve_ohm){
@@ -260,10 +262,11 @@ TEST_F(TestResolver, resolve_ohm){
     std::list<std::string> units {"Ω"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
     TRACEITERABLE(units);
-    auto expexc = std::list<std::string>{"kg",  "m2",  "s-3",  "A-2"};
+    auto expexc = std::set<std::string>{"kg",  "m2",  "s-3",  "A-2"};
 
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 TEST_F(TestResolver, resolve_psi){
@@ -276,10 +279,11 @@ TEST_F(TestResolver, resolve_psi){
     std::list<std::string> units {"psi"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
     TRACEITERABLE(units);
-    auto expexc = std::list<std::string>{"slug",  "ft",  "s-2",  "inc-2"};
+    auto expexc = std::set<std::string>{"slug",  "ft",  "s-2",  "inc-2"};
 
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 TEST_F(TestResolver, resolve_W_h){
@@ -292,10 +296,11 @@ TEST_F(TestResolver, resolve_W_h){
     std::list<std::string> units {"W", "h"};
 
     r.resolve(units);
+    std::set<std::string> sunits(units.begin(), units.end());
     TRACEITERABLE(units);
-    auto expexc = std::list<std::string>{"kg", "m2", "s-3", "h"};
+    auto expexc = std::set<std::string>{"h", "kg", "m2", "s-3"};
 
-    EXPECT_EQ(units, expexc);
+    EXPECT_EQ(sunits, expexc);
 
 }
 

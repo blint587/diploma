@@ -58,11 +58,12 @@ bool munits::Resolver::resolve(std::list<std::string> &l) {
 
                 }
 
-                l.insert(b, tokens.begin(), tokens.end());
                 // if not MSVC
+                //l.insert(b, tokens.begin(), tokens.end());
                 //b = l.erase(b);
                 //else
-				long long int nb = std::distance(l.begin(), b);
+                unsigned long long int nb = std::distance(l.begin(), b);
+                l.insert(b, tokens.begin(), tokens.end());
                 l.erase(b);
 				b = l.begin();
 				advance(b, nb);

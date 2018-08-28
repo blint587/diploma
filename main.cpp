@@ -1,4 +1,5 @@
 #include <iostream>
+#include <set>
 #ifdef DEBUG
     #include <conio.h>
 #endif
@@ -12,9 +13,8 @@ using namespace munits;
 
 int main() {
 
-   Quantity p (Force, 1, "kg m s-2");
-    TRACE(p);
-
+	Quantity l = Quantity(munits::Length, 1, "μm");
+    TRACE(l);
 
 
 

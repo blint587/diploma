@@ -29,6 +29,8 @@ project(munits)
 #endif(DOXYGEN_FOUND)
 
 add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
+add_definitions(-DUNICODE -D_UNICODE)
+
 
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/bin/")
 set(LIBRARY_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/bin/")
@@ -58,6 +60,8 @@ set(SOURCE_FILES main.cpp
 if(MSVC)
     set(SOURCE_FILES ${SOURCE_FILES} src/cs/munitscsexport.cpp )
     set(BUILD_SHARED_LIBS TRUE)
+    add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+    add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 elseif(NOT MSVC)
     # gtest is not working with MSVC
     add_subdirectory(test)
