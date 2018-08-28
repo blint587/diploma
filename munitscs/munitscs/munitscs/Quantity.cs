@@ -139,7 +139,7 @@ namespace munitscs
             __toString(_quantity, null, ref bufferSize); // first call to determine buffer size 
             var sb = new byte[(int)bufferSize]; // creating buffer with the neceseary size
             __toString(_quantity, sb, ref bufferSize); // doing the actual copy 
-            return Encoding.UTF8.GetString(sb);
+            return Encoding.UTF8.GetString(sb).Replace("\0", string.Empty);
         }
 
         public double GetValue()
@@ -154,7 +154,7 @@ namespace munitscs
             __getUnit(_quantity, null, ref bufferSize); // first call to determine buffer size 
             var sb = new byte[(int) bufferSize]; // creating buffer with the neceseary size
             __getUnit(_quantity, sb, ref bufferSize); // doing the actual copy 
-            return Encoding.UTF8.GetString(sb);
+            return Encoding.UTF8.GetString(sb).Replace("\0", string.Empty);
         }
 
 
@@ -365,6 +365,11 @@ namespace munitscs
                     throw new UnableToCastToDouble("Unit cannot be converted to double!!", ex);
                 throw;
             }
+        }
+
+        public static implicit operator string(Quantity q)
+        {
+            return q.ToString();
         }
 
         public Metrics GetUnitType()
