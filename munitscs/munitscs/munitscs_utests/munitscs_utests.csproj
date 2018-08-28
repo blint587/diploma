@@ -54,6 +54,7 @@
     <Compile Include="TestBaseMathop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestComparison.cs" />
+    <Compile Include="TestConversion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

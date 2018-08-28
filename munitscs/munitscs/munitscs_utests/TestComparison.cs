@@ -318,7 +318,6 @@ namespace munitscs_utests
             var t1 = new Quantity(Metrics.Time, 1d, "d");
             var t2 = new Quantity(Metrics.Time, 25d, "h");
             Assert.False(t1 == t2);
-            Console.WriteLine(t1 <= t2);
             Assert.True(t1 <= t2);
             Assert.False(t1 >= t2);
             Assert.False(t1 > t2);
