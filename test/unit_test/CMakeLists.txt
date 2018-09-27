@@ -13,19 +13,12 @@ set(SOURCE_FILES
         ../../src/parsers.hpp
         ../../src/uresolver.hpp
         ../../src/uresolver.cpp
-        run_unit_tests.cpp
-        quantity_test_conversion.hpp
-        quantity_test_comparison.hpp
-        quantity_test_base_mathop.hpp
-        quantity_test_input_validation.hpp
-
         ../../src/metric.cpp
         ../../src/metric.hpp
         ../../src/converter.cpp
         ../../src/converter.hpp
         ../../src/dynamic.hpp
         ../../src/dynamic.cpp
-        quantity_test_representation.hpp
         ../../src/uresolver.cpp
         ../../src/uresolver.hpp
         ../../lib/Accesories/math.hpp
@@ -34,7 +27,16 @@ set(SOURCE_FILES
         ../../src/parsers.hpp
         ../../src/searchers.cpp
         ../../src/searchers.hpp
-        resolver_test.hpp converterfunction_test.hpp quantity_test_derived_mathop.hpp)
+        run_unit_tests.cpp
+        quantity_test_conversion.hpp
+        quantity_test_comparison.hpp
+        quantity_test_base_mathop.hpp
+        quantity_test_input_validation.hpp
+        resolver_test.hpp
+        quantity_test_representation.hpp
+        converterfunction_test.hpp
+        quantity_test_derived_mathop.hpp
+        qunatity_test_basic_initialization.hpp)
 
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fprofile-arcs -ftest-coverage")

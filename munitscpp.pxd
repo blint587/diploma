@@ -40,7 +40,9 @@ cdef extern from "src/quantity.h" namespace "munits":
             MolarWeight = 33,
             EnergyFlux = 34,
             EnergyPerArea = 35,
-            _Last = 36
+            MassFlux = 36,
+            AeraDensity = 37,
+            _Last = 38
 
     cdef cppclass Quantity:
         Quantity(metrics, double, const string) except + ValueError

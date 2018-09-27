@@ -309,18 +309,22 @@ class MolarWeight(Quantity, unit_index=33):
 class EnergyFlux(Quantity, unit_index=34):
     pass
 
+
 class EnergyPerArea(Quantity, unit_index=35):
     pass
 
 
+class MassFlux(Quantity, unit_index=36):
+    pass
+
+
+class AreaDensity(Quantity, unit_index=37):
+    pass
+
 if __name__ == "__main__":
 
-    i = ElectricCurrency(1, "A")
-    # print(i)
+    i = AreaDensity(1, "gsm")
+    print(i)
 
-    u = Voltage(1, "V")
-    print(dir(u))
-
-    Voltage.type_index = 25
     # r = u * i
     # print(type(r))

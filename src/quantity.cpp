@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <regex>
 #include <iostream>
 #include <queue>
@@ -54,7 +55,7 @@ double munits::Quantity::operator()(const string tunit) const {
             }
         }
         if (!dim_matrix.empty() && dmv == dim_matrix.front()) {
-            throw logic_error("Invalid Unit: " + tunit);
+            throw std::logic_error("Invalid Unit: " + tunit);
         }
     }
 
@@ -147,7 +148,7 @@ munits::Quantity::Quantity(int m, double value, munits::UnitNotationVector unit_
 
 
     if (matrix_index > _Last) {
-        throw logic_error("Invalid Unit type");
+        throw std::logic_error("Invalid Unit type");
     }
     else if(matrix_index == _Last){
         for(unsigned int idx = 0; idx < dim_vector.size(); ++idx ){
@@ -183,7 +184,7 @@ bool munits::Quantity::compop(const munits::Quantity &lfths, const munits::Quant
 
         return r;
     } else {
-        throw logic_error("Comparison cannot be done! Measurement Unit types do not match. ( '" +
+        throw std::logic_error("Comparison cannot be done! Measurement Unit types do not match. ( '" +
                           UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index) + "', '" +
                           UnitNotationVector::compose_unit(rgths.unit_vector, rgths.matrix_index) + "' )");
     }

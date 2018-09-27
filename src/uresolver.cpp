@@ -41,7 +41,7 @@ bool munits::Resolver::resolve(std::list<std::string> &l) {
                         UnitNotation nnotation = mergePrefixWithNotation(prx, notation, overflow);
                         if (nnotation != notation) {
                             token = tokens.erase(token);
-                            token = tokens.insert(token, (std::string &&)nnotation);
+                            token = tokens.insert(token, (std::string) nnotation);
                             prefixes.pop();
                         }if(0 != overflow){
                             std::string prefix_notation = getPrefixByExponent(overflow);
@@ -50,7 +50,6 @@ bool munits::Resolver::resolve(std::list<std::string> &l) {
                     }
 
                 }
-//                TRACEITERABLE(tokens);
 
                 l.insert(b, tokens.begin(), tokens.end());
                 b = l.erase(b);

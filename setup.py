@@ -6,7 +6,7 @@ import sys
 
 try:
     from Cython.Build import cythonize
-    USE_CYTHON = "build_ext" in sys.argv
+    USE_CYTHON = ("build_ext" in sys.argv) or ("bdist_wheel" in sys.argv)
 except ImportError as ie:
     USE_CYTHON = False
 
@@ -46,7 +46,7 @@ if USE_CYTHON:
 
 setup(
     name="munits",
-    version="0.2.8",
+    version="0.2.13",
     packages=["munits"],
     ext_modules=extensions,
     install_requires=["base2>=0.2.3"],
