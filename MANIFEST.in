@@ -1,8 +1,8 @@
 include munitscpp.cpp
 include munitscpp.pyx
 include setup.py
-include lib\Accesories\*.hpp
-include src\*.cpp
-include src\*.hpp
-include src\*.h
-include munits\*.py
+include lib/Accesories/*.hpp
+include src/*.cpp
+include src/*.hpp
+include src/*.h
+include munits/*.py
