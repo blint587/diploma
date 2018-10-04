@@ -3,7 +3,7 @@
 from setuptools import setup
 from setuptools.extension import Extension
 import sys
-
+from version import Version
 try:
     from Cython.Build import cythonize
     USE_CYTHON = ("build_ext" in sys.argv) or ("bdist_wheel" in sys.argv)
@@ -46,7 +46,7 @@ if USE_CYTHON:
 
 setup(
     name="munits",
-    version="0.2.15",
+    version=Version.version,
     packages=["munits"],
     ext_modules=extensions,
     install_requires=["base2>=0.2.3"],
