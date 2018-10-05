@@ -48,6 +48,7 @@ setup(
     name="munits",
     version=Version.version,
     packages=["munits"],
+    py_modules=['version'],
     ext_modules=extensions,
     install_requires=["base2>=0.2.3"],
     # data_files={"munits": ["src/*.hpp", "src/*.h", "lib/Accesories/*.hpp"]},
