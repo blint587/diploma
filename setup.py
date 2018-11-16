@@ -3,7 +3,7 @@
 from setuptools import setup
 from setuptools.extension import Extension
 import sys
-from version import Version
+
 try:
     from Cython.Build import cythonize
     USE_CYTHON = ("build_ext" in sys.argv) or ("bdist_wheel" in sys.argv)
@@ -46,9 +46,8 @@ if USE_CYTHON:
 
 setup(
     name="munits",
-    version=Version.version,
+    version='0.2.19.0',
     packages=["munits"],
-    py_modules=['version'],
     ext_modules=extensions,
     install_requires=["base2>=0.2.3"],
     # data_files={"munits": ["src/*.hpp", "src/*.h", "lib/Accesories/*.hpp"]},
