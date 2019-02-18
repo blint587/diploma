@@ -51,6 +51,27 @@ TEST_F(TestQuantityBaseUnitsMathOperation, division_with_numeric_type_from_right
 
     EXPECT_EQ(r("kg"), .5);
 }
+TEST_F(TestQuantityBaseUnitsMathOperation, division_with_zero){
+    munits::Quantity m (munits::Mass, 1, "kg");
+    try{
+        auto r = m / 0;
+    }catch (std::overflow_error & le){
+        EXPECT_EQ(le.what(), std::string("Divide by zero!"));
+    }catch(...){
+        FAIL() << "Expected overflow_error";
+    }
+}
+TEST_F(TestQuantityBaseUnitsMathOperation, division_with_zero_quantity){
+    munits::Quantity m (munits::Mass, 1, "kg");
+    munits::Quantity v (munits::Volume, 1, "m3");
+    try{
+        auto r = m / v;
+    }catch (std::overflow_error & le){
+        EXPECT_EQ(le.what(), std::string("Divide by zero!"));
+    }catch(...){
+        FAIL() << "Expected overflow_error";
+    }
+}
 TEST_F(TestQuantityBaseUnitsMathOperation, _2rt_rootable){
     munits::Quantity a (munits::Area, 4.0, "m2");
 

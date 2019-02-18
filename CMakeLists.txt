@@ -56,9 +56,14 @@ set(SOURCE_FILES main.cpp
         src/dynamic.cpp
         src/uresolver.cpp
         src/uresolver.hpp
-        lib/Accesories/math.hpp src/prefix.cpp src/prefix.hpp src/parsers.hpp src/parsers.cpp src/searchers.cpp src/searchers.hpp)
+        src/prefix.cpp
+        src/prefix.hpp
+        src/parsers.hpp
+        src/parsers.cpp
+        src/searchers.cpp
+        src/searchers.hpp)
 if(MSVC)
-    set(SOURCE_FILES ${SOURCE_FILES} src/cs/munitscsexport.cpp )
+    set(SOURCE_FILES ${SOURCE_FILES} src/cs/munitscsexport.cpp)
     set(BUILD_SHARED_LIBS TRUE)
     add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
     add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
@@ -66,7 +71,6 @@ elseif(NOT MSVC)
     # gtest is not working with MSVC
     add_subdirectory(test)
 endif()
-
 
 
 add_library(munits SHARED ${SOURCE_FILES})
