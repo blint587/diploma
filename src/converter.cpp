@@ -10,8 +10,8 @@ double munits::Converter::Convert( double val, munits::UnitNotation funit, munit
 //    TRACE("from unit: " + (std::string)funit);
 //    TRACE("to unit: " + (std::string)tunit);
 
-    if (!units.count(funit.GetUnit()) == 1) {
-        TRACEMAP(units);
+    if (!(units.count(funit.GetUnit()) == 1)) {
+//        TRACEMAP(units);
         throw logic_error("Invalid funit: " + string((std::string  &&) funit));
     }
     else {
@@ -22,7 +22,7 @@ double munits::Converter::Convert( double val, munits::UnitNotation funit, munit
         val = to_base_func_unit->to_base(val, to_base_func_unit->ignor_exponent?(exponent > 0?1:-1):exponent);
 
     }
-    if (!units.count(tunit.GetUnit()) == 1) {
+    if (!(units.count(tunit.GetUnit()) == 1)) {
         throw logic_error("Invalid tunit: " + string((std::string &&) tunit));
     }
     else {
