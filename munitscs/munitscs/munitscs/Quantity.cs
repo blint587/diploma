@@ -248,7 +248,6 @@ namespace munitscs
                 if (ex.ErrorCode == -2147467259) // overflow error
                     throw new DivideByZeroException("Divide By zero!",
                         ex);
-                Console.WriteLine(ex.ErrorCode);
                 throw;
             }
         }
