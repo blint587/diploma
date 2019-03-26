@@ -206,20 +206,50 @@ namespace munitscs
         //divide
         public static Quantity operator /(Quantity lft, Quantity rgh)
         {
-            IntPtr temp = __divide(lft._quantity, rgh._quantity);
-            return new Quantity(temp);
+            try
+            {
+                IntPtr temp = __divide(lft._quantity, rgh._quantity);
+                return new Quantity(temp);
+            }
+            catch (SEHException ex)
+            {
+                if (ex.ErrorCode == -2147467259) // overflow error
+                    throw new DivideByZeroException("Divide By zero!",
+                        ex);
+                throw;
+            }
         }
 
         public static Quantity operator /(Quantity lft, int rgh)
         {
-            IntPtr temp = __divide_int(lft._quantity, rgh);
-            return new Quantity(temp);
+            try
+            {
+                IntPtr temp = __divide_int(lft._quantity, rgh);
+                return new Quantity(temp);
+            }
+            catch (SEHException ex)
+            {
+                if (ex.ErrorCode == -2147467259) // overflow error
+                    throw new DivideByZeroException("Divide By zero!",
+                        ex);
+                throw;
+            }
         }
 
         public static Quantity operator /(Quantity lft, double rgh)
         {
-            IntPtr temp = __divide_double(lft._quantity, rgh);
-            return new Quantity(temp);
+            try
+            {
+                IntPtr temp = __divide_double(lft._quantity, rgh);
+                return new Quantity(temp);
+            }
+            catch (SEHException ex)
+            {
+                if (ex.ErrorCode == -2147467259) // overflow error
+                    throw new DivideByZeroException("Divide By zero!",
+                        ex);
+                throw;
+            }
         }
 
         //comparison

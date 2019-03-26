@@ -27,7 +27,7 @@ namespace munits{
             const std::map<std::string, const std::shared_ptr<Unit>> & Units() const{return units;};
             explicit Converter(std::string,
                                const std::set<std::string> & = std::set<std::string>(),
-                               const std::map<std::string, const std::shared_ptr<Unit>> = std::map<std::string, const std::shared_ptr<Unit>>());
+                               std::map<std::string, const std::shared_ptr<Unit>> = std::map<std::string, const std::shared_ptr<Unit>>());
 
             ~Converter(){}
             /*!
