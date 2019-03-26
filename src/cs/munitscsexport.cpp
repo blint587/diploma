@@ -3,19 +3,33 @@
 #include "../quantity.h"
 #include "../metric.hpp"
 
+#if defined (_MSC_VER)
+    #define DLLEXPORT  __declspec(dllexport)
+    #define CALLCONV __stdcall
+    #define STRINGCOPY(buffer, size, source) strcpy_s(buffer, size, source)
+#elif defined (__GNUC__)
+    #include <cstring>
+    #define DLLEXPORT
+    #define CALLCONV //default is __stdcall
+    #define  STRINGCOPY(buffer, size, source) std::strncpy(buffer, source, size)
+#else
+#endif
+
+
+
 // C export helper functions to be called from C#
 extern "C" {
     // Constructor which returns a heap pointer
-    __declspec(dllexport) munits::Quantity* __cdecl CreateQuantity(int t, double v, const char * u){
+    DLLEXPORT munits::Quantity* CALLCONV CreateQuantity(int t, double v, const char * u){
         return new munits::Quantity((munits::metrics) t, v, u);
     };
     // Destructor
-    __declspec(dllexport) void __cdecl DeleteQuantity(munits::Quantity * q){
+    DLLEXPORT void CALLCONV DeleteQuantity(munits::Quantity * q){
         delete q;
     }
 
     // toString method
-    __declspec(dllexport) void __cdecl __toString(munits::Quantity * q, char * buffer, unsigned long  * buffer_size){
+    DLLEXPORT void CALLCONV __toString(munits::Quantity * q, char * buffer, unsigned long  * buffer_size){
 
         if (buffer_size == nullptr)
         {
@@ -28,16 +42,16 @@ extern "C" {
 //        TRACEWHAT(size, "size: ");
         if ((buffer != nullptr) && (*buffer_size >= size))
         {
-            strcpy_s(buffer, size, st.c_str());
+            STRINGCOPY(buffer, size, st.c_str());
         }
         // The string length including the zero terminator
         * buffer_size = size;
     }
     // get value
-    __declspec(dllexport) double __cdecl __getValue(munits::Quantity * q){
+    DLLEXPORT double CALLCONV __getValue(munits::Quantity * q){
         return q->getValue();
     }
-    __declspec(dllexport) void __cdecl __getUnit(munits::Quantity * q, char * buffer, unsigned long  * buffer_size){
+    DLLEXPORT void CALLCONV __getUnit(munits::Quantity * q, char * buffer, unsigned long  * buffer_size){
         if (buffer_size == nullptr)
         {
             return;
@@ -46,98 +60,98 @@ extern "C" {
         unsigned long size = st.length()  + 1;
         if ((buffer != nullptr) && (*buffer_size >= size))
         {
-            strcpy_s(buffer, size, st.c_str());
+            STRINGCOPY(buffer, size, st.c_str());
         }
         // The string length including the zero terminator
         * buffer_size = size;
     }
 
     // get type (matrix index)
-    __declspec(dllexport) const int __cdecl __getType(munits::Quantity * q){
+    DLLEXPORT const int CALLCONV __getType(munits::Quantity * q){
         return q->getMatrixIndex();
     }
 
     //add
-    __declspec(dllexport) munits::Quantity* __cdecl __add(munits::Quantity * lft, munits::Quantity * rgh){
+    DLLEXPORT munits::Quantity* CALLCONV __add(munits::Quantity * lft, munits::Quantity * rgh){
         munits::Quantity temp = *lft + *rgh;
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
     //substract
-    __declspec(dllexport) munits::Quantity* __cdecl __substract(munits::Quantity * lft, munits::Quantity * rgh){
+    DLLEXPORT munits::Quantity* CALLCONV __substract(munits::Quantity * lft, munits::Quantity * rgh){
         munits::Quantity temp = *lft - *rgh;
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
     //multiply
-    __declspec(dllexport) munits::Quantity* __cdecl __multiply(munits::Quantity * lft, munits::Quantity * rgh){
+    DLLEXPORT munits::Quantity* CALLCONV __multiply(munits::Quantity * lft, munits::Quantity * rgh){
         munits::Quantity temp = *lft * *rgh;
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
-    __declspec(dllexport) munits::Quantity* __cdecl __multiply_rgh_int(munits::Quantity * lft, int rgh){
+    DLLEXPORT munits::Quantity* CALLCONV __multiply_rgh_int(munits::Quantity * lft, int rgh){
         munits::Quantity temp = *lft * rgh;
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
-   __declspec(dllexport) munits::Quantity* __cdecl __multiply_lft_int(int lft, munits::Quantity * rgh){
+   DLLEXPORT munits::Quantity* CALLCONV __multiply_lft_int(int lft, munits::Quantity * rgh){
         munits::Quantity temp = lft * *rgh;
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
-    __declspec(dllexport) munits::Quantity* __cdecl __multiply_rgh_double(munits::Quantity * lft, double rgh){
+    DLLEXPORT munits::Quantity* CALLCONV __multiply_rgh_double(munits::Quantity * lft, double rgh){
         munits::Quantity temp = *lft * rgh;
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
-   __declspec(dllexport) munits::Quantity* __cdecl __multiply_lft_double(double lft, munits::Quantity * rgh){
+   DLLEXPORT munits::Quantity* CALLCONV __multiply_lft_double(double lft, munits::Quantity * rgh){
         munits::Quantity temp = lft * *rgh;
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
     //divide
-   __declspec(dllexport) munits::Quantity* __cdecl __divide(munits::Quantity * lft, munits::Quantity * rgh){
+   DLLEXPORT munits::Quantity* CALLCONV __divide(munits::Quantity * lft, munits::Quantity * rgh){
         munits::Quantity temp = *lft / *rgh;
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
-   __declspec(dllexport) munits::Quantity* __cdecl __divide_int(munits::Quantity * lft, int rgh){
+   DLLEXPORT munits::Quantity* CALLCONV __divide_int(munits::Quantity * lft, int rgh){
         munits::Quantity temp = *lft / rgh;
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
 
-   __declspec(dllexport) munits::Quantity* __cdecl __divide_double(munits::Quantity * lft, double rgh){
+   DLLEXPORT munits::Quantity* CALLCONV __divide_double(munits::Quantity * lft, double rgh){
         munits::Quantity temp = *lft / rgh;
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
 
     //comparison
-    __declspec(dllexport) int __cdecl __lt(munits::Quantity * lft, munits::Quantity * rgh){
+    DLLEXPORT int CALLCONV __lt(munits::Quantity * lft, munits::Quantity * rgh){
         return *lft < *rgh;
     }
-    __declspec(dllexport) int __cdecl __gt(munits::Quantity * lft, munits::Quantity * rgh){
+    DLLEXPORT int CALLCONV __gt(munits::Quantity * lft, munits::Quantity * rgh){
         return *lft > *rgh;
     }
-    __declspec(dllexport) int __cdecl __le(munits::Quantity * lft, munits::Quantity * rgh){
+    DLLEXPORT int CALLCONV __le(munits::Quantity * lft, munits::Quantity * rgh){
         return *lft <= *rgh;
     }
-    __declspec(dllexport) int __cdecl __ge(munits::Quantity * lft, munits::Quantity * rgh){
+    DLLEXPORT int CALLCONV __ge(munits::Quantity * lft, munits::Quantity * rgh){
         return *lft >= *rgh;
     }
-    __declspec(dllexport) int __cdecl __eq(munits::Quantity * lft, munits::Quantity * rgh){
+    DLLEXPORT int CALLCONV __eq(munits::Quantity * lft, munits::Quantity * rgh){
         return *lft == *rgh;
     }
-    __declspec(dllexport) int __cdecl __ne(munits::Quantity * lft, munits::Quantity * rgh){
+    DLLEXPORT int CALLCONV __ne(munits::Quantity * lft, munits::Quantity * rgh){
         return *lft != *rgh;
     }
 
     //power function
-    __declspec(dllexport) munits::Quantity * __cdecl __pow(munits::Quantity * lft, int rgh){
+    DLLEXPORT munits::Quantity * CALLCONV __power(munits::Quantity * lft, int rgh){
         munits::Quantity temp = munits::pow(*lft,  rgh);
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
     //nt root
-    __declspec(dllexport) munits::Quantity* __cdecl __ntrt(munits::Quantity * lft, int rgh){
+    DLLEXPORT munits::Quantity* CALLCONV __ntrt(munits::Quantity * lft, int rgh){
         munits::Quantity temp = lft->ntrt(rgh);
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
-    __declspec(dllexport) double __cdecl __get(munits::Quantity * lft, const char* u){
+    DLLEXPORT double CALLCONV __get(munits::Quantity * lft, const char* u){
         return lft->operator()(u);
     }
 
-    __declspec(dllexport) double __cdecl __double(munits::Quantity * q){
+    DLLEXPORT double CALLCONV __double(munits::Quantity * q){
         return q->toDouble();
     }
 
