@@ -96,12 +96,15 @@ cdef class PyQuantity(object):
         return nobj
 
     def __truediv__(self, other):
-        if isinstance(other, PyQuantity) and isinstance(self, PyQuantity):
-            return self.__trudiv_q(other)
-        elif isinstance(self, PyQuantity):
-            return self.__trudiv_num(other)
-        else:
-            raise TypeError("Cannot divide numeric type with 'Quantity' object!")
+        try:
+            if isinstance(other, PyQuantity) and isinstance(self, PyQuantity):
+                return self.__trudiv_q(other)
+            elif isinstance(self, PyQuantity):
+                return self.__trudiv_num(other)
+            else:
+                raise TypeError("Cannot divide numeric type with 'Quantity' object!")
+        except OverflowError as oe:
+            raise ZeroDivisionError(*oe.args) from oe
 
     __div__ = __truediv__
 

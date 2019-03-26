@@ -76,7 +76,6 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
     double tmp_rgh = rgths.value;
     double tmp_lft = lfths.value;
 
-
     for (int i = 0; i < ndim_vector.size(); ++i) {
         ndim_vector[i] = lfths.GetDimVector()[i] + p * rgths.GetDimVector()[i]; // composing the new dimension vector (exponents)
         const int lft_exponent = lfths.GetDimVector()[i];
@@ -135,6 +134,10 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
     long long nmindex = munits::getMatrixIndex(ndim_vector);
 
     nmindex = std::min((int)nmindex, static_cast<int>(munits::_Last));
+
+    if (0 == tmp_rgh && p <= 0){
+        throw std::overflow_error("Divide by zero!");
+    }
 
     return Quantity((int)nmindex, tmp_lft * std::pow(tmp_rgh, p), nunit_vector, ndim_vector);
 };

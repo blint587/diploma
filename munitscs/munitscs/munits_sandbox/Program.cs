@@ -70,6 +70,11 @@ namespace munits_sandbox
             Console.WriteLine($"q7: {q7}");
             Console.WriteLine($"q9: {q9}");
             Console.WriteLine($"q10: {q10}");
+
+
+            var q11 = new Quantity(Metrics.Length, 1, "m");
+            var q12 = q11 / 0;
+            Console.WriteLine(q12);
         }
     }
 }
