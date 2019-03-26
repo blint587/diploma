@@ -385,6 +385,15 @@ namespace munitscs
             _quantity = CreateQuantity((int) unitType, newValue, nunit);
         }
 
+        public Quantity Convert(string newUnit)
+        {
+            double newValue = Get(newUnit);
+            Metrics unitType =  GetUnitType();
+            
+            return new Quantity(unitType, newValue, newUnit);
+            
+        }
+
         public Quantity DeepCopy()
         {
             return new Quantity(this);
