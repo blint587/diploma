@@ -70,6 +70,13 @@ namespace munits_sandbox
             Console.WriteLine($"q7: {q7}");
             Console.WriteLine($"q9: {q9}");
             Console.WriteLine($"q10: {q10}");
+
+
+            var q11 = q10.Convert("kg");
+            
+            Console.WriteLine($"q11: {q11}");
+
+
         }
     }
 }

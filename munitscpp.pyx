@@ -137,6 +137,8 @@ cdef class PyQuantity(object):
         del self._thisptr
         self._thisptr = new Quantity(mindex, value, bytes(unit, "utf-8"))
 
+
+
     @property
     def _unquantified(PyQuantity self):
         return self._thisptr.unquantified()
