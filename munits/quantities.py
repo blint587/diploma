@@ -118,7 +118,6 @@ class Quantity(PyQuantity, BaseClass, metaclass=MetaQuantity, unit_index=NPOS):
     def __repr__(self):
         return PyQuantity.__repr__(self)
 
-
     def serializable(self, *args, **kwargs):
         if self.init_unit != "":
             s = {"value": self(self.init_unit), "unit": self.init_unit}
@@ -134,6 +133,9 @@ class Quantity(PyQuantity, BaseClass, metaclass=MetaQuantity, unit_index=NPOS):
 
     def ntrt(self, exp: int):
         return Quantity(other=PyQuantity.ntrt(self, int(exp)))
+
+    def convert(self, _unit: str) -> "Quantity":
+        return self.__class__.__new__(self.__class__, value=self(_unit), unit=_unit)
 
     def add_in_same_unit(self, other: float):
         """

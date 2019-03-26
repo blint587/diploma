@@ -32,5 +32,18 @@ class TestQuantitySideFunctionality(unittest.TestCase):
         self.assertEqual(l, l_copy)
         self.assertNotEqual(id(l), id(l_copy))
 
+
+    def test_convert(self):
+        """Happy pass"""
+
+        l1 = Length(1., "m")
+        l2 = l1.convert("mm")
+
+        self.assertEqual(l1, l2)
+        self.assertEqual("mm", l2.unit,)
+        self.assertEqual(1000.,  l2.val)
+        self.assertNotEqual(id(l1), id(l2))
+
+
 if __name__ == "__main__":
     unittest.main()
