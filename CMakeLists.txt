@@ -56,6 +56,7 @@ set(SOURCE_FILES main.cpp
         src/dynamic.cpp
         src/uresolver.cpp
         src/uresolver.hpp
+#        lib/Accesories/math.hpp
         src/prefix.cpp
         src/prefix.hpp
         src/parsers.hpp
@@ -69,6 +70,7 @@ if(MSVC)
     add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 elseif(NOT MSVC)
     # gtest is not working with MSVC
+    set(SOURCE_FILES ${SOURCE_FILES} src/cs/munitscsexport.cpp )
     add_subdirectory(test)
 endif()
 
