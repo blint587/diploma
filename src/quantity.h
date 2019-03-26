@@ -23,7 +23,6 @@
 #include "dynamic.hpp"
 
 
-
 namespace munits {
 
     class Quantity {
@@ -101,8 +100,8 @@ namespace munits {
             friend Quantity operator* (const double lfths, const Quantity & rgths) {Quantity n (rgths); n.value *= lfths; return n;};
 
             friend Quantity operator/ (const Quantity & lfths, const Quantity & rgths) {return mathop(lfths, rgths, -1);};
-            friend Quantity operator/ (const Quantity & lfths, const int rgths) {Quantity n (lfths); n.value /= rgths; return n;};
-            friend Quantity operator/ (const Quantity & lfths, const double rgths) {Quantity n (lfths); n.value /= rgths; return n;};
+            friend Quantity operator/ (const Quantity & lfths, const int rgths) {Quantity n (lfths);  n.value /= (rgths == 0)?throw std::overflow_error("Divide by zero!"): rgths; return n;};
+            friend Quantity operator/ (const Quantity & lfths, const double rgths) {Quantity n (lfths); n.value /= (rgths == 0)?throw std::overflow_error("Divide by zero!"): rgths; return n;};
 
 
             friend bool operator < (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::lt<const double>);};
