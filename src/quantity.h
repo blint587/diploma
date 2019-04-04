@@ -23,7 +23,6 @@
 #include "dynamic.hpp"
 
 
-
 namespace munits {
 
     class Quantity {
@@ -66,7 +65,7 @@ namespace munits {
             double operator()(std::string) const;
 
             operator std::string() const { // explicit will brake Cython
-                TRACE(unit_vector.getMultiplicationFactor());
+//                TRACE(unit_vector.getMultiplicationFactor());
                 std::stringstream ss;
                 std::string composed = UnitNotationVector::compose_unit(unit_vector, matrix_index);
                 if (init_unit.empty() || composed.length() < init_unit.length()) {
@@ -80,16 +79,16 @@ namespace munits {
 
             bool unquantified() const;
 
-            #ifndef NOCYTHON
+//            #ifndef NOCYTHON
             // helper functions for interfaceing
-            std::string toString() const {return std::string((std::string &&) *this); }
+            std::string toString() const {return (std::string) *this; }
             double toDouble() const {return double(*this);}
             double getValue() const {return value;}
             std::string getUnit() const {return UnitNotationVector::compose_unit(unit_vector, matrix_index);}
             std::string getInitUnit() const {return init_unit;}
             Quantity(){};
-            #endif
-            friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << (std::string) a ;return str;};
+//            #endif
+            friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.toString() ;return str;};
 
             friend Quantity operator+ (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value + rgths( UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};
             friend Quantity operator- (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value - rgths( UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};
@@ -101,8 +100,8 @@ namespace munits {
             friend Quantity operator* (const double lfths, const Quantity & rgths) {Quantity n (rgths); n.value *= lfths; return n;};
 
             friend Quantity operator/ (const Quantity & lfths, const Quantity & rgths) {return mathop(lfths, rgths, -1);};
-            friend Quantity operator/ (const Quantity & lfths, const int rgths) {Quantity n (lfths); n.value /= rgths; return n;};
-            friend Quantity operator/ (const Quantity & lfths, const double rgths) {Quantity n (lfths); n.value /= rgths; return n;};
+            friend Quantity operator/ (const Quantity & lfths, const int rgths) {Quantity n (lfths);  n.value /= (rgths == 0)?throw std::overflow_error("Divide by zero!"): rgths; return n;};
+            friend Quantity operator/ (const Quantity & lfths, const double rgths) {Quantity n (lfths); n.value /= (rgths == 0)?throw std::overflow_error("Divide by zero!"): rgths; return n;};
 
 
             friend bool operator < (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::lt<const double>);};
@@ -119,6 +118,7 @@ namespace munits {
     Quantity pow(const Quantity &a, int e);
 
 }
+
 
 
 #endif //MUSYS_QUANTITY_H

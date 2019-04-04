@@ -21,7 +21,7 @@ set(SOURCE_FILES
         ../../src/dynamic.cpp
         ../../src/uresolver.cpp
         ../../src/uresolver.hpp
-        ../../lib/Accesories/math.hpp
+        ../../lib/Accesories/mymath.hpp
         ../../src/prefix.cpp
         ../../src/prefix.hpp
         ../../src/parsers.hpp
