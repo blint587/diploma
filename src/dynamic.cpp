@@ -62,7 +62,7 @@ const std::vector<munits::Metric> & munits::GetMatrix(){
                     }
 
             },
-            {{ 3,  0, -1,  0,  0,  0,  0}, "m3 s-1", {}, {}, {{"CFM", "ft3 min-1"}, { "MLD", "Ml d-1"}}},  //VolumetricFlow
+            {{ 3,  0, -1,  0,  0,  0,  0}, "m3 s-1", {}, {}, {{"CFM", "ft3 min-1"}, { "MLD", "Ml d-1"}, {"MGD", "Mgal d-1"}, {"GPD", "gal min-1"} }},  //VolumetricFlow
             {{-3,  0,  0,  0,  0,  1,  0}, "mol m-3"},  //MolarConcentration
             {{ 1,  0, -2,  0,  0,  0,  0}, "m s-2"},  //Acceleration
             {{ 1,  1, -2,  0,  0,  0,  0}, "kg m s-2", /*N*/{}, {}, {{"N", "kg m s-2"}, {"lbf", "slug ft s-2"}, {"dyn", "g cm s-2"}}},  //Force
