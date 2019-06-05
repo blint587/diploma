@@ -5,6 +5,7 @@ verify_ssl = false
 
 [dev-packages]
 cython = "*"
+tox = "*"
 v = {editable = true,version = "*"}
 
 [packages]
