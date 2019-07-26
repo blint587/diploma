@@ -125,3 +125,91 @@ const std::map<std::string, const std::shared_ptr<munits::ConverterFunction>> & 
     return prefixes;
 }
 
+
+
+const std::pair<std::regex, std::string> munits::GenerateUnParseRegex(const munits::Metric& m, int i) {
+    const std::vector<munits::Metric> &rmatrix = munits::GetMatrix();
+
+    std::stringstream rp;
+    { // composing the regex for each Unit type
+        rp << "^(";
+        const std::map<std::string, const std::shared_ptr<munits::ConverterFunction>> &prefixes = m.converter->Prefixes();
+        int c1 = 0;
+        for (auto prx = prefixes.begin(); prx != prefixes.end(); ++prx) {
+            rp << prx->first << (c1 != prefixes.size() - 1 ? "|" : "");
+            ++c1;
+        }
+
+        rp << ")?(";
+        c1 = 0;
+        const std::map<std::string, const std::shared_ptr<munits::Unit>> &units = m.converter->Units();
+        for (auto unt = units.begin(); unt != units.end(); ++unt) {
+            rp << unt->first << (c1 != units.size() - 1 ? "|" : "");
+            ++c1;
+        }
+
+        rp << ")(\\-?[0-9])?$";
+    }
+        return std::pair<std::regex, std::string>(std::regex(rp.str()), rp.str());
+}
+
+std::vector<std::pair<std::regex, std::string>> munits::_GenerateUnParseRegexVector(){
+    std::vector<std::pair<std::regex, std::string>> vector;
+    const std::vector<munits::Metric> & rmatrix = munits::GetMatrix();
+    int i = 0;
+    for(auto m = rmatrix.begin(); m != rmatrix.end(); ++m){
+        vector.push_back(munits::GenerateUnParseRegex(*m, i));
+        i++;
+    }
+    return vector;
+}
+
+
+const std::vector<std::pair<std::regex, std::string>> & munits::GetUnParsRegex(){
+    static const std::vector<std::pair<std::regex, std::string>> regex_vector = munits::_GenerateUnParseRegexVector();
+    return regex_vector;
+}
+
+const std::pair<std::regex, std::string> munits::GenerateRParseRegex(const munits::Metric& m, int i) {
+    const std::vector<munits::Metric> &rmatrix = munits::GetMatrix();
+
+    std::stringstream rp;
+    { // composing the regex for each Unit type
+        rp << "^(";
+        const std::map<std::string, const std::shared_ptr <munits::ConverterFunction>> &prefixes = m.converter->Prefixes();
+        int c1 = 0;
+        for (auto prx = prefixes.begin(); prx != prefixes.end(); ++prx) {
+            rp << prx->first << (c1 != prefixes.size() - 1 ? "|" : "");
+            ++c1;
+        }
+
+        rp << ")?(";
+        c1 = 0;
+
+        for (auto unt = m.unit_resolve_mapping.begin();
+             unt != m.unit_resolve_mapping.end(); ++unt) {
+            rp << unt->first << (c1 != m.unit_resolve_mapping.size() - 1 ? "|" : "");
+            ++c1;
+        }
+
+        rp << ")(\\-?[0-9])?$";
+    }
+    return std::pair<std::regex, std::string>(std::regex(rp.str()), rp.str());
+}
+
+std::vector<std::pair<std::regex, std::string>> munits::_GenerateRParseRegexVector(){
+    std::vector<std::pair<std::regex, std::string>> vector;
+    const std::vector<munits::Metric> & rmatrix = munits::GetMatrix();
+    int i = 0;
+    for(auto m = rmatrix.begin(); m != rmatrix.end(); ++m){
+        vector.push_back(munits::GenerateRParseRegex(*m, i));
+        i++;
+    }
+    return vector;
+}
+
+
+const std::vector<std::pair<std::regex, std::string>> & munits::GetRParsRegex(){
+    static const std::vector<std::pair<std::regex, std::string>> regex_vector = munits::_GenerateRParseRegexVector();
+    return regex_vector;
+}

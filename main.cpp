@@ -20,7 +20,7 @@ int main() {
 
 #ifdef DEBUG
     cerr << "Press a key to close..." << endl;
-    getch();
+//    getch();
 #endif
 
 
