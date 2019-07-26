@@ -3,9 +3,6 @@
 #include <string>
 #include <vector>
 #include <regex>
-#include <memory>
-#include <map>
-#include <sstream>
 #include "metric.hpp"
 #include "dynamic.hpp"
 
@@ -41,7 +38,7 @@ vector<string> munits::unparser(string unit) {
 //        }
         try {
 //            regex re(rp.str());
-            regex re = munits::GetUnParsRegex()[u].first;
+            regex re = munits::GetUnParsRegex()[u];
 //            TRACE(munits::GetUnParsRegex()[u].second);
             sregex_iterator next(unit.begin(), unit.end(), re);
             sregex_iterator end;
@@ -99,7 +96,7 @@ vector<string> munits::rparser(string token) {
             try {
 
 //                TRACE(rp.str());
-             regex re = munits::GetRParsRegex()[u].first;
+             regex re = munits::GetRParsRegex()[u];
 //                TRACE(munits::GetRParsRegex()[u].second );
 
 //                regex re(rp.str());

@@ -69,17 +69,17 @@ namespace munits {
 
     const std::map<std::string, const std::shared_ptr<ConverterFunction>> & GetPrefixes();
 
-    const std::pair<std::regex, std::string> GenerateUnParseRegex(const munits::Metric& m, int i);
+    const std::regex GenerateUnParseRegex(const munits::Metric& m, int i);
 
-    std::vector<std::pair<std::regex, std::string>> _GenerateUnParseRegexVector();
+    std::vector<std::regex> _GenerateUnParseRegexVector();
 
-    const std::vector<std::pair<std::regex, std::string>> & GetUnParsRegex();
+    const std::vector<std::regex> & GetUnParsRegex();
 
-    const std::pair<std::regex, std::string> GenerateRParseRegex(const munits::Metric& m, int i);
+    const std::regex GenerateRParseRegex(const munits::Metric& m, int i);
 
-    std::vector<std::pair<std::regex, std::string>> _GenerateRParseRegexVector();
+    std::vector<std::regex> _GenerateRParseRegexVector();
 
-    const std::vector<std::pair<std::regex, std::string>> & GetRParsRegex();
+    const std::vector<std::regex> & GetRParsRegex();
 
 
 }
