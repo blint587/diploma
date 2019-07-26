@@ -181,7 +181,7 @@ bool munits::Quantity::compop(const munits::Quantity &lfths, const munits::Quant
         static const double precision = 10e4;
         auto lfhs = round(lfths.value * precision) / precision;
         // converting 'b' to the same Unit as 'a' and comparing there value
-        auto rths = round(rgths(UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)) * precision) / precision;
+        auto rths = round(rgths(lfths.unit_vector) * precision) / precision;
 
         auto r = f(lfhs, rths );
 
@@ -237,6 +237,51 @@ munits::Quantity munits::Quantity::ntrt (const int exponent) const {
     }
     else{
         return Quantity(*this);
+    }
+}
+
+double munits::Quantity::operator()(const munits::UnitNotationVector &tunit) const {
+    const vector<Metric> &rmatrix = munits::GetMatrix();
+    queue<vector<int>> dim_matrix; // the search matrix composed by tearing down the dim_vector
+
+    double tmp = value;
+
+    for (int i = 0; i < 7; ++i) {
+        if (dim_vector[i] != 0) {
+            vector<int> tmp_dim_vector(7);
+            tmp_dim_vector[i] = abs(dim_vector[i]);
+            dim_matrix.push(tmp_dim_vector);
+        }
+    }
+
+
+    while (!dim_matrix.empty()) {
+        vector<int> dmv = (vector<int> &&) dim_matrix.front();
+        long long position = find_if(dmv.begin(), dmv.end(), [](int x) { return x != 0; }) - dmv.begin();
+
+        vector<int> normalized_dim(7);
+        normalized_dim[position] = 1;
+
+        for (auto q = rmatrix.begin(); q != rmatrix.end(); ++q) {
+//            TRACEMAP(q->converter->Units());
+//            TRACEITERABLE(q->dim_vector); TRACEITERABLE(dmv);
+            if ((q->dim_vector == dmv || q->dim_vector == normalized_dim) &&
+                (q->converter->is_valid_unit(this->unit_vector[position]) &&
+                 q->converter->is_valid_unit(tunit[position]))) {
+                tmp = q->converter->Convert(tmp, unit_vector[position], tunit[position], dim_vector[position]);
+                dim_matrix.pop();
+                break; // TODO: could integrate condition into loop criteria.
+            }
+        }
+        if (!dim_matrix.empty() && dmv == dim_matrix.front()) {
+            throw std::logic_error("Invalid Unit: " /*+ tunit*/);
+        }
+    }
+
+    if(tunit.getMultiplicationFactor() != 1.) {
+        return tmp / tunit.getMultiplicationFactor();
+    }else{
+        return tmp;
     }
 }
 

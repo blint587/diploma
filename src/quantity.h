@@ -46,7 +46,7 @@ namespace munits {
 
             static Quantity mathop(const Quantity & lfths, const Quantity & rgths, int p=1);
             static bool compop(const Quantity & lfths, const Quantity & rgths, bool (*f)(const double &, const double &));
-
+            double operator()(const UnitNotationVector& tunit ) const;
         public:
             const munits::UnitNotationVector getUnitVector() const {return unit_vector;};
 
