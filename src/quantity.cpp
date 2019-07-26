@@ -165,8 +165,14 @@ bool munits::Quantity::unquantified() const {
 
 munits::Quantity munits::pow(const Quantity &a, int e) {
     Quantity temp(a);
-    for (int i = 1; i < e; ++i) {
+    int abse = abs(e);
+
+    for (int i = 1; i < abse; ++i) {
         temp = temp * a;
+    }
+
+    if(e < 0){
+        temp = Quantity(munits::_Last, 1, "") / temp;
     }
     return temp;
 }

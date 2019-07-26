@@ -1,8 +1,9 @@
 # encoding: utf-8
 
+import os
+import sys
 from setuptools import setup
 from setuptools.extension import Extension
-import sys
 
 try:
     from Cython.Build import cythonize
@@ -28,13 +29,17 @@ sources = ["munitscpp.pyx",
 if not USE_CYTHON:
     sources += ["munitscpp.cpp"]
 
+_compiler_args = []
+
+if "posix" in os.name:
+    _compiler_args += ["-std=c++11", "-O3"]
 
 extensions = [Extension(
     "munitscpp",
     sources=sources,
     language="c++",
-    # extra_compile_args=["-std=c++11", "-O3"],
-    extra_compile_args=["-std=c++11"],
+    extra_compile_args=_compiler_args,
+    # extra_compile_args=["-std=c++11"],
     # extra_compile_args=["-std=c++11", "-Z"],    # Debug flag version
     extra_link_args=["-std=c++11"],
     # extra_link_args=["-std=c++11", "-debug" "-D CYTHON"],   # Debug flag version
@@ -47,7 +52,7 @@ if USE_CYTHON:
 
 setup(
     name="munits",
-    version='0.2.25.0',
+    version='0.2.26.0',
     packages=["munits"],
     ext_modules=extensions,
     install_requires=["base2>=0.2.3"],
