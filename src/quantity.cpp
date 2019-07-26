@@ -6,6 +6,7 @@
 #include <list>
 #include <math.h>
 #include <string>
+#include <utility>
 #include "quantity.h"
 #include "dynamic.hpp"
 #include "uresolver.hpp"
@@ -16,57 +17,13 @@
 using namespace std;
 
 
-double munits::Quantity::operator()(const string tunit) const {
-
-
-    const vector<Metric> &rmatrix = munits::GetMatrix();
-    const vector<int> & dim_vector = GetDimVector(); // dime vector of current munits
-    queue<vector<int>> dim_matrix; // the search matrix composed by tearing down the dim_vector
+double munits::Quantity::operator()(const string& tunit) const {
 
     UnitNotationVector tunit_vector = UnitNotationVector::compose_unit_vector(tunit);
-//    TRACEITERABLE(tunit_vector);
-    for (int i = 0; i < 7; ++i) {
-        if (dim_vector[i] != 0) {
-            vector<int> tmp_dim_vector(7);
-            tmp_dim_vector[i] = abs(dim_vector[i]);
-            dim_matrix.push(tmp_dim_vector);
-        }
-    }
 
-
-    double tmp = value;
-
-    while (!dim_matrix.empty()) {
-        vector<int> dmv = (vector<int> &&) dim_matrix.front();
-        long long position = find_if(dmv.begin(), dmv.end(), [](int x) { return x != 0; }) - dmv.begin();
-
-        vector<int> normalized_dim(7);
-        normalized_dim[position] = 1;
-
-        for (auto q = rmatrix.begin(); q != rmatrix.end(); ++q) {
-//            TRACEMAP(q->converter->Units());
-//            TRACEITERABLE(q->dim_vector); TRACEITERABLE(dmv);
-            if ((q->dim_vector == dmv || q->dim_vector == normalized_dim) &&
-                (q->converter->is_valid_unit(this->unit_vector[position]) &&
-                 q->converter->is_valid_unit(tunit_vector[position]))) {
-                tmp = q->converter->Convert(tmp, unit_vector[position], tunit_vector[position], dim_vector[position]);
-                dim_matrix.pop();
-                break; // TODO: could integrate condition into loop criteria.
-            }
-        }
-        if (!dim_matrix.empty() && dmv == dim_matrix.front()) {
-            throw std::logic_error("Invalid Unit: " + tunit);
-        }
-    }
-
-    if(tunit_vector.getMultiplicationFactor() != 1.) {
-        return tmp / tunit_vector.getMultiplicationFactor();
-    }else{
-        return tmp;
-    }
+    return this->operator()(tunit_vector);
 
 }
-
 
 munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity &rgths, int p) {
 
@@ -142,12 +99,12 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
     return Quantity((int)nmindex, tmp_lft * std::pow(tmp_rgh, p), nunit_vector, ndim_vector);
 };
 
-munits::Quantity::Quantity(int m, double value, munits::UnitNotationVector unit_v, std::vector<int> dim_v) :
+munits::Quantity::Quantity(int m, double value, const munits::UnitNotationVector& unit_v, std::vector<int> dim_v) :
         matrix_index(m),
         unit_vector(unit_v),
         value(value * unit_vector.getMultiplicationFactor()),
         converter(munits::GetMatrix()[m].converter),
-        dim_vector(dim_v) {
+        dim_vector(std::move(dim_v)) {
 
 
     if (matrix_index > _Last) {
@@ -161,7 +118,7 @@ munits::Quantity::Quantity(int m, double value, munits::UnitNotationVector unit_
 }
 
 
-munits::Quantity::Quantity(munits::metrics m, double value, const string unit) :
+munits::Quantity::Quantity(munits::metrics m, double value, const string& unit) :
         munits::Quantity::Quantity(m, value, UnitNotationVector::compose_unit_vector(unit), munits::GetMatrix()[m].dim_vector) {
     init_unit = unit;
 }
@@ -253,7 +210,6 @@ double munits::Quantity::operator()(const munits::UnitNotationVector &tunit) con
             dim_matrix.push(tmp_dim_vector);
         }
     }
-
 
     while (!dim_matrix.empty()) {
         vector<int> dmv = (vector<int> &&) dim_matrix.front();

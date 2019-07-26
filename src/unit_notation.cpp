@@ -5,6 +5,7 @@
 #include <regex>
 #include <list>
 #include <cmath>
+#include <utility>
 #include "unit_notation.hpp"
 #include "parsers.hpp"
 #include "uresolver.hpp"
@@ -16,7 +17,7 @@ using namespace std;
 
 munits::UnitNotation::UnitNotation(string u) {
 
-    vector<string> parsed = munits::unparser(u);
+    vector<string> parsed = munits::unparser(std::move(u));
 
     prefix = parsed[0];
     unit = parsed[1];
@@ -39,7 +40,7 @@ list <munits::UnitNotation> munits::UnitNotation::tokenise(const string &unit) {
 
     list <munits::UnitNotation> unTokens (tokens.size()); // resizing to match
     // composing UnitNotation objects from string representations
-    transform(tokens.begin(), tokens.end(), unTokens.begin(), [](string unt){return munits::UnitNotation(unt);});
+    transform(tokens.begin(), tokens.end(), unTokens.begin(), [](string unt){return munits::UnitNotation(std::move(unt));});
     return unTokens;
 }
 
@@ -131,7 +132,7 @@ munits::UnitNotationVector munits::UnitNotationVector::compose_unit_vector(const
             }
         }while(b != unTokens.end());
     }
-    if (unTokens.size() != 0) { // if no tokens left no point checking for none base units
+    if (!unTokens.empty()) { // if no tokens left no point checking for none base units
         for (int uidx = 7; uidx < _Last; ++uidx) {  // checking if any of the tokens is a none base Unit
             auto b = find_if(unTokens.begin(), unTokens.end(),
                              [&rmatrix, &uidx](UnitNotation t)->bool { return rmatrix[uidx].converter->is_valid_unit(t); });
@@ -144,7 +145,7 @@ munits::UnitNotationVector munits::UnitNotationVector::compose_unit_vector(const
             }
         }
     }
-    if (unTokens.size() != 0) { // if any tokens left it means that what was left is invalid.
+    if (!unTokens.empty()) { // if any tokens left it means that what was left is invalid.
         throw logic_error("Incorrect Unit: " + unit);
     };
     return uv;

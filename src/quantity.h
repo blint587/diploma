@@ -42,7 +42,7 @@ namespace munits {
 //            explicit Quantity(int, double, std::vector<UnitNotation>, std::vector<int>);
 
             explicit Quantity(int,  double, UnitNotationVector);
-            explicit Quantity(int, double, UnitNotationVector, std::vector<int>);
+            explicit Quantity(int, double, const UnitNotationVector&, std::vector<int>);
 
             static Quantity mathop(const Quantity & lfths, const Quantity & rgths, int p=1);
             static bool compop(const Quantity & lfths, const Quantity & rgths, bool (*f)(const double &, const double &));
@@ -51,7 +51,7 @@ namespace munits {
             const munits::UnitNotationVector getUnitVector() const {return unit_vector;};
 
 
-            explicit Quantity(metrics,  double, std::string);
+            explicit Quantity(metrics,  double, const std::string&);
 
         //        Quantity(Quantity &);
             Quantity(const Quantity &) = default;
@@ -62,7 +62,7 @@ namespace munits {
             const std::vector<int> GetDimVector() const{return dim_vector;};
             const int getMatrixIndex()const {return matrix_index;};
 
-            double operator()(std::string) const;
+            double operator()(const std::string&) const;
 
             operator std::string() const { // explicit will brake Cython
 //                TRACE(unit_vector.getMultiplicationFactor());
@@ -111,7 +111,7 @@ namespace munits {
             friend bool operator == (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::eq<const double>);};
             friend bool operator != (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop(lfths, rgths, accessories::ne<const double>);};
 
-            Quantity ntrt (const int exponent) const; // Todo: implement as free function
+            Quantity ntrt (int exponent) const; // Todo: implement as free function
 
     };
 
