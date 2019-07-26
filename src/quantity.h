@@ -115,7 +115,7 @@ namespace munits {
 
     };
 
-    Quantity pow(const Quantity &a, int e);
+    Quantity mpow(const Quantity &a, int e);
 
 }
 

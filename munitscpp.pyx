@@ -110,7 +110,7 @@ cdef class PyQuantity(object):
 
     def __pow__(PyQuantity self, int exp, modulo):
         cdef PyQuantity nobj = PyQuantity()
-        nobj._thisptr = new Quantity(pow(deref(self._thisptr), exp))
+        nobj._thisptr = new Quantity(mpow(deref(self._thisptr), exp))
         return nobj
 
     def ntrt(PyQuantity self, int exp):

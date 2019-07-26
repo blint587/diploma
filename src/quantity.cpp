@@ -163,7 +163,7 @@ bool munits::Quantity::unquantified() const {
     return all_of(dim_vector.begin(), dim_vector.end(), [](int i) { return 0 == i; });
 }
 
-munits::Quantity munits::pow(const Quantity &a, int e) {
+munits::Quantity munits::mpow(const Quantity &a, int e) {
     Quantity temp(a);
     int abse = abs(e);
 
