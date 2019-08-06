@@ -47,12 +47,13 @@ extensions = [Extension(
 
 if USE_CYTHON:
     from Cython.Build import cythonize
-    extensions = cythonize(extensions)
-
+    extensions = cythonize(extensions,
+                           compiler_directives={'boundscheck': False, 'language_level': 3}
+                           )
 
 setup(
     name="munits",
-    version='0.2.26.0',
+    version='0.2.27.0',
     packages=["munits"],
     ext_modules=extensions,
     install_requires=["base2>=0.2.3"],
