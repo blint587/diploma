@@ -136,7 +136,7 @@ bool munits::Quantity::compop(const munits::Quantity &lfths, const munits::Quant
     if (lfths.matrix_index == rgths.matrix_index) {
         //applying a rounding with a precision of 6
         static const double precision = 10e4;
-        auto lfhs = round(lfths.value * precision) / precision;
+        auto lfhs = round(lfths(lfths.unit_vector) * precision) / precision;
         // converting 'b' to the same Unit as 'a' and comparing there value
         auto rths = round(rgths(lfths.unit_vector) * precision) / precision;
 
