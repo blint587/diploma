@@ -134,7 +134,8 @@ cdef class PyQuantity(object):
         return self._thisptr.toDouble()
 
     def sconvert(PyQuantity self, str unit):
-        warn("'sconvert' method will be deprecated. It changes objects inner state, which is dangerous considering <Quantity> is a reference type!")
+        warn("'sconvert' method will be deprecated. It changes objects inner state, which is dangerous considering <Quantity> is a reference type!",
+             DeprecationWarning)
         mindex = self.matrix_index
         value = self(unit)
         del self._thisptr
