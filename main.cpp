@@ -1,7 +1,7 @@
 #include <iostream>
 #include <set>
 #ifdef DEBUG
-    #include <conio.h>
+//    #include <conio.h>
 #endif
 #include "src/quantity.h"
 #include "src/unit_notation.hpp"
@@ -13,14 +13,16 @@ using namespace munits;
 
 int main() {
 
-	Quantity l = Quantity(munits::Length, 1, "μm");
-    TRACE(l);
+	Quantity l = Quantity(munits::Time, 2, "s");
+	Quantity l2 = munits::mpow(l, -2);
+	TRACE(l2);
+
 
 
 
 #ifdef DEBUG
     cerr << "Press a key to close..." << endl;
-    getch();
+//    getch();
 #endif
 
 

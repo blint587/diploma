@@ -1,8 +1,9 @@
 # encoding: utf-8
 
+import os
+import sys
 from setuptools import setup
 from setuptools.extension import Extension
-import sys
 
 try:
     from Cython.Build import cythonize
@@ -28,12 +29,17 @@ sources = ["munitscpp.pyx",
 if not USE_CYTHON:
     sources += ["munitscpp.cpp"]
 
+_compiler_args = []
+
+if "posix" in os.name:
+    _compiler_args += ["-std=c++11", "-O3"]
 
 extensions = [Extension(
     "munitscpp",
     sources=sources,
     language="c++",
-    extra_compile_args=["-std=c++11"],
+    extra_compile_args=_compiler_args,
+    # extra_compile_args=["-std=c++11"],
     # extra_compile_args=["-std=c++11", "-Z"],    # Debug flag version
     extra_link_args=["-std=c++11"],
     # extra_link_args=["-std=c++11", "-debug" "-D CYTHON"],   # Debug flag version
@@ -41,15 +47,16 @@ extensions = [Extension(
 
 if USE_CYTHON:
     from Cython.Build import cythonize
-    extensions = cythonize(extensions)
-
+    extensions = cythonize(extensions,
+                           compiler_directives={'boundscheck': False, 'language_level': 3}
+                           )
 
 setup(
     name="munits",
-    version='0.2.21.0',
+    version='1.0.0.0',
     packages=["munits"],
     ext_modules=extensions,
-    install_requires=["base2>=0.2.3"],
+    install_requires=["base2>=1.0.0"],
     # data_files={"munits": ["src/*.hpp", "src/*.h", "lib/Accesories/*.hpp"]},
     dependency_links=[]
 )

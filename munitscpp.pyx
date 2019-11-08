@@ -1,3 +1,5 @@
+from warnings import warn
+
 from libcpp.string cimport string
 from munitscpp cimport Quantity, metrics
 from cython.operator cimport dereference as deref
@@ -110,7 +112,7 @@ cdef class PyQuantity(object):
 
     def __pow__(PyQuantity self, int exp, modulo):
         cdef PyQuantity nobj = PyQuantity()
-        nobj._thisptr = new Quantity(pow(deref(self._thisptr), exp))
+        nobj._thisptr = new Quantity(mpow(deref(self._thisptr), exp))
         return nobj
 
     def ntrt(PyQuantity self, int exp):
@@ -132,12 +134,12 @@ cdef class PyQuantity(object):
         return self._thisptr.toDouble()
 
     def sconvert(PyQuantity self, str unit):
+        warn("'sconvert' method will be deprecated. It changes objects inner state, which is dangerous considering <Quantity> is a reference type!",
+             DeprecationWarning)
         mindex = self.matrix_index
         value = self(unit)
         del self._thisptr
         self._thisptr = new Quantity(mindex, value, bytes(unit, "utf-8"))
-
-
 
     @property
     def _unquantified(PyQuantity self):

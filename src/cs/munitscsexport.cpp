@@ -139,7 +139,7 @@ extern "C" {
 
     //power function
     DLLEXPORT munits::Quantity * CALLCONV __power(munits::Quantity * lft, int rgh){
-        munits::Quantity temp = munits::pow(*lft,  rgh);
+        munits::Quantity temp = munits::mpow(*lft, rgh);
         return new munits::Quantity((munits::metrics) temp.getMatrixIndex(), temp.getValue(), temp.getUnit());
     }
     //nt root
