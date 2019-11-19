@@ -1,8 +1,6 @@
 //
 // Created by bmolnar on 2019. 11. 19..
 //
-
-#include <algorithm>
 #include "unit_validator.hpp"
 
 bool munits::validate_unit(const munits::UnitNotationVector & un, munits::metrics m){
@@ -37,7 +35,7 @@ int munits::extrapolate_metric_from_unit(const munits::UnitNotationVector & un){
 
     //searching for a matching dimensional vector in the matrix
     //its index will be the result
-    int idx = -1;
+    int idx;
     for(idx = 0; idx <= (int) metrics::_Last &&
             (matrix->operator[](idx).dim_vector != dim_vector_from_un); ++idx){}
     return idx;
