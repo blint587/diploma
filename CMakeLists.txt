@@ -66,7 +66,9 @@ set(SOURCE_FILES main.cpp
         src/parsers.hpp
         src/parsers.cpp
         src/searchers.cpp
-        src/searchers.hpp)
+        src/searchers.hpp
+        src/unit_validator.cpp
+        src/unit_validator.hpp)
 if(MSVC)
     set(SOURCE_FILES ${SOURCE_FILES} src/cs/munitscsexport.cpp)
     set(BUILD_SHARED_LIBS TRUE)
@@ -79,7 +81,7 @@ elseif(NOT MSVC)
 endif()
 
 
-add_library(munits SHARED ${SOURCE_FILES})
+add_library(munits SHARED ${SOURCE_FILES} src/unit_validator.cpp src/unit_validator.hpp)
 
 add_executable(musys ${SOURCE_FILES} main.cpp)
 

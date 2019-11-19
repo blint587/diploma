@@ -13,6 +13,7 @@
 #include "searchers.hpp"
 #include "unit_notation.hpp"
 #include "../lib/Accesories/accessories.hpp"
+#include "unit_validator.hpp"
 
 using namespace std;
 
@@ -107,6 +108,7 @@ munits::Quantity::Quantity(int m, double value, const munits::UnitNotationVector
         dim_vector(std::move(dim_v)) {
 
 
+
     if (matrix_index > _Last) {
         throw std::logic_error("Invalid Unit type");
     }
@@ -114,6 +116,8 @@ munits::Quantity::Quantity(int m, double value, const munits::UnitNotationVector
         for(unsigned int idx = 0; idx < dim_vector.size(); ++idx ){
             dim_vector[idx] = unit_vector[idx].GetExponent();
         }
+    }else if (matrix_index < _Last && !(munits::validate_unit(unit_vector, (munits::metrics) matrix_index))){
+        throw std::logic_error("Invalid measurement unit!");
     }
 }
 

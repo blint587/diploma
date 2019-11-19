@@ -5,6 +5,7 @@
 #endif
 #include "src/quantity.h"
 #include "src/unit_notation.hpp"
+#include "src/unit_validator.hpp"
 
 using namespace std;
 using namespace munits;
@@ -13,9 +14,9 @@ using namespace munits;
 
 int main() {
 
-	Quantity l = Quantity(munits::Time, 2, "s");
-	Quantity l2 = munits::mpow(l, -2);
-	TRACE(l2);
+//	Quantity l = Quantity(munits::Volume, 2, "l3");
+    int i = extrapolate_metric_from_unit(UnitNotationVector::compose_unit_vector("Pa"));
+	TRACE(i);
 
 
 
