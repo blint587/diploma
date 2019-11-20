@@ -106,7 +106,7 @@ const  munits::UnitNotation & munits::UnitNotationVector::npos() {
 // TODO: search only those units which are related to the Unit type (based on dim vector)
 munits::UnitNotationVector munits::UnitNotationVector::compose_unit_vector(const string &unit) {
 
-    auto  rmatrix = GetMatrix();
+    MetricMatrix rmatrix = GetMatrix();
 //    TRACE(unit);
     list <UnitNotation> unTokens = UnitNotation::tokenise(unit);
 //    TRACEITERABLE(unTokens);
@@ -121,9 +121,9 @@ munits::UnitNotationVector munits::UnitNotationVector::compose_unit_vector(const
                     UnitNotation t) -> bool { return rmatrix[uidx].converter->is_valid_unit(t); });
             if (b != unTokens.end()) {
                 uv.set(uidx, *b);
-                // if not MSVC
-                // b = unTokens.erase(b);
-                //else
+                /* if not MSVC
+                 b = unTokens.erase(b);
+                else*/
                 long long int posb = std::distance(unTokens.begin(), b);
                 unTokens.erase(b);
                 b = unTokens.begin();
@@ -134,9 +134,15 @@ munits::UnitNotationVector munits::UnitNotationVector::compose_unit_vector(const
     }
     if (!unTokens.empty()) { // if no tokens left no point checking for none base units
         for (int uidx = 7; uidx < _Last; ++uidx) {  // checking if any of the tokens is a none base Unit
+            //list<UnitNotation>::iterator
             auto b = find_if(unTokens.begin(), unTokens.end(),
                              [&rmatrix, &uidx](UnitNotation t)->bool { return rmatrix[uidx].converter->is_valid_unit(t); });
             if (b != unTokens.end()) {
+                const shared_ptr<Unit> u  = rmatrix[uidx].converter->Units().find(b->unit)->second;
+                if (u->ignor_exponent){
+                    b->silent_exponent = (u->ignor_exponent) * b->exponent;
+                }
+
                 // searching the position where the dim_vector is not 0
                 long long position = find_if(rmatrix[uidx].dim_vector.begin(), rmatrix[uidx].dim_vector.end(),
                                        [](int x) { return x != 0; }) - rmatrix[uidx].dim_vector.begin();
@@ -179,7 +185,7 @@ string munits::UnitNotationVector::compose_unit(const munits::UnitNotationVector
     for_each(uns.begin(), uns.end(), [&](const UnitNotation &unit) {
                  if (unit.GetUnit() != "") {
                      tmp << unit.GetPrefix() << unit.GetUnit()
-                         << (unit.GetExponent() != 1 ? to_string(unit.GetExponent()) : "") << " ";
+                         << (unit.exponent != 1 ? to_string(unit.exponent) : "") << " ";
                  }
              }
     );

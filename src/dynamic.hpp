@@ -64,6 +64,7 @@ namespace munits {
 
     };
 
+    typedef std::vector<munits::Metric> MetricMatrix;
 
     const std::vector<munits::Metric> & GetMatrix();
 

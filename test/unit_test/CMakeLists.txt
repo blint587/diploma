@@ -27,6 +27,8 @@ set(SOURCE_FILES
         ../../src/parsers.hpp
         ../../src/searchers.cpp
         ../../src/searchers.hpp
+        ../../src/unit_validator.cpp
+        ../../src/unit_validator.hpp
         run_unit_tests.cpp
         quantity_test_conversion.hpp
         quantity_test_comparison.hpp

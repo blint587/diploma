@@ -11,10 +11,10 @@ namespace munits {
 
     public:
         const bool applay_prefix;
-        const bool ignor_exponent;
+        const int ignor_exponent;
         const double zero_order;
 
-        explicit Unit(double a = 1, double b = 0, bool applay_prefix = true, bool ignor_exponent = false) :
+        explicit Unit(double a = 1, double b = 0, bool applay_prefix = true, int ignor_exponent = 0) :
                 ConverterFunction(a), applay_prefix(applay_prefix),
                 ignor_exponent(ignor_exponent), zero_order(b) {
         }

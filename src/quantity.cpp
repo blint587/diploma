@@ -4,7 +4,8 @@
 #include <queue>
 #include <algorithm>
 #include <list>
-#include <math.h>
+#include <cmath>
+#include <cstdlib>
 #include <string>
 #include <utility>
 #include "quantity.h"
@@ -13,6 +14,7 @@
 #include "searchers.hpp"
 #include "unit_notation.hpp"
 #include "../lib/Accesories/accessories.hpp"
+#include "../lib/Accesories/mymath.hpp"
 #include "unit_validator.hpp"
 
 using namespace std;
@@ -74,10 +76,24 @@ munits::Quantity munits::Quantity::mathop(const Quantity &lfths, const Quantity 
         }
 
         if (lft_exponent != 0 && rgt_exponent == 0){
-            nunit_vector[i] = UnitNotation(lfths.unit_vector[i].GetPrefix() + lfths.unit_vector[i].GetUnit() + std::to_string(ndim_vector[i]));
+            const UnitNotation  un =  lfths.unit_vector[i];
+            int new_exponent = un.silent_exponent ? ndim_vector[i] / abs(un.silent_exponent) : ndim_vector[i];
+
+            nunit_vector[i] = UnitNotation(un.GetPrefix() + un.GetUnit() + std::to_string(new_exponent));
+
+
+            nunit_vector[i].silent_exponent =
+                    mymath::sgn<int>(un.silent_exponent) == mymath::sgn<int>(ndim_vector[i]) ?
+                            un.silent_exponent : -1 * un.silent_exponent;
 
         } else if (lft_exponent == 0 && rgt_exponent != 0) {
-            nunit_vector[i] = UnitNotation(rgths.unit_vector[i].GetPrefix() + rgths.unit_vector[i].GetUnit() + std::to_string(ndim_vector[i]));
+            const UnitNotation un = rgths.unit_vector[i];
+            int new_exponent = un.silent_exponent ? ndim_vector[i] / abs(un.silent_exponent) : ndim_vector[i];
+
+            nunit_vector[i] = UnitNotation(un.GetPrefix() + un.GetUnit() + std::to_string(new_exponent));
+            nunit_vector[i].silent_exponent =
+                    mymath::sgn<int>(un.silent_exponent) == mymath::sgn<int>(ndim_vector[i]) ?
+                    un.silent_exponent : -1 * un.silent_exponent;
 
         }else if (lft_exponent != 0 && (lft_exponent + (p * rgt_exponent)) != 0 /*&& rgt_exponent != 0  - always true */){
             std::vector<int> base_dim(7);
@@ -193,9 +209,8 @@ munits::Quantity munits::Quantity::ntrt (const int exponent) const {
             std::transform(dim_vector.begin(), dim_vector.end(), n_dim_vector.begin(), [&](int exp){return exp / exponent;});
 
             UnitNotationVector n_unit_vector;
-            std::transform(unit_vector.begin(), unit_vector.end(), n_unit_vector.begin(), [&](UnitNotation un){
-                                                                                            return UnitNotation(un.GetPrefix() + un.GetUnit() + std::to_string(un.GetExponent()/ exponent ));});
-
+            std::transform(unit_vector.begin(), unit_vector.end(), n_unit_vector.begin(),
+                    [&](UnitNotation un){return !un.GetUnit().empty() ?  UnitNotation(un.GetPrefix() + un.GetUnit() + std::to_string(un.GetExponent()/ exponent )): UnitNotation();});
             return Quantity((int) munits::getMatrixIndex(n_dim_vector), n_value, n_unit_vector);
         }
         else {

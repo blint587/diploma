@@ -14,9 +14,17 @@ using namespace munits;
 
 int main() {
 
-//	Quantity l = Quantity(munits::Volume, 2, "l3");
-    int i = extrapolate_metric_from_unit(UnitNotationVector::compose_unit_vector("Pa"));
-	TRACE(i);
+//	Quantity l (munits::MassFlow, 19.2, "kg h-1");
+//	Quantity d (munits::Density, 1.22, "kg l-1");
+//    Quantity q = l/d;
+//    int i = extrapolate_metric_from_unit(UnitNotationVector::compose_unit_vector("Pa"));
+
+    Quantity v (munits::Volume, 1, "l");
+    Quantity m (munits::Mass, 1, "kg");
+
+    Quantity de =  m / v;
+
+	TRACE(de.toString());
 
 
 

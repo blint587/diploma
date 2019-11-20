@@ -16,11 +16,13 @@ namespace munits{
 
     class UnitNotation  {
         friend class UnitNotationVector;
+        friend class Quantity;
 
     private:
         std::string unit = "";
         std::string prefix = "";
         int exponent = 0;
+        int silent_exponent = 0;
 
         static int div(const munits::UnitNotation & lfths,  const munits::UnitNotation & rgths);
         static std::list<munits::UnitNotation> tokenise(const std::string &unit);
@@ -44,7 +46,8 @@ namespace munits{
         const std::string & GetUnit() const { return unit;};
 
         const std::string & GetPrefix() const { return prefix;};
-        const int & GetExponent() const { return exponent;};
+        const int & GetExponent() const { return 0 == silent_exponent ? exponent : silent_exponent;};
+
 
     };
 
