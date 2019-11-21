@@ -40,3 +40,7 @@ int munits::extrapolate_metric_from_unit(const munits::UnitNotationVector & un){
             (matrix->operator[](idx).dim_vector != dim_vector_from_un); ++idx){}
     return idx;
 }
+
+int munits::extrapolate_metric_from_unit(const std::string & unit){
+    return munits::extrapolate_metric_from_unit(UnitNotationVector::compose_unit_vector(unit));
+}

@@ -162,5 +162,9 @@ cdef class PyQuantity(object):
     def init_unit(PyQuantity self):
         return self._thisptr.getInitUnit().decode("utf-8")
 
+    @staticmethod
+    def _extrapolate_type_from_unit(str unit):
+        return extrapolate_metric_from_unit(bytes(unit, "utf-8"))
+
 
 NPOS = _Last

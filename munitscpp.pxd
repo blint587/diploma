@@ -78,3 +78,7 @@ cdef extern from "src/quantity.h" namespace "munits":
         bint unquantified()
 
     cdef Quantity mpow(Quantity, int)
+
+cdef extern from "src/unit_validator.hpp" namespace "munits":
+
+    cdef int extrapolate_metric_from_unit(const  string)

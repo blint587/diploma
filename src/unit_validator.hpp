@@ -14,6 +14,8 @@ namespace munits {
 
     int extrapolate_metric_from_unit(const munits::UnitNotationVector &);
 
+    int extrapolate_metric_from_unit(const std::string &);
+
 
 }
 
