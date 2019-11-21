@@ -38,7 +38,8 @@ set(SOURCE_FILES
         quantity_test_representation.hpp
         converterfunction_test.hpp
         quantity_test_derived_mathop.hpp
-        qunatity_test_basic_initialization.hpp)
+        qunatity_test_basic_initialization.hpp
+        unit_validation_test.hpp)
 
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fprofile-arcs -ftest-coverage")
