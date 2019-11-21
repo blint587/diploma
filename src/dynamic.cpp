@@ -57,6 +57,8 @@ const munits::MetricMatrix & munits::GetMatrix(){
             },
             {{0,  0, 0,  0, 0, 1, 0}, "mol"},  //Amount of Substance
             {{0,  0, 0,  0, 0, 0, 1}, "cd"}, //Luminous Intensity
+
+            // The base unit for Area and Volume is defined without exponent - DO NOT CORRECT IT!!
             {{2,  0, 0,  0, 0, 0, 0}, "m"}, //Area
             {{3,  0, 0,  0, 0, 0, 0}, "m", {}, //Volume
                     {
