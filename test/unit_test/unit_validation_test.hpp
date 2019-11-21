@@ -65,7 +65,7 @@ TEST_F(TestUnitValidator, Validate_volumetricflow){
 TEST_F(TestUnitValidator, Distingushe_length_from_volume){
     /*
      * Passing "m" as unit and Volume
-     * should return True
+     * should return False
      */
     EXPECT_FALSE(munits::validate_unit(un::compose_unit_vector("m"), munits::Volume));
 }
@@ -73,7 +73,7 @@ TEST_F(TestUnitValidator, Distingushe_length_from_volume){
 TEST_F(TestUnitValidator, Distingushe_volume_from_lenght){
     /*
      * Passing "m3" as unit and Length
-     * should return True
+     * should return False
      */
     EXPECT_FALSE(munits::validate_unit(un::compose_unit_vector("m3"), munits::Length));
 }
@@ -81,7 +81,7 @@ TEST_F(TestUnitValidator, Distingushe_volume_from_lenght){
 TEST_F(TestUnitValidator, Distingushe_volume_from_lenght_2){
     /*
      * Passing "gal" as unit and Length
-     * should return True
+     * should return False
      */
     EXPECT_FALSE(munits::validate_unit(un::compose_unit_vector("gal"), munits::Length));
 }
