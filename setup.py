@@ -42,8 +42,8 @@ extensions = [Extension(
     extra_compile_args=_compiler_args,
     # extra_compile_args=["-std=c++11"],
     # extra_compile_args=["-std=c++11", "-Z"],    # Debug flag version
-    # extra_link_args=["-std=c++11"],
-    extra_link_args=["-std=c++11", "-debug" "-D CYTHON"],   # Debug flag version
+    extra_link_args=["-std=c++11"],
+    # extra_link_args=["-std=c++11", "-debug" "-D CYTHON"],   # Debug flag version
 )]
 
 if USE_CYTHON:
