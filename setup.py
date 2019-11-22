@@ -13,6 +13,7 @@ except ImportError as ie:
 
 
 sources = ["munitscpp.pyx",
+           "src/unit_validator.cpp",
            "src/quantity.cpp",
            "src/converter.cpp",
            "src/converter_function.cpp",
@@ -53,7 +54,7 @@ if USE_CYTHON:
 
 setup(
     name="munits",
-    version='1.0.0.0',
+    version='1.1.0.0',
     packages=["munits"],
     ext_modules=extensions,
     install_requires=["base2>=1.0.0"],

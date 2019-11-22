@@ -155,6 +155,12 @@ class Quantity(PyQuantity, BaseClass, metaclass=MetaQuantity, unit_index=NPOS):
         n = self.__class__(value=other, unit=self.unit)
         return self - n
 
+    @classmethod
+    def type_from_unit(cls, unit: str) -> MetaQuantity:
+        tyi = cls._extrapolate_type_from_unit(unit)
+        ncls = MetaQuantity.CLASS_REGISTRY[tyi][0]
+        return ncls
+
 
 class Length(Quantity, unit_index=0):
     pass
@@ -325,8 +331,11 @@ class AreaDensity(Quantity, unit_index=37):
 
 if __name__ == "__main__":
 
-    i = AreaDensity(1, "gsm")
-    print(i)
+    u = "gsm"
+    cls = Quantity.type_from_unit(u)
+    q = cls(1, u)
+    print(q)
+    print(type(q))
 
     # r = u * i
     # print(type(r))

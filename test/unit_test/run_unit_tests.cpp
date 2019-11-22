@@ -8,6 +8,7 @@
 #include "resolver_test.hpp"
 #include "converterfunction_test.hpp"
 #include "qunatity_test_basic_initialization.hpp"
+#include "unit_validation_test.hpp"
 
 int main(int argc, char* argv[])
 {
