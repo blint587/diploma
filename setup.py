@@ -33,7 +33,7 @@ if not USE_CYTHON:
 _compiler_args = []
 
 if "posix" in os.name:
-    _compiler_args += ["-std=c++11", "-O3"]
+    _compiler_args += ["-std=c++14", "-O3"]
 
 extensions = [Extension(
     "munitscpp",
@@ -42,7 +42,7 @@ extensions = [Extension(
     extra_compile_args=_compiler_args,
     # extra_compile_args=["-std=c++11"],
     # extra_compile_args=["-std=c++11", "-Z"],    # Debug flag version
-    extra_link_args=["-std=c++11"],
+    extra_link_args=["-std=c++14"],
     # extra_link_args=["-std=c++11", "-debug" "-D CYTHON"],   # Debug flag version
 )]
 

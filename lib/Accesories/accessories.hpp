@@ -22,24 +22,6 @@
 
 namespace accessories{
 
-    template<class T>
-    bool lt(const T & a, const T & b){return a < b;}
-
-    template<class T>
-    bool le(const T & a, const T & b){return a <= b;}
-
-    template<class T>
-    bool gt(const T & a, const T & b){return a > b;}
-
-    template<class T>
-    bool ge(const T & a, const T & b){return a >= b;}
-
-    template<class T>
-    bool eq(const T & a, const T & b){return a == b;}
-
-    template<class T>
-    bool ne(const T & a, const T & b){return a != b;}
-
     template<class C>
     void print_iterable(const C &a){
         std::cerr << "[ ";

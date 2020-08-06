@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <string>
 #include <utility>
+#include "functional"
 #include "quantity.h"
 #include "dynamic.hpp"
 #include "uresolver.hpp"
@@ -146,28 +147,6 @@ munits::Quantity::Quantity(munits::metrics m, double value, const string& unit) 
 
 munits::Quantity::Quantity(int i, double value, UnitNotationVector uv) :
         munits::Quantity::Quantity(i, value, uv, munits::GetMatrix()[i].dim_vector) {
-}
-
-
-bool munits::Quantity::compop(const munits::Quantity &lfths, const munits::Quantity &rgths,
-                              bool (*f)(const double &, const double &)) {
-
-    // if the matrix indexes do not match they are not the same types and comparison is not possible
-    if (lfths.matrix_index == rgths.matrix_index) {
-        //applying a rounding with a precision of 6
-        static const double precision = 10e4;
-        auto lfhs = round(lfths(lfths.unit_vector) * precision) / precision;
-        // converting 'b' to the same Unit as 'a' and comparing there value
-        auto rths = round(rgths(lfths.unit_vector) * precision) / precision;
-
-        auto r = f(lfhs, rths );
-
-        return r;
-    } else {
-        throw std::logic_error("Comparison cannot be done! Measurement Unit types do not match. ( '" +
-                          UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index) + "', '" +
-                          UnitNotationVector::compose_unit(rgths.unit_vector, rgths.matrix_index) + "' )");
-    }
 }
 
 
