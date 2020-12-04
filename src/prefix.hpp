@@ -27,28 +27,27 @@ namespace munits {
 
             int prefix_exponent = (int) getExponentOfPrefix(prx.notation);
 
-            int mod = prefix_exponent % un.GetExponent();
+            int unit_exponent = un.GetExponent();
+
+            int mod = prefix_exponent % unit_exponent;
             if (0 == mod) {
                 int un_exponent = (int) (GetPrefixes().find(un.GetPrefix())->second->getFirstOrderExponent() /
-                                         un.GetExponent());
+                        unit_exponent);
 
-                int nexponent = (prefix_exponent + un_exponent) / un.GetExponent();
+                int nexponent = (prefix_exponent + un_exponent) / unit_exponent;
 
                 if (nexponent > getMaxPrefixExponent()) {
-                    overflow = (nexponent - getMaxPrefixExponent()) * un.GetExponent();
+                    overflow = (nexponent - getMaxPrefixExponent()) * unit_exponent;
                     nexponent -= (overflow / un.GetExponent());
                 } else if (nexponent < getMinPrefixExponent()) {
-                    overflow = (nexponent - getMinPrefixExponent()) * un.GetExponent();
+                    overflow = (nexponent - getMinPrefixExponent()) * unit_exponent;
                     nexponent -= (overflow / un.GetExponent());
                 } else {
                     overflow = 0;
                 }
 
                 std::string new_prx = munits::getPrefixByExponent(nexponent);
-                // When prefix by exponent cannot be resolved (k + h -> 5) it is handled as an
-                // overflow and needs to be handled by 'later' units
                 if (munits::npos_prefix == new_prx){
-                    overflow = prefix_exponent;
                     return UnitNotation(un);
                 }
 

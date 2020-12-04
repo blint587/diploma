@@ -47,7 +47,7 @@ const munits::MetricMatrix & munits::GetMatrix(){
                             {"d",  std::make_shared<munits::Unit>(munits::Unit(86400., 0.,false))}
                     }
             },
-            {{0,  0, 0,  1, 0, 0, 0}, "A"},  //Electric Currency
+            {{0,  0, 0,  1, 0, 0, 0}, "A"},  //Electric Current
             {{0,  0, 0,  0, 1, 0, 0}, "K",  //Temperature
                                            {"E", "P", "T", "G", "M", "k", "h", "da", "d", "c", "m", "μ", "n", "p", "f", "a"},
                     {

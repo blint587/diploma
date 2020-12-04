@@ -199,7 +199,7 @@ namespace munitscs_utests
     
     [Test]
     public void test_electric_currency_zero() {
-        Quantity i = new Quantity(Metrics.ElectricCurrency, 0, "A");
+        Quantity i = new Quantity(Metrics.ElectricCurrent, 0, "A");
     
         Assert.AreEqual(i.Get("EA"), 0);
         Assert.AreEqual(i.Get("PA"), 0);
@@ -222,7 +222,7 @@ namespace munitscs_utests
     
     [Test]
     public void test_electric_currency_one() {
-        Quantity i = new Quantity(Metrics.ElectricCurrency, 1, "A");
+        Quantity i = new Quantity(Metrics.ElectricCurrent, 1, "A");
     
         Assert.AreEqual(i.Get("EA"), 1e-18);
         Assert.AreEqual(i.Get("PA"), 1e-15);
@@ -246,7 +246,7 @@ namespace munitscs_utests
     [Test]
     public void test_electric_currency_233(){
     
-        Quantity i = new Quantity(Metrics.ElectricCurrency, 2.33, "A");
+        Quantity i = new Quantity(Metrics.ElectricCurrent, 2.33, "A");
     
         Assert.AreEqual(i.Get("EA"), 2.33e-18, 4e-34);
         Assert.AreEqual(i.Get("PA"), 2.33e-15, 4e-31);

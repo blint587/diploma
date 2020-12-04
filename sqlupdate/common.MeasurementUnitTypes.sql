@@ -5,7 +5,7 @@ USING (VALUES
   ('Length','Length',1,0,0,0,0,0,0,1,1,0,'ohdp',1)
  ,('Mass','Mass',0,1,0,0,0,0,0,2,1,1,'ohdp',1)
  ,('Time','Time',0,0,1,0,0,0,0,3,1,2,'ohdp',1)
- ,('ElectricCurrency','Electric currency',0,0,0,1,0,0,0,4,1,3,'ohdp',1)
+ ,('ElectricCurrent','Electric currency',0,0,0,1,0,0,0,4,1,3,'ohdp',1)
  ,('Temperature','Temperature',0,0,0,0,1,0,0,5,1,4,'ohdp',1)
  ,('AmountOfSubstance','Amount of substance',0,0,0,0,0,1,0,6,1,5,'ohdp',1)
  ,('LuminousIntensity','Luminous intensity',0,0,0,0,0,0,1,7,1,6,'ohdp',1)
