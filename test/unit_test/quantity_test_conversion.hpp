@@ -191,7 +191,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_time_233) {
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_zero) {
-    munits::Quantity i(munits::ElectricCurrency, 0, "A");
+    munits::Quantity i(munits::ElectricCurrent, 0, "A");
 
     EXPECT_EQ(i("EA"), 0);
     EXPECT_EQ(i("PA"), 0);
@@ -213,7 +213,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_zero) {
 }
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_one) {
-    munits::Quantity i(munits::ElectricCurrency, 1, "A");
+    munits::Quantity i(munits::ElectricCurrent, 1, "A");
 
     EXPECT_EQ(i("EA"), 1e-18);
     EXPECT_EQ(i("PA"), 1e-15);
@@ -236,7 +236,7 @@ TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_one) {
 
 TEST_F(TestQuantityBaseUnitConversionSI, test_electric_currency_233){
 
-    munits::Quantity i (munits::ElectricCurrency, 2.33, "A");
+    munits::Quantity i (munits::ElectricCurrent, 2.33, "A");
 
     EXPECT_NEAR(i("EA"), 2.33e-18, 4e-34);
     EXPECT_NEAR(i("PA"), 2.33e-15, 4e-31);

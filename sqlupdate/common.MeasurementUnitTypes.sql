@@ -41,16 +41,16 @@ USING (VALUES
  ,('MassFlux','Mass flux',-2,1,-1,0,0,0,0,89,0,36,'bmolnar',1)
  ,('AreaDensity','Area density',-2,1,0,0,0,0,0,91,0,37,'bmolnar',1)
  ,('None','None',0,0,0,0,0,0,0,NULL,0,100,'ohdp',1)
-) AS Source ([Name],[Description],[DLength],[DMass],[DTime],[DElectricCurrency],[DTemperature],[DAmountOfSubstance],[DLuminousIntensity],[BaseUnitId],[BaseType],[Id],[User],[IsValid])
+) AS Source ([Name],[Description],[DLength],[DMass],[DTime],[DElectricCurrent],[DTemperature],[DAmountOfSubstance],[DLuminousIntensity],[BaseUnitId],[BaseType],[Id],[User],[IsValid])
 ON (Target.[Id] = Source.[Id])
-WHEN MATCHED AND (Target.[Name] <> Source.[Name] OR Target.[Description] <> Source.[Description] OR Target.[DLength] <> Source.[DLength] OR Target.[DMass] <> Source.[DMass] OR Target.[DTime] <> Source.[DTime] OR Target.[DElectricCurrency] <> Source.[DElectricCurrency] OR Target.[DTemperature] <> Source.[DTemperature] OR Target.[DAmountOfSubstance] <> Source.[DAmountOfSubstance] OR Target.[DLuminousIntensity] <> Source.[DLuminousIntensity] OR Target.[BaseUnitId] <> Source.[BaseUnitId] OR Target.[BaseType] <> Source.[BaseType] OR Target.[User] <> Source.[User] OR Target.[IsValid] <> Source.[IsValid]) THEN
+WHEN MATCHED AND (Target.[Name] <> Source.[Name] OR Target.[Description] <> Source.[Description] OR Target.[DLength] <> Source.[DLength] OR Target.[DMass] <> Source.[DMass] OR Target.[DTime] <> Source.[DTime] OR Target.[DElectricCurrent] <> Source.[DElectricCurrent] OR Target.[DTemperature] <> Source.[DTemperature] OR Target.[DAmountOfSubstance] <> Source.[DAmountOfSubstance] OR Target.[DLuminousIntensity] <> Source.[DLuminousIntensity] OR Target.[BaseUnitId] <> Source.[BaseUnitId] OR Target.[BaseType] <> Source.[BaseType] OR Target.[User] <> Source.[User] OR Target.[IsValid] <> Source.[IsValid]) THEN
  UPDATE SET
  [Name] = Source.[Name], 
 [Description] = Source.[Description], 
 [DLength] = Source.[DLength], 
 [DMass] = Source.[DMass], 
 [DTime] = Source.[DTime], 
-[DElectricCurrency] = Source.[DElectricCurrency], 
+[DElectricCurrent] = Source.[DElectricCurrent],
 [DTemperature] = Source.[DTemperature], 
 [DAmountOfSubstance] = Source.[DAmountOfSubstance], 
 [DLuminousIntensity] = Source.[DLuminousIntensity], 
@@ -59,8 +59,8 @@ WHEN MATCHED AND (Target.[Name] <> Source.[Name] OR Target.[Description] <> Sour
 [User] = Source.[User],
 [IsValid] = Source.[IsValid]
 WHEN NOT MATCHED BY TARGET THEN
- INSERT([Name],[Description],[DLength],[DMass],[DTime],[DElectricCurrency],[DTemperature],[DAmountOfSubstance],[DLuminousIntensity],[BaseUnitId],[BaseType],[Id],[User],[IsValid])
- VALUES(Source.[Name],Source.[Description],Source.[DLength],Source.[DMass],Source.[DTime],Source.[DElectricCurrency],Source.[DTemperature],Source.[DAmountOfSubstance],Source.[DLuminousIntensity],Source.[BaseUnitId],Source.[BaseType],Source.[Id],Source.[User],Source.[IsValid])
+ INSERT([Name],[Description],[DLength],[DMass],[DTime],[DElectricCurrent],[DTemperature],[DAmountOfSubstance],[DLuminousIntensity],[BaseUnitId],[BaseType],[Id],[User],[IsValid])
+ VALUES(Source.[Name],Source.[Description],Source.[DLength],Source.[DMass],Source.[DTime],Source.[DElectricCurrent],Source.[DTemperature],Source.[DAmountOfSubstance],Source.[DLuminousIntensity],Source.[BaseUnitId],Source.[BaseType],Source.[Id],Source.[User],Source.[IsValid])
 WHEN NOT MATCHED BY SOURCE THEN 
  DELETE;
  
