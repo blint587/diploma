@@ -1,7 +1,18 @@
 # encoding: utf-8
 import unittest
 
-from munits import Mass, Length, Time, Temperature, Acceleration, Force, MolarConcentration
+from munits import (
+    Mass,
+    Length,
+    Time,
+    Temperature,
+    Acceleration,
+    Force,
+    MolarConcentration,
+    Pressure,
+    Power,
+    Voltage
+)
 
 
 class TestQuantityBaseUnitComparison(unittest.TestCase):
@@ -157,6 +168,17 @@ class TestQuantityBaseUnitComparison(unittest.TestCase):
         self.assertTrue(t1 > t2)
         self.assertTrue(t1 != t2)
 
+    def test_comparing_temperature_equal_in_different_unit(self):
+        t1 = Temperature(-40, '°F')
+        t2 = Temperature(-40., '°C')
+
+        self.assertTrue(t1 == t2)
+        self.assertTrue(t1 <= t2)
+        self.assertTrue(t1 >= t2)
+        self.assertFalse(t1 < t2)
+        self.assertFalse(t1 > t2)
+        self.assertFalse(t1 != t2)
+
 
 class TestQuantityDerivedUnitComparison(unittest.TestCase):
     # Acceleration
@@ -228,6 +250,152 @@ class TestQuantityDerivedUnitComparison(unittest.TestCase):
         self.assertFalse(f1 > f2)
         self.assertTrue(f1 < f2)
         self.assertTrue(f1 != f2)
+
+    def test_comparing_derived_with_derived_force_equal_combined_def(self):
+        f1 = Force(1, "N")
+        f2 = Force(1, "N")
+
+        self.assertTrue(f1 == f2)
+        self.assertTrue(f1 <= f2)
+        self.assertTrue(f1 >= f2)
+        self.assertFalse(f1 > f2)
+        self.assertFalse(f1 < f2)
+        self.assertFalse(f1 != f2)
+
+    def test_comparing_derived_with_derived_force_greater_combined_def(self):
+        f1 = Force(2, "N")
+        f2 = Force(1, "N")
+
+        self.assertFalse(f1 == f2)
+        self.assertFalse(f1 <= f2)
+        self.assertTrue(f1 >= f2)
+        self.assertTrue(f1 > f2)
+        self.assertFalse(f1 < f2)
+        self.assertTrue(f1 != f2)
+
+    def test_comparing_derived_with_derived_force_less_combined_def(self):
+        f1 = Force(1, "N")
+        f2 = Force(2, "N")
+
+        self.assertFalse(f1 == f2)
+        self.assertTrue(f1 <= f2)
+        self.assertFalse(f1 >= f2)
+        self.assertFalse(f1 > f2)
+        self.assertTrue(f1 < f2)
+        self.assertTrue(f1 != f2)
+
+    def test_force_equality_between_different_prefix_h(self):
+        f1 = Force(100, "N")
+        f2 = Force(1, "hN")
+
+        self.assertTrue(f1 == f2)
+        self.assertTrue(f1 <= f2)
+        self.assertTrue(f1 >= f2)
+        self.assertFalse(f1 > f2)
+        self.assertFalse(f1 < f2)
+        self.assertFalse(f1 != f2)
+
+    def test_force_equality_between_different_prefix_k(self):
+        f1 = Force(1000, "N")
+        f2 = Force(1, "kN")
+
+        self.assertTrue(f1 == f2)
+        self.assertTrue(f1 <= f2)
+        self.assertTrue(f1 >= f2)
+        self.assertFalse(f1 > f2)
+        self.assertFalse(f1 < f2)
+        self.assertFalse(f1 != f2)
+
+    # PRESSURE
+    def test_pressure_equality_between_different_prefix_h(self):
+        p1 = Pressure(100, "Pa")
+        p2 = Pressure(1, "hPa")
+
+        self.assertTrue(p1 == p2)
+        self.assertTrue(p1 <= p2)
+        self.assertTrue(p1 >= p2)
+        self.assertFalse(p1 > p2)
+        self.assertFalse(p1 < p2)
+        self.assertFalse(p1 != p2)
+
+    def test_pressure_equality_between_different_unit(self):
+        p1 = Pressure(100, "mbar")
+        p2 = Pressure(100, "hPa")
+
+        self.assertTrue(p1 == p2)
+        self.assertTrue(p1 <= p2)
+        self.assertTrue(p1 >= p2)
+        self.assertFalse(p1 > p2)
+        self.assertFalse(p1 < p2)
+        self.assertFalse(p1 != p2)
+
+    # POWER
+    def test_power_equality_in_different_prefix_k(self):
+        p1 = Power(1000, "W")
+        p2 = Power(1, "kW")
+
+        self.assertTrue(p1 == p2)
+        self.assertTrue(p1 <= p2)
+        self.assertTrue(p1 >= p2)
+        self.assertFalse(p1 > p2)
+        self.assertFalse(p1 < p2)
+        self.assertFalse(p1 != p2)
+
+    def test_power_equality_in_different_prefix_h(self):
+        p1 = Power(100, "W")
+        p2 = Power(1, "hW")
+
+        self.assertTrue(p1 == p2)
+        self.assertTrue(p1 <= p2)
+        self.assertTrue(p1 >= p2)
+        self.assertFalse(p1 > p2)
+        self.assertFalse(p1 < p2)
+        self.assertFalse(p1 != p2)
+
+    def test_power_equality_in_different_prefix_m(self):
+        p1 = Power(0.001, "W")
+        p2 = Power(1, "mW")
+
+        self.assertTrue(p1 == p2)
+        self.assertTrue(p1 <= p2)
+        self.assertTrue(p1 >= p2)
+        self.assertFalse(p1 > p2)
+        self.assertFalse(p1 < p2)
+        self.assertFalse(p1 != p2)
+
+    # Voltage
+    def test_voltage_equality_in_different_prefix_k(self):
+        u1 = Voltage(1000, "V")
+        u2 = Voltage(1, "kV")
+
+        self.assertTrue(u1 == u2)
+        self.assertTrue(u1 <= u2)
+        self.assertTrue(u1 >= u2)
+        self.assertFalse(u1 > u2)
+        self.assertFalse(u1 < u2)
+        self.assertFalse(u1 != u2)
+
+    def test_voltage_equality_in_different_prefix_h(self):
+        u1 = Voltage(100, "V")
+        u2 = Voltage(1, "hV")
+
+        self.assertTrue(u1 == u2)
+        self.assertTrue(u1 <= u2)
+        self.assertTrue(u1 >= u2)
+        self.assertFalse(u1 > u2)
+        self.assertFalse(u1 < u2)
+        self.assertFalse(u1 != u2)
+
+    def test_voltage_equality_in_different_prefix_m(self):
+        u1 = Voltage(0.001, "V")
+        u2 = Voltage(1, "mV")
+
+        self.assertTrue(u1 == u2)
+        self.assertTrue(u1 <= u2)
+        self.assertTrue(u1 >= u2)
+        self.assertFalse(u1 > u2)
+        self.assertFalse(u1 < u2)
+        self.assertFalse(u1 != u2)
 
     # MOLARCCONCENTRATION
 

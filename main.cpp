@@ -19,12 +19,17 @@ int main() {
 //    Quantity q = l/d;
 //    int i = extrapolate_metric_from_unit(UnitNotationVector::compose_unit_vector("Pa"));
 
-    Quantity v (munits::Voltage, 1, "V");
+
+    Quantity v (munits::Pressure, 1, "mbar");
+    Quantity v2 (munits::Pressure, 1, "hPa");
+    TRACE(v == v2);
+    TRACE(v("hPa"));
+    TRACE(v2("hPa"));
     
 
     
 
-	TRACE(v.toString());
+//	TRACE(v.toString());
 
 
 

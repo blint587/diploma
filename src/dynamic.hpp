@@ -21,7 +21,7 @@ namespace munits {
         Length = 0,
         Mass = 1,
         Time = 2,
-        ElectricCurrency = 3,
+        ElectricCurrent = 3,
         Temperature = 4,
         AmountOfSubstance = 5,
         LuminousIntensity = 6,

@@ -174,7 +174,7 @@ class Time(Quantity, unit_index=2):
     pass
 
 
-class ElectricCurrency(Quantity, unit_index=3):
+class ElectricCurrent(Quantity, unit_index=3):
     pass
 
 

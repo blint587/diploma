@@ -224,6 +224,156 @@ TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_fo
     EXPECT_TRUE(f1 < f2);
     EXPECT_TRUE(f1 != f2);
 }
+
+TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_force_equal_combined_def){
+
+    munits::Quantity f1 (munits::Force, 1, "N");
+    munits::Quantity f2 (munits::Force, 1, "N");
+
+    EXPECT_TRUE(f1 == f2);
+    EXPECT_TRUE(f1 <= f2);
+    EXPECT_TRUE(f1 >= f2);
+    EXPECT_FALSE(f1 > f2);
+    EXPECT_FALSE(f1 < f2);
+    EXPECT_FALSE(f1 != f2);
+}
+
+TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_force_greater_combined_def){
+    munits::Quantity f1 (munits::Force, 2, "N");
+    munits::Quantity f2 (munits::Force, 1, "N");
+
+    EXPECT_FALSE(f1 == f2);
+    EXPECT_FALSE(f1 <= f2);
+    EXPECT_TRUE(f1 >= f2);
+    EXPECT_TRUE(f1 > f2);
+    EXPECT_FALSE(f1 < f2);
+    EXPECT_TRUE(f1 != f2);
+}
+TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_force_less_combined_def){
+    munits::Quantity f1 (munits::Force, 1, "N");
+    munits::Quantity f2 (munits::Force, 2, "N");
+
+    EXPECT_FALSE(f1 == f2);
+    EXPECT_TRUE(f1 <= f2);
+    EXPECT_FALSE(f1 >= f2);
+    EXPECT_FALSE(f1 > f2);
+    EXPECT_TRUE(f1 < f2);
+    EXPECT_TRUE(f1 != f2);
+}
+TEST_F(TestQuantityDerivedUnitComparison, test_force_equality_between_different_prefix_h){
+    munits::Quantity f1 (munits::Force, 100, "N");
+    munits::Quantity f2 (munits::Force, 1, "hN");
+
+    EXPECT_TRUE(f1 == f2);
+    EXPECT_TRUE(f1 <= f2);
+    EXPECT_TRUE(f1 >= f2);
+    EXPECT_FALSE(f1 > f2);
+    EXPECT_FALSE(f1 < f2);
+    EXPECT_FALSE(f1 != f2);
+}
+TEST_F(TestQuantityDerivedUnitComparison, test_force_equality_between_different_prefix_k){
+    munits::Quantity f1 (munits::Force, 1000, "N");
+    munits::Quantity f2 (munits::Force, 1, "kN");
+
+    EXPECT_TRUE(f1 == f2);
+    EXPECT_TRUE(f1 <= f2);
+    EXPECT_TRUE(f1 >= f2);
+    EXPECT_FALSE(f1 > f2);
+    EXPECT_FALSE(f1 < f2);
+    EXPECT_FALSE(f1 != f2);
+}
+//PRESSURE
+TEST_F(TestQuantityDerivedUnitComparison, test_pressure_equality_between_different_prefix_h){
+    munits::Quantity p1 (munits::Pressure, 100, "Pa");
+    munits::Quantity p2 (munits::Pressure, 1, "hPa");
+
+    EXPECT_TRUE(p1 == p2);
+    EXPECT_TRUE(p1 <= p2);
+    EXPECT_TRUE(p1 >= p2);
+    EXPECT_FALSE(p1 > p2);
+    EXPECT_FALSE(p1 < p2);
+    EXPECT_FALSE(p1 != p2);
+}
+TEST_F(TestQuantityDerivedUnitComparison, test_pressure_equality_between_different_unit){
+    munits::Quantity p1 (munits::Pressure, 100, "mbar");
+    munits::Quantity p2 (munits::Pressure, 100, "hPa");
+
+    EXPECT_TRUE(p1 == p2);
+    EXPECT_TRUE(p1 <= p2);
+    EXPECT_TRUE(p1 >= p2);
+    EXPECT_FALSE(p1 > p2);
+    EXPECT_FALSE(p1 < p2);
+    EXPECT_FALSE(p1 != p2);
+}
+// POWER
+TEST_F(TestQuantityDerivedUnitComparison, test_power_equality_in_different_prefix_k){
+    munits::Quantity p1 (munits::Power, 1000, "W");
+    munits::Quantity p2 (munits::Power, 1, "kW");
+
+    EXPECT_TRUE(p1 == p2);
+    EXPECT_TRUE(p1 <= p2);
+    EXPECT_TRUE(p1 >= p2);
+    EXPECT_FALSE(p1 > p2);
+    EXPECT_FALSE(p1 < p2);
+    EXPECT_FALSE(p1 != p2);
+}
+TEST_F(TestQuantityDerivedUnitComparison, test_power_equality_in_different_prefix_h){
+    munits::Quantity p1 (munits::Power, 100, "W");
+    munits::Quantity p2 (munits::Power, 1, "hW");
+
+    EXPECT_TRUE(p1 == p2);
+    EXPECT_TRUE(p1 <= p2);
+    EXPECT_TRUE(p1 >= p2);
+    EXPECT_FALSE(p1 > p2);
+    EXPECT_FALSE(p1 < p2);
+    EXPECT_FALSE(p1 != p2);
+}
+TEST_F(TestQuantityDerivedUnitComparison, test_power_equality_in_different_prefix_m){
+    munits::Quantity p1 (munits::Power, 0.001, "W");
+    munits::Quantity p2 (munits::Power, 1, "mW");
+
+    EXPECT_TRUE(p1 == p2);
+    EXPECT_TRUE(p1 <= p2);
+    EXPECT_TRUE(p1 >= p2);
+    EXPECT_FALSE(p1 > p2);
+    EXPECT_FALSE(p1 < p2);
+    EXPECT_FALSE(p1 != p2);
+}
+// Voltage
+TEST_F(TestQuantityDerivedUnitComparison, test_voltage_equality_in_different_prefix_k){
+    munits::Quantity u1 (munits::Voltage, 1000, "V");
+    munits::Quantity u2 (munits::Voltage, 1, "kV");
+
+    EXPECT_TRUE(u1 == u2);
+    EXPECT_TRUE(u1 <= u2);
+    EXPECT_TRUE(u1 >= u2);
+    EXPECT_FALSE(u1 > u2);
+    EXPECT_FALSE(u1 < u2);
+    EXPECT_FALSE(u1 != u2);
+}
+TEST_F(TestQuantityDerivedUnitComparison, test_voltage_equality_in_different_prefix_h){
+    munits::Quantity u1 (munits::Voltage, 100, "V");
+    munits::Quantity u2 (munits::Voltage, 1, "hV");
+
+    EXPECT_TRUE(u1 == u2);
+    EXPECT_TRUE(u1 <= u2);
+    EXPECT_TRUE(u1 >= u2);
+    EXPECT_FALSE(u1 > u2);
+    EXPECT_FALSE(u1 < u2);
+    EXPECT_FALSE(u1 != u2);
+}
+TEST_F(TestQuantityDerivedUnitComparison, test_voltage_equality_in_different_prefix_m){
+    munits::Quantity u1 (munits::Voltage, 0.001, "V");
+    munits::Quantity u2 (munits::Voltage, 1, "mV");
+
+    EXPECT_TRUE(u1 == u2);
+    EXPECT_TRUE(u1 <= u2);
+    EXPECT_TRUE(u1 >= u2);
+    EXPECT_FALSE(u1 > u2);
+    EXPECT_FALSE(u1 < u2);
+    EXPECT_FALSE(u1 != u2);
+}
+
 //# MOLARCCONCENTRATION
 
 TEST_F(TestQuantityDerivedUnitComparison, test_comparing_derived_with_derived_molar_concentration_equal) {

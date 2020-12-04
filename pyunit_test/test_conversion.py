@@ -1,7 +1,7 @@
 # encoding: utf-8
 import unittest
 
-from munits import Length, Mass, Time, ElectricCurrency, AmountOfSubstance, Temperature, Velocity, Area, Volume, \
+from munits import Length, Mass, Time, ElectricCurrent, AmountOfSubstance, Temperature, Velocity, Area, Volume, \
     VolumetricFlow, Acceleration, Force, Concentration
 
 
@@ -169,7 +169,7 @@ class TestQuantityBaseUnitConversion(unittest.TestCase):
     # ELECTRIC_CURRENT
 
     def test_electric_currency_zero(self):
-        i = ElectricCurrency(0, 'A')
+        i = ElectricCurrent(0, 'A')
 
         self.assertEqual(i('EA'), float('0'))
         self.assertEqual(i('PA'), float('0'))
@@ -190,7 +190,7 @@ class TestQuantityBaseUnitConversion(unittest.TestCase):
         self.assertEqual(i('aA'), float('0'))
 
     def test_electric_currency(self):
-        i = ElectricCurrency(1, 'A')
+        i = ElectricCurrent(1, 'A')
 
         self.assertEqual(i('EA'), float('1e-18'))
         self.assertEqual(i('PA'), float('1e-15'))
@@ -211,7 +211,7 @@ class TestQuantityBaseUnitConversion(unittest.TestCase):
         self.assertAlmostEqual(i('aA'), float('1e18'), delta=1e3)
 
     def test_electric_currency_233(self):
-        i = ElectricCurrency(2.33, 'A')
+        i = ElectricCurrent(2.33, 'A')
 
         self.assertAlmostEqual(i('EA'), float('2.33e-18'), delta=1e-3)
         self.assertAlmostEqual(i('PA'), float('2.33e-15'), delta=1)
