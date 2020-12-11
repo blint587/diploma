@@ -329,6 +329,11 @@ class MassFlux(Quantity, unit_index=36):
 class AreaDensity(Quantity, unit_index=37):
     pass
 
+
+class InverseLength(Quantity, unit_index=37):
+    pass
+
+
 if __name__ == "__main__":
 
     u = "gsm"

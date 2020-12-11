@@ -99,7 +99,8 @@ const munits::MetricMatrix & munits::GetMatrix(){
             {{ 0,  1, -2,  0,  0,  0,  0}, "kg s-2"}, //EnergyPerArea (Ly Langley, 1 cal cm-2)
             {{-2,  1, -1,  0,  0,  0,  0}, "kg s-1 m-2"}, //MassFlux
             {{-2,  1,  0,  0,  0,  0,  0}, "kg m-2", {}, {}, {{"gsm", "g m-2"}}}, //AreaDensity
-            {{ 0,  0,  0,  0,  0,  0,  0}, ""}, //_Last
+            {{ 0,  0,  0,  0,  0,  0,  0}, "m-1"}, //InverseLength
+            {{-1,  0,  0,  0,  0,  0,  0}, ""}, //_Last
 
     };
     return matrix;

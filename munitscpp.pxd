@@ -42,6 +42,7 @@ cdef extern from "src/quantity.h" namespace "munits":
             EnergyPerArea = 35,
             MassFlux = 36,
             AeraDensity = 37,
+            InverseLength = 38,
             _Last = 38
 
     cdef cppclass Quantity:

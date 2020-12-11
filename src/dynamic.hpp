@@ -60,6 +60,7 @@ namespace munits {
         EnergyPerArea = 35,
         MassFlux = 36,
         AreaDensity = 37,
+        InverseLength = 38,
         _Last
 
     };
