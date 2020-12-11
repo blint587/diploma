@@ -330,7 +330,7 @@ class AreaDensity(Quantity, unit_index=37):
     pass
 
 
-class InverseLength(Quantity, unit_index=37):
+class InverseLength(Quantity, unit_index=38):
     pass
 
 
