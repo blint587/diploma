@@ -5,7 +5,7 @@
         Length = 0,
         Mass = 1,
         Time = 2,
-        ElectricCurrency = 3,
+        ElectricCurrent = 3,
         Temperature = 4,
         AmountOfSubstance = 5,
         LuminousIntensity = 6,
@@ -47,6 +47,7 @@
         EnergyPerArea = 35,
         MassFlux = 36,
         AreaDensity = 37,
+        InverseLength = 38,
         _Last
     }
 }

@@ -54,7 +54,7 @@ if USE_CYTHON:
 
 setup(
     name="munits",
-    version='1.1.0.0',
+    version='1.3.1.0',
     packages=["munits"],
     ext_modules=extensions,
     install_requires=["base2>=1.0.0"],

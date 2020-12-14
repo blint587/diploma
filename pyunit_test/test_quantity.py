@@ -24,13 +24,22 @@ from munits.quantities import *
 
 class TestQuantitySideFunctionality(unittest.TestCase):
 
-    def test_deepcopy(self):
+    def test_deepcopy_simple_unit(self):
         from copy import deepcopy
         l = Length(1, "m")
         l_copy = deepcopy(l)
 
         self.assertEqual(l, l_copy)
         self.assertNotEqual(id(l), id(l_copy))
+
+    def test_deepcopy_composit_unit(self):
+        from copy import deepcopy
+        p = Pressure(1, "mbar")
+        p_copy = deepcopy(p)
+
+        self.assertEqual(p, p_copy)
+        self.assertNotEqual(id(p), id(p_copy))
+
 
 
     def test_convert(self):
