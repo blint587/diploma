@@ -54,17 +54,17 @@ cdef extern from "src/quantity.h" namespace "munits":
         string getUnit()
         string getInitUnit()
 
-        bint operator< (const Quantity) except + ValueError
-        bint operator<= (const Quantity) except + ValueError
-        bint operator> (const Quantity) except + ValueError
-        bint operator>= (const Quantity) except + ValueError
-        bint operator== (const Quantity) except + ValueError
-        bint operator!= (const Quantity) except + ValueError
+        bint operator< (const Quantity) except + TypeError
+        bint operator<= (const Quantity) except + TypeError
+        bint operator> (const Quantity) except + TypeError
+        bint operator>= (const Quantity) except + TypeError
+        bint operator== (const Quantity) except + TypeError
+        bint operator!= (const Quantity) except + TypeError
 
         double operator()(string) except + ValueError
 
-        Quantity operator+(const Quantity)
-        Quantity operator-(const Quantity)
+        Quantity operator+(const Quantity) except + TypeError
+        Quantity operator-(const Quantity) except + TypeError
         Quantity operator*(const Quantity)
         Quantity operator*(const float)
         Quantity operator*(const int)

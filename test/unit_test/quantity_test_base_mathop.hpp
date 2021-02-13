@@ -26,6 +26,30 @@ TEST_F(TestQuantityBaseUnitsMathOperation, multiplaying_length_to_length) {
 
     EXPECT_NEAR(m3("m2"), 1, 0.0001);
 }
+TEST_F(TestQuantityBaseUnitsMathOperation, subtract_mass_from_mass_flow){
+    munits::Quantity m (munits::Mass, 1, "kg");
+    munits::Quantity mp (munits::MassFlow, 2. "kg h-1");
+
+    try{
+        auto r = mp - m;
+    }catch (std::logic_error & le){
+        EXPECT_EQ(le.what(), std::string("Subtraction cannot be performed on different dimensions!"));
+    }catch(...){
+        FAIL() << "Expected logic error!";
+    }
+}
+TEST_F(TestQuantityBaseUnitsMathOperation, add_volume_to_volumetric_flow{
+    munits::Quantity v (munits::Volume, 1, "m3");
+    munits::Quantity q (munits::MassFlow, 2. "m3 h-1");
+
+    try{
+        auto r = v + q;
+    }catch (std::logic_error & le){
+        EXPECT_EQ(le.what(), std::string("Addition cannot be performed on different dimensions!"));
+    }catch(...){
+        FAIL() << "Expected logic error!";
+    }
+}
 
 TEST_F(TestQuantityBaseUnitsMathOperation, multiplication_with_numeric_type_from_right){
     munits::Quantity m (munits::Mass, 1, "kg");
