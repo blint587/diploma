@@ -20,19 +20,9 @@ int main() {
 //    int i = extrapolate_metric_from_unit(UnitNotationVector::compose_unit_vector("Pa"));
 
 
-    Quantity v (munits::Pressure, 1, "mbar");
-    Quantity v2 (munits::Pressure, 1, "hPa");
-    TRACE(v == v2);
-    TRACE(v("hPa"));
-    TRACE(v2("hPa"));
-    
-
-    
-
+    Quantity v (munits::Power, 1, "kW");
+    TRACE(v("hp"));
 //	TRACE(v.toString());
-
-
-
 
 #ifdef DEBUG
     cerr << "Press a key to close..." << endl;

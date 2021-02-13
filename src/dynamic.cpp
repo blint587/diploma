@@ -36,8 +36,7 @@ const munits::MetricMatrix & munits::GetMatrix(){
                             {"lb",  std::make_shared<munits::Unit>(munits::Unit(453.592, 0.))},
                             {"t",  std::make_shared<munits::Unit>(munits::Unit(1e6, 0.))},
                             {"slug", std::make_shared<munits::Unit>(munits::Unit(14593.903, 0.))},
-                            {"75eg", std::make_shared<munits::Unit>(munits::Unit(75000., 0.))}
-
+                            {"735kg", std::make_shared<munits::Unit>(munits::Unit(735498.75, 0.))}
                     }
             },
             {{0,  0, 1,  0, 0, 0, 0}, "s", {}, //Time
@@ -79,7 +78,7 @@ const munits::MetricMatrix & munits::GetMatrix(){
             {{-1,  1, -1,  0,  0,  0,  0}, "kg m-1 s-1"},  //DynamicViscosity
             {{ 2,  0, -1,  0,  0,  0,  0}, "m2 s-1"},  //KinematicViscosity
             {{ 2,  1, -3,  0,  0,  0,  0}, "kg m2 s-3" /*W*/, {}, {}, {{"W", "kg m2 s-3"}, //Power
-                                                                              {"hp", "75eg m2 s-3" }
+                                                                       {"hp", "735kg m2 s-3" }
                                                                       }},
             {{ 2,  1, -2,  0,  0,  0,  0}, "kg m2 s-2" /*J or Nm*/, {}, {}, {{"J", "kg m2 s-2"}}}, //Energy
             {{ 2,  1, -3, -1,  0,  0,  0}, "kg m2 s-3 A-1" /*V*/, {}, {}, {{"V", "kg m2 s-3 A-1"}}}, //Voltage
