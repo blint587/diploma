@@ -49,7 +49,7 @@ namespace munits {
         template<class T>
             static bool compop(const Quantity & lfths, const Quantity & rgths) {
             // if the matrix indexes do not match they are not the same types and comparison is not possible
-            if (lfths.matrix_index == rgths.matrix_index) {
+            if (lfths.dim_vector == rgths.dim_vector) {
                 //applying a rounding with a precision of 6
                 static const double precision = 10e4;
                 auto lfhs = round(lfths(lfths.unit_vector) * precision) / precision;
@@ -109,8 +109,23 @@ namespace munits {
            // #endif
             friend std::ostream& operator<< (std::ostream& str, const Quantity & a){str << a.toString() ;return str;};
 
-            friend Quantity operator+ (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value + rgths( UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};
-            friend Quantity operator- (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity(lfths.matrix_index, lfths.value - rgths( UnitNotationVector::compose_unit(lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);};
+            friend Quantity operator+ (const Quantity & lfths, const Quantity & rgths) {
+                if (lfths.dim_vector == rgths.dim_vector) {
+                    return munits::Quantity(lfths.matrix_index, lfths.value + rgths(UnitNotationVector::compose_unit(
+                            lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);
+                }else{
+                    throw std::logic_error("Addition cannot be performed on different dimensions!");
+                }
+            };
+            friend Quantity operator- (const Quantity & lfths, const Quantity & rgths) {
+                if (lfths.dim_vector == rgths.dim_vector) {
+                    return munits::Quantity(lfths.matrix_index, lfths.value - rgths(UnitNotationVector::compose_unit(
+                            lfths.unit_vector, lfths.matrix_index)), lfths.unit_vector);
+                }else{
+                    throw std::logic_error("Subtraction cannot be performed on different dimensions!");
+                }
+                };
+
 
             friend Quantity operator* (const Quantity & lfths, const Quantity & rgths) {return mathop(lfths, rgths, 1);};
             friend Quantity operator* (const Quantity & lfths, const int rgths) {Quantity n (lfths); n.value *= rgths; return n;};

@@ -8,7 +8,7 @@
             "src\\unit_validator.hpp"
         ],
         "extra_link_args": [
-            "-std=c++11"
+            "-std=c++14"
         ],
         "include_dirs": [
             "."
@@ -1331,11 +1331,11 @@ int __pyx_module_is_main_munitscpp = 0;
 
 /* Implementation of 'munitscpp' */
 static PyObject *__pyx_builtin_ValueError;
+static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_OverflowError;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_staticmethod;
 static PyObject *__pyx_builtin_NotImplemented;
-static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_ZeroDivisionError;
 static PyObject *__pyx_builtin_DeprecationWarning;
 static const char __pyx_k_[] = "";
@@ -2213,7 +2213,7 @@ static PyObject *__pyx_pf_9munitscpp_10PyQuantity_8__comp(struct __pyx_obj_9muni
     try {
       __pyx_t_2 = ((*__pyx_v_self->_thisptr) < (*__pyx_v_other->_thisptr));
     } catch(...) {
-      try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_ValueError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+      try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_TypeError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_TypeError); }
       __PYX_ERR(1, 41, __pyx_L1_error)
     }
     __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 41, __pyx_L1_error)
@@ -2255,7 +2255,7 @@ static PyObject *__pyx_pf_9munitscpp_10PyQuantity_8__comp(struct __pyx_obj_9muni
     try {
       __pyx_t_2 = ((*__pyx_v_self->_thisptr) <= (*__pyx_v_other->_thisptr));
     } catch(...) {
-      try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_ValueError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+      try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_TypeError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_TypeError); }
       __PYX_ERR(1, 43, __pyx_L1_error)
     }
     __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 43, __pyx_L1_error)
@@ -2297,7 +2297,7 @@ static PyObject *__pyx_pf_9munitscpp_10PyQuantity_8__comp(struct __pyx_obj_9muni
     try {
       __pyx_t_2 = ((*__pyx_v_self->_thisptr) == (*__pyx_v_other->_thisptr));
     } catch(...) {
-      try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_ValueError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+      try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_TypeError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_TypeError); }
       __PYX_ERR(1, 45, __pyx_L1_error)
     }
     __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 45, __pyx_L1_error)
@@ -2339,7 +2339,7 @@ static PyObject *__pyx_pf_9munitscpp_10PyQuantity_8__comp(struct __pyx_obj_9muni
     try {
       __pyx_t_2 = ((*__pyx_v_self->_thisptr) != (*__pyx_v_other->_thisptr));
     } catch(...) {
-      try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_ValueError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+      try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_TypeError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_TypeError); }
       __PYX_ERR(1, 47, __pyx_L1_error)
     }
     __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 47, __pyx_L1_error)
@@ -2381,7 +2381,7 @@ static PyObject *__pyx_pf_9munitscpp_10PyQuantity_8__comp(struct __pyx_obj_9muni
     try {
       __pyx_t_2 = ((*__pyx_v_self->_thisptr) > (*__pyx_v_other->_thisptr));
     } catch(...) {
-      try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_ValueError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+      try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_TypeError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_TypeError); }
       __PYX_ERR(1, 49, __pyx_L1_error)
     }
     __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 49, __pyx_L1_error)
@@ -2423,7 +2423,7 @@ static PyObject *__pyx_pf_9munitscpp_10PyQuantity_8__comp(struct __pyx_obj_9muni
     try {
       __pyx_t_2 = ((*__pyx_v_self->_thisptr) >= (*__pyx_v_other->_thisptr));
     } catch(...) {
-      try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_ValueError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_ValueError); }
+      try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_TypeError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_TypeError); }
       __PYX_ERR(1, 51, __pyx_L1_error)
     }
     __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 51, __pyx_L1_error)
@@ -2802,6 +2802,7 @@ static PyObject *__pyx_pf_9munitscpp_10PyQuantity_14__add__(struct __pyx_obj_9mu
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
+  munits::Quantity __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2826,7 +2827,13 @@ static PyObject *__pyx_pf_9munitscpp_10PyQuantity_14__add__(struct __pyx_obj_9mu
  *         return nobj
  * 
  */
-  __pyx_v_nobj->_thisptr = new munits::Quantity(((*__pyx_v_self->_thisptr) + (*__pyx_v_other->_thisptr)));
+  try {
+    __pyx_t_2 = ((*__pyx_v_self->_thisptr) + (*__pyx_v_other->_thisptr));
+  } catch(...) {
+    try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_TypeError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_TypeError); }
+    __PYX_ERR(1, 64, __pyx_L1_error)
+  }
+  __pyx_v_nobj->_thisptr = new munits::Quantity(__pyx_t_2);
 
   /* "munitscpp.pyx":65
  *         cdef PyQuantity nobj = PyQuantity()
@@ -2895,6 +2902,7 @@ static PyObject *__pyx_pf_9munitscpp_10PyQuantity_16__sub__(struct __pyx_obj_9mu
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
+  munits::Quantity __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2919,7 +2927,13 @@ static PyObject *__pyx_pf_9munitscpp_10PyQuantity_16__sub__(struct __pyx_obj_9mu
  *         return nobj
  * 
  */
-  __pyx_v_nobj->_thisptr = new munits::Quantity(((*__pyx_v_self->_thisptr) - (*__pyx_v_other->_thisptr)));
+  try {
+    __pyx_t_2 = ((*__pyx_v_self->_thisptr) - (*__pyx_v_other->_thisptr));
+  } catch(...) {
+    try { throw; } catch(const std::exception& exn) {PyErr_SetString(__pyx_builtin_TypeError, exn.what());} catch(...) { PyErr_SetNone(__pyx_builtin_TypeError); }
+    __PYX_ERR(1, 69, __pyx_L1_error)
+  }
+  __pyx_v_nobj->_thisptr = new munits::Quantity(__pyx_t_2);
 
   /* "munitscpp.pyx":70
  *         cdef PyQuantity nobj = PyQuantity()
@@ -5746,11 +5760,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 57, __pyx_L1_error)
   __pyx_builtin_OverflowError = __Pyx_GetBuiltinName(__pyx_n_s_OverflowError); if (!__pyx_builtin_OverflowError) __PYX_ERR(0, 71, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(0, 77, __pyx_L1_error)
   __pyx_builtin_staticmethod = __Pyx_GetBuiltinName(__pyx_n_s_staticmethod); if (!__pyx_builtin_staticmethod) __PYX_ERR(1, 165, __pyx_L1_error)
   __pyx_builtin_NotImplemented = __Pyx_GetBuiltinName(__pyx_n_s_NotImplemented); if (!__pyx_builtin_NotImplemented) __PYX_ERR(1, 57, __pyx_L1_error)
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 107, __pyx_L1_error)
   __pyx_builtin_ZeroDivisionError = __Pyx_GetBuiltinName(__pyx_n_s_ZeroDivisionError); if (!__pyx_builtin_ZeroDivisionError) __PYX_ERR(1, 109, __pyx_L1_error)
   __pyx_builtin_DeprecationWarning = __Pyx_GetBuiltinName(__pyx_n_s_DeprecationWarning); if (!__pyx_builtin_DeprecationWarning) __PYX_ERR(1, 138, __pyx_L1_error)
   return 0;
