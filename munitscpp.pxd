@@ -43,6 +43,7 @@ cdef extern from "src/quantity.h" namespace "munits":
             MassFlux = 36,
             AeraDensity = 37,
             InverseLength = 38,
+            SpecificVolume = 39,
             _Last = 38
 
     cdef cppclass Quantity:

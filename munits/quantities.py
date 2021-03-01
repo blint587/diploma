@@ -334,6 +334,10 @@ class InverseLength(Quantity, unit_index=38):
     pass
 
 
+class SpecificVolume(Quantity, unit_index=39):
+    pass
+
+
 if __name__ == "__main__":
 
     u = "gsm"
