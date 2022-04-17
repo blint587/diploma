@@ -1,0 +1,123 @@
+\hypertarget{classmunits_1_1_unit_notation}{}\section{munits\+:\+:Unit\+Notation Class Reference}
+\label{classmunits_1_1_unit_notation}\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+
+
+{\ttfamily \#include $<$unit\+\_\+notation.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmunits_1_1_unit_notation_a9ae99972c9d065feb0805e6ddf0aa5e8}{Unit\+Notation} ()
+\item 
+\hyperlink{classmunits_1_1_unit_notation_a1e2eebf9c54bb96b33681d820b69e255}{Unit\+Notation} (std\+::string unit)
+\item 
+\hyperlink{classmunits_1_1_unit_notation_acd2e3877ef117b186e2f4449f0535508}{Unit\+Notation} (const \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} \&)=default
+\item 
+\hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} \& \hyperlink{classmunits_1_1_unit_notation_ad83d0b7015d75c6590480013f680cac1}{operator=} (const \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} \&)=default
+\item 
+\hyperlink{classmunits_1_1_unit_notation_aec1bc9ceb4421d38c567fc1f5a57f8ad}{operator std\+::string} () const
+\item 
+const std\+::string \& \hyperlink{classmunits_1_1_unit_notation_a58b244382181c4757ef942c0b9478199}{Get\+Unit} () const
+\item 
+const std\+::string \& \hyperlink{classmunits_1_1_unit_notation_a8e1b0087ea3145db70dd59501a74aaad}{Get\+Prefix} () const
+\item 
+const int \& \hyperlink{classmunits_1_1_unit_notation_a2a567fa1f19879addce7afd4116d02aa}{Get\+Exponent} () const
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classmunits_1_1_unit_notation_a816f3ddc8b55e7f959db7e1a15ea4619}{Unit\+Notation\+Vector}
+\item 
+std\+::ostream \& \hyperlink{classmunits_1_1_unit_notation_a74ccfa8c716808f13917e86dd12cd186}{operator$<$$<$} (std\+::ostream \&str, const \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} \&un)
+\item 
+bool \hyperlink{classmunits_1_1_unit_notation_ab7df41558423a5897c18119d31624f90}{operator==} (const \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation} \&lfths, const \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation} \&rgths)
+\item 
+bool \hyperlink{classmunits_1_1_unit_notation_af8528c1eb2d20c91b5bae0fd7498a4bf}{operator!=} (const \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation} \&lfths, const \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation} \&rgths)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_a9ae99972c9d065feb0805e6ddf0aa5e8}\label{classmunits_1_1_unit_notation_a9ae99972c9d065feb0805e6ddf0aa5e8}} 
+\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}!Unit\+Notation@{Unit\+Notation}}
+\index{Unit\+Notation@{Unit\+Notation}!munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+\subsubsection{\texorpdfstring{Unit\+Notation()}{UnitNotation()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily munits\+::\+Unit\+Notation\+::\+Unit\+Notation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_a1e2eebf9c54bb96b33681d820b69e255}\label{classmunits_1_1_unit_notation_a1e2eebf9c54bb96b33681d820b69e255}} 
+\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}!Unit\+Notation@{Unit\+Notation}}
+\index{Unit\+Notation@{Unit\+Notation}!munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+\subsubsection{\texorpdfstring{Unit\+Notation()}{UnitNotation()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily munits\+::\+Unit\+Notation\+::\+Unit\+Notation (\begin{DoxyParamCaption}\item[{std\+::string}]{unit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_acd2e3877ef117b186e2f4449f0535508}\label{classmunits_1_1_unit_notation_acd2e3877ef117b186e2f4449f0535508}} 
+\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}!Unit\+Notation@{Unit\+Notation}}
+\index{Unit\+Notation@{Unit\+Notation}!munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+\subsubsection{\texorpdfstring{Unit\+Notation()}{UnitNotation()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily munits\+::\+Unit\+Notation\+::\+Unit\+Notation (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_a2a567fa1f19879addce7afd4116d02aa}\label{classmunits_1_1_unit_notation_a2a567fa1f19879addce7afd4116d02aa}} 
+\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}!Get\+Exponent@{Get\+Exponent}}
+\index{Get\+Exponent@{Get\+Exponent}!munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+\subsubsection{\texorpdfstring{Get\+Exponent()}{GetExponent()}}
+{\footnotesize\ttfamily const int\& munits\+::\+Unit\+Notation\+::\+Get\+Exponent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_a8e1b0087ea3145db70dd59501a74aaad}\label{classmunits_1_1_unit_notation_a8e1b0087ea3145db70dd59501a74aaad}} 
+\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}!Get\+Prefix@{Get\+Prefix}}
+\index{Get\+Prefix@{Get\+Prefix}!munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+\subsubsection{\texorpdfstring{Get\+Prefix()}{GetPrefix()}}
+{\footnotesize\ttfamily const std\+::string\& munits\+::\+Unit\+Notation\+::\+Get\+Prefix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_a58b244382181c4757ef942c0b9478199}\label{classmunits_1_1_unit_notation_a58b244382181c4757ef942c0b9478199}} 
+\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}!Get\+Unit@{Get\+Unit}}
+\index{Get\+Unit@{Get\+Unit}!munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+\subsubsection{\texorpdfstring{Get\+Unit()}{GetUnit()}}
+{\footnotesize\ttfamily const std\+::string\& munits\+::\+Unit\+Notation\+::\+Get\+Unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_aec1bc9ceb4421d38c567fc1f5a57f8ad}\label{classmunits_1_1_unit_notation_aec1bc9ceb4421d38c567fc1f5a57f8ad}} 
+\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}!operator std\+::string@{operator std\+::string}}
+\index{operator std\+::string@{operator std\+::string}!munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+\subsubsection{\texorpdfstring{operator std\+::string()}{operator std::string()}}
+{\footnotesize\ttfamily munits\+::\+Unit\+Notation\+::operator std\+::string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_ad83d0b7015d75c6590480013f680cac1}\label{classmunits_1_1_unit_notation_ad83d0b7015d75c6590480013f680cac1}} 
+\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}!operator=@{operator=}}
+\index{operator=@{operator=}!munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation}\& munits\+::\+Unit\+Notation\+::operator= (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_af8528c1eb2d20c91b5bae0fd7498a4bf}\label{classmunits_1_1_unit_notation_af8528c1eb2d20c91b5bae0fd7498a4bf}} 
+\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+\subsubsection{\texorpdfstring{operator"!=}{operator!=}}
+{\footnotesize\ttfamily bool operator!= (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_a74ccfa8c716808f13917e86dd12cd186}\label{classmunits_1_1_unit_notation_a74ccfa8c716808f13917e86dd12cd186}} 
+\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+\subsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily std\+::ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{str,  }\item[{const \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} \&}]{un }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_ab7df41558423a5897c18119d31624f90}\label{classmunits_1_1_unit_notation_ab7df41558423a5897c18119d31624f90}} 
+\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}!operator==@{operator==}}
+\index{operator==@{operator==}!munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+\subsubsection{\texorpdfstring{operator==}{operator==}}
+{\footnotesize\ttfamily bool operator== (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_a816f3ddc8b55e7f959db7e1a15ea4619}\label{classmunits_1_1_unit_notation_a816f3ddc8b55e7f959db7e1a15ea4619}} 
+\index{munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}!Unit\+Notation\+Vector@{Unit\+Notation\+Vector}}
+\index{Unit\+Notation\+Vector@{Unit\+Notation\+Vector}!munits\+::\+Unit\+Notation@{munits\+::\+Unit\+Notation}}
+\subsubsection{\texorpdfstring{Unit\+Notation\+Vector}{UnitNotationVector}}
+{\footnotesize\ttfamily friend class \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Z\+:/ocs\+\_\+1/measurmentunits/src/\hyperlink{unit__notation_8hpp}{unit\+\_\+notation.\+hpp}\item 
+Z\+:/ocs\+\_\+1/measurmentunits/src/\hyperlink{unit__notation_8cpp}{unit\+\_\+notation.\+cpp}\end{DoxyCompactItemize}

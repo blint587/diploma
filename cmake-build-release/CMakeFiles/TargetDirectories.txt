@@ -1,0 +1,5 @@
+Z:/ocs_1/measurmentunits/cmake-build-release/CMakeFiles/munits.dir
+Z:/ocs_1/measurmentunits/cmake-build-release/CMakeFiles/edit_cache.dir
+Z:/ocs_1/measurmentunits/cmake-build-release/CMakeFiles/rebuild_cache.dir
+Z:/ocs_1/measurmentunits/cmake-build-release/lib/Accesories/CMakeFiles/edit_cache.dir
+Z:/ocs_1/measurmentunits/cmake-build-release/lib/Accesories/CMakeFiles/rebuild_cache.dir

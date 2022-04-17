@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['getbaseunit',['GetBaseUnit',['../classmunits_1_1_converter.html#a3c707dedadbd4bf40f1836f463357d55',1,'munits::Converter']]],
+  ['getdimvector',['GetDimVector',['../classmunits_1_1_quantity.html#a3210eda57592da41b8894128bb0d6544',1,'munits::Quantity']]],
+  ['getexponent',['GetExponent',['../classmunits_1_1_unit_notation.html#a2a567fa1f19879addce7afd4116d02aa',1,'munits::UnitNotation']]],
+  ['getexponentofprefix',['getExponentOfPrefix',['../namespacemunits.html#ad54c1c999ca5e614726f2204bca2b988',1,'munits']]],
+  ['getfirstorderexponent',['getFirstOrderExponent',['../classmunits_1_1_converter_function.html#a1b3777fbb09c52bc9456fbae09295cfc',1,'munits::ConverterFunction']]],
+  ['getmatrix',['GetMatrix',['../namespacemunits.html#a8bf80780c6ef4ce5b588d266a2de306e',1,'munits']]],
+  ['getmatrixindex',['getMatrixIndex',['../classmunits_1_1_quantity.html#a9167bbf331462dc79bfd62fec4a90f84',1,'munits::Quantity::getMatrixIndex()'],['../namespacemunits.html#a31a640e781f471e914e53e370cdf63ef',1,'munits::getMatrixIndex()']]],
+  ['getmaxprefixexponent',['getMaxPrefixExponent',['../namespacemunits.html#a49bfbd8f3668a72e3d5404be4a4ee0df',1,'munits']]],
+  ['getmetric',['getMetric',['../namespacemunits.html#a252f17286e532b20b64968b1c7f80f7e',1,'munits']]],
+  ['getminprefixexponent',['getMinPrefixExponent',['../namespacemunits.html#a348f0717c758e64ada5ef3811299af38',1,'munits']]],
+  ['getmultiplicationfactor',['getMultiplicationFactor',['../classmunits_1_1_unit_notation_vector.html#a8494c2cb667af23b9f98a9aa2cf00244',1,'munits::UnitNotationVector']]],
+  ['getnotation',['getNotation',['../classmunits_1_1_prefix.html#a3cc3d1b3ed55c756b8baa98ea1369e65',1,'munits::Prefix']]],
+  ['getprefix',['GetPrefix',['../classmunits_1_1_unit_notation.html#a8e1b0087ea3145db70dd59501a74aaad',1,'munits::UnitNotation']]],
+  ['getprefixbyexponent',['getPrefixByExponent',['../namespacemunits.html#a9ee8078d5f9db8759156a3ff38f9cf39',1,'munits']]],
+  ['getprefixes',['GetPrefixes',['../namespacemunits.html#a43150beff0a68af86df9d5a02e69b334',1,'munits']]],
+  ['getunit',['GetUnit',['../classmunits_1_1_unit_notation.html#a58b244382181c4757ef942c0b9478199',1,'munits::UnitNotation::GetUnit()'],['../classmunits_1_1_quantity.html#a2de8a125226f981bf9a1d5a47b5957bb',1,'munits::Quantity::getUnit()']]],
+  ['getunitvector',['getUnitVector',['../classmunits_1_1_quantity.html#ad9dadbbab677bf22170412595e65cc2f',1,'munits::Quantity']]],
+  ['getvalue',['getValue',['../classmunits_1_1_quantity.html#aae7dc378d4da3a9466edc958626f13d3',1,'munits::Quantity']]]
+];

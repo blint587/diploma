@@ -1,0 +1,15 @@
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\bin\Release\munits.x64.dll
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\bin\Release\munitscs_utests.dll
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\bin\Release\munitscs_utests.pdb
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\bin\Release\munitscs.dll
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\bin\Release\nunit.framework.dll
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\bin\Release\munitscs.pdb
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\bin\Release\nunit.framework.pdb
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\bin\Release\nunit.framework.xml
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\obj\Release\munitscs_utests.csprojResolveAssemblyReference.cache
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\obj\Release\munitscs_utests.csproj.CoreCompileInputs.cache
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\obj\Release\munitscs_utests.dll
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munitscs_utests\obj\Release\munitscs_utests.pdb

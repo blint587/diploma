@@ -1,0 +1,66 @@
+\hypertarget{dynamic_8hpp}{}\section{Z\+:/ocs\+\_\+1/measurmentunits/src/dynamic.hpp File Reference}
+\label{dynamic_8hpp}\index{Z\+:/ocs\+\_\+1/measurmentunits/src/dynamic.\+hpp@{Z\+:/ocs\+\_\+1/measurmentunits/src/dynamic.\+hpp}}
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include \char`\"{}metric.\+hpp\char`\"{}}\newline
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacemunits}{munits}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25}{munits\+::metrics} \{ \newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25af0df0f3284b638cfe6b62c61f8e946d9}{munits\+::\+Length} = 0, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ac8d62657f0c02eecd6df0021364f7ede}{munits\+::\+Mass} = 1, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a6c1dee69e2519642b5eebf9bd4cddc0a}{munits\+::\+Time} = 2, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a4bab5c7f1da3d1c44c296de66cdde6a3}{munits\+::\+Electric\+Currency} = 3, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aada9f930eb999d74dd9a465cf5ee0c87}{munits\+::\+Temperature} = 4, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25af37da5a609a9a26c71c0efb86b2e7923}{munits\+::\+Amount\+Of\+Substance} = 5, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a902221490b14ba8a70f8de8f7aa325ff}{munits\+::\+Luminous\+Intensity} = 6, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ac0cf3600aa9c185366a4a009185f07e2}{munits\+::\+Area} = 7, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a7646730730e8c4359a1cc0f4e677aac2}{munits\+::\+Volume} = 8, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25acb824d8937772e160e4e99344fd684e5}{munits\+::\+Volumetric\+Flow} = 9, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a95bf397f16724b9c09cf767f1a5370ae}{munits\+::\+Molar\+Concentration} = 10, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aa52f56fd97c134419e82eed2f6c0328e}{munits\+::\+Acceleration} = 11, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25af54294b9cf0b439d7b10dba4a6dd090e}{munits\+::\+Force} = 12, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a39fb25786a08906bcc5bff1a59d6e49e}{munits\+::\+Velocity} = 13, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a0b9fb639baaabc426049ba1d672a33de}{munits\+::\+Concentration} = 14, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a5e05a5dc3174c342cac2884500674f26}{munits\+::\+Density} = 14, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a7c50a59d8b4745e14f11ce2f4635c39b}{munits\+::\+Mass\+Flow} = 15, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a69336d378661f6c003ce8bd521c6a585}{munits\+::\+Pressure} = 16, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25afc27fb1897956e03e92c289bd07bc4e6}{munits\+::\+Dynamic\+Viscosity} = 17, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25adfada9ac53008687de76e2b685c85e3f}{munits\+::\+Kinematic\+Viscosity} = 18, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aa8c947688502fa3bb484f7246334ea1c}{munits\+::\+Power} = 19, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a8ce48c97ce6a749f7c199dc6e6ca1e82}{munits\+::\+Energy} = 20, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ab39ca46fbd293fce76d4cdf7d329a7ad}{munits\+::\+Voltage} = 21, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ae58c92a28c016baaa26f6b43b19acb3a}{munits\+::\+Frequency} = 22, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a3dedc7ecc3ef28206254638a7a075763}{munits\+::\+Electric\+Charge} = 23, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aebe93335a2da9557293202acc6f107b2}{munits\+::\+Electric\+Capacitance} = 24, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25abe6f3b22c1951e7fc2c74d25676b43c0}{munits\+::\+Electric\+Resistance} = 25, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a08eb24223a082d1e77c1065b5ecd941e}{munits\+::\+Electrical\+Conductance} = 26, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a403ee91a73605ae3906b530771a6c7a5}{munits\+::\+Magnetic\+Flux} = 27, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a46579a9b5189d4159bdbde3cf0b733a9}{munits\+::\+Magnetic\+Flux\+Density} = 28, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a586f648f184805d655f97b94421bdcee}{munits\+::\+Inductance} = 29, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a7fc37598d9c1e89b5b05d5423f040dec}{munits\+::\+Illuminance} = 30, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a0831ca7f466dbf14db10706ff0b25ab5}{munits\+::\+Absorbed\+Dose} = 31, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ab773206a8a5f7a622d5374913ba05ee1}{munits\+::\+Catalytic\+Activity} = 32, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aa304e63cc2c9c51d6dc50d42488a9476}{munits\+::\+\_\+\+Last}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::vector$<$ \hyperlink{structmunits_1_1_metric}{munits\+::\+Metric} $>$ \& \hyperlink{namespacemunits_a8bf80780c6ef4ce5b588d266a2de306e}{munits\+::\+Get\+Matrix} ()
+\item 
+const std\+::map$<$ std\+::string, const std\+::shared\+\_\+ptr$<$ Converter\+Function $>$ $>$ \& \hyperlink{namespacemunits_a43150beff0a68af86df9d5a02e69b334}{munits\+::\+Get\+Prefixes} ()
+\end{DoxyCompactItemize}

@@ -1,0 +1,317 @@
+\hypertarget{namespacemunits}{}\section{munits Namespace Reference}
+\label{namespacemunits}\index{munits@{munits}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classmunits_1_1_converter}{Converter}
+\item 
+class \hyperlink{classmunits_1_1_converter_function}{Converter\+Function}
+\item 
+struct \hyperlink{structmunits_1_1_metric}{Metric}
+\item 
+class \hyperlink{classmunits_1_1_prefix}{Prefix}
+\item 
+class \hyperlink{classmunits_1_1_quantity}{Quantity}
+\item 
+class \hyperlink{classmunits_1_1_resolver}{Resolver}
+\item 
+class \hyperlink{classmunits_1_1_unit}{Unit}
+\item 
+class \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation}
+\item 
+class \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25}{metrics} \{ \newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25af0df0f3284b638cfe6b62c61f8e946d9}{Length} = 0, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ac8d62657f0c02eecd6df0021364f7ede}{Mass} = 1, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a6c1dee69e2519642b5eebf9bd4cddc0a}{Time} = 2, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a4bab5c7f1da3d1c44c296de66cdde6a3}{Electric\+Currency} = 3, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aada9f930eb999d74dd9a465cf5ee0c87}{Temperature} = 4, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25af37da5a609a9a26c71c0efb86b2e7923}{Amount\+Of\+Substance} = 5, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a902221490b14ba8a70f8de8f7aa325ff}{Luminous\+Intensity} = 6, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ac0cf3600aa9c185366a4a009185f07e2}{Area} = 7, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a7646730730e8c4359a1cc0f4e677aac2}{Volume} = 8, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25acb824d8937772e160e4e99344fd684e5}{Volumetric\+Flow} = 9, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a95bf397f16724b9c09cf767f1a5370ae}{Molar\+Concentration} = 10, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aa52f56fd97c134419e82eed2f6c0328e}{Acceleration} = 11, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25af54294b9cf0b439d7b10dba4a6dd090e}{Force} = 12, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a39fb25786a08906bcc5bff1a59d6e49e}{Velocity} = 13, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a0b9fb639baaabc426049ba1d672a33de}{Concentration} = 14, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a5e05a5dc3174c342cac2884500674f26}{Density} = 14, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a7c50a59d8b4745e14f11ce2f4635c39b}{Mass\+Flow} = 15, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a69336d378661f6c003ce8bd521c6a585}{Pressure} = 16, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25afc27fb1897956e03e92c289bd07bc4e6}{Dynamic\+Viscosity} = 17, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25adfada9ac53008687de76e2b685c85e3f}{Kinematic\+Viscosity} = 18, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aa8c947688502fa3bb484f7246334ea1c}{Power} = 19, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a8ce48c97ce6a749f7c199dc6e6ca1e82}{Energy} = 20, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ab39ca46fbd293fce76d4cdf7d329a7ad}{Voltage} = 21, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ae58c92a28c016baaa26f6b43b19acb3a}{Frequency} = 22, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a3dedc7ecc3ef28206254638a7a075763}{Electric\+Charge} = 23, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aebe93335a2da9557293202acc6f107b2}{Electric\+Capacitance} = 24, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25abe6f3b22c1951e7fc2c74d25676b43c0}{Electric\+Resistance} = 25, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a08eb24223a082d1e77c1065b5ecd941e}{Electrical\+Conductance} = 26, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a403ee91a73605ae3906b530771a6c7a5}{Magnetic\+Flux} = 27, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a46579a9b5189d4159bdbde3cf0b733a9}{Magnetic\+Flux\+Density} = 28, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a586f648f184805d655f97b94421bdcee}{Inductance} = 29, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a7fc37598d9c1e89b5b05d5423f040dec}{Illuminance} = 30, 
+\newline
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a0831ca7f466dbf14db10706ff0b25ab5}{Absorbed\+Dose} = 31, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ab773206a8a5f7a622d5374913ba05ee1}{Catalytic\+Activity} = 32, 
+\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aa304e63cc2c9c51d6dc50d42488a9476}{\+\_\+\+Last}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::vector$<$ \hyperlink{structmunits_1_1_metric}{munits\+::\+Metric} $>$ \& \hyperlink{namespacemunits_a8bf80780c6ef4ce5b588d266a2de306e}{Get\+Matrix} ()
+\item 
+const std\+::map$<$ std\+::string, const std\+::shared\+\_\+ptr$<$ \hyperlink{classmunits_1_1_converter_function}{Converter\+Function} $>$ $>$ \& \hyperlink{namespacemunits_a43150beff0a68af86df9d5a02e69b334}{Get\+Prefixes} ()
+\item 
+std\+::vector$<$ std\+::string $>$ \hyperlink{namespacemunits_a0035cd1272a835c8d06716a9e866b720}{unparser} (std\+::string unit)
+\item 
+std\+::vector$<$ std\+::string $>$ \hyperlink{namespacemunits_a10ce8183cbfa4ab0a239a45c56f4dcbe}{rparser} (std\+::string token)
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \hyperlink{namespacemunits_a38a90819b6f9b539204ec66e73b60a93}{pow} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&a, int e)
+\item 
+const long long int \hyperlink{namespacemunits_a31a640e781f471e914e53e370cdf63ef}{get\+Matrix\+Index} (const std\+::vector$<$ int $>$ \&searched)
+\item 
+const double \hyperlink{namespacemunits_ad54c1c999ca5e614726f2204bca2b988}{get\+Exponent\+Of\+Prefix} (const std\+::string prefix)
+\item 
+const std\+::string \hyperlink{namespacemunits_a9ee8078d5f9db8759156a3ff38f9cf39}{get\+Prefix\+By\+Exponent} (int exponent)
+\item 
+const int \hyperlink{namespacemunits_a49bfbd8f3668a72e3d5404be4a4ee0df}{get\+Max\+Prefix\+Exponent} ()
+\item 
+const int \hyperlink{namespacemunits_a348f0717c758e64ada5ef3811299af38}{get\+Min\+Prefix\+Exponent} ()
+\item 
+const \hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25}{metrics} \hyperlink{namespacemunits_a252f17286e532b20b64968b1c7f80f7e}{get\+Metric} (const std\+::vector$<$ int $>$ \&searched)
+\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25}} 
+\index{munits@{munits}!metrics@{metrics}}
+\index{metrics@{metrics}!munits@{munits}}
+\subsubsection{\texorpdfstring{metrics}{metrics}}
+{\footnotesize\ttfamily enum \hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25}{munits\+::metrics}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Length@{Length}!munits@{munits}}\index{munits@{munits}!Length@{Length}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25af0df0f3284b638cfe6b62c61f8e946d9}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25af0df0f3284b638cfe6b62c61f8e946d9}} 
+Length&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Mass@{Mass}!munits@{munits}}\index{munits@{munits}!Mass@{Mass}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ac8d62657f0c02eecd6df0021364f7ede}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ac8d62657f0c02eecd6df0021364f7ede}} 
+Mass&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Time@{Time}!munits@{munits}}\index{munits@{munits}!Time@{Time}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a6c1dee69e2519642b5eebf9bd4cddc0a}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a6c1dee69e2519642b5eebf9bd4cddc0a}} 
+Time&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Electric\+Currency@{Electric\+Currency}!munits@{munits}}\index{munits@{munits}!Electric\+Currency@{Electric\+Currency}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a4bab5c7f1da3d1c44c296de66cdde6a3}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a4bab5c7f1da3d1c44c296de66cdde6a3}} 
+Electric\+Currency&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Temperature@{Temperature}!munits@{munits}}\index{munits@{munits}!Temperature@{Temperature}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aada9f930eb999d74dd9a465cf5ee0c87}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aada9f930eb999d74dd9a465cf5ee0c87}} 
+Temperature&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Amount\+Of\+Substance@{Amount\+Of\+Substance}!munits@{munits}}\index{munits@{munits}!Amount\+Of\+Substance@{Amount\+Of\+Substance}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25af37da5a609a9a26c71c0efb86b2e7923}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25af37da5a609a9a26c71c0efb86b2e7923}} 
+Amount\+Of\+Substance&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Luminous\+Intensity@{Luminous\+Intensity}!munits@{munits}}\index{munits@{munits}!Luminous\+Intensity@{Luminous\+Intensity}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a902221490b14ba8a70f8de8f7aa325ff}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a902221490b14ba8a70f8de8f7aa325ff}} 
+Luminous\+Intensity&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Area@{Area}!munits@{munits}}\index{munits@{munits}!Area@{Area}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ac0cf3600aa9c185366a4a009185f07e2}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ac0cf3600aa9c185366a4a009185f07e2}} 
+Area&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Volume@{Volume}!munits@{munits}}\index{munits@{munits}!Volume@{Volume}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a7646730730e8c4359a1cc0f4e677aac2}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a7646730730e8c4359a1cc0f4e677aac2}} 
+Volume&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Volumetric\+Flow@{Volumetric\+Flow}!munits@{munits}}\index{munits@{munits}!Volumetric\+Flow@{Volumetric\+Flow}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25acb824d8937772e160e4e99344fd684e5}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25acb824d8937772e160e4e99344fd684e5}} 
+Volumetric\+Flow&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Molar\+Concentration@{Molar\+Concentration}!munits@{munits}}\index{munits@{munits}!Molar\+Concentration@{Molar\+Concentration}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a95bf397f16724b9c09cf767f1a5370ae}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a95bf397f16724b9c09cf767f1a5370ae}} 
+Molar\+Concentration&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Acceleration@{Acceleration}!munits@{munits}}\index{munits@{munits}!Acceleration@{Acceleration}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aa52f56fd97c134419e82eed2f6c0328e}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aa52f56fd97c134419e82eed2f6c0328e}} 
+Acceleration&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Force@{Force}!munits@{munits}}\index{munits@{munits}!Force@{Force}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25af54294b9cf0b439d7b10dba4a6dd090e}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25af54294b9cf0b439d7b10dba4a6dd090e}} 
+Force&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Velocity@{Velocity}!munits@{munits}}\index{munits@{munits}!Velocity@{Velocity}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a39fb25786a08906bcc5bff1a59d6e49e}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a39fb25786a08906bcc5bff1a59d6e49e}} 
+Velocity&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Concentration@{Concentration}!munits@{munits}}\index{munits@{munits}!Concentration@{Concentration}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a0b9fb639baaabc426049ba1d672a33de}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a0b9fb639baaabc426049ba1d672a33de}} 
+Concentration&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Density@{Density}!munits@{munits}}\index{munits@{munits}!Density@{Density}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a5e05a5dc3174c342cac2884500674f26}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a5e05a5dc3174c342cac2884500674f26}} 
+Density&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Mass\+Flow@{Mass\+Flow}!munits@{munits}}\index{munits@{munits}!Mass\+Flow@{Mass\+Flow}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a7c50a59d8b4745e14f11ce2f4635c39b}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a7c50a59d8b4745e14f11ce2f4635c39b}} 
+Mass\+Flow&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Pressure@{Pressure}!munits@{munits}}\index{munits@{munits}!Pressure@{Pressure}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a69336d378661f6c003ce8bd521c6a585}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a69336d378661f6c003ce8bd521c6a585}} 
+Pressure&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Dynamic\+Viscosity@{Dynamic\+Viscosity}!munits@{munits}}\index{munits@{munits}!Dynamic\+Viscosity@{Dynamic\+Viscosity}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25afc27fb1897956e03e92c289bd07bc4e6}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25afc27fb1897956e03e92c289bd07bc4e6}} 
+Dynamic\+Viscosity&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Kinematic\+Viscosity@{Kinematic\+Viscosity}!munits@{munits}}\index{munits@{munits}!Kinematic\+Viscosity@{Kinematic\+Viscosity}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25adfada9ac53008687de76e2b685c85e3f}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25adfada9ac53008687de76e2b685c85e3f}} 
+Kinematic\+Viscosity&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Power@{Power}!munits@{munits}}\index{munits@{munits}!Power@{Power}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aa8c947688502fa3bb484f7246334ea1c}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aa8c947688502fa3bb484f7246334ea1c}} 
+Power&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Energy@{Energy}!munits@{munits}}\index{munits@{munits}!Energy@{Energy}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a8ce48c97ce6a749f7c199dc6e6ca1e82}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a8ce48c97ce6a749f7c199dc6e6ca1e82}} 
+Energy&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Voltage@{Voltage}!munits@{munits}}\index{munits@{munits}!Voltage@{Voltage}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ab39ca46fbd293fce76d4cdf7d329a7ad}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ab39ca46fbd293fce76d4cdf7d329a7ad}} 
+Voltage&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Frequency@{Frequency}!munits@{munits}}\index{munits@{munits}!Frequency@{Frequency}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ae58c92a28c016baaa26f6b43b19acb3a}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ae58c92a28c016baaa26f6b43b19acb3a}} 
+Frequency&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Electric\+Charge@{Electric\+Charge}!munits@{munits}}\index{munits@{munits}!Electric\+Charge@{Electric\+Charge}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a3dedc7ecc3ef28206254638a7a075763}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a3dedc7ecc3ef28206254638a7a075763}} 
+Electric\+Charge&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Electric\+Capacitance@{Electric\+Capacitance}!munits@{munits}}\index{munits@{munits}!Electric\+Capacitance@{Electric\+Capacitance}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aebe93335a2da9557293202acc6f107b2}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aebe93335a2da9557293202acc6f107b2}} 
+Electric\+Capacitance&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Electric\+Resistance@{Electric\+Resistance}!munits@{munits}}\index{munits@{munits}!Electric\+Resistance@{Electric\+Resistance}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25abe6f3b22c1951e7fc2c74d25676b43c0}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25abe6f3b22c1951e7fc2c74d25676b43c0}} 
+Electric\+Resistance&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Electrical\+Conductance@{Electrical\+Conductance}!munits@{munits}}\index{munits@{munits}!Electrical\+Conductance@{Electrical\+Conductance}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a08eb24223a082d1e77c1065b5ecd941e}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a08eb24223a082d1e77c1065b5ecd941e}} 
+Electrical\+Conductance&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Magnetic\+Flux@{Magnetic\+Flux}!munits@{munits}}\index{munits@{munits}!Magnetic\+Flux@{Magnetic\+Flux}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a403ee91a73605ae3906b530771a6c7a5}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a403ee91a73605ae3906b530771a6c7a5}} 
+Magnetic\+Flux&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Magnetic\+Flux\+Density@{Magnetic\+Flux\+Density}!munits@{munits}}\index{munits@{munits}!Magnetic\+Flux\+Density@{Magnetic\+Flux\+Density}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a46579a9b5189d4159bdbde3cf0b733a9}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a46579a9b5189d4159bdbde3cf0b733a9}} 
+Magnetic\+Flux\+Density&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Inductance@{Inductance}!munits@{munits}}\index{munits@{munits}!Inductance@{Inductance}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a586f648f184805d655f97b94421bdcee}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a586f648f184805d655f97b94421bdcee}} 
+Inductance&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Illuminance@{Illuminance}!munits@{munits}}\index{munits@{munits}!Illuminance@{Illuminance}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a7fc37598d9c1e89b5b05d5423f040dec}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a7fc37598d9c1e89b5b05d5423f040dec}} 
+Illuminance&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Absorbed\+Dose@{Absorbed\+Dose}!munits@{munits}}\index{munits@{munits}!Absorbed\+Dose@{Absorbed\+Dose}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a0831ca7f466dbf14db10706ff0b25ab5}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25a0831ca7f466dbf14db10706ff0b25ab5}} 
+Absorbed\+Dose&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Catalytic\+Activity@{Catalytic\+Activity}!munits@{munits}}\index{munits@{munits}!Catalytic\+Activity@{Catalytic\+Activity}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ab773206a8a5f7a622d5374913ba05ee1}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25ab773206a8a5f7a622d5374913ba05ee1}} 
+Catalytic\+Activity&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{\+\_\+\+Last@{\+\_\+\+Last}!munits@{munits}}\index{munits@{munits}!\+\_\+\+Last@{\+\_\+\+Last}}}\mbox{\Hypertarget{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aa304e63cc2c9c51d6dc50d42488a9476}\label{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25aa304e63cc2c9c51d6dc50d42488a9476}} 
+\+\_\+\+Last&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespacemunits_ad54c1c999ca5e614726f2204bca2b988}\label{namespacemunits_ad54c1c999ca5e614726f2204bca2b988}} 
+\index{munits@{munits}!get\+Exponent\+Of\+Prefix@{get\+Exponent\+Of\+Prefix}}
+\index{get\+Exponent\+Of\+Prefix@{get\+Exponent\+Of\+Prefix}!munits@{munits}}
+\subsubsection{\texorpdfstring{get\+Exponent\+Of\+Prefix()}{getExponentOfPrefix()}}
+{\footnotesize\ttfamily const double munits\+::get\+Exponent\+Of\+Prefix (\begin{DoxyParamCaption}\item[{const std\+::string}]{prefix }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacemunits_a8bf80780c6ef4ce5b588d266a2de306e}\label{namespacemunits_a8bf80780c6ef4ce5b588d266a2de306e}} 
+\index{munits@{munits}!Get\+Matrix@{Get\+Matrix}}
+\index{Get\+Matrix@{Get\+Matrix}!munits@{munits}}
+\subsubsection{\texorpdfstring{Get\+Matrix()}{GetMatrix()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \hyperlink{structmunits_1_1_metric}{munits\+::\+Metric} $>$ \& munits\+::\+Get\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacemunits_a31a640e781f471e914e53e370cdf63ef}\label{namespacemunits_a31a640e781f471e914e53e370cdf63ef}} 
+\index{munits@{munits}!get\+Matrix\+Index@{get\+Matrix\+Index}}
+\index{get\+Matrix\+Index@{get\+Matrix\+Index}!munits@{munits}}
+\subsubsection{\texorpdfstring{get\+Matrix\+Index()}{getMatrixIndex()}}
+{\footnotesize\ttfamily const long long int munits\+::get\+Matrix\+Index (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ int $>$ \&}]{searched }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacemunits_a49bfbd8f3668a72e3d5404be4a4ee0df}\label{namespacemunits_a49bfbd8f3668a72e3d5404be4a4ee0df}} 
+\index{munits@{munits}!get\+Max\+Prefix\+Exponent@{get\+Max\+Prefix\+Exponent}}
+\index{get\+Max\+Prefix\+Exponent@{get\+Max\+Prefix\+Exponent}!munits@{munits}}
+\subsubsection{\texorpdfstring{get\+Max\+Prefix\+Exponent()}{getMaxPrefixExponent()}}
+{\footnotesize\ttfamily const int munits\+::get\+Max\+Prefix\+Exponent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacemunits_a252f17286e532b20b64968b1c7f80f7e}\label{namespacemunits_a252f17286e532b20b64968b1c7f80f7e}} 
+\index{munits@{munits}!get\+Metric@{get\+Metric}}
+\index{get\+Metric@{get\+Metric}!munits@{munits}}
+\subsubsection{\texorpdfstring{get\+Metric()}{getMetric()}}
+{\footnotesize\ttfamily const \hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25}{munits\+::metrics} munits\+::get\+Metric (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ int $>$ \&}]{searched }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacemunits_a348f0717c758e64ada5ef3811299af38}\label{namespacemunits_a348f0717c758e64ada5ef3811299af38}} 
+\index{munits@{munits}!get\+Min\+Prefix\+Exponent@{get\+Min\+Prefix\+Exponent}}
+\index{get\+Min\+Prefix\+Exponent@{get\+Min\+Prefix\+Exponent}!munits@{munits}}
+\subsubsection{\texorpdfstring{get\+Min\+Prefix\+Exponent()}{getMinPrefixExponent()}}
+{\footnotesize\ttfamily const int munits\+::get\+Min\+Prefix\+Exponent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacemunits_a9ee8078d5f9db8759156a3ff38f9cf39}\label{namespacemunits_a9ee8078d5f9db8759156a3ff38f9cf39}} 
+\index{munits@{munits}!get\+Prefix\+By\+Exponent@{get\+Prefix\+By\+Exponent}}
+\index{get\+Prefix\+By\+Exponent@{get\+Prefix\+By\+Exponent}!munits@{munits}}
+\subsubsection{\texorpdfstring{get\+Prefix\+By\+Exponent()}{getPrefixByExponent()}}
+{\footnotesize\ttfamily const std\+::string munits\+::get\+Prefix\+By\+Exponent (\begin{DoxyParamCaption}\item[{int}]{exponent }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacemunits_a43150beff0a68af86df9d5a02e69b334}\label{namespacemunits_a43150beff0a68af86df9d5a02e69b334}} 
+\index{munits@{munits}!Get\+Prefixes@{Get\+Prefixes}}
+\index{Get\+Prefixes@{Get\+Prefixes}!munits@{munits}}
+\subsubsection{\texorpdfstring{Get\+Prefixes()}{GetPrefixes()}}
+{\footnotesize\ttfamily const std\+::map$<$ std\+::string, const std\+::shared\+\_\+ptr$<$ \hyperlink{classmunits_1_1_converter_function}{munits\+::\+Converter\+Function} $>$ $>$ \& munits\+::\+Get\+Prefixes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacemunits_a38a90819b6f9b539204ec66e73b60a93}\label{namespacemunits_a38a90819b6f9b539204ec66e73b60a93}} 
+\index{munits@{munits}!pow@{pow}}
+\index{pow@{pow}!munits@{munits}}
+\subsubsection{\texorpdfstring{pow()}{pow()}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{munits\+::\+Quantity} munits\+::pow (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{a,  }\item[{int}]{e }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacemunits_a10ce8183cbfa4ab0a239a45c56f4dcbe}\label{namespacemunits_a10ce8183cbfa4ab0a239a45c56f4dcbe}} 
+\index{munits@{munits}!rparser@{rparser}}
+\index{rparser@{rparser}!munits@{munits}}
+\subsubsection{\texorpdfstring{rparser()}{rparser()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ munits\+::rparser (\begin{DoxyParamCaption}\item[{std\+::string}]{token }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacemunits_a0035cd1272a835c8d06716a9e866b720}\label{namespacemunits_a0035cd1272a835c8d06716a9e866b720}} 
+\index{munits@{munits}!unparser@{unparser}}
+\index{unparser@{unparser}!munits@{munits}}
+\subsubsection{\texorpdfstring{unparser()}{unparser()}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string$>$ munits\+::unparser (\begin{DoxyParamCaption}\item[{std\+::string}]{unit }\end{DoxyParamCaption})}
+

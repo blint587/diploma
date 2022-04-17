@@ -1,0 +1,158 @@
+\hypertarget{classmunits_1_1_unit_notation_vector}{}\section{munits\+:\+:Unit\+Notation\+Vector Class Reference}
+\label{classmunits_1_1_unit_notation_vector}\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+
+
+{\ttfamily \#include $<$unit\+\_\+notation.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{classmunits_1_1_unit_notation_vector_a8494c2cb667af23b9f98a9aa2cf00244}{get\+Multiplication\+Factor} () const
+\item 
+\hyperlink{classmunits_1_1_unit_notation_vector_ad4a4ca58351d23dd049e07bc4b6502b1}{Unit\+Notation\+Vector} ()
+\item 
+\hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \& \hyperlink{classmunits_1_1_unit_notation_vector_a9c5a6755c05092c2482596d8fddadf27}{operator=} (const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&)=default
+\item 
+\hyperlink{classmunits_1_1_unit_notation_vector_a7e6c9226ca79b122a1be2e3178d2a3b0}{Unit\+Notation\+Vector} (const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&)=default
+\item 
+std\+::vector$<$ \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} $>$\+::const\+\_\+iterator \hyperlink{classmunits_1_1_unit_notation_vector_af78cd932083d4537b3d80e92ac2bd837}{begin} () const
+\item 
+std\+::vector$<$ \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} $>$\+::const\+\_\+iterator \hyperlink{classmunits_1_1_unit_notation_vector_a26f71e837f2df015d80d7e1c97d95e84}{end} () const
+\item 
+std\+::vector$<$ \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} $>$\+::iterator \hyperlink{classmunits_1_1_unit_notation_vector_a519b16aa356a461d33ebf563bf65f124}{begin} ()
+\item 
+std\+::vector$<$ \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} $>$\+::iterator \hyperlink{classmunits_1_1_unit_notation_vector_a4ef2d42dcdee83c3519a237c569d739b}{end} ()
+\item 
+void \hyperlink{classmunits_1_1_unit_notation_vector_acf4c47adb5dc13aec33ed7490516ff78}{set} (long long int, const \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} \&)
+\item 
+\hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} \& \hyperlink{classmunits_1_1_unit_notation_vector_a9e70a631b3d5668f8c4569f31e0d7c8a}{operator\mbox{[}$\,$\mbox{]}} (int idx)
+\item 
+const \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} \hyperlink{classmunits_1_1_unit_notation_vector_acdfb3a793a5f5fa2cf7a581cfdd3f952}{operator\mbox{[}$\,$\mbox{]}} (int idx) const
+\item 
+unsigned long long int \hyperlink{classmunits_1_1_unit_notation_vector_a80c7129293ee31c1f32db5f93a314f2c}{size} () const
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \hyperlink{classmunits_1_1_unit_notation_vector_a847223f35564205ba30737acf71464e1}{compose\+\_\+unit\+\_\+vector} (const std\+::string \&unit)
+\item 
+static std\+::string \hyperlink{classmunits_1_1_unit_notation_vector_a8d21171d845542dc43aae9b054d0c923}{compose\+\_\+unit} (const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&, const int)
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classmunits_1_1_unit_notation_vector_a3deb157e5ea66e135e7f7e2f7f3e34f7}{operator==} (const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&lfths, const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&rghts)
+\item 
+bool \hyperlink{classmunits_1_1_unit_notation_vector_a03faade4ba752fe916a9ed3f569ca308}{operator!=} (const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&lfths, const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&rghts)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_ad4a4ca58351d23dd049e07bc4b6502b1}\label{classmunits_1_1_unit_notation_vector_ad4a4ca58351d23dd049e07bc4b6502b1}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!Unit\+Notation\+Vector@{Unit\+Notation\+Vector}}
+\index{Unit\+Notation\+Vector@{Unit\+Notation\+Vector}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{Unit\+Notation\+Vector()}{UnitNotationVector()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily munits\+::\+Unit\+Notation\+Vector\+::\+Unit\+Notation\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_a7e6c9226ca79b122a1be2e3178d2a3b0}\label{classmunits_1_1_unit_notation_vector_a7e6c9226ca79b122a1be2e3178d2a3b0}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!Unit\+Notation\+Vector@{Unit\+Notation\+Vector}}
+\index{Unit\+Notation\+Vector@{Unit\+Notation\+Vector}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{Unit\+Notation\+Vector()}{UnitNotationVector()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily munits\+::\+Unit\+Notation\+Vector\+::\+Unit\+Notation\+Vector (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_af78cd932083d4537b3d80e92ac2bd837}\label{classmunits_1_1_unit_notation_vector_af78cd932083d4537b3d80e92ac2bd837}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!begin@{begin}}
+\index{begin@{begin}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{begin()}{begin()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation}$>$\+::const\+\_\+iterator munits\+::\+Unit\+Notation\+Vector\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_a519b16aa356a461d33ebf563bf65f124}\label{classmunits_1_1_unit_notation_vector_a519b16aa356a461d33ebf563bf65f124}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!begin@{begin}}
+\index{begin@{begin}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{begin()}{begin()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation}$>$\+::iterator munits\+::\+Unit\+Notation\+Vector\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_a8d21171d845542dc43aae9b054d0c923}\label{classmunits_1_1_unit_notation_vector_a8d21171d845542dc43aae9b054d0c923}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!compose\+\_\+unit@{compose\+\_\+unit}}
+\index{compose\+\_\+unit@{compose\+\_\+unit}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{compose\+\_\+unit()}{compose\_unit()}}
+{\footnotesize\ttfamily string munits\+::\+Unit\+Notation\+Vector\+::compose\+\_\+unit (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&}]{uns,  }\item[{const int}]{midx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_a847223f35564205ba30737acf71464e1}\label{classmunits_1_1_unit_notation_vector_a847223f35564205ba30737acf71464e1}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!compose\+\_\+unit\+\_\+vector@{compose\+\_\+unit\+\_\+vector}}
+\index{compose\+\_\+unit\+\_\+vector@{compose\+\_\+unit\+\_\+vector}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{compose\+\_\+unit\+\_\+vector()}{compose\_unit\_vector()}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_unit_notation_vector}{munits\+::\+Unit\+Notation\+Vector} munits\+::\+Unit\+Notation\+Vector\+::compose\+\_\+unit\+\_\+vector (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{unit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_a26f71e837f2df015d80d7e1c97d95e84}\label{classmunits_1_1_unit_notation_vector_a26f71e837f2df015d80d7e1c97d95e84}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!end@{end}}
+\index{end@{end}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{end()}{end()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation}$>$\+::const\+\_\+iterator munits\+::\+Unit\+Notation\+Vector\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_a4ef2d42dcdee83c3519a237c569d739b}\label{classmunits_1_1_unit_notation_vector_a4ef2d42dcdee83c3519a237c569d739b}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!end@{end}}
+\index{end@{end}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{end()}{end()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation}$>$\+::iterator munits\+::\+Unit\+Notation\+Vector\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_a8494c2cb667af23b9f98a9aa2cf00244}\label{classmunits_1_1_unit_notation_vector_a8494c2cb667af23b9f98a9aa2cf00244}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!get\+Multiplication\+Factor@{get\+Multiplication\+Factor}}
+\index{get\+Multiplication\+Factor@{get\+Multiplication\+Factor}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{get\+Multiplication\+Factor()}{getMultiplicationFactor()}}
+{\footnotesize\ttfamily double munits\+::\+Unit\+Notation\+Vector\+::get\+Multiplication\+Factor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_a9c5a6755c05092c2482596d8fddadf27}\label{classmunits_1_1_unit_notation_vector_a9c5a6755c05092c2482596d8fddadf27}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!operator=@{operator=}}
+\index{operator=@{operator=}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector}\& munits\+::\+Unit\+Notation\+Vector\+::operator= (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_a9e70a631b3d5668f8c4569f31e0d7c8a}\label{classmunits_1_1_unit_notation_vector_a9e70a631b3d5668f8c4569f31e0d7c8a}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation} \& munits\+::\+Unit\+Notation\+Vector\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{idx }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_acdfb3a793a5f5fa2cf7a581cfdd3f952}\label{classmunits_1_1_unit_notation_vector_acdfb3a793a5f5fa2cf7a581cfdd3f952}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation} munits\+::\+Unit\+Notation\+Vector\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{idx }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_acf4c47adb5dc13aec33ed7490516ff78}\label{classmunits_1_1_unit_notation_vector_acf4c47adb5dc13aec33ed7490516ff78}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!set@{set}}
+\index{set@{set}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{set()}{set()}}
+{\footnotesize\ttfamily void munits\+::\+Unit\+Notation\+Vector\+::set (\begin{DoxyParamCaption}\item[{long long int}]{idx,  }\item[{const \hyperlink{classmunits_1_1_unit_notation}{Unit\+Notation} \&}]{un }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_a80c7129293ee31c1f32db5f93a314f2c}\label{classmunits_1_1_unit_notation_vector_a80c7129293ee31c1f32db5f93a314f2c}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!size@{size}}
+\index{size@{size}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily unsigned long long int munits\+::\+Unit\+Notation\+Vector\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_a03faade4ba752fe916a9ed3f569ca308}\label{classmunits_1_1_unit_notation_vector_a03faade4ba752fe916a9ed3f569ca308}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{operator"!=}{operator!=}}
+{\footnotesize\ttfamily bool operator!= (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&}]{rghts }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_unit_notation_vector_a3deb157e5ea66e135e7f7e2f7f3e34f7}\label{classmunits_1_1_unit_notation_vector_a3deb157e5ea66e135e7f7e2f7f3e34f7}} 
+\index{munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}!operator==@{operator==}}
+\index{operator==@{operator==}!munits\+::\+Unit\+Notation\+Vector@{munits\+::\+Unit\+Notation\+Vector}}
+\subsubsection{\texorpdfstring{operator==}{operator==}}
+{\footnotesize\ttfamily bool operator== (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_unit_notation_vector}{Unit\+Notation\+Vector} \&}]{rghts }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Z\+:/ocs\+\_\+1/measurmentunits/src/\hyperlink{unit__notation_8hpp}{unit\+\_\+notation.\+hpp}\item 
+Z\+:/ocs\+\_\+1/measurmentunits/src/\hyperlink{unit__notation_8cpp}{unit\+\_\+notation.\+cpp}\end{DoxyCompactItemize}

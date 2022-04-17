@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="accessories"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="msvc8"/>
+		<Option virtualFolders="CMake Files\;CMake Files\lib\;CMake Files\lib\Accesories\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="Z:/ocs_1/measurmentunits/cmake-build-release/lib/Accesories"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\lib\Accesories\Makefile VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\lib\Accesories\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\lib\Accesories\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\lib\Accesories\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="Z:/ocs_1/measurmentunits/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/lib/Accesories/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\lib\Accesories\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

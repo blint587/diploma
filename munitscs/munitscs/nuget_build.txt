@@ -1,0 +1,1 @@
+z:\ocs_1\nuget.exe pack munitscs.csproj -Prop Configuration=Release

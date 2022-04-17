@@ -1,0 +1,15 @@
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\bin\x64\Debug\netcoreapp2.0\munits.dll
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\bin\x64\Debug\netcoreapp2.0\munits.so
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\bin\x64\Debug\netcoreapp2.0\munits_sandbox.deps.json
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\bin\x64\Debug\netcoreapp2.0\munits_sandbox.runtimeconfig.json
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\bin\x64\Debug\netcoreapp2.0\munits_sandbox.runtimeconfig.dev.json
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\bin\x64\Debug\netcoreapp2.0\munits_sandbox.dll
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\bin\x64\Debug\netcoreapp2.0\munits_sandbox.pdb
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\bin\x64\Debug\netcoreapp2.0\munit_cs.dll
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\bin\x64\Debug\netcoreapp2.0\munit_cs.pdb
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\obj\x64\Debug\netcoreapp2.0\munits_sandbox.csprojResolveAssemblyReference.cache
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\obj\x64\Debug\netcoreapp2.0\munits_sandbox.csproj.CoreCompileInputs.cache
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\obj\x64\Debug\netcoreapp2.0\munits_sandbox.AssemblyInfoInputs.cache
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\obj\x64\Debug\netcoreapp2.0\munits_sandbox.AssemblyInfo.cs
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\obj\x64\Debug\netcoreapp2.0\munits_sandbox.dll
+Z:\ocs_1\measurmentunits\munit_cs\munits_sandbox\obj\x64\Debug\netcoreapp2.0\munits_sandbox.pdb

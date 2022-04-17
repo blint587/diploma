@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="munits"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="msvc8"/>
+		<Option virtualFolders="CMake Files\;CMake Files\lib\;CMake Files\lib\Accesories\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/bmolnar/Documents/Work/measurmentunits/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="munits">
+				<Option output="C:/Users/bmolnar/Documents/Work/measurmentunits/bin/munits.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/bmolnar/Documents/Work/measurmentunits/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX14_ABI=0"/>
+					<Add option="-DUNICODE"/>
+					<Add option="-D_UNICODE"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 munits"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="munits/fast">
+				<Option output="C:/Users/bmolnar/Documents/Work/measurmentunits/bin/munits.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/bmolnar/Documents/Work/measurmentunits/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX14_ABI=0"/>
+					<Add option="-DUNICODE"/>
+					<Add option="-D_UNICODE"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 munits/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="musys">
+				<Option output="C:/Users/bmolnar/Documents/Work/measurmentunits/bin/musys.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/bmolnar/Documents/Work/measurmentunits/bin/"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX14_ABI=0"/>
+					<Add option="-DUNICODE"/>
+					<Add option="-D_UNICODE"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 musys"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="musys/fast">
+				<Option output="C:/Users/bmolnar/Documents/Work/measurmentunits/bin/musys.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/bmolnar/Documents/Work/measurmentunits/bin/"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX14_ABI=0"/>
+					<Add option="-DUNICODE"/>
+					<Add option="-D_UNICODE"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 musys/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/bmolnar/Documents/Work/measurmentunits/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 edit_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/bmolnar/Documents/Work/measurmentunits/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\bmolnar\Documents\Work\measurmentunits\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/lib/Accesories/accessories.hpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/main.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/converter.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/converter.hpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/converter_function.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/converter_function.hpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/cs/munitscsexport.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/dynamic.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/dynamic.hpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/metric.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/metric.hpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/parsers.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/parsers.hpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/prefix.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/prefix.hpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/quantity.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/quantity.h">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/searchers.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/searchers.hpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/unit.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/unit.hpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/unit_notation.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/unit_notation.hpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/unit_validator.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/unit_validator.hpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/uresolver.cpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/src/uresolver.hpp">
+			<Option target="munits"/>
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="C:/Users/bmolnar/Documents/Work/measurmentunits/lib/Accesories/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\lib\Accesories\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

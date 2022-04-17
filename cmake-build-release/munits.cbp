@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="munits"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="msvc8"/>
+		<Option virtualFolders="CMake Files\;CMake Files\lib\;CMake Files\lib\Accesories\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="Z:/ocs_1/measurmentunits/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="munits">
+				<Option output="Z:/ocs_1/measurmentunits/bin/munits.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="Z:/ocs_1/measurmentunits/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX11_ABI=0"/>
+					<Add option="-DUNICODE"/>
+					<Add option="-D_UNICODE"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 munits"/>
+					<CompileFile command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="munits/fast">
+				<Option output="Z:/ocs_1/measurmentunits/bin/munits.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="Z:/ocs_1/measurmentunits/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX11_ABI=0"/>
+					<Add option="-DUNICODE"/>
+					<Add option="-D_UNICODE"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.16299.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 munits/fast"/>
+					<CompileFile command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="Z:/ocs_1/measurmentunits/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 edit_cache"/>
+					<CompileFile command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="Z:/ocs_1/measurmentunits/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f Z:\ocs_1\measurmentunits\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="Z:/ocs_1/measurmentunits/lib/Accesories/accessories.hpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/main.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/converter.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/converter.hpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/converter_function.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/converter_function.hpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/cs/munitscsexport.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/dynamic.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/dynamic.hpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/metric.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/metric.hpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/parsers.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/parsers.hpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/prefix.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/prefix.hpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/quantity.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/quantity.h">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/searchers.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/searchers.hpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/unit.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/unit.hpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/unit_notation.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/unit_notation.hpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/uresolver.cpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/src/uresolver.hpp">
+			<Option target="munits"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="Z:/ocs_1/measurmentunits/lib/Accesories/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\lib\Accesories\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

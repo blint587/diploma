@@ -1,0 +1,299 @@
+\hypertarget{classmunits_1_1_quantity}{}\section{munits\+:\+:Quantity Class Reference}
+\label{classmunits_1_1_quantity}\index{munits\+::\+Quantity@{munits\+::\+Quantity}}
+
+
+{\ttfamily \#include $<$quantity.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+const \hyperlink{classmunits_1_1_unit_notation_vector}{munits\+::\+Unit\+Notation\+Vector} \hyperlink{classmunits_1_1_quantity_ad9dadbbab677bf22170412595e65cc2f}{get\+Unit\+Vector} () const
+\item 
+\hyperlink{classmunits_1_1_quantity_a7b99d99300cfad3056e2b426644531eb}{Quantity} (\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25}{metrics}, double, const std\+::string)
+\item 
+\hyperlink{classmunits_1_1_quantity_aeeb10868a2ec67f430442182b2690869}{Quantity} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&)=default
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \& \hyperlink{classmunits_1_1_quantity_af77fd9cb9469a6b71c8a27004f5dabe4}{operator=} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&)=default
+\item 
+\hyperlink{classmunits_1_1_quantity_a01e795d566b95da5ecbe0f1aa99076d7}{$\sim$\+Quantity} ()
+\item 
+const std\+::vector$<$ int $>$ \hyperlink{classmunits_1_1_quantity_a3210eda57592da41b8894128bb0d6544}{Get\+Dim\+Vector} () const
+\item 
+const int \hyperlink{classmunits_1_1_quantity_a9167bbf331462dc79bfd62fec4a90f84}{get\+Matrix\+Index} () const
+\item 
+double \hyperlink{classmunits_1_1_quantity_ac9e9f65483a14ec729bb684d629091bc}{operator()} (const std\+::string) const
+\item 
+\hyperlink{classmunits_1_1_quantity_ad5d294ad29bf6faaf64ed1f9b92ba5e0}{operator std\+::string} () const
+\item 
+\hyperlink{classmunits_1_1_quantity_a57e30283ba53c0e942a1d01fe2061bd7}{operator double} () const
+\item 
+bool \hyperlink{classmunits_1_1_quantity_a09ed96601cab6f56278e3bf44dc82b70}{unquantified} () const
+\item 
+std\+::string \hyperlink{classmunits_1_1_quantity_a3f09b8e8dbd47f32a21f94591508c0fe}{to\+String} () const
+\item 
+double \hyperlink{classmunits_1_1_quantity_aadf35d14997bb3e58d8d2681f7c24ae3}{to\+Double} () const
+\item 
+double \hyperlink{classmunits_1_1_quantity_aae7dc378d4da3a9466edc958626f13d3}{get\+Value} () const
+\item 
+std\+::string \hyperlink{classmunits_1_1_quantity_a2de8a125226f981bf9a1d5a47b5957bb}{get\+Unit} () const
+\item 
+\hyperlink{classmunits_1_1_quantity_a0b43d7b58dbb07aca7382ef2630779d7}{Quantity} ()
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \hyperlink{classmunits_1_1_quantity_aa46193a0c20d60713d279eb0b7a1da1f}{ntrt} (const int exponent) const
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \hyperlink{classmunits_1_1_quantity_a26328f678ccbddf64026c4f217938afb}{operator$<$$<$} (std\+::ostream \&str, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&a)
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \hyperlink{classmunits_1_1_quantity_a31795b0bdac61b168e21eb109d4f9909}{operator+} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&rgths)
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \hyperlink{classmunits_1_1_quantity_abcc9929246b92475a9008ed1a8b30160}{operator-\/} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&rgths)
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \hyperlink{classmunits_1_1_quantity_a590dff743167fea46e7b6e660fef0471}{operator$\ast$} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&rgths)
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \hyperlink{classmunits_1_1_quantity_a3b34f864a8d7dc26122650987a08db74}{operator$\ast$} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const int rgths)
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \hyperlink{classmunits_1_1_quantity_a537ae4feae57faf4d03626a02df64918}{operator$\ast$} (const int lfths, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&rgths)
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \hyperlink{classmunits_1_1_quantity_ab1bd381ef86466a48f2ed99d64a96141}{operator$\ast$} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const double rgths)
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \hyperlink{classmunits_1_1_quantity_a0f7ddd0457e20b83847135178d2d71f0}{operator$\ast$} (const double lfths, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&rgths)
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \hyperlink{classmunits_1_1_quantity_a7efa534b51546377b466e035f7ef1ea9}{operator/} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&rgths)
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \hyperlink{classmunits_1_1_quantity_a2854dec1ef94e67d8ff0e50900dceddc}{operator/} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const int rgths)
+\item 
+\hyperlink{classmunits_1_1_quantity}{Quantity} \hyperlink{classmunits_1_1_quantity_a6a34ef12ca317a49f45c310ef232ee4e}{operator/} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const double rgths)
+\item 
+bool \hyperlink{classmunits_1_1_quantity_a1b7db6ef3157f54dffd8431b73b059f9}{operator$<$} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&rgths)
+\item 
+bool \hyperlink{classmunits_1_1_quantity_a6ddc2fc0e787211815087612a60c35d1}{operator$<$=} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&rgths)
+\item 
+bool \hyperlink{classmunits_1_1_quantity_aa816c6e6e556d7f919273c67c287030b}{operator$>$} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&rgths)
+\item 
+bool \hyperlink{classmunits_1_1_quantity_a700091f1868ef19f9bd02f289ac8a1ee}{operator$>$=} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&rgths)
+\item 
+bool \hyperlink{classmunits_1_1_quantity_ab8fa0c93b87037ad0a27eec194454b60}{operator==} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&rgths)
+\item 
+bool \hyperlink{classmunits_1_1_quantity_aa57bf85906856611bd00e12150faf573}{operator!=} (const \hyperlink{classmunits_1_1_quantity}{Quantity} \&lfths, const \hyperlink{classmunits_1_1_quantity}{Quantity} \&rgths)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmunits_1_1_quantity_a7b99d99300cfad3056e2b426644531eb}\label{classmunits_1_1_quantity_a7b99d99300cfad3056e2b426644531eb}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!Quantity@{Quantity}}
+\index{Quantity@{Quantity}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{Quantity()}{Quantity()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily munits\+::\+Quantity\+::\+Quantity (\begin{DoxyParamCaption}\item[{\hyperlink{namespacemunits_a22c8effe19fdc3eb888884aa217f0c25}{metrics}}]{,  }\item[{double}]{,  }\item[{const std\+::string}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_aeeb10868a2ec67f430442182b2690869}\label{classmunits_1_1_quantity_aeeb10868a2ec67f430442182b2690869}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!Quantity@{Quantity}}
+\index{Quantity@{Quantity}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{Quantity()}{Quantity()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily munits\+::\+Quantity\+::\+Quantity (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a01e795d566b95da5ecbe0f1aa99076d7}\label{classmunits_1_1_quantity_a01e795d566b95da5ecbe0f1aa99076d7}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!````~Quantity@{$\sim$\+Quantity}}
+\index{````~Quantity@{$\sim$\+Quantity}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{$\sim$\+Quantity()}{~Quantity()}}
+{\footnotesize\ttfamily munits\+::\+Quantity\+::$\sim$\+Quantity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a0b43d7b58dbb07aca7382ef2630779d7}\label{classmunits_1_1_quantity_a0b43d7b58dbb07aca7382ef2630779d7}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!Quantity@{Quantity}}
+\index{Quantity@{Quantity}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{Quantity()}{Quantity()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily munits\+::\+Quantity\+::\+Quantity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classmunits_1_1_quantity_a3210eda57592da41b8894128bb0d6544}\label{classmunits_1_1_quantity_a3210eda57592da41b8894128bb0d6544}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!Get\+Dim\+Vector@{Get\+Dim\+Vector}}
+\index{Get\+Dim\+Vector@{Get\+Dim\+Vector}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{Get\+Dim\+Vector()}{GetDimVector()}}
+{\footnotesize\ttfamily const std\+::vector$<$int$>$ munits\+::\+Quantity\+::\+Get\+Dim\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a9167bbf331462dc79bfd62fec4a90f84}\label{classmunits_1_1_quantity_a9167bbf331462dc79bfd62fec4a90f84}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!get\+Matrix\+Index@{get\+Matrix\+Index}}
+\index{get\+Matrix\+Index@{get\+Matrix\+Index}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{get\+Matrix\+Index()}{getMatrixIndex()}}
+{\footnotesize\ttfamily const int munits\+::\+Quantity\+::get\+Matrix\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a2de8a125226f981bf9a1d5a47b5957bb}\label{classmunits_1_1_quantity_a2de8a125226f981bf9a1d5a47b5957bb}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!get\+Unit@{get\+Unit}}
+\index{get\+Unit@{get\+Unit}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{get\+Unit()}{getUnit()}}
+{\footnotesize\ttfamily std\+::string munits\+::\+Quantity\+::get\+Unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_ad9dadbbab677bf22170412595e65cc2f}\label{classmunits_1_1_quantity_ad9dadbbab677bf22170412595e65cc2f}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!get\+Unit\+Vector@{get\+Unit\+Vector}}
+\index{get\+Unit\+Vector@{get\+Unit\+Vector}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{get\+Unit\+Vector()}{getUnitVector()}}
+{\footnotesize\ttfamily const \hyperlink{classmunits_1_1_unit_notation_vector}{munits\+::\+Unit\+Notation\+Vector} munits\+::\+Quantity\+::get\+Unit\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_aae7dc378d4da3a9466edc958626f13d3}\label{classmunits_1_1_quantity_aae7dc378d4da3a9466edc958626f13d3}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!get\+Value@{get\+Value}}
+\index{get\+Value@{get\+Value}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{get\+Value()}{getValue()}}
+{\footnotesize\ttfamily double munits\+::\+Quantity\+::get\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_aa46193a0c20d60713d279eb0b7a1da1f}\label{classmunits_1_1_quantity_aa46193a0c20d60713d279eb0b7a1da1f}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!ntrt@{ntrt}}
+\index{ntrt@{ntrt}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{ntrt()}{ntrt()}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{munits\+::\+Quantity} munits\+::\+Quantity\+::ntrt (\begin{DoxyParamCaption}\item[{const int}]{exponent }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a57e30283ba53c0e942a1d01fe2061bd7}\label{classmunits_1_1_quantity_a57e30283ba53c0e942a1d01fe2061bd7}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator double@{operator double}}
+\index{operator double@{operator double}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator double()}{operator double()}}
+{\footnotesize\ttfamily munits\+::\+Quantity\+::operator double (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_ad5d294ad29bf6faaf64ed1f9b92ba5e0}\label{classmunits_1_1_quantity_ad5d294ad29bf6faaf64ed1f9b92ba5e0}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator std\+::string@{operator std\+::string}}
+\index{operator std\+::string@{operator std\+::string}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator std\+::string()}{operator std::string()}}
+{\footnotesize\ttfamily munits\+::\+Quantity\+::operator std\+::string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_ac9e9f65483a14ec729bb684d629091bc}\label{classmunits_1_1_quantity_ac9e9f65483a14ec729bb684d629091bc}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator()@{operator()}}
+\index{operator()@{operator()}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily double munits\+::\+Quantity\+::operator() (\begin{DoxyParamCaption}\item[{const std\+::string}]{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_af77fd9cb9469a6b71c8a27004f5dabe4}\label{classmunits_1_1_quantity_af77fd9cb9469a6b71c8a27004f5dabe4}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator=@{operator=}}
+\index{operator=@{operator=}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{Quantity}\& munits\+::\+Quantity\+::operator= (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_aadf35d14997bb3e58d8d2681f7c24ae3}\label{classmunits_1_1_quantity_aadf35d14997bb3e58d8d2681f7c24ae3}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!to\+Double@{to\+Double}}
+\index{to\+Double@{to\+Double}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{to\+Double()}{toDouble()}}
+{\footnotesize\ttfamily double munits\+::\+Quantity\+::to\+Double (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a3f09b8e8dbd47f32a21f94591508c0fe}\label{classmunits_1_1_quantity_a3f09b8e8dbd47f32a21f94591508c0fe}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!to\+String@{to\+String}}
+\index{to\+String@{to\+String}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{to\+String()}{toString()}}
+{\footnotesize\ttfamily std\+::string munits\+::\+Quantity\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a09ed96601cab6f56278e3bf44dc82b70}\label{classmunits_1_1_quantity_a09ed96601cab6f56278e3bf44dc82b70}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!unquantified@{unquantified}}
+\index{unquantified@{unquantified}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{unquantified()}{unquantified()}}
+{\footnotesize\ttfamily bool munits\+::\+Quantity\+::unquantified (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classmunits_1_1_quantity_aa57bf85906856611bd00e12150faf573}\label{classmunits_1_1_quantity_aa57bf85906856611bd00e12150faf573}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator"!=}{operator!=}}
+{\footnotesize\ttfamily bool operator!= (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a590dff743167fea46e7b6e660fef0471}\label{classmunits_1_1_quantity_a590dff743167fea46e7b6e660fef0471}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator$\ast$}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{Quantity} operator$\ast$ (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a3b34f864a8d7dc26122650987a08db74}\label{classmunits_1_1_quantity_a3b34f864a8d7dc26122650987a08db74}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator$\ast$}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{Quantity} operator$\ast$ (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const int}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a537ae4feae57faf4d03626a02df64918}\label{classmunits_1_1_quantity_a537ae4feae57faf4d03626a02df64918}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator$\ast$}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{Quantity} operator$\ast$ (\begin{DoxyParamCaption}\item[{const int}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_ab1bd381ef86466a48f2ed99d64a96141}\label{classmunits_1_1_quantity_ab1bd381ef86466a48f2ed99d64a96141}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator$\ast$}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{Quantity} operator$\ast$ (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const double}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a0f7ddd0457e20b83847135178d2d71f0}\label{classmunits_1_1_quantity_a0f7ddd0457e20b83847135178d2d71f0}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator$\ast$}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{Quantity} operator$\ast$ (\begin{DoxyParamCaption}\item[{const double}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a31795b0bdac61b168e21eb109d4f9909}\label{classmunits_1_1_quantity_a31795b0bdac61b168e21eb109d4f9909}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator+@{operator+}}
+\index{operator+@{operator+}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator+}{operator+}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{Quantity} operator+ (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_abcc9929246b92475a9008ed1a8b30160}\label{classmunits_1_1_quantity_abcc9929246b92475a9008ed1a8b30160}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator-\/}{operator-}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{Quantity} operator-\/ (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a7efa534b51546377b466e035f7ef1ea9}\label{classmunits_1_1_quantity_a7efa534b51546377b466e035f7ef1ea9}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator/@{operator/}}
+\index{operator/@{operator/}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator/}{operator/}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{Quantity} operator/ (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a2854dec1ef94e67d8ff0e50900dceddc}\label{classmunits_1_1_quantity_a2854dec1ef94e67d8ff0e50900dceddc}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator/@{operator/}}
+\index{operator/@{operator/}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator/}{operator/}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{Quantity} operator/ (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const int}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a6a34ef12ca317a49f45c310ef232ee4e}\label{classmunits_1_1_quantity_a6a34ef12ca317a49f45c310ef232ee4e}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator/@{operator/}}
+\index{operator/@{operator/}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator/}{operator/}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \hyperlink{classmunits_1_1_quantity}{Quantity} operator/ (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const double}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a1b7db6ef3157f54dffd8431b73b059f9}\label{classmunits_1_1_quantity_a1b7db6ef3157f54dffd8431b73b059f9}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator$<$}{operator<}}
+{\footnotesize\ttfamily bool operator$<$ (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a26328f678ccbddf64026c4f217938afb}\label{classmunits_1_1_quantity_a26328f678ccbddf64026c4f217938afb}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily std\+::ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{str,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a6ddc2fc0e787211815087612a60c35d1}\label{classmunits_1_1_quantity_a6ddc2fc0e787211815087612a60c35d1}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator$<$=@{operator$<$=}}
+\index{operator$<$=@{operator$<$=}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator$<$=}{operator<=}}
+{\footnotesize\ttfamily bool operator$<$= (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_ab8fa0c93b87037ad0a27eec194454b60}\label{classmunits_1_1_quantity_ab8fa0c93b87037ad0a27eec194454b60}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator==@{operator==}}
+\index{operator==@{operator==}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator==}{operator==}}
+{\footnotesize\ttfamily bool operator== (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_aa816c6e6e556d7f919273c67c287030b}\label{classmunits_1_1_quantity_aa816c6e6e556d7f919273c67c287030b}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator$>$}{operator>}}
+{\footnotesize\ttfamily bool operator$>$ (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\mbox{\Hypertarget{classmunits_1_1_quantity_a700091f1868ef19f9bd02f289ac8a1ee}\label{classmunits_1_1_quantity_a700091f1868ef19f9bd02f289ac8a1ee}} 
+\index{munits\+::\+Quantity@{munits\+::\+Quantity}!operator$>$=@{operator$>$=}}
+\index{operator$>$=@{operator$>$=}!munits\+::\+Quantity@{munits\+::\+Quantity}}
+\subsubsection{\texorpdfstring{operator$>$=}{operator>=}}
+{\footnotesize\ttfamily bool operator$>$= (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{lfths,  }\item[{const \hyperlink{classmunits_1_1_quantity}{Quantity} \&}]{rgths }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Z\+:/ocs\+\_\+1/measurmentunits/src/\hyperlink{quantity_8h}{quantity.\+h}\item 
+Z\+:/ocs\+\_\+1/measurmentunits/src/\hyperlink{quantity_8cpp}{quantity.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>>$description$</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>Tag1 Tag2</tags>
+	 <references>
+		<reference file="munitscs.dll" />          
+	</references>
+  </metadata>
+  <files>
+	<file src="bin\Release\x64\munits.x64.dll" target="lib\munits.x64.dll"/>
+  </files>	
+</package>

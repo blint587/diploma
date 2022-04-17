@@ -1,0 +1,9 @@
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munits_sandbox\bin\Release\munits.x64.dll
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munits_sandbox\bin\Release\munits_sandbox.exe
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munits_sandbox\bin\Release\munits_sandbox.pdb
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munits_sandbox\bin\Release\munitscs.dll
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munits_sandbox\bin\Release\munitscs.pdb
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munits_sandbox\obj\Release\munits_sandbox.csprojResolveAssemblyReference.cache
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munits_sandbox\obj\Release\munits_sandbox.csproj.CoreCompileInputs.cache
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munits_sandbox\obj\Release\munits_sandbox.exe
+Z:\ocs_1\measurmentunits\munitscs\munitscs\munits_sandbox\obj\Release\munits_sandbox.pdb

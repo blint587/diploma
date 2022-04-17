@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../../bin/libgtest.a  CMakeFiles/gtest.dir/src/gtest-all.cc.o
+/usr/bin/ranlib ../../../../bin/libgtest.a

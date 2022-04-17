@@ -1,0 +1,10 @@
+Z:\ocs_1\measurmentunits\munitscs\munit_cs\munit_cs\bin\Debug\netstandard2.0\munits.dll
+Z:\ocs_1\measurmentunits\munitscs\munit_cs\munit_cs\bin\Debug\netstandard2.0\munits.so
+Z:\ocs_1\measurmentunits\munitscs\munit_cs\munit_cs\bin\Debug\netstandard2.0\munit_cs.deps.json
+Z:\ocs_1\measurmentunits\munitscs\munit_cs\munit_cs\bin\Debug\netstandard2.0\munit_cs.dll
+Z:\ocs_1\measurmentunits\munitscs\munit_cs\munit_cs\bin\Debug\netstandard2.0\munit_cs.pdb
+Z:\ocs_1\measurmentunits\munitscs\munit_cs\munit_cs\obj\Debug\netstandard2.0\munit_cs.csproj.CoreCompileInputs.cache
+Z:\ocs_1\measurmentunits\munitscs\munit_cs\munit_cs\obj\Debug\netstandard2.0\munit_cs.AssemblyInfoInputs.cache
+Z:\ocs_1\measurmentunits\munitscs\munit_cs\munit_cs\obj\Debug\netstandard2.0\munit_cs.AssemblyInfo.cs
+Z:\ocs_1\measurmentunits\munitscs\munit_cs\munit_cs\obj\Debug\netstandard2.0\munit_cs.dll
+Z:\ocs_1\measurmentunits\munitscs\munit_cs\munit_cs\obj\Debug\netstandard2.0\munit_cs.pdb

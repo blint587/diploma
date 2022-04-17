@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="sandbox"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\lib\;CMake Files\lib\Accesories\;CMake Files\test\;CMake Files\test\lib\;CMake Files\test\lib\gtest\;CMake Files\test\lib\gtest\cmake\;CMake Files\test\unit_test\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="musys">
+				<Option output="/media/bmolnar/Data/ocs_1/measurmentunits/bin/musys" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/bin/"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX11_ABI=0"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 musys"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="musys/fast">
+				<Option output="/media/bmolnar/Data/ocs_1/measurmentunits/bin/musys" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/bin/"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX11_ABI=0"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 musys/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest_main">
+				<Option output="/media/bmolnar/Data/ocs_1/measurmentunits/bin/libgtest_main.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX11_ABI=0"/>
+					<Add directory="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest/include"/>
+					<Add directory="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 gtest_main"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest_main/fast">
+				<Option output="/media/bmolnar/Data/ocs_1/measurmentunits/bin/libgtest_main.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX11_ABI=0"/>
+					<Add directory="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest/include"/>
+					<Add directory="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 gtest_main/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest">
+				<Option output="/media/bmolnar/Data/ocs_1/measurmentunits/bin/libgtest.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX11_ABI=0"/>
+					<Add directory="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest/include"/>
+					<Add directory="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 gtest"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest/fast">
+				<Option output="/media/bmolnar/Data/ocs_1/measurmentunits/bin/libgtest.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX11_ABI=0"/>
+					<Add directory="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest/include"/>
+					<Add directory="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 gtest/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/lib/gtest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="runUnitTest">
+				<Option output="/media/bmolnar/Data/ocs_1/measurmentunits/bin/runUnitTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/bin/"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX11_ABI=0"/>
+					<Add directory="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest/include"/>
+					<Add directory="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/unit_test/Makefile&quot;  VERBOSE=1 runUnitTest"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/unit_test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/unit_test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/unit_test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="runUnitTest/fast">
+				<Option output="/media/bmolnar/Data/ocs_1/measurmentunits/bin/runUnitTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/media/bmolnar/Data/ocs_1/measurmentunits/bin/"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GLIBCXX_USE_CXX11_ABI=0"/>
+					<Add directory="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest/include"/>
+					<Add directory="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/unit_test/Makefile&quot;  VERBOSE=1 runUnitTest/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/unit_test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/unit_test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/media/bmolnar/Data/ocs_1/measurmentunits/cmake-build-release/test/unit_test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/lib/Accesories/accessories.hpp">
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/lib/Accesories/math.hpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/main.cpp">
+			<Option target="musys"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/converter.cpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/converter.hpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/converter_function.cpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/converter_function.hpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/dynamic.cpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/dynamic.hpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/metric.cpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/metric.hpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/parsers.cpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/parsers.hpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/prefix.cpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/prefix.hpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/quantity.cpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/quantity.h">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/searchers.cpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/searchers.hpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/unit.cpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/unit.hpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/unit_notation.cpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/unit_notation.hpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/uresolver.cpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/src/uresolver.hpp">
+			<Option target="musys"/>
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest/src/gtest-all.cc">
+			<Option target="gtest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest/src/gtest_main.cc">
+			<Option target="gtest_main"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/unit_test/converterfunction_test.hpp">
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/unit_test/quantity_test_base_mathop.hpp">
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/unit_test/quantity_test_comparison.hpp">
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/unit_test/quantity_test_conversion.hpp">
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/unit_test/quantity_test_derived_mathop.hpp">
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/unit_test/quantity_test_input_validation.hpp">
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/unit_test/quantity_test_representation.hpp">
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/unit_test/qunatity_test_basic_initialization.hpp">
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/unit_test/resolver_test.hpp">
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/unit_test/run_unit_tests.cpp">
+			<Option target="runUnitTest"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/lib/Accesories/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\lib\Accesories\"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\lib\gtest\"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/lib/gtest/cmake/internal_utils.cmake">
+			<Option virtualFolder="CMake Files\test\lib\gtest\cmake\"/>
+		</Unit>
+		<Unit filename="/media/bmolnar/Data/ocs_1/measurmentunits/test/unit_test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\unit_test\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

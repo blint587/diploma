@@ -1,0 +1,48 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "Z:\\ocs_1\\measurmentunits\\munitscs\\munit_cs\\munits_sandbox\\munits_sandbox.csproj",
+    "projectName": "munits_sandbox",
+    "projectPath": "Z:\\ocs_1\\measurmentunits\\munitscs\\munit_cs\\munits_sandbox\\munits_sandbox.csproj",
+    "outputPath": "Z:\\ocs_1\\measurmentunits\\munitscs\\munit_cs\\munits_sandbox\\obj\\",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback",
+      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp2.0"
+    ],
+    "frameworks": {
+      "netcoreapp2.0": {
+        "projectReferences": {
+          "Z:\\ocs_1\\measurmentunits\\munitscs\\munit_cs\\munit_cs\\munit_cs.csproj": {
+            "projectPath": "Z:\\ocs_1\\measurmentunits\\munitscs\\munit_cs\\munit_cs\\munit_cs.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.0.0, )",
+          "autoReferenced": true
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}

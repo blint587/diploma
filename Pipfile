@@ -1,0 +1,15 @@
+[[source]]
+name = "ppc"
+url = "http://pythonpackageserver.organicaaws.priv:6543/simple/"
+verify_ssl = false
+
+[dev-packages]
+cython = "*"
+tox = "*"
+v = {editable = true,version = "*"}
+
+[packages]
+#munits = {editable = true,path = "."}
+
+[requires]
+python_version = "3.6"

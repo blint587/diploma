@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\bmolnar\.Rider2018.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\bmolnar\.Rider2018.3\system\resharper-host\local\Transient\ReSharperHost\v183\SolutionCaches\_munit_cs.-1853113729.00" t="ExcludeRecursive" />
+    <e p="Z:\ocs_1\measurmentunits\munitscs\munit_cs" t="IncludeFlat">
+      <e p="munit_cs" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Exceptions" t="Include">
+          <e p="CannotPerformComparison.cs" t="Include" />
+          <e p="CannotPerformRoot.cs" t="Include" />
+          <e p="QuantityException.cs" t="Include" />
+          <e p="UnableToCastToDouble.cs" t="Include" />
+        </e>
+        <e p="Extensions.cs" t="Include" />
+        <e p="Metrics.cs" t="Include" />
+        <e p="munit_cs.csproj" t="IncludeRecursive" />
+        <e p="munits.dll" t="Include" />
+        <e p="munits.so" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="munit_cs.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Quantity.cs" t="Include" />
+      </e>
+      <e p="munit_cs.sln" t="IncludeFlat" />
+      <e p="munits_sandbox" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="munits_sandbox.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.0" t="Include">
+              <e p="munits_sandbox.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

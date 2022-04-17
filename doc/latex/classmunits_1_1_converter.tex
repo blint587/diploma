@@ -1,0 +1,86 @@
+\hypertarget{classmunits_1_1_converter}{}\section{munits\+:\+:Converter Class Reference}
+\label{classmunits_1_1_converter}\index{munits\+::\+Converter@{munits\+::\+Converter}}
+
+
+{\ttfamily \#include $<$converter.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+const std\+::map$<$ std\+::string, const std\+::shared\+\_\+ptr$<$ \hyperlink{classmunits_1_1_converter_function}{Converter\+Function} $>$ $>$ \& \hyperlink{classmunits_1_1_converter_a48a8ab27724c3aa86e9f36bc8699ae22}{Prefixes} () const
+\item 
+const std\+::map$<$ std\+::string, const std\+::shared\+\_\+ptr$<$ \hyperlink{classmunits_1_1_unit}{Unit} $>$ $>$ \& \hyperlink{classmunits_1_1_converter_aaff2382aa50e3387784e2aaba90ba4ae}{Units} () const
+\item 
+\hyperlink{classmunits_1_1_converter_a047effa7046385a48cc7fa959a031823}{Converter} (std\+::string, const std\+::set$<$ std\+::string $>$ \&=std\+::set$<$ std\+::string $>$(), const std\+::map$<$ std\+::string, const std\+::shared\+\_\+ptr$<$ \hyperlink{classmunits_1_1_unit}{Unit} $>$$>$=std\+::map$<$ std\+::string, const std\+::shared\+\_\+ptr$<$ \hyperlink{classmunits_1_1_unit}{Unit} $>$$>$())
+\item 
+\hyperlink{classmunits_1_1_converter_acd1f8a562a9172c1593915798a9be4a8}{$\sim$\+Converter} ()
+\item 
+double \hyperlink{classmunits_1_1_converter_a58795a22d588dfebfe9ca62e47ea3cb9}{Convert} (double, \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation}, \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation}, int=1) const
+\item 
+bool \hyperlink{classmunits_1_1_converter_aa102ca105463948f68ba7a5b399bac42}{is\+\_\+valid\+\_\+unit} (const \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation} \&) const
+\item 
+const std\+::string \hyperlink{classmunits_1_1_converter_a3c707dedadbd4bf40f1836f463357d55}{Get\+Base\+Unit} () const
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmunits_1_1_converter_a047effa7046385a48cc7fa959a031823}\label{classmunits_1_1_converter_a047effa7046385a48cc7fa959a031823}} 
+\index{munits\+::\+Converter@{munits\+::\+Converter}!Converter@{Converter}}
+\index{Converter@{Converter}!munits\+::\+Converter@{munits\+::\+Converter}}
+\subsubsection{\texorpdfstring{Converter()}{Converter()}}
+{\footnotesize\ttfamily munits\+::\+Converter\+::\+Converter (\begin{DoxyParamCaption}\item[{std\+::string}]{,  }\item[{const std\+::set$<$ std\+::string $>$ \&}]{ = {\ttfamily std\+:\+:set$<$std\+:\+:string$>$()},  }\item[{const std\+::map$<$ std\+::string, const std\+::shared\+\_\+ptr$<$ \hyperlink{classmunits_1_1_unit}{Unit} $>$$>$}]{ = {\ttfamily std\+:\+:map$<$std\+:\+:string,~const~std\+:\+:shared\+\_\+ptr$<$\hyperlink{classmunits_1_1_unit}{Unit}$>$$>$()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classmunits_1_1_converter_acd1f8a562a9172c1593915798a9be4a8}\label{classmunits_1_1_converter_acd1f8a562a9172c1593915798a9be4a8}} 
+\index{munits\+::\+Converter@{munits\+::\+Converter}!````~Converter@{$\sim$\+Converter}}
+\index{````~Converter@{$\sim$\+Converter}!munits\+::\+Converter@{munits\+::\+Converter}}
+\subsubsection{\texorpdfstring{$\sim$\+Converter()}{~Converter()}}
+{\footnotesize\ttfamily munits\+::\+Converter\+::$\sim$\+Converter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classmunits_1_1_converter_a58795a22d588dfebfe9ca62e47ea3cb9}\label{classmunits_1_1_converter_a58795a22d588dfebfe9ca62e47ea3cb9}} 
+\index{munits\+::\+Converter@{munits\+::\+Converter}!Convert@{Convert}}
+\index{Convert@{Convert}!munits\+::\+Converter@{munits\+::\+Converter}}
+\subsubsection{\texorpdfstring{Convert()}{Convert()}}
+{\footnotesize\ttfamily double munits\+::\+Converter\+::\+Convert (\begin{DoxyParamCaption}\item[{double}]{val,  }\item[{\hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation}}]{funit,  }\item[{\hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation}}]{tunit,  }\item[{int}]{exponent = {\ttfamily 1} }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmunits_1_1_converter_a3c707dedadbd4bf40f1836f463357d55}\label{classmunits_1_1_converter_a3c707dedadbd4bf40f1836f463357d55}} 
+\index{munits\+::\+Converter@{munits\+::\+Converter}!Get\+Base\+Unit@{Get\+Base\+Unit}}
+\index{Get\+Base\+Unit@{Get\+Base\+Unit}!munits\+::\+Converter@{munits\+::\+Converter}}
+\subsubsection{\texorpdfstring{Get\+Base\+Unit()}{GetBaseUnit()}}
+{\footnotesize\ttfamily const std\+::string munits\+::\+Converter\+::\+Get\+Base\+Unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmunits_1_1_converter_aa102ca105463948f68ba7a5b399bac42}\label{classmunits_1_1_converter_aa102ca105463948f68ba7a5b399bac42}} 
+\index{munits\+::\+Converter@{munits\+::\+Converter}!is\+\_\+valid\+\_\+unit@{is\+\_\+valid\+\_\+unit}}
+\index{is\+\_\+valid\+\_\+unit@{is\+\_\+valid\+\_\+unit}!munits\+::\+Converter@{munits\+::\+Converter}}
+\subsubsection{\texorpdfstring{is\+\_\+valid\+\_\+unit()}{is\_valid\_unit()}}
+{\footnotesize\ttfamily bool munits\+::\+Converter\+::is\+\_\+valid\+\_\+unit (\begin{DoxyParamCaption}\item[{const \hyperlink{classmunits_1_1_unit_notation}{munits\+::\+Unit\+Notation} \&}]{unit }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmunits_1_1_converter_a48a8ab27724c3aa86e9f36bc8699ae22}\label{classmunits_1_1_converter_a48a8ab27724c3aa86e9f36bc8699ae22}} 
+\index{munits\+::\+Converter@{munits\+::\+Converter}!Prefixes@{Prefixes}}
+\index{Prefixes@{Prefixes}!munits\+::\+Converter@{munits\+::\+Converter}}
+\subsubsection{\texorpdfstring{Prefixes()}{Prefixes()}}
+{\footnotesize\ttfamily const std\+::map$<$std\+::string, const std\+::shared\+\_\+ptr$<$\hyperlink{classmunits_1_1_converter_function}{Converter\+Function}$>$ $>$\& munits\+::\+Converter\+::\+Prefixes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{classmunits_1_1_converter_aaff2382aa50e3387784e2aaba90ba4ae}\label{classmunits_1_1_converter_aaff2382aa50e3387784e2aaba90ba4ae}} 
+\index{munits\+::\+Converter@{munits\+::\+Converter}!Units@{Units}}
+\index{Units@{Units}!munits\+::\+Converter@{munits\+::\+Converter}}
+\subsubsection{\texorpdfstring{Units()}{Units()}}
+{\footnotesize\ttfamily const std\+::map$<$std\+::string, const std\+::shared\+\_\+ptr$<$\hyperlink{classmunits_1_1_unit}{Unit}$>$ $>$\& munits\+::\+Converter\+::\+Units (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Z\+:/ocs\+\_\+1/measurmentunits/src/\hyperlink{converter_8hpp}{converter.\+hpp}\item 
+Z\+:/ocs\+\_\+1/measurmentunits/src/\hyperlink{converter_8cpp}{converter.\+cpp}\end{DoxyCompactItemize}
