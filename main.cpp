@@ -1,40 +1,55 @@
 #include <iostream>
-#include <set>
-#ifdef DEBUG
-//    #include <conio.h>
-#endif
-#include <vector>
 #include "src/quantity.h"
-#include "src/unit_notation.hpp"
 #include "src/unit_validator.hpp"
 
-using namespace std;
+
 using namespace munits;
-//using namespace math;
 
 
 int main() {
+    Quantity q1 (munits::Length, 15, "m"); // initiat a object
+    std::cout << "q1 is " << q1 <<  std::endl;
+    Quantity q2 (munits::Length, 15000, "mm"); // initiat a object
+    std::cout << "q2 is "<< q2 << std::endl;
 
-	Quantity l (munits::MassFlow, 2, "kg h-1");
-	Quantity d (munits::Mass, 1, "kg");
+    //add
+    Quantity q3 = q1 + q2;
+    std::cout << "q1 + q2 = "<< q3 << std::endl;
 
-	try {
-        auto r = l + d;
-        TRACE(r);
-    }catch (logic_error &e){
-	    TRACE(e.what());
-
-	}
-    vector<int> v1  {1,2,3,4};
-    vector<int> v2  {1,2,3, 5};
-
-    TRACE(v1 == v2);
+    //multiply
+    Quantity q4 = q1 * q2;
+    std::cout << "q1 * q2 = "<< q4 << std::endl;
 
 
-#ifdef DEBUG
-    cerr << "Press a key to close..." << endl;
-//    getch();
-#endif
+    //division
+    Quantity q7 (munits::Time, 1, "s");
+    Quantity q8 = q1 / q7;
+    std::cout << "q7 is " << q7 << std::endl;
+    std::cout << "q1 / q7 = " << q8 << std::endl;
+
+    //power function
+    Quantity q5 = munits::mpow(q1, 3);
+    std::cout << "q1 on 3rd power is " << q5 << std::endl;
+
+    //root
+    Quantity q6 = q5.ntrt(3);
+    std::cout << q5 <<" on 3rd root is " << q6 << std::endl;
+
+    //compare
+    //To compare units us the comparison operator '<,>,<=,>=,==,!='
+    std::cout << "q1 < q2 -> " << (q1 < q2 ? "True": "False") << std::endl;
+
+
+    // get value in a spcific unit
+    std::cout << "q1 in km is " << q1("km") << std::endl;
+
+    // exception handling
+    Quantity q11 (munits::Length, 1, "m");
+    try {
+        Quantity q12 = q11 / 0;
+    }catch (std::overflow_error &e) {
+        TRACE(e.what());
+    }
 
 
     return 0;

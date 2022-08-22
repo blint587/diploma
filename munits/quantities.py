@@ -2,7 +2,6 @@
 from collections import defaultdict
 from weakref import WeakKeyDictionary
 from munitscpp import PyQuantity, NPOS
-from base2.base import BaseClass
 
 
 class TypeIndex:
@@ -42,8 +41,7 @@ class MetaQuantity(type):
         super().__init__(name, bases, class_dict)
 
 
-class Quantity(PyQuantity, BaseClass, metaclass=MetaQuantity, unit_index=NPOS):
-    # UNIT_INDEX = NPOS
+class Quantity(PyQuantity, metaclass=MetaQuantity, unit_index=NPOS):
 
     def __new__(cls, value=None, unit=None, *, other=None, transform=False):
 
