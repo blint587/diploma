@@ -1,5 +1,7 @@
 # encoding: utf-8
 from collections import defaultdict
+from decimal import Decimal
+from fractions import Fraction
 from weakref import WeakKeyDictionary
 from munitscpp import PyQuantity, NPOS
 
@@ -130,6 +132,8 @@ class Quantity(PyQuantity, metaclass=MetaQuantity, unit_index=NPOS):
         return self.__class__(abs(self.val), self.unit)
 
     def ntrt(self, exp: int):
+        if exp != int(exp):
+            raise ValueError("Cannot perform `ntrt` with fractional exponent!")
         return Quantity(other=PyQuantity.ntrt(self, int(exp)))
 
     def convert(self, _unit: str) -> "Quantity":

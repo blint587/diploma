@@ -180,7 +180,7 @@ munits::Quantity munits::mpow(const Quantity &a, int e) {
 munits::Quantity munits::Quantity::ntrt (const int exponent) const {
     if (1 != exponent) {
         auto dimv = GetDimVector();
-        bool rootable = std::accumulate(dimv.begin(), dimv.end(), true, [&](bool first, int second) { return first && 0 == second % exponent; });
+        bool rootable = exponent != 0 && std::accumulate(dimv.begin(), dimv.end(), true, [&](bool first, int second) { return first && 0 == second % exponent; });
 
         if (rootable) {
             double n_value =  std::pow(value, 1.0 / exponent);
