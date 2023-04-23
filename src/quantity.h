@@ -51,7 +51,7 @@ namespace munits {
             // if the matrix indexes do not match they are not the same types and comparison is not possible
             if (lfths.dim_vector == rgths.dim_vector) {
                 //applying a rounding with a precision of 6
-                static const double precision = 10e4;
+                static const double precision = 10e6;
                 auto lfhs = round(lfths(lfths.unit_vector) * precision) / precision;
                 // converting 'b' to the same Unit as 'a' and comparing there value
                 auto rths = round(rgths(lfths.unit_vector) * precision) / precision;
