@@ -43,7 +43,7 @@ namespace munits {
 //        Torque = 20,
         Voltage = 21,
         Frequency = 22,
-//        Radioactivity = 22,
+        Radioactivity = 22,
         ElectricCharge = 23,
         ElectricCapacitance = 24,
         ElectricResistance = 25,

@@ -99,10 +99,15 @@ class Quantity(PyQuantity, metaclass=MetaQuantity, unit_index=NPOS):
             return float(n)
         return n
 
+    def __rtruediv__(self, other):
+        return Quantity(other=PyQuantity.__rtruediv__(self, other))
+
     def __call__(self, unit):
         return PyQuantity.__call__(self, unit)
 
     def __pow__(self, power, modulo=None):
+        if power != int(power):
+            raise ValueError("Cannot raise to fractional exponent!")
         return Quantity(other=PyQuantity.__pow__(self, int(power), modulo))
 
     def __rshift__(self, other: MetaQuantity):

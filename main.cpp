@@ -7,7 +7,23 @@ using namespace munits;
 
 
 int main() {
-    Quantity q1 (munits::Length, 15, "m"); // initiat a object
+
+    Quantity n (munits::Time, 1, "s");
+
+    std::cout << 1 / n << std::endl;
+    std::cout << n.mpow(-1) << std::endl;
+
+    Quantity v (munits::Volume, -8, "m3");
+    std::cout << v.ntrt(3) << std::endl;
+
+    Quantity v2 (munits::Volume, 8, "m3");
+    std::cout << v2.ntrt(3) << std::endl;
+
+    Quantity a (munits::Area,-2, "m2");
+    std::cout << a.ntrt(2) << std::endl;
+
+
+    /*Quantity q1 (munits::Length, 15, "m"); // initiat a object
     std::cout << "q1 is " << q1 <<  std::endl;
     Quantity q2 (munits::Length, 15000, "mm"); // initiat a object
     std::cout << "q2 is "<< q2 << std::endl;
@@ -49,8 +65,7 @@ int main() {
         Quantity q12 = q11 / 0;
     }catch (std::overflow_error &e) {
         TRACE(e.what());
-    }
-
+    }*/
 
     return 0;
 }

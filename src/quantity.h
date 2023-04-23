@@ -137,6 +137,8 @@ namespace munits {
             friend Quantity operator/ (const Quantity & lfths, const int rgths) {Quantity n (lfths);  n.value /= (rgths == 0)?throw std::overflow_error("Divide by zero!"): rgths; return n;};
             friend Quantity operator/ (const Quantity & lfths, const double rgths) {Quantity n (lfths); n.value /= (rgths == 0)?throw std::overflow_error("Divide by zero!"): rgths; return n;};
 
+            friend Quantity operator/ (const int lfths, const Quantity & rgths) {Quantity n = (rgths.value == 0.0)?throw std::overflow_error("Divide by zero!"): rgths.mpow(-1) * lfths; return n;};
+            friend Quantity operator/ (const double lfths, const Quantity & rgths) {Quantity n = (rgths.value == 0.0)?throw std::overflow_error("Divide by zero!"): rgths.mpow(-1) * lfths; return n;};
 
             friend bool operator < (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop<std::less<double>>(lfths, rgths);};
             friend bool operator <= (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop<std::less_equal<double>>(lfths, rgths);};
@@ -146,10 +148,9 @@ namespace munits {
             friend bool operator != (const Quantity & lfths, const Quantity & rgths) {return munits::Quantity::compop<std::not_equal_to<double>>(lfths, rgths);};
 
             Quantity ntrt (int exponent) const; // Todo: implement as free function
+            Quantity mpow(int e) const;
 
     };
-
-    Quantity mpow(const Quantity &a, int e);
 
 }
 

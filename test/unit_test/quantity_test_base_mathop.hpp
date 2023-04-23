@@ -28,7 +28,7 @@ TEST_F(TestQuantityBaseUnitsMathOperation, multiplaying_length_to_length) {
 }
 TEST_F(TestQuantityBaseUnitsMathOperation, subtract_mass_from_mass_flow){
     munits::Quantity m (munits::Mass, 1, "kg");
-    munits::Quantity mp (munits::MassFlow, 2. "kg h-1");
+    munits::Quantity mp (munits::MassFlow, 2., "kg h-1");
 
     try{
         auto r = mp - m;
@@ -38,9 +38,9 @@ TEST_F(TestQuantityBaseUnitsMathOperation, subtract_mass_from_mass_flow){
         FAIL() << "Expected logic error!";
     }
 }
-TEST_F(TestQuantityBaseUnitsMathOperation, add_volume_to_volumetric_flow{
+TEST_F(TestQuantityBaseUnitsMathOperation, add_volume_to_volumetric_flow){
     munits::Quantity v (munits::Volume, 1, "m3");
-    munits::Quantity q (munits::MassFlow, 2. "m3 h-1");
+    munits::Quantity q (munits::VolumetricFlow, 2., "m3 h-1");
 
     try{
         auto r = v + q;
@@ -144,7 +144,7 @@ TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation, creat_acceleration_fr
 TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation, create_acceleration_from_l_t_none_zero_2){
     munits::Quantity l (munits::Length, 2.33, "m");
     munits::Quantity t (munits::Time, 2.33, "s");
-    munits::Quantity a2 = l / mpow(t, 2);
+    munits::Quantity a2 = l / t.mpow( 2);
 
     EXPECT_EQ(a2.getMatrixIndex(), munits::Acceleration);
 
@@ -165,7 +165,7 @@ TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation,  create_acceleration_
 TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation, create_acceleration_from_l_t_zero_2) {
     munits::Quantity l (munits::Length, 0, "m");
     munits::Quantity t (munits::Time, 1, "s");
-    munits::Quantity a2 = l / mpow(t, 2);
+    munits::Quantity a2 = l / t.mpow(2);
 
     EXPECT_EQ(a2.getMatrixIndex(), munits::Acceleration);
 
@@ -195,7 +195,7 @@ TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation, create_acceleration_f
     munits::Quantity l (munits::Length, 1, "m");
     munits::Quantity t (munits::Time, 1, "s");
 
-    munits::Quantity a2 = l / mpow(t, 2);
+    munits::Quantity a2 = l / t.mpow(2);
 
     EXPECT_EQ(a2.getMatrixIndex(), munits::Acceleration);
 
@@ -235,7 +235,7 @@ TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation, create_volumetricflow
 
 TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation, create_volumetricflow_one_2){
     munits::Quantity l (munits::Length, 1, "m");
-    munits::Quantity v2 = munits::mpow(l, 3);
+    munits::Quantity v2 = l.mpow(3);
     munits::Quantity t (munits::Time, 1, "h");
 
     munits::Quantity vf2 = v2 / t;
@@ -279,7 +279,7 @@ TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation, create_molar_concentr
 TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation, create_molar_concentration_from_n_l_v_zero_2){
     munits::Quantity l (munits::Length, 1, "m");
     munits::Quantity n (munits::AmountOfSubstance, 0, "mol");
-    munits::Quantity mc2 = n / munits::mpow(l, 3);
+    munits::Quantity mc2 = n / l.mpow(3);
 
     EXPECT_EQ(mc2.getMatrixIndex(), munits::MolarConcentration);
 
@@ -307,7 +307,7 @@ TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation, create_molar_concentr
 TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation, creat_molar_concentration_from_n_l_v_2){
     munits::Quantity l (munits::Length, 1, "m");
     munits::Quantity n (munits::AmountOfSubstance, 1, "mol");
-    munits::Quantity mc2 = n / munits::mpow(l, 3);
+    munits::Quantity mc2 = n / l.mpow(3);
 
     EXPECT_EQ(mc2.getMatrixIndex(), munits::MolarConcentration);
 
@@ -335,7 +335,7 @@ TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation, create_molar_concentr
 TEST_F(TestQuantityBaseUnitsCreateDerivedViaMathOperation, crete_molar_concentration_from_n_l_v_233_2){
     munits::Quantity l (munits::Length, 2.33, "m");
     munits::Quantity n (munits::AmountOfSubstance, 1, "mol");
-    munits::Quantity mc2 = n / munits::mpow(l, 3);
+    munits::Quantity mc2 = n / l.mpow(3);
 
     EXPECT_EQ(mc2.getMatrixIndex(), munits::MolarConcentration);
 

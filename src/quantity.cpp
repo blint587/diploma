@@ -162,28 +162,32 @@ bool munits::Quantity::unquantified() const {
     return all_of(dim_vector.begin(), dim_vector.end(), [](int i) { return 0 == i; });
 }
 
-munits::Quantity munits::mpow(const Quantity &a, int e) {
-    Quantity temp(a);
-    int abse = abs(e);
+munits::Quantity munits::Quantity::mpow(int e) const{
 
-    for (int i = 1; i < abse; ++i) {
-        temp = temp * a;
-    }
+        Quantity temp(*this);
+        int abse = abs(e);
 
-    if(e < 0){
-        temp = Quantity(munits::_Last, 1, "") / temp;
-    }
-    return temp;
+        for (int i = 1; i < abse; ++i) {
+            temp = temp * *this;
+        }
+
+        if(e < 0){
+            temp = Quantity(munits::_Last, 1, "") / temp;
+        }
+        return temp;
 }
 
 
 munits::Quantity munits::Quantity::ntrt (const int exponent) const {
     if (1 != exponent) {
         auto dimv = GetDimVector();
-        bool rootable = exponent != 0 && std::accumulate(dimv.begin(), dimv.end(), true, [&](bool first, int second) { return first && 0 == second % exponent; });
+        bool rootable = exponent != 0
+                && std::accumulate(dimv.begin(), dimv.end(), true, [&](bool first, int second) { return first && 0 == second % exponent; })
+                && ((value >= 0 && 0 == exponent % 2) || 1 == exponent % 2);
 
         if (rootable) {
-            double n_value =  std::pow(value, 1.0 / exponent);
+            double parity = std::abs(value) / value;
+            double n_value =  std::pow(std::abs(value), 1.0 / exponent) * parity;
             std::vector<int> n_dim_vector (7);
             std::transform(dim_vector.begin(), dim_vector.end(), n_dim_vector.begin(), [&](int exp){return exp / exponent;});
 

@@ -27,6 +27,7 @@ cdef extern from "src/quantity.h" namespace "munits":
             Energy = 20,
             Voltage = 21,
             Frequency = 22,
+            Radioactivity = 22,
             ElectricCharge = 23,
             ElectricCapacitance = 24,
             ElectricResistance = 25,
@@ -71,15 +72,18 @@ cdef extern from "src/quantity.h" namespace "munits":
         Quantity operator*(const int)
         Quantity operator/(const Quantity) except + OverflowError
         Quantity operator/(const float) except + OverflowError
+        Quantity operator/(const float, const Quantity) except + OverflowError
+        Quantity operator/(const int, const Quantity) except + OverflowError
         Quantity operator/(const int) except + OverflowError
         Quantity ntrt(const int) except + ValueError
+        Quantity mpow(int)
 
 
         string toString() except + RuntimeError
         double toDouble() except + RuntimeError
         bint unquantified()
 
-    cdef Quantity mpow(Quantity, int)
+
 
 cdef extern from "src/unit_validator.hpp" namespace "munits":
 

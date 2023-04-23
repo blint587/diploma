@@ -104,15 +104,30 @@ cdef class PyQuantity(object):
             elif isinstance(self, PyQuantity):
                 return self.__trudiv_num(other)
             else:
-                raise TypeError("Cannot divide numeric type with 'Quantity' object!")
+                return NotImplemented
         except OverflowError as oe:
             raise ZeroDivisionError(*oe.args) from oe
 
     __div__ = __truediv__
 
+    def __rtrudiv_num(PyQuantity self, float other):
+        cdef PyQuantity nobj = PyQuantity()
+        nobj._thisptr = new Quantity(other / deref(self._thisptr))
+        return nobj
+
+
+    def __rtruediv__(self, other):
+        try:
+            if isinstance(other, (int, float)) and isinstance(self, PyQuantity):
+                return self. __rtrudiv_num(float(other))
+            else:
+                return NotImplemented
+        except OverflowError as oe:
+            raise ZeroDivisionError(*oe.args) from oe
+
     def __pow__(PyQuantity self, int exp, modulo):
         cdef PyQuantity nobj = PyQuantity()
-        nobj._thisptr = new Quantity(mpow(deref(self._thisptr), exp))
+        nobj._thisptr = new Quantity(self._thisptr.mpow(exp))
         return nobj
 
     def ntrt(PyQuantity self, int exp):
